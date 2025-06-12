@@ -541,7 +541,9 @@ const HomePage = () => {
       {/* Recommended Products Section */}
       <section className="products-section">
         <div className="container">
-          <h2 className="section-title">Điện thoại nổi bật nhất</h2>
+          <div className="section-header">
+            <h2 className="section-title">Điện thoại nổi bật nhất</h2>
+          </div>
           <div className="products-grid">
             {[
               {
@@ -638,7 +640,9 @@ const HomePage = () => {
       {/* Second Products Section */}
       <section className="products-section">
         <div className="container">
-          <h2 className="section-title">Điện thoại nổi bật</h2>
+          <div className="section-header">
+            <h2 className="section-title">Điện thoại nổi bật</h2>
+          </div>
           <div className="products-grid">
             {[
               {
