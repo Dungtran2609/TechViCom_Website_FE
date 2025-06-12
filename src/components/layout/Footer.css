@@ -1,0 +1,163 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.footer {
+  background-color: #1A1D1F;
+  color: #fff;
+  padding: 40px 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  width: 100vw;
+  margin: 0;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  box-sizing: border-box;
+}
+
+.footer * {
+  box-sizing: border-box;
+}
+
+.footer-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-top {
+  text-align: center;
+  width: 100%;
+  padding: 0 0 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 0;
+}
+
+.footer-top-content {
+  width: 100%;
+  margin: 0;
+  padding: 0 20px;
+}
+
+.footer-top h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.footer-top p {
+  color: #999;
+  margin-bottom: 20px;
+}
+
+.store-list-btn {
+  background-color: #CD1818;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.footer-content {
+  width: 100%;
+  background-color: #1A1D1F;
+  margin: 0;
+}
+
+.footer-content-wrapper {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 40px;
+  width: 100%;
+  margin: 40px 0 0;
+  padding: 0 20px;
+}
+
+.footer-section h3 {
+  font-size: 16px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.social-links {
+  display: flex;
+  gap: 10px;
+}
+
+.social-icon {
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  text-indent: -9999px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.facebook { background-image: url('/icons/facebook.png'); }
+.messenger { background-image: url('/icons/messenger.png'); }
+.youtube { background-image: url('/icons/youtube.png'); }
+.tiktok { background-image: url('/icons/tiktok.png'); }
+
+.hotline-info p {
+  margin-bottom: 5px;
+  color: #999;
+}
+
+.hotline-info .phone {
+  color: white;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #999;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.footer-section ul li a:hover {
+  color: white;
+}
+
+.payment-methods {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.certificates {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #555;
+}
+
+.footer-bottom p {
+  color: #888;
+  font-size: 0.9rem;
+} 
