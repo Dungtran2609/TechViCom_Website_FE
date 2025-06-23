@@ -10,9 +10,9 @@
 }
 
 .container {
-  max-width: 1300px;
+  max-width: 1800px;
   margin: 0 auto;
-  padding: 0 30px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -53,7 +53,7 @@
   gap: 8px;
   padding: 0 20px;
   background: none;
-  border: 1.5px solid #FFD700;
+  border: 1.5px solid #ff6c2f;
   border-radius: 10px;
   cursor: pointer;
   color: #333;
@@ -64,7 +64,7 @@
 
 .menu-icon {
   font-size: 18px;
-  color: #FFD700;
+  color: #ff6c2f;
 }
 
 .search-section {
@@ -78,7 +78,7 @@
 .search-input {
   width: 100%;
   padding: 0 20px;
-  border: 1.5px solid #FFD700;
+  border: 1.5px solid #ff6c2f;
   border-radius: 10px;
   font-size: 14px;
   height: 38px;
@@ -111,14 +111,14 @@
   height: 38px;
   border-radius: 10px;
   background: none;
-  border: 1.5px solid #FFD700;
-  color: #FFD700;
+  border: 1.5px solid #ff6c2f;
+  color: #ff6c2f;
   text-decoration: none;
   transition: all 0.2s ease;
 }
 
 .icon-button:hover {
-  background: #FFD700;
+  background: #ff6c2f;
   color: white;
 }
 
@@ -127,10 +127,10 @@
   align-items: center;
   gap: 8px;
   padding: 0 20px;
-  background: #FFD700;
+  background: #ff6c2f;
   border: none;
   border-radius: 10px;
-  color: #333;
+  color: #ffffff;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -184,7 +184,7 @@
 
 .category-icon {
   margin-bottom: 8px;
-  color: #FFD700;
+  color: #ff6c2f;
   font-size: 24px;
 }
 
@@ -194,9 +194,27 @@
   font-weight: 500;
 }
 
+.search-icon {
+  color: #ff6c2f;
+  font-size: 18px;
+}
+
+.cart-icon {
+  border: 1.5px solid #ff6c2f;
+  color: #ff6c2f;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.cart-icon:hover {
+  background: #ff6c2f;
+  color: white;
+}
+
 @media (max-width: 768px) {
   .container {
-    padding: 8px 15px;
+    padding: 8px 20px;
     gap: 15px;
   }
 

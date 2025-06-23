@@ -6,11 +6,11 @@
 
 .main-content {
   flex: 1;
-  padding-top: 80px; /* Để tránh content bị che bởi fixed header */
+  padding-top: 80px; /* Giữ nguyên để tránh content bị che bởi fixed header */
   padding-bottom: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  /* max-width: 1800px; */ /* Increased max-width to allow content to span wider */
+  /* margin: 0 auto; */ /* Center the content */
   width: 100%;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 0; /* Bỏ padding trái */
+  padding-right: 0; /* Bỏ padding phải */
 } 

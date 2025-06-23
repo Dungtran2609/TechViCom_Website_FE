@@ -46,7 +46,7 @@ const HomePage = () => {
     {
       id: 1,
       image: '/images/banners/banner1.jpg',
-      title: 'TẬN BỪNG ĐỈNH - AI THÔNG MINH',
+      title: 'TẬN BỪNG ĐỈNH - AI SMART',
       subtitle: 'Laptop chỉ từ 8.990.000Đ',
       features: [
         'Trả góp 0%',
@@ -85,15 +85,15 @@ const HomePage = () => {
   ];
 
   const categories = [
-    { id: 1, name: 'Điện thoại', icon: <FaMobileAlt size={50} style={{ color: '#FFD700', stroke: 'black', strokeWidth: '1' }} />, path: '/dien-thoai' },
-    { id: 2, name: 'Laptop', icon: <FaLaptop size={50} style={{ color: '#FFD700', stroke: 'black', strokeWidth: '1' }} />, path: '/laptop' },
-    { id: 3, name: 'Điều hòa', icon: <MdAir size={50} style={{ color: '#FFD700', stroke: 'black', strokeWidth: '1' }} />, path: '/may-lanh' },
-    { id: 4, name: 'Tủ lạnh', icon: <MdKitchen size={50} style={{ color: '#FFD700', stroke: 'black', strokeWidth: '1' }} />, path: '/tu-lanh' },
-    { id: 5, name: 'Điện gia dụng', icon: <GiWashingMachine size={50} style={{ color: '#FFD700', stroke: 'black', strokeWidth: '1' }} />, path: '/dien-gia-dung' },
-    { id: 6, name: 'Máy tính bảng', icon: <FaTabletAlt size={50} style={{ color: '#FFD700', stroke: 'black', strokeWidth: '1' }} />, path: '/may-tinh-bang' },
-    { id: 7, name: 'Phụ kiện', icon: <FaHeadphones size={50} style={{ color: '#FFD700', stroke: 'black', strokeWidth: '1' }} />, path: '/phu-kien' },
-    { id: 8, name: 'SIM FPT', icon: <IoPhonePortrait size={50} style={{ color: '#FFD700', stroke: 'black', strokeWidth: '1' }} />, path: '/sim-fpt' },
-    { id: 9, name: 'Quạt điều hòa', icon: <BsFan size={50} style={{ color: '#FFD700', stroke: 'black', strokeWidth: '1' }} />, path: '/quat-dieu-hoa' }
+    { id: 1, name: 'Điện thoại', icon: <FaMobileAlt size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/products' },
+    { id: 2, name: 'Laptop', icon: <FaLaptop size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/laptop' },
+    { id: 3, name: 'Điều hòa', icon: <MdAir size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/may-lanh' },
+    { id: 4, name: 'Tủ lạnh', icon: <MdKitchen size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/tu-lanh' },
+    { id: 5, name: 'Điện gia dụng', icon: <GiWashingMachine size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/dien-gia-dung' },
+    { id: 6, name: 'Máy tính bảng', icon: <FaTabletAlt size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/may-tinh-bang' },
+    { id: 7, name: 'Phụ kiện', icon: <FaHeadphones size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/phu-kien' },
+    { id: 8, name: 'SIM FPT', icon: <IoPhonePortrait size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/sim-fpt' },
+    { id: 9, name: 'Quạt điều hòa', icon: <BsFan size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/quat-dieu-hoa' }
   ];
 
   const flashSaleProducts = [
@@ -117,7 +117,7 @@ const HomePage = () => {
     },
     {
       id: 3,
-      name: 'Quạt điều hòa Hoa Phát HPCF1-022 86W',
+      name: 'Quạt điều hòa Hoà Phát HPCF1-022 86W',
       price: 1690000,
       originalPrice: 2500000,
       discount: 40,
@@ -141,7 +141,7 @@ const HomePage = () => {
       name: 'TCL 60R 5G 4GB 128GB',
       price: 2990000,
       originalPrice: 3990000,
-      image: '/images/products/tcl-60r.png',
+      image: '/images/products/tcl-60r.jpg',
       installment: 'Trả góp 0%',
       colors: ['black'],
       variants: [
@@ -154,7 +154,7 @@ const HomePage = () => {
       name: 'Nubia V70 Design 8GB 128GB',
       price: 2790000,
       originalPrice: 3990000,
-      image: '/images/products/nubia-v70.png',
+      image: '/images/products/nubia-v70.jpg',
       installment: 'Trả góp 0%',
       colors: ['black', 'blue', 'purple'],
       variants: [
@@ -168,7 +168,7 @@ const HomePage = () => {
       name: 'Xiaomi Poco M7 Pro 5G 8GB 256GB',
       price: 5990000,
       originalPrice: 6990000,
-      image: '/images/products/poco-m7.png',
+      image: '/images/products/poco-m7.jpg',
       installment: 'Trả góp 0%',
       colors: ['green', 'black', 'blue'],
       variants: [
@@ -181,7 +181,7 @@ const HomePage = () => {
       name: 'Samsung Galaxy M55 5G 256GB',
       price: 7390000,
       originalPrice: 8490000,
-      image: '/images/products/samsung-m55.png',
+      image: '/images/products/samsung-m55.jpg',
       installment: 'Trả góp 0%',
       colors: ['black'],
       variants: [
@@ -194,9 +194,9 @@ const HomePage = () => {
       name: 'Honor X9c 5G 12GB 256GB',
       price: 8790000,
       originalPrice: 9490000,
-      image: '/images/products/honor-x9c.png',
+      image: '/images/products/honor-x9c.jpg',
       installment: 'Trả góp 0%',
-      colors: ['pink', 'black', 'gray'],
+      colors: ['pink', 'black', 'silver'],
       variants: [
         { storage: '256 GB', price: 8790000 }
       ],
@@ -210,10 +210,13 @@ const HomePage = () => {
       name: 'iPhone 15 Pro Max 256GB',
       price: 31990000,
       originalPrice: 34990000,
-      image: '/images/products/iphone-15-pro.png',
+      image: '/images/products/iphone-15-pro.jpg',
       installment: 'Trả góp 0%',
-      storage: ['256 GB', '512 GB'],
-      colors: ['black', 'blue'],
+      colors: ['black', 'white', 'blue'],
+      variants: [
+        { storage: '256 GB', price: 31990000 },
+        { storage: '512 GB', price: 37990000 }
+      ],
       promotion: 'Giảm thêm 3.000.000đ khi thanh toán qua VNPay'
     },
     {
@@ -221,10 +224,13 @@ const HomePage = () => {
       name: 'Samsung Galaxy S24 Ultra 5G',
       price: 29990000,
       originalPrice: 31990000,
-      image: '/images/products/samsung-s24.png',
+      image: '/images/products/samsung-s24.jpg',
       installment: 'Trả góp 0%',
-      storage: ['256 GB', '512 GB'],
       colors: ['black', 'gray', 'purple'],
+      variants: [
+        { storage: '256 GB', price: 29990000 },
+        { storage: '512 GB', price: 33990000 }
+      ],
       promotion: 'Thu cũ đổi mới trợ giá đến 5 triệu'
     },
     {
@@ -232,10 +238,12 @@ const HomePage = () => {
       name: 'OPPO Find X7 Ultra',
       price: 25990000,
       originalPrice: 27990000,
-      image: '/images/products/oppo-find-x7.png',
+      image: '/images/products/oppo-find-x7.jpg',
       installment: 'Trả góp 0%',
-      storage: ['256 GB'],
       colors: ['black', 'blue'],
+      variants: [
+        { storage: '256 GB', price: 25990000 }
+      ],
       promotion: 'Tặng tai nghe Enco Air3 Pro trị giá 2 triệu'
     },
     {
@@ -243,10 +251,13 @@ const HomePage = () => {
       name: 'Xiaomi 14 Pro',
       price: 23990000,
       originalPrice: 24990000,
-      image: '/images/products/xiaomi-14-pro.png',
+      image: '/images/products/xiaomi-14-pro.jpg',
       installment: 'Trả góp 0%',
-      storage: ['256 GB', '512 GB'],
       colors: ['black', 'white'],
+      variants: [
+        { storage: '256 GB', price: 23990000 },
+        { storage: '512 GB', price: 25990000 }
+      ],
       promotion: 'Giảm 2.000.000đ khi thanh toán online'
     },
     {
@@ -254,10 +265,12 @@ const HomePage = () => {
       name: 'Vivo V29e 5G',
       price: 8990000,
       originalPrice: 9990000,
-      image: '/images/products/vivo-v29e.png',
+      image: '/images/products/vivo-v29e.jpg',
       installment: 'Trả góp 0%',
-      storage: ['256 GB'],
-      colors: ['blue', 'yellow'],
+      colors: ['blue', 'gold'],
+      variants: [
+        { storage: '256 GB', price: 8990000 }
+      ],
       promotion: 'Tặng PMH 500.000đ mua kèm phụ kiện'
     },
     {
@@ -265,10 +278,13 @@ const HomePage = () => {
       name: 'Google Pixel 8 Pro',
       price: 22990000,
       originalPrice: 24990000,
-      image: '/images/products/pixel-8-pro.png',
+      image: '/images/products/pixel-8-pro.jpg',
       installment: 'Trả góp 0%',
-      storage: ['256 GB', '512 GB'],
-      colors: ['black', 'blue'],
+      colors: ['black', 'white', 'blue'],
+      variants: [
+        { storage: '256 GB', price: 22990000 },
+        { storage: '512 GB', price: 25990000 }
+      ],
       promotion: 'Tặng đồng hồ Pixel Watch 2 trị giá 8 triệu'
     },
     {
@@ -276,10 +292,13 @@ const HomePage = () => {
       name: 'OnePlus 12',
       price: 19990000,
       originalPrice: 21990000,
-      image: '/images/products/oneplus-12.png',
+      image: '/images/products/oneplus-12.jpg',
       installment: 'Trả góp 0%',
-      storage: ['256 GB', '512 GB'],
       colors: ['green', 'black'],
+      variants: [
+        { storage: '256 GB', price: 19990000 },
+        { storage: '512 GB', price: 21990000 }
+      ],
       promotion: 'Tặng tai nghe OnePlus Buds Pro 2'
     },
     {
@@ -287,10 +306,12 @@ const HomePage = () => {
       name: 'Realme GT5 Pro',
       price: 16990000,
       originalPrice: 18990000,
-      image: '/images/products/realme-gt5.png',
+      image: '/images/products/realme-gt5.jpg',
       installment: 'Trả góp 0%',
-      storage: ['256 GB'],
       colors: ['red', 'blue'],
+      variants: [
+        { storage: '256 GB', price: 16990000 }
+      ],
       promotion: 'Giảm 1.000.000đ khi thanh toán qua VNPAY'
     },
     {
@@ -298,10 +319,12 @@ const HomePage = () => {
       name: 'Nothing Phone (2)',
       price: 15990000,
       originalPrice: 16990000,
-      image: '/images/products/nothing-phone-2.png',
+      image: '/images/products/nothing-phone-2.jpg',
       installment: 'Trả góp 0%',
-      storage: ['256 GB'],
       colors: ['white', 'black'],
+      variants: [
+        { storage: '256 GB', price: 15990000 }
+      ],
       promotion: 'Tặng ốp lưng chính hãng trị giá 790.000đ'
     },
     {
@@ -309,10 +332,13 @@ const HomePage = () => {
       name: 'Huawei P60 Pro',
       price: 24990000,
       originalPrice: 26990000,
-      image: '/images/products/huawei-p60.png',
+      image: '/images/products/huawei-p60.jpg',
       installment: 'Trả góp 0%',
-      storage: ['256 GB', '512 GB'],
-      colors: ['black', 'purple'],
+      colors: ['black', 'white', 'purple'],
+      variants: [
+        { storage: '256 GB', price: 24990000 },
+        { storage: '512 GB', price: 27990000 }
+      ],
       promotion: 'Tặng Watch GT4 trị giá 6.990.000đ'
     }
   ];
@@ -366,7 +392,7 @@ const HomePage = () => {
       <section className="categories-section">
         <div className="categories-grid">
           {categories.map((category) => (
-            <Link to={category.path} key={category.id} className="category-card">
+            <Link to={category.path} key={category.id} className="category-item">
               <div className="category-icon">
                 {category.icon}
               </div>
@@ -401,7 +427,7 @@ const HomePage = () => {
 
         <div className="flash-sale-products">
           {flashSaleProducts.map(product => (
-            <div key={product.id} className="product-card">
+            <Link to={`/product/${product.id}`} key={product.id} className="product-card">
               <div className="product-image">
                 <img src={product.image} alt={product.name} />
               </div>
@@ -421,7 +447,7 @@ const HomePage = () => {
                   <button className="buy-button">Sắp diễn ra</button>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
@@ -430,78 +456,13 @@ const HomePage = () => {
       <section className="products-section">
         <h2 className="section-title">Gợi ý cho bạn</h2>
         <div className="products-grid">
-          {[
-            {
-              id: 1,
-              name: 'TCL 60R 5G 4GB 128GB',
-              price: 2990000,
-              originalPrice: 3990000,
-              image: '/images/products/tcl-60r.png',
-              installment: 'Trả góp 0%',
-              colors: ['black'],
-              variants: [
-                { storage: '128 GB', price: 2990000 }
-              ],
-              promotion: 'Cho thẻ Home Credit: Giảm 400.000đ cho hóa đơn từ 8 triệu'
-            },
-            {
-              id: 2,
-              name: 'Nubia V70 Design 8GB 128GB',
-              price: 2790000,
-              originalPrice: 3990000,
-              image: '/images/products/nubia-v70.png',
-              installment: 'Trả góp 0%',
-              colors: ['black', 'blue', 'purple'],
-              variants: [
-                { storage: '128 GB', price: 2790000 },
-                { storage: '256 GB', price: 3290000 }
-              ],
-              promotion: 'Cho thẻ HD Bank: Giảm 500.000đ đơn từ 5 triệu'
-            },
-            {
-              id: 3,
-              name: 'Xiaomi Poco M7 Pro 5G 8GB 256GB',
-              price: 5990000,
-              originalPrice: 6990000,
-              image: '/images/products/poco-m7.png',
-              installment: 'Trả góp 0%',
-              colors: ['green', 'black', 'blue'],
-              variants: [
-                { storage: '256 GB', price: 5990000 }
-              ],
-              promotion: 'Cho thẻ Home Credit: Giảm 400.000đ cho hóa đơn từ 8 triệu'
-            },
-            {
-              id: 4,
-              name: 'Samsung Galaxy M55 5G 256GB',
-              price: 7390000,
-              originalPrice: 8490000,
-              image: '/images/products/samsung-m55.png',
-              installment: 'Trả góp 0%',
-              colors: ['black'],
-              variants: [
-                { storage: '256 GB', price: 7390000 }
-              ],
-              promotion: 'Cho thẻ Home Credit: Giảm 400.000đ cho hóa đơn từ 8 triệu'
-            },
-            {
-              id: 5,
-              name: 'Honor X9c 5G 12GB 256GB',
-              price: 8790000,
-              originalPrice: 9490000,
-              image: '/images/products/honor-x9c.png',
-              installment: 'Trả góp 0%',
-              colors: ['pink', 'black', 'gray'],
-              variants: [
-                { storage: '256 GB', price: 8790000 }
-              ],
-              promotion: 'Cho thẻ Home Credit: Giảm 400.000đ cho hóa đơn từ 8 triệu'
-            }
-          ].map((product) => (
-            <div key={product.id} className="product-card">
+          {products.map((product) => (
+            <Link to={`/product/${product.id}`} key={product.id} className="product-card">
               <div className="product-image">
                 <img src={product.image} alt={product.name} />
-                <span className="installment-badge">{product.installment}</span>
+                {product.installment && (
+                  <span className="installment-badge">{product.installment}</span>
+                )}
               </div>
               <div className="product-info">
                 <h3 className="product-name">{product.name}</h3>
@@ -513,11 +474,11 @@ const HomePage = () => {
                     {product.originalPrice.toLocaleString()}đ
                   </span>
                 </div>
-                <div className="product-storage">
+                <div className="product-variants">
                   {product.variants.map((variant, index) => (
-                    <button key={index} className="storage-option">
+                    <span key={index} className="variant-tag">
                       {variant.storage}
-                    </button>
+                    </span>
                   ))}
                 </div>
                 <div className="product-colors">
@@ -530,209 +491,58 @@ const HomePage = () => {
                   ))}
                 </div>
                 <div className="product-promotion">
-                  <span className="promotion-text">{product.promotion}</span>
+                  {product.promotion}
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
 
       {/* Recommended Products Section */}
       <section className="products-section">
-        <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">Điện thoại nổi bật nhất</h2>
-          </div>
-          <div className="products-grid">
-            {[
-              {
-                id: 1,
-                name: 'iPhone 15 Pro Max 256GB',
-                price: 31990000,
-                originalPrice: 34990000,
-                image: '/images/products/iphone-15-pro.png',
-                installment: 'Trả góp 0%',
-                storage: ['256 GB', '512 GB'],
-                colors: ['black', 'blue'],
-                promotion: 'Giảm thêm 3.000.000đ khi thanh toán qua VNPay'
-              },
-              {
-                id: 2,
-                name: 'Samsung Galaxy S24 Ultra 5G',
-                price: 29990000,
-                originalPrice: 31990000,
-                image: '/images/products/samsung-s24.png',
-                installment: 'Trả góp 0%',
-                storage: ['256 GB', '512 GB'],
-                colors: ['black', 'gray', 'purple'],
-                promotion: 'Thu cũ đổi mới trợ giá đến 5 triệu'
-              },
-              {
-                id: 3,
-                name: 'OPPO Find X7 Ultra',
-                price: 25990000,
-                originalPrice: 27990000,
-                image: '/images/products/oppo-find-x7.png',
-                installment: 'Trả góp 0%',
-                storage: ['256 GB'],
-                colors: ['black', 'blue'],
-                promotion: 'Tặng tai nghe Enco Air3 Pro trị giá 2 triệu'
-              },
-              {
-                id: 4,
-                name: 'Xiaomi 14 Pro',
-                price: 23990000,
-                originalPrice: 24990000,
-                image: '/images/products/xiaomi-14-pro.png',
-                installment: 'Trả góp 0%',
-                storage: ['256 GB', '512 GB'],
-                colors: ['black', 'white'],
-                promotion: 'Giảm 2.000.000đ khi thanh toán online'
-              },
-              {
-                id: 5,
-                name: 'Vivo V29e 5G',
-                price: 8990000,
-                originalPrice: 9990000,
-                image: '/images/products/vivo-v29e.png',
-                installment: 'Trả góp 0%',
-                storage: ['256 GB'],
-                colors: ['blue', 'yellow'],
-                promotion: 'Tặng PMH 500.000đ mua kèm phụ kiện'
-              }
-            ].map((product) => (
-              <div key={product.id} className="product-card">
-                <div className="product-image">
-                  <img src={product.image} alt={product.name} />
+        <h2 className="section-title">Điện thoại nổi bật nhất</h2>
+        <div className="products-grid">
+          {recommendedProducts.map((product) => (
+            <Link to={`/product/${product.id}`} key={product.id} className="product-card">
+              <div className="product-image">
+                <img src={product.image} alt={product.name} />
+                {product.installment && (
                   <span className="installment-badge">{product.installment}</span>
+                )}
+              </div>
+              <div className="product-info">
+                <h3 className="product-name">{product.name}</h3>
+                <div className="product-price">
+                  <span className="current-price">
+                    {product.price.toLocaleString()}đ
+                  </span>
+                  <span className="original-price">
+                    {product.originalPrice.toLocaleString()}đ
+                  </span>
                 </div>
-                <div className="product-info">
-                  <h3 className="product-name">{product.name}</h3>
-                  <div className="price-container">
-                    <span className="current-price">{product.price.toLocaleString()}đ</span>
-                    <span className="original-price">{product.originalPrice.toLocaleString()}đ</span>
-                  </div>
-                  <div className="storage-options">
-                    {product.storage.map((size, index) => (
-                      <span key={index} className="storage-option">{size}</span>
-                    ))}
-                  </div>
-                  <div className="color-options">
-                    {product.colors.map((color, index) => (
-                      <span 
-                        key={index} 
-                        className="color-dot"
-                        style={{ backgroundColor: color }}
-                      />
-                    ))}
-                  </div>
-                  <div className="promotion-text">
-                    {product.promotion}
-                  </div>
+                <div className="product-variants">
+                  {product.variants.map((variant, index) => (
+                    <span key={index} className="variant-tag">
+                      {variant.storage}
+                    </span>
+                  ))}
+                </div>
+                <div className="product-colors">
+                  {product.colors.map((color, index) => (
+                    <span 
+                      key={index} 
+                      className="color-dot"
+                      style={{ backgroundColor: color }}
+                    />
+                  ))}
+                </div>
+                <div className="product-promotion">
+                  {product.promotion}
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Second Products Section */}
-      <section className="products-section">
-        <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">Điện thoại nổi bật</h2>
-          </div>
-          <div className="products-grid">
-            {[
-              {
-                id: 1,
-                name: 'Google Pixel 8 Pro',
-                price: 22990000,
-                originalPrice: 24990000,
-                image: '/images/products/pixel-8-pro.png',
-                installment: 'Trả góp 0%',
-                storage: ['256 GB', '512 GB'],
-                colors: ['black', 'blue'],
-                promotion: 'Tặng đồng hồ Pixel Watch 2 trị giá 8 triệu'
-              },
-              {
-                id: 2,
-                name: 'OnePlus 12',
-                price: 19990000,
-                originalPrice: 21990000,
-                image: '/images/products/oneplus-12.png',
-                installment: 'Trả góp 0%',
-                storage: ['256 GB', '512 GB'],
-                colors: ['green', 'black'],
-                promotion: 'Tặng tai nghe OnePlus Buds Pro 2'
-              },
-              {
-                id: 3,
-                name: 'Realme GT5 Pro',
-                price: 16990000,
-                originalPrice: 18990000,
-                image: '/images/products/realme-gt5.png',
-                installment: 'Trả góp 0%',
-                storage: ['256 GB'],
-                colors: ['red', 'blue'],
-                promotion: 'Giảm 1.000.000đ khi thanh toán qua VNPAY'
-              },
-              {
-                id: 4,
-                name: 'Nothing Phone (2)',
-                price: 15990000,
-                originalPrice: 16990000,
-                image: '/images/products/nothing-phone-2.png',
-                installment: 'Trả góp 0%',
-                storage: ['256 GB'],
-                colors: ['white', 'black'],
-                promotion: 'Tặng ốp lưng chính hãng trị giá 790.000đ'
-              },
-              {
-                id: 5,
-                name: 'Huawei P60 Pro',
-                price: 24990000,
-                originalPrice: 26990000,
-                image: '/images/products/huawei-p60.png',
-                installment: 'Trả góp 0%',
-                storage: ['256 GB', '512 GB'],
-                colors: ['black', 'purple'],
-                promotion: 'Tặng Watch GT4 trị giá 6.990.000đ'
-              }
-            ].map((product) => (
-              <div key={product.id} className="product-card">
-                <div className="product-image">
-                  <img src={product.image} alt={product.name} />
-                  <span className="installment-badge">{product.installment}</span>
-                </div>
-                <div className="product-info">
-                  <h3 className="product-name">{product.name}</h3>
-                  <div className="price-container">
-                    <span className="current-price">{product.price.toLocaleString()}đ</span>
-                    <span className="original-price">{product.originalPrice.toLocaleString()}đ</span>
-                  </div>
-                  <div className="storage-options">
-                    {product.storage.map((size, index) => (
-                      <span key={index} className="storage-option">{size}</span>
-                    ))}
-                  </div>
-                  <div className="color-options">
-                    {product.colors.map((color, index) => (
-                      <span 
-                        key={index} 
-                        className="color-dot"
-                        style={{ backgroundColor: color }}
-                      />
-                    ))}
-                  </div>
-                  <div className="promotion-text">
-                    {product.promotion}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+            </Link>
+          ))}
         </div>
       </section>
 
@@ -741,6 +551,7 @@ const HomePage = () => {
         <div className="services-grid">
           <div className="service-item large">
             <img src="/images/services/ac-service.jpg" alt="Mở máy lạnh hệ mát lạnh" />
+            <div className="service-overlay"></div>
             <div className="service-content">
               <h3>Mở máy lạnh<br />hệ mát lạnh</h3>
               <button className="service-btn">Xem ngay</button>
@@ -748,6 +559,7 @@ const HomePage = () => {
           </div>
           <div className="service-item large">
             <img src="/images/services/massage.jpg" alt="Massage tại nhà đã gì đâu" />
+            <div className="service-overlay"></div>
             <div className="service-content">
               <h3>Massage tại nhà<br />đã gì đâu</h3>
               <button className="service-btn">Xem ngay</button>
@@ -755,6 +567,7 @@ const HomePage = () => {
           </div>
           <div className="service-item">
             <img src="/images/services/air-purifier.jpg" alt="Không khí sạch khỏe mọi vui" />
+            <div className="service-overlay"></div>
             <div className="service-content">
               <h3>Không khí sạch<br />khỏe mọi vui</h3>
               <button className="service-btn">Chọn ngay</button>
@@ -762,6 +575,7 @@ const HomePage = () => {
           </div>
           <div className="service-item">
             <img src="/images/services/smart-tv.jpg" alt="Giải trí cực đã với Smart TV" />
+            <div className="service-overlay"></div>
             <div className="service-content">
               <h3>Giải trí cực đã<br />với Smart TV</h3>
               <button className="service-btn">Xem ngay</button>
@@ -835,7 +649,7 @@ const HomePage = () => {
             </div>
           ))}
         </div>
-      </section>      
+      </section>
     </div>
   );
 };

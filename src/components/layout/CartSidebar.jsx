@@ -3,7 +3,7 @@ import { FaTimes, FaTrash } from 'react-icons/fa';
 import './CartSidebar.css';
 
 const CartSidebar = ({ isOpen, onClose }) => {
-  const cartItems = [
+  const [cartItems, setCartItems] = React.useState([
     {
       id: 1,
       name: 'iPhone 15 Pro Max 256GB',
@@ -18,7 +18,17 @@ const CartSidebar = ({ isOpen, onClose }) => {
       quantity: 1,
       image: '/images/products/samsung-s24.png'
     }
-  ];
+  ]);
+
+  const handleQuantityChange = (id, delta) => {
+    setCartItems(items =>
+      items.map(item =>
+        item.id === id
+          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
+          : item
+      )
+    );
+  };
 
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -42,12 +52,12 @@ const CartSidebar = ({ isOpen, onClose }) => {
               <img src={item.image} alt={item.name} className="item-image" />
               <div className="item-details">
                 <h4>{item.name}</h4>
-                <div className="item-price">{item.price.toLocaleString()}đ</div>
+                <div className="item-price">{(item.price * item.quantity).toLocaleString()}đ</div>
                 <div className="item-controls">
                   <div className="quantity-controls">
-                    <button onClick={() => {}}>-</button>
+                    <button onClick={() => handleQuantityChange(item.id, -1)}>-</button>
                     <span>{item.quantity}</span>
-                    <button onClick={() => {}}>+</button>
+                    <button onClick={() => handleQuantityChange(item.id, 1)}>+</button>
                   </div>
                   <button className="remove-button">
                     <FaTrash />

@@ -152,7 +152,7 @@
 .checkout-button {
   width: 100%;
   padding: 12px;
-  background: #FFD700;
+  background: #ff6c2f;
   color: #333;
   border: none;
   border-radius: 8px;
@@ -183,4 +183,14 @@
 .cart-overlay.open {
   opacity: 1;
   visibility: visible;
+}
+
+.cart-item-remove {
+  background: #ff6c2f;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
 } 

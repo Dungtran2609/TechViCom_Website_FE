@@ -45,10 +45,6 @@ const Footer = () => {
               <li><a href="#">Tin tức khuyến mại</a></li>
               <li><a href="#">Giới thiệu máy đổi trả</a></li>
               <li><a href="#">Hướng dẫn mua hàng & thanh toán online</a></li>
-              <li><a href="#">Đại lý ủy quyền và TTBH ủy quyền của Apple</a></li>
-              <li><a href="#">Tra cứu hoá đơn điện tử</a></li>
-              <li><a href="#">Tra cứu bảo hành</a></li>
-              <li><a href="#">Câu hỏi thường gặp</a></li>
             </ul>
           </div>
 
@@ -59,12 +55,7 @@ const Footer = () => {
               <li><a href="#">Chính sách đổi trả</a></li>
               <li><a href="#">Chính sách bảo mật</a></li>
               <li><a href="#">Chính sách trả góp</a></li>
-              <li><a href="#">Chính sách khui hộp sản phẩm</a></li>
-              <li><a href="#">Chính sách giao hàng & lắp đặt</a></li>
-              <li><a href="#">Chính sách mạng gi đồng FPT</a></li>
-              <li><a href="#">Chính sách thu thập & xử lý dữ liệu cá nhân</a></li>
-              <li><a href="#">Quy định về hỗ trợ kỹ thuật & sao lưu dữ liệu</a></li>
-              <li><a href="#">Chính sách giao hàng & lắp đặt: Điện máy, Gia dụng</a></li>
+              
             </ul>
           </div>
 

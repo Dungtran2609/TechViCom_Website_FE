@@ -13,7 +13,7 @@ const Header = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const categories = [
-    { id: 1, name: 'Điện thoại', icon: <FaMobileAlt size={30} />, path: '/dien-thoai' },
+    { id: 1, name: 'Điện thoại', icon: <FaMobileAlt size={30} />, path: '/products' },
     { id: 2, name: 'Laptop', icon: <FaLaptop size={30} />, path: '/laptop' },
     { id: 3, name: 'Điều hòa', icon: <MdAir size={30} />, path: '/may-lanh' },
     { id: 4, name: 'Tủ lạnh', icon: <MdKitchen size={30} />, path: '/tu-lanh' },
