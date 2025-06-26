@@ -396,8 +396,8 @@ const ProductDetailPage = () => {
             ))}
           </ul>
           <div className="product-actions">
-            <button className="buy-btn">Mua ngay</button>
-            <button className="add-cart-btn">Thêm vào giỏ</button>
+            <Link to="/checkout" state={{ product }} className="buy-btn">Mua ngay</Link>
+            <Link to="/checkout" state={{ product }} className="add-cart-btn">Thêm vào giỏ</Link>
           </div>
         </div>
       </div>
