@@ -3,25 +3,25 @@ import { Link } from 'react-router-dom';
 
 const RegisterPage = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-white relative overflow-hidden">
+    <div className="min-h-screen pt-24 flex items-center justify-center bg-gradient-to-br from-orange-50 to-white relative overflow-hidden">
       {/* Background hình ảnh bên trái */}
       <div className="hidden md:flex flex-col justify-center items-center w-1/2 h-full p-8 gap-4">
         <div className="grid grid-cols-3 gap-4">
-          <img src="https://fptshop.com.vn/uploads/images/2023/Thang10/desktop/1.png" alt="FPT Education" className="rounded-2xl w-40 h-40 object-cover" />
-          <img src="https://fptshop.com.vn/uploads/images/2023/Thang10/desktop/2.png" alt="FPT Play" className="rounded-2xl w-40 h-40 object-cover" />
-          <img src="https://fptshop.com.vn/uploads/images/2023/Thang10/desktop/3.png" alt="Fshare" className="rounded-2xl w-40 h-40 object-cover" />
-          <img src="https://fptshop.com.vn/uploads/images/2023/Thang10/desktop/4.png" alt="FPT Camera" className="rounded-2xl w-40 h-40 object-cover" />
-          <img src="https://fptshop.com.vn/uploads/images/2023/Thang10/desktop/5.png" alt="FPT Play" className="rounded-2xl w-40 h-40 object-cover" />
-          <img src="https://fptshop.com.vn/uploads/images/2023/Thang10/desktop/6.png" alt="FPT Long Châu" className="rounded-2xl w-40 h-40 object-cover" />
+          <img src="https://techvicomshop.com.vn/uploads/images/2023/Thang10/desktop/1.png" alt="Techvicom" className="rounded-2xl w-40 h-40 object-cover" />
+          <img src="https://techvicomshop.com.vn/uploads/images/2023/Thang10/desktop/2.png" alt="Techvicom" className="rounded-2xl w-40 h-40 object-cover" />
+          <img src="https://techvicomshop.com.vn/uploads/images/2023/Thang10/desktop/3.png" alt="Techvicom" className="rounded-2xl w-40 h-40 object-cover" />
+          <img src="https://techvicomshop.com.vn/uploads/images/2023/Thang10/desktop/4.png" alt="Techvicom" className="rounded-2xl w-40 h-40 object-cover" />
+          <img src="https://techvicomshop.com.vn/uploads/images/2023/Thang10/desktop/5.png" alt="Techvicom" className="rounded-2xl w-40 h-40 object-cover" />
+          <img src="https://techvicomshop.com.vn/uploads/images/2023/Thang10/desktop/6.png" alt="Techvicom" className="rounded-2xl w-40 h-40 object-cover" />
         </div>
       </div>
       {/* Form đăng ký */}
       <div className="w-full md:w-1/2 flex flex-col items-center justify-center px-6 md:px-16 py-12 bg-white bg-opacity-80 rounded-2xl shadow-xl relative z-10">
         <div className="flex flex-col items-center mb-8">
           <div className="flex items-center gap-2 mb-2">
-            <img src="https://id.fpt.vn/images/logo-fpt-id.svg" alt="Techvicom ID" className="h-8" />
+            <img src="https://id.techvicom.vn/images/logo-techvicom-id.svg" alt="Techvicom ID" className="h-8" />
             <span className="text-2xl font-bold">⇆</span>
-            <img src="https://id.fpt.vn/images/logo-fpt-play.svg" alt="Techvicom Play" className="h-8" />
+            <img src="https://id.techvicom.vn/images/logo-techvicom-play.svg" alt="Techvicom Play" className="h-8" />
           </div>
           <h2 className="text-xl font-semibold text-gray-800 mb-1">Đăng ký tài khoản mới</h2>
         </div>

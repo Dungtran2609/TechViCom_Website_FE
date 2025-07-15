@@ -1,3 +1,11 @@
+.layout, .main-content {
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100vw !important;
+  box-sizing: border-box;
+}
+
 .layout {
   min-height: 100vh;
   display: flex;
@@ -6,11 +14,11 @@
 
 .main-content {
   flex: 1;
-  padding-top: 80px; /* Giữ nguyên để tránh content bị che bởi fixed header */
+  padding-top: 40px; /* Để tránh content bị che bởi fixed header */
   padding-bottom: 2rem;
-  /* max-width: 1800px; */ /* Increased max-width to allow content to span wider */
-  /* margin: 0 auto; */ /* Center the content */
   width: 100%;
-  padding-left: 0; /* Bỏ padding trái */
-  padding-right: 0; /* Bỏ padding phải */
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 40px;
 } 

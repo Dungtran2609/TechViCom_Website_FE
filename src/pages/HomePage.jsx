@@ -11,6 +11,44 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import './HomePage.css';
+import { products } from '../data/products';
+// Categories cho HomePage (đơn giản hơn so với Header)
+const categories = [
+  { id: 1, name: 'Điện thoại', icon: <FaMobileAlt size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/dien-thoai' },
+  { id: 2, name: 'Laptop', icon: <FaLaptop size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/laptop' },
+  { id: 3, name: 'Điều hòa', icon: <MdAir size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/may-lanh' },
+  { id: 4, name: 'Tủ lạnh', icon: <MdKitchen size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/tu-lanh' },
+  { id: 5, name: 'Điện gia dụng', icon: <GiWashingMachine size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/dien-gia-dung' },
+  { id: 6, name: 'Máy tính bảng', icon: <FaTabletAlt size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/may-tinh-bang' },
+  { id: 7, name: 'Phụ kiện', icon: <FaHeadphones size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/phu-kien' },
+  { id: 8, name: 'SIM Techvicom', icon: <IoPhonePortrait size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/sim-techvicom' },
+  { id: 9, name: 'Quạt điều hòa', icon: <BsFan size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/quat-dieu-hoa' }
+];
+
+// Thêm đoạn này ở đầu file để lấy dữ liệu bài viết nổi bật
+const featuredNews = [
+  {
+    id: 1,
+    title: 'iPhone 16 lộ diện: Thiết kế mới, camera nâng cấp vượt trội',
+    image: '/images/news/iphone16.jpg',
+    description: 'Apple chuẩn bị ra mắt iPhone 16 với nhiều cải tiến về thiết kế và camera, hứa hẹn tạo nên cơn sốt mới trên thị trường smartphone.',
+    link: '/news',
+  },
+  {
+    id: 2,
+    title: 'Samsung trình làng Galaxy Z Fold6 với công nghệ màn hình gập tiên tiến',
+    image: '/images/news/galaxy-zfold6.jpg',
+    description: 'Galaxy Z Fold6 mang đến trải nghiệm gập mở mượt mà, cấu hình mạnh mẽ và nhiều tính năng thông minh cho người dùng hiện đại.',
+    link: '/news',
+  },
+  {
+    id: 3,
+    title: 'Top 5 laptop mỏng nhẹ đáng mua nhất năm 2024',
+    image: '/images/news/laptop2024.jpg',
+    description: 'Danh sách những mẫu laptop mỏng nhẹ, hiệu năng cao, phù hợp cho học sinh, sinh viên và dân văn phòng.',
+    link: '/news',
+  },
+];
 
 const HomePage = () => {
   const [timeLeft, setTimeLeft] = useState({
@@ -51,7 +89,7 @@ const HomePage = () => {
       features: [
         'Trả góp 0%',
         'Giảm thêm 5%',
-        'Tặng SIM FPT 60GB/tháng'
+        'Tặng SIM Techvicom 60GB/tháng'
       ],
       buttonText: 'Khám phá ngay',
       link: '/khuyen-mai'
@@ -84,18 +122,6 @@ const HomePage = () => {
     }
   ];
 
-  const categories = [
-    { id: 1, name: 'Điện thoại', icon: <FaMobileAlt size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/products' },
-    { id: 2, name: 'Laptop', icon: <FaLaptop size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/laptop' },
-    { id: 3, name: 'Điều hòa', icon: <MdAir size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/may-lanh' },
-    { id: 4, name: 'Tủ lạnh', icon: <MdKitchen size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/tu-lanh' },
-    { id: 5, name: 'Điện gia dụng', icon: <GiWashingMachine size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/dien-gia-dung' },
-    { id: 6, name: 'Máy tính bảng', icon: <FaTabletAlt size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/may-tinh-bang' },
-    { id: 7, name: 'Phụ kiện', icon: <FaHeadphones size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/phu-kien' },
-    { id: 8, name: 'SIM FPT', icon: <IoPhonePortrait size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/sim-fpt' },
-    { id: 9, name: 'Quạt điều hòa', icon: <BsFan size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/quat-dieu-hoa' }
-  ];
-
   const flashSaleProducts = [
     {
       id: 1,
@@ -117,7 +143,7 @@ const HomePage = () => {
     },
     {
       id: 3,
-      name: 'Quạt điều hòa Hoà Phát HPCF1-022 86W',
+      name: 'Quạt điều hòa Hoa Phát HPCF1-022 86W',
       price: 1690000,
       originalPrice: 2500000,
       discount: 40,
@@ -135,76 +161,7 @@ const HomePage = () => {
     }
   ];
 
-  const products = [
-    {
-      id: 1,
-      name: 'TCL 60R 5G 4GB 128GB',
-      price: 2990000,
-      originalPrice: 3990000,
-      image: '/images/products/tcl-60r.jpg',
-      installment: 'Trả góp 0%',
-      colors: ['black'],
-      variants: [
-        { storage: '128 GB', price: 2990000 }
-      ],
-      promotion: 'Cho thẻ Home Credit: Giảm 400.000đ cho hóa đơn từ 8 triệu'
-    },
-    {
-      id: 2,
-      name: 'Nubia V70 Design 8GB 128GB',
-      price: 2790000,
-      originalPrice: 3990000,
-      image: '/images/products/nubia-v70.jpg',
-      installment: 'Trả góp 0%',
-      colors: ['black', 'blue', 'purple'],
-      variants: [
-        { storage: '128 GB', price: 2790000 },
-        { storage: '256 GB', price: 3290000 }
-      ],
-      promotion: 'Cho thẻ HD Bank: Giảm 500.000đ đơn từ 5 triệu'
-    },
-    {
-      id: 3,
-      name: 'Xiaomi Poco M7 Pro 5G 8GB 256GB',
-      price: 5990000,
-      originalPrice: 6990000,
-      image: '/images/products/poco-m7.jpg',
-      installment: 'Trả góp 0%',
-      colors: ['green', 'black', 'blue'],
-      variants: [
-        { storage: '256 GB', price: 5990000 }
-      ],
-      promotion: 'Cho thẻ Home Credit: Giảm 400.000đ cho hóa đơn từ 8 triệu'
-    },
-    {
-      id: 4,
-      name: 'Samsung Galaxy M55 5G 256GB',
-      price: 7390000,
-      originalPrice: 8490000,
-      image: '/images/products/samsung-m55.jpg',
-      installment: 'Trả góp 0%',
-      colors: ['black'],
-      variants: [
-        { storage: '256 GB', price: 7390000 }
-      ],
-      promotion: 'Cho thẻ Home Credit: Giảm 400.000đ cho hóa đơn từ 8 triệu'
-    },
-    {
-      id: 5,
-      name: 'Honor X9c 5G 12GB 256GB',
-      price: 8790000,
-      originalPrice: 9490000,
-      image: '/images/products/honor-x9c.jpg',
-      installment: 'Trả góp 0%',
-      colors: ['pink', 'black', 'silver'],
-      variants: [
-        { storage: '256 GB', price: 8790000 }
-      ],
-      promotion: 'Cho thẻ Home Credit: Giảm 400.000đ cho hóa đơn từ 8 triệu'
-    }
-  ];
-
-  const recommendedProducts = [
+  const productsFeatured = [
     {
       id: 1,
       name: 'iPhone 15 Pro Max 256GB',
@@ -212,11 +169,8 @@ const HomePage = () => {
       originalPrice: 34990000,
       image: '/images/products/iphone-15-pro.jpg',
       installment: 'Trả góp 0%',
-      colors: ['black', 'white', 'blue'],
-      variants: [
-        { storage: '256 GB', price: 31990000 },
-        { storage: '512 GB', price: 37990000 }
-      ],
+      storage: ['256 GB', '512 GB'],
+      colors: ['black', 'blue'],
       promotion: 'Giảm thêm 3.000.000đ khi thanh toán qua VNPay'
     },
     {
@@ -226,11 +180,8 @@ const HomePage = () => {
       originalPrice: 31990000,
       image: '/images/products/samsung-s24.jpg',
       installment: 'Trả góp 0%',
+      storage: ['256 GB', '512 GB'],
       colors: ['black', 'gray', 'purple'],
-      variants: [
-        { storage: '256 GB', price: 29990000 },
-        { storage: '512 GB', price: 33990000 }
-      ],
       promotion: 'Thu cũ đổi mới trợ giá đến 5 triệu'
     },
     {
@@ -240,10 +191,8 @@ const HomePage = () => {
       originalPrice: 27990000,
       image: '/images/products/oppo-find-x7.jpg',
       installment: 'Trả góp 0%',
+      storage: ['256 GB'],
       colors: ['black', 'blue'],
-      variants: [
-        { storage: '256 GB', price: 25990000 }
-      ],
       promotion: 'Tặng tai nghe Enco Air3 Pro trị giá 2 triệu'
     },
     {
@@ -253,11 +202,8 @@ const HomePage = () => {
       originalPrice: 24990000,
       image: '/images/products/xiaomi-14-pro.jpg',
       installment: 'Trả góp 0%',
+      storage: ['256 GB', '512 GB'],
       colors: ['black', 'white'],
-      variants: [
-        { storage: '256 GB', price: 23990000 },
-        { storage: '512 GB', price: 25990000 }
-      ],
       promotion: 'Giảm 2.000.000đ khi thanh toán online'
     },
     {
@@ -267,10 +213,8 @@ const HomePage = () => {
       originalPrice: 9990000,
       image: '/images/products/vivo-v29e.jpg',
       installment: 'Trả góp 0%',
-      colors: ['blue', 'gold'],
-      variants: [
-        { storage: '256 GB', price: 8990000 }
-      ],
+      storage: ['256 GB'],
+      colors: ['blue', 'yellow'],
       promotion: 'Tặng PMH 500.000đ mua kèm phụ kiện'
     },
     {
@@ -280,11 +224,8 @@ const HomePage = () => {
       originalPrice: 24990000,
       image: '/images/products/pixel-8-pro.jpg',
       installment: 'Trả góp 0%',
-      colors: ['black', 'white', 'blue'],
-      variants: [
-        { storage: '256 GB', price: 22990000 },
-        { storage: '512 GB', price: 25990000 }
-      ],
+      storage: ['256 GB', '512 GB'],
+      colors: ['black', 'blue'],
       promotion: 'Tặng đồng hồ Pixel Watch 2 trị giá 8 triệu'
     },
     {
@@ -294,11 +235,8 @@ const HomePage = () => {
       originalPrice: 21990000,
       image: '/images/products/oneplus-12.jpg',
       installment: 'Trả góp 0%',
+      storage: ['256 GB', '512 GB'],
       colors: ['green', 'black'],
-      variants: [
-        { storage: '256 GB', price: 19990000 },
-        { storage: '512 GB', price: 21990000 }
-      ],
       promotion: 'Tặng tai nghe OnePlus Buds Pro 2'
     },
     {
@@ -308,10 +246,8 @@ const HomePage = () => {
       originalPrice: 18990000,
       image: '/images/products/realme-gt5.jpg',
       installment: 'Trả góp 0%',
+      storage: ['256 GB'],
       colors: ['red', 'blue'],
-      variants: [
-        { storage: '256 GB', price: 16990000 }
-      ],
       promotion: 'Giảm 1.000.000đ khi thanh toán qua VNPAY'
     },
     {
@@ -321,10 +257,8 @@ const HomePage = () => {
       originalPrice: 16990000,
       image: '/images/products/nothing-phone-2.jpg',
       installment: 'Trả góp 0%',
+      storage: ['256 GB'],
       colors: ['white', 'black'],
-      variants: [
-        { storage: '256 GB', price: 15990000 }
-      ],
       promotion: 'Tặng ốp lưng chính hãng trị giá 790.000đ'
     },
     {
@@ -334,11 +268,8 @@ const HomePage = () => {
       originalPrice: 26990000,
       image: '/images/products/huawei-p60.jpg',
       installment: 'Trả góp 0%',
-      colors: ['black', 'white', 'purple'],
-      variants: [
-        { storage: '256 GB', price: 24990000 },
-        { storage: '512 GB', price: 27990000 }
-      ],
+      storage: ['256 GB', '512 GB'],
+      colors: ['black', 'purple'],
       promotion: 'Tặng Watch GT4 trị giá 6.990.000đ'
     }
   ];
@@ -346,53 +277,55 @@ const HomePage = () => {
   return (
     <div className="home-page">
       {/* Banner Section */}
-      <section className="banner-section">
-        <Swiper
-          modules={[Navigation, Pagination, Autoplay]}
-          spaceBetween={0}
-          slidesPerView={1}
-          pagination={{
-            clickable: true,
-            renderBullet: function (index, className) {
-              return `<span class="${className}"></span>`;
-            },
-          }}
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
-          loop={true}
-          className="banner-slider"
-        >
-          {banners.map((banner) => (
-            <SwiperSlide key={banner.id}>
-              <div className="banner-content">
-                <div className="banner-text">
-                  <h1>{banner.title}</h1>
-                  <p className="subtitle">{banner.subtitle}</p>
-                  <ul className="features">
-                    {banner.features.map((feature, index) => (
-                      <li key={index}>{feature}</li>
-                    ))}
-                  </ul>
-                  <Link to={banner.link} className="banner-button">
-                    {banner.buttonText}
-                  </Link>
+      <div className="banner-wrapper">
+        <section className="banner-section">
+          <Swiper
+            modules={[Navigation, Pagination, Autoplay]}
+            spaceBetween={0}
+            slidesPerView={1}
+            pagination={{
+              clickable: true,
+              renderBullet: function (index, className) {
+                return `<span class="${className}"></span>`;
+              },
+            }}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+            loop={true}
+            className="banner-slider"
+          >
+            {banners.map((banner) => (
+              <SwiperSlide key={banner.id}>
+                <div className="banner-content">
+                  <div className="banner-text">
+                    <h1>{banner.title}</h1>
+                    <p className="subtitle">{banner.subtitle}</p>
+                    <ul className="features">
+                      {banner.features.map((feature, index) => (
+                        <li key={index}>{feature}</li>
+                      ))}
+                    </ul>
+                    <Link to={banner.link} className="banner-button highlight-btn">
+                      {banner.buttonText}
+                    </Link>
+                  </div>
+                  <div className="banner-image">
+                    <img src={banner.image} alt={banner.title} />
+                  </div>
                 </div>
-                <div className="banner-image">
-                  <img src={banner.image} alt={banner.title} />
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </section>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </section>
+      </div>
 
       {/* Categories Grid */}
-      <section className="categories-section">
+      <section className="categories-section center-section">
         <div className="categories-grid">
           {categories.map((category) => (
-            <Link to={category.path} key={category.id} className="category-item">
+            <Link to={category.path} key={category.id} className="category-card">
               <div className="category-icon">
                 {category.icon}
               </div>
@@ -403,48 +336,48 @@ const HomePage = () => {
       </section>
 
       {/* Flash Sale Section */}
-      <section className="flash-sale-section">
-        <div className="flash-sale-header">
-          <div className="flash-sale-title">
-            <BsLightning className="flash-icon" />
+      <section className="flash-sale-section center-section">
+        <div className="flash-sale-header-modern">
+          <div className="flash-sale-title-modern">
+            <BsLightning className="flash-icon-modern" />
             <h2>DUY NHẤT 6.6 CHỚP DEAL HỜI</h2>
           </div>
-          <div className="flash-sale-timer">
-            <div className="sale-date">
-              <span className="current">Sắp diễn ra • 06/06</span>
-              <span>07/06</span>
-              <span>08/06</span>
+          <div className="flash-sale-timer-modern">
+            <div className="sale-date-modern">
+              <button className="date-btn-modern active">Sắp diễn ra • 06/06</button>
+              <button className="date-btn-modern">07/06</button>
+              <button className="date-btn-modern">08/06</button>
             </div>
-            <div className="countdown">
-              <span className="time-block">{String(timeLeft.hours).padStart(2, '0')}</span>
-              <span className="separator">:</span>
-              <span className="time-block">{String(timeLeft.minutes).padStart(2, '0')}</span>
-              <span className="separator">:</span>
-              <span className="time-block">{String(timeLeft.seconds).padStart(2, '0')}</span>
+            <div className="countdown-modern">
+              <span className="time-block-modern">{String(timeLeft.hours).padStart(2, '0')}</span>
+              <span className="separator-modern">:</span>
+              <span className="time-block-modern">{String(timeLeft.minutes).padStart(2, '0')}</span>
+              <span className="separator-modern">:</span>
+              <span className="time-block-modern">{String(timeLeft.seconds).padStart(2, '0')}</span>
             </div>
           </div>
         </div>
 
-        <div className="flash-sale-products">
+        <div className="flash-sale-products-modern">
           {flashSaleProducts.map(product => (
-            <Link to={`/product/${product.id}`} key={product.id} className="product-card">
-              <div className="product-image">
+            <Link to={`/product/${product.id}`} key={product.id} className="product-card-modern">
+              <div className="product-image-modern">
                 <img src={product.image} alt={product.name} />
+                <span className="discount-badge-modern">-{product.discount}%</span>
               </div>
-              <div className="product-info">
-                <h3 className="product-name">{product.name}</h3>
-                <div className="product-price">
-                  <span className="current-price">
+              <div className="product-info-modern">
+                <h3 className="product-name-modern">{product.name}</h3>
+                <div className="product-price-modern">
+                  <span className="current-price-modern">
                     {product.price.toLocaleString()}đ
                   </span>
-                  <span className="original-price">
+                  <span className="original-price-modern">
                     {product.originalPrice.toLocaleString()}đ
                   </span>
-                  <span className="discount-tag">-{product.discount}%</span>
                 </div>
-                <div className="product-status">
+                <div className="product-status-modern">
                   <span>{product.status}</span>
-                  <button className="buy-button">Sắp diễn ra</button>
+                  <button className="buy-button-modern">Sắp diễn ra</button>
                 </div>
               </div>
             </Link>
@@ -453,16 +386,14 @@ const HomePage = () => {
       </section>
 
       {/* Products Section */}
-      <section className="products-section">
+      <section className="products-section center-section">
         <h2 className="section-title">Gợi ý cho bạn</h2>
         <div className="products-grid">
           {products.map((product) => (
             <Link to={`/product/${product.id}`} key={product.id} className="product-card">
               <div className="product-image">
                 <img src={product.image} alt={product.name} />
-                {product.installment && (
-                  <span className="installment-badge">{product.installment}</span>
-                )}
+                <span className="installment-badge">{product.installment}</span>
               </div>
               <div className="product-info">
                 <h3 className="product-name">{product.name}</h3>
@@ -474,11 +405,11 @@ const HomePage = () => {
                     {product.originalPrice.toLocaleString()}đ
                   </span>
                 </div>
-                <div className="product-variants">
+                <div className="product-storage">
                   {product.variants.map((variant, index) => (
-                    <span key={index} className="variant-tag">
+                    <button key={index} className="storage-option">
                       {variant.storage}
-                    </span>
+                    </button>
                   ))}
                 </div>
                 <div className="product-colors">
@@ -490,55 +421,10 @@ const HomePage = () => {
                     />
                   ))}
                 </div>
-                <div className="product-promotion">
-                  {product.promotion}
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Recommended Products Section */}
-      <section className="products-section">
-        <h2 className="section-title">Điện thoại nổi bật nhất</h2>
-        <div className="products-grid">
-          {recommendedProducts.map((product) => (
-            <Link to={`/product/${product.id}`} key={product.id} className="product-card">
-              <div className="product-image">
-                <img src={product.image} alt={product.name} />
-                {product.installment && (
-                  <span className="installment-badge">{product.installment}</span>
-                )}
-              </div>
-              <div className="product-info">
-                <h3 className="product-name">{product.name}</h3>
-                <div className="product-price">
-                  <span className="current-price">
-                    {product.price.toLocaleString()}đ
-                  </span>
-                  <span className="original-price">
-                    {product.originalPrice.toLocaleString()}đ
-                  </span>
-                </div>
-                <div className="product-variants">
-                  {product.variants.map((variant, index) => (
-                    <span key={index} className="variant-tag">
-                      {variant.storage}
-                    </span>
-                  ))}
-                </div>
-                <div className="product-colors">
-                  {product.colors.map((color, index) => (
-                    <span 
-                      key={index} 
-                      className="color-dot"
-                      style={{ backgroundColor: color }}
-                    />
-                  ))}
-                </div>
-                <div className="product-promotion">
-                  {product.promotion}
+                <div className="product-promotion" style={{marginTop: 'auto', minHeight: '40px', display: product.promotion ? 'flex' : 'none', alignItems: 'center', justifyContent: 'center'}}>
+                  {product.promotion && (
+                    <span className="promotion-text">{product.promotion}</span>
+                  )}
                 </div>
               </div>
             </Link>
@@ -551,35 +437,105 @@ const HomePage = () => {
         <div className="services-grid">
           <div className="service-item large">
             <img src="/images/services/ac-service.jpg" alt="Mở máy lạnh hệ mát lạnh" />
-            <div className="service-overlay"></div>
             <div className="service-content">
-              <h3>Mở máy lạnh<br />hệ mát lạnh</h3>
+              <h3 className="drop-shadow-lg font-bold text-white">Mở máy lạnh<br />hệ mát lạnh</h3>
               <button className="service-btn">Xem ngay</button>
             </div>
           </div>
           <div className="service-item large">
             <img src="/images/services/massage.jpg" alt="Massage tại nhà đã gì đâu" />
-            <div className="service-overlay"></div>
             <div className="service-content">
-              <h3>Massage tại nhà<br />đã gì đâu</h3>
+              <h3 className="drop-shadow-lg font-bold text-white">Massage tại nhà<br />đã gì đâu</h3>
               <button className="service-btn">Xem ngay</button>
             </div>
           </div>
           <div className="service-item">
             <img src="/images/services/air-purifier.jpg" alt="Không khí sạch khỏe mọi vui" />
-            <div className="service-overlay"></div>
             <div className="service-content">
-              <h3>Không khí sạch<br />khỏe mọi vui</h3>
+              <h3 className="drop-shadow-lg font-bold text-white">Không khí sạch<br />khỏe mọi vui</h3>
               <button className="service-btn">Chọn ngay</button>
             </div>
           </div>
           <div className="service-item">
             <img src="/images/services/smart-tv.jpg" alt="Giải trí cực đã với Smart TV" />
-            <div className="service-overlay"></div>
             <div className="service-content">
-              <h3>Giải trí cực đã<br />với Smart TV</h3>
+              <h3 className="drop-shadow-lg font-bold text-white">Giải trí cực đã<br />với Smart TV</h3>
               <button className="service-btn">Xem ngay</button>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Recommended Products Section */}
+      <section className="products-section center-section">
+        <h2 className="section-title">Điện thoại nổi bật nhất</h2>
+        <div className="products-grid">
+          {productsFeatured.map((product) => (
+            <Link to={`/product/${product.id}`} key={product.id} className="product-card">
+              <div className="product-image">
+                <img src={product.image} alt={product.name} />
+                <span className="installment-badge">{product.installment}</span>
+              </div>
+              <div className="product-info">
+                <h3 className="product-name">{product.name}</h3>
+                <div className="price-container">
+                  <span className="current-price">{product.price.toLocaleString()}đ</span>
+                  <span className="original-price">{product.originalPrice.toLocaleString()}đ</span>
+                </div>
+                <div className="storage-options">
+                  {product.storage.map((size, index) => (
+                    <span key={index} className="storage-option">{size}</span>
+                  ))}
+                </div>
+                <div className="color-options">
+                  {product.colors.map((color, index) => (
+                    <span 
+                      key={index} 
+                      className="color-dot"
+                      style={{ backgroundColor: color }}
+                    />
+                  ))}
+                </div>
+                <div className="promotion-text">
+                  {product.promotion}
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Featured News Section */}
+      <section className="bg-gradient-to-b from-white via-orange-100 to-white py-12" style={{background: 'linear-gradient(to bottom, white 15%, #FFD9B3 60%, white 85%)'}}>
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-3xl font-extrabold mb-10 text-orange-600 text-center tracking-tight drop-shadow">Bài viết nổi bật</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mb-10">
+            {featuredNews.map((news) => (
+              <div
+                key={news.id}
+                className="bg-white rounded-3xl shadow-lg border border-orange-100 flex flex-col overflow-hidden group transition-all duration-300 hover:shadow-2xl hover:border-orange-500 hover:-translate-y-2 hover:scale-105"
+              >
+                <div className="overflow-hidden">
+                  <img
+                    src={news.image}
+                    alt={news.title}
+                    className="h-56 w-full object-cover rounded-t-3xl transition-all duration-300 group-hover:scale-110 group-hover:brightness-105"
+                  />
+                </div>
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="text-xl font-bold mb-3 text-gray-900 transition-colors duration-300 group-hover:text-orange-600 line-clamp-2">
+                    {news.title}
+                  </h3>
+                  <p className="text-gray-600 mb-6 flex-1 line-clamp-3">{news.description}</p>
+                  <Link to={`/news/${news.id}`} className="inline-flex items-center justify-center gap-2 mt-auto px-5 py-2.5 bg-orange-500 text-white rounded-full font-semibold shadow transition-all duration-200 hover:bg-orange-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-orange-300 w-full text-lg">
+                    → Xem bài viết
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-center">
+            <a href="/news" className="px-7 py-3 bg-orange-500 text-white rounded-full font-bold shadow hover:bg-orange-600 transition-colors text-lg">Xem tất cả bài viết</a>
           </div>
         </div>
       </section>
@@ -630,7 +586,7 @@ const HomePage = () => {
               image: '/images/products/kangaroo-kg50f54.jpg'
             }
           ].map((product) => (
-            <div key={product.id} className="product-card">
+            <Link to={`/product/${product.id}`} key={product.id} className="product-card">
               <div className="product-image">
                 <img src={product.image} alt={product.name} />
                 <span className="discount-badge">-{product.discount}%</span>
@@ -645,11 +601,14 @@ const HomePage = () => {
                     {product.originalPrice.toLocaleString()}đ
                   </span>
                 </div>
+                <div style={{marginTop: '12px', textAlign: 'center'}}>
+                  <button className="cooling-buy-btn">Xem chi tiết</button>
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
-      </section>
+      </section>      
     </div>
   );
 };
