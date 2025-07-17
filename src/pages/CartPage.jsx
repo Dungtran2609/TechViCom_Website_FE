@@ -77,10 +77,16 @@ export default function CartPage() {
                     </div>
                   </div>
                   <div className="flex flex-col items-center gap-2">
-                    <div className="flex items-center border rounded-lg overflow-hidden">
-                      <button className="px-2 py-1 text-lg text-gray-500 hover:bg-gray-100" onClick={() => updateQuantity(item.id, item.variant, -1)}>-</button>
-                      <span className="px-3 py-1 text-base font-semibold">{item.quantity}</span>
-                      <button className="px-2 py-1 text-lg text-gray-500 hover:bg-gray-100" onClick={() => updateQuantity(item.id, item.variant, 1)}>+</button>
+                    <div className="flex items-center border rounded-lg overflow-hidden h-10">
+                      <button
+                        className="w-8 h-10 flex items-center justify-center text-lg text-gray-500 hover:bg-gray-100"
+                        onClick={() => updateQuantity(item.id, item.variant, -1)}
+                      >-</button>
+                      <span className="w-10 h-10 flex items-center justify-center text-base font-semibold">{item.quantity}</span>
+                      <button
+                        className="w-8 h-10 flex items-center justify-center text-lg text-gray-500 hover:bg-gray-100"
+                        onClick={() => updateQuantity(item.id, item.variant, 1)}
+                      >+</button>
                     </div>
                     <button className="text-xs text-red-500 hover:underline" onClick={() => removeItem(item.id, item.variant)}>Xóa</button>
                   </div>
