@@ -12,6 +12,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import './HomePage.css';
 import { products } from '../data/products';
+import Toast from '../components/Toast';
 // Categories cho HomePage (đơn giản hơn so với Header)
 const categories = [
   { id: 1, name: 'Điện thoại', icon: <FaMobileAlt size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/dien-thoai' },
@@ -274,8 +275,21 @@ const HomePage = () => {
     }
   ];
 
+  const [successMessage, setSuccessMessage] = useState('');
+  useEffect(() => {
+    const msg = localStorage.getItem('success');
+    if (msg) {
+      setSuccessMessage(msg);
+      localStorage.removeItem('success');
+      setTimeout(() => setSuccessMessage(''), 2000);
+    }
+  }, []);
+
   return (
     <div className="home-page">
+      {successMessage && (
+        <Toast message={successMessage} type="success" onClose={() => setSuccessMessage("")} duration={2000} />
+      )}
       {/* Banner Section */}
       <div className="banner-wrapper">
         <section className="banner-section">

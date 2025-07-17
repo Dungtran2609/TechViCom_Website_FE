@@ -891,3 +891,49 @@
   padding: 8px 0;
   overflow: hidden;
 } 
+
+.account-btn {
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 20px;
+  padding: 14px 0;
+  border: 2px solid #ff6c2f;
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(.7,.2,.2,1);
+  background: #fff;
+  color: #ff6c2f;
+  box-shadow: 0 2px 8px rgba(255,108,47,0.06);
+}
+
+.account-btn.login-btn {
+  background: #ff6c2f;
+  color: #fff;
+  border: 2px solid #ff6c2f;
+}
+
+.account-btn.login-btn:hover {
+  background: #e55a1f;
+  color: #fff;
+  border-color: #e55a1f;
+}
+
+.account-btn.register-btn {
+  background: #fff;
+  color: #ff6c2f;
+  border: 2px solid #ff6c2f;
+}
+
+.account-btn.register-btn:hover {
+  background: #fff5f2;
+  color: #e55a1f;
+  border-color: #e55a1f;
+}
+
+.account-btn-icon {
+  font-size: 20px;
+} 

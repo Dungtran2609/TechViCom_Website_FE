@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from '../api';
+import Toast from '../components/Toast';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -24,7 +25,10 @@ const LoginPage = () => {
       // Gọi API đăng nhập user
       const users = await loginUser(form.phone, form.password);
       if (users.length > 0) {
+        localStorage.removeItem('user'); // Xóa user cũ trước khi lưu user mới
         localStorage.setItem('user', JSON.stringify(users[0]));
+        localStorage.setItem('success', 'Đăng nhập thành công!');
+        window.dispatchEvent(new Event('userChanged'));
         setLoading(false);
         navigate('/');
       } else {
@@ -69,7 +73,9 @@ const LoginPage = () => {
             <label className="block text-gray-700 font-medium mb-1">Mật khẩu</label>
             <input type="password" name="password" value={form.password} onChange={handleChange} placeholder="Nhập mật khẩu" className="w-full border border-orange-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />
           </div>
-          {error && <div className="text-red-500 text-sm text-center">{error}</div>}
+          {error && (
+            <Toast message={error} type="error" onClose={() => setError("")} duration={2200} />
+          )}
           <button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-orange-400 to-orange-500 text-white font-bold py-2 rounded-lg text-lg shadow hover:from-orange-500 hover:to-orange-600 transition">{loading ? 'Đang đăng nhập...' : 'Đăng nhập'}</button>
           <div className="text-xs text-gray-500 text-center mt-2">
             Khi đăng nhập, bạn đồng ý với <a href="#" className="text-orange-500 underline">Điều khoản</a> và <a href="#" className="text-orange-500 underline">Chính sách bảo mật</a> của Techvicom ID

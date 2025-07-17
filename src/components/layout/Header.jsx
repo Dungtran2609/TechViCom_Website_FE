@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FaBars, FaUser, FaShoppingCart, FaMobileAlt, FaLaptop, FaHeadphones, FaSignInAlt, FaUserPlus, FaChevronRight, FaSearch, FaFire, FaSignOutAlt, FaUserCircle, FaClipboardList } from 'react-icons/fa';
 import { MdAir, MdKitchen } from 'react-icons/md';
 import { BsFan } from 'react-icons/bs';
@@ -44,6 +44,7 @@ const Header = () => {
     return u ? JSON.parse(u) : null;
   });
   const [isLoggedIn, setIsLoggedIn] = useState(!!user);
+  const location = useLocation();
 
   // Filter categories based on search
   const filteredCategories = categories.filter(category =>
@@ -87,15 +88,15 @@ const Header = () => {
   }, [isUserMenuOpen, isMenuOpen, showSuggestions]);
 
   useEffect(() => {
-    // Lắng nghe thay đổi đăng nhập
-    const handleStorage = () => {
+    const syncUser = () => {
       const u = localStorage.getItem('user');
       setUser(u ? JSON.parse(u) : null);
       setIsLoggedIn(!!u);
     };
-    window.addEventListener('storage', handleStorage);
-    return () => window.removeEventListener('storage', handleStorage);
-  }, []);
+    window.addEventListener('userChanged', syncUser);
+    syncUser(); // Gọi luôn khi location thay đổi
+    return () => window.removeEventListener('userChanged', syncUser);
+  }, [location]);
 
   const currentCategory = categories.find(cat => cat.id === hoveredCategory);
 
@@ -133,6 +134,8 @@ const Header = () => {
     setUser(null);
     setIsLoggedIn(false);
     setIsUserMenuOpen(false);
+    localStorage.setItem('success', 'Đăng xuất thành công!');
+    window.dispatchEvent(new Event('userChanged'));
     navigate('/');
   };
 
@@ -486,36 +489,28 @@ const Header = () => {
                       </div>
                     </>
                   ) : (
-                    <>
-                      <Link
-                        to="/login"
-                        onClick={() => setIsUserMenuOpen(false)}
-                        className="account-popup-btn login-btn"
-                        style={{
-                          display: 'flex', alignItems: 'center', gap: 10, padding: '14px 20px',
-                          fontSize: 15, color: '#333', textDecoration: 'none', transition: 'background 0.2s'
+                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, padding: '32px 24px 24px 24px', minWidth: 240}}>
+                      <button
+                        className="account-btn login-btn"
+                        onClick={() => {
+                          setIsUserMenuOpen(false);
+                          navigate('/login');
                         }}
-                        onMouseOver={e => e.currentTarget.style.background = '#fff3e0'}
-                        onMouseOut={e => e.currentTarget.style.background = 'white'}
                       >
-                        <FaSignInAlt style={{ fontSize: 20 }} />
+                        <FaSignInAlt className="account-btn-icon" />
                         Đăng nhập
-                      </Link>
-                      <Link
-                        to="/register"
-                        onClick={() => setIsUserMenuOpen(false)}
-                        className="account-popup-btn register-btn"
-                        style={{
-                          display: 'flex', alignItems: 'center', gap: 10, padding: '14px 20px',
-                          fontSize: 15, color: '#333', textDecoration: 'none', transition: 'background 0.2s'
+                      </button>
+                      <button
+                        className="account-btn register-btn"
+                        onClick={() => {
+                          setIsUserMenuOpen(false);
+                          navigate('/register');
                         }}
-                        onMouseOver={e => e.currentTarget.style.background = '#fff3e0'}
-                        onMouseOut={e => e.currentTarget.style.background = 'white'}
                       >
-                        <FaUserPlus style={{ fontSize: 20 }} />
+                        <FaUserPlus className="account-btn-icon" />
                         Đăng ký
-                      </Link>
-                    </>
+                      </button>
+                    </div>
                   )}
                 </div>
               )}

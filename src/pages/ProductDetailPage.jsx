@@ -202,6 +202,7 @@ export default function ProductDetailPage() {
   const [selectedStorage, setSelectedStorage] = useState(product.variants[0].storage);
   const [showFullIntro, setShowFullIntro] = useState(false);
   const [showAddCartToast, setShowAddCartToast] = useState(false);
+  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
 
   // Lấy variant hiện tại theo dung lượng
   const currentVariant = product.variants.find(v => v.storage === selectedStorage) || product.variants[0];
@@ -324,7 +325,24 @@ export default function ProductDetailPage() {
             <div className="option-label">Màu sắc</div>
             <div className="option-group option-group-color">
               {product.colors.map((c, idx) => (
-                <span key={c} className="option-btn option-btn-color" style={{background: c, color: '#fff', minWidth: 48, justifyContent: 'center'}}>{c}</span>
+                <button
+                  key={c}
+                  className={`color-dot-btn${selectedColor === c ? ' active' : ''}`}
+                  style={{
+                    background: c,
+                    border: c === 'white' ? '2px solid #ccc' : '2px solid #fff',
+                    boxShadow: selectedColor === c ? '0 0 0 3px #e83a45' : 'none',
+                    width: 32,
+                    height: 32,
+                    borderRadius: '50%',
+                    cursor: 'pointer',
+                    outline: 'none',
+                    display: 'inline-block',
+                    marginRight: 10
+                  }}
+                  title={c}
+                  onClick={() => setSelectedColor(c)}
+                />
               ))}
             </div>
           </div>
