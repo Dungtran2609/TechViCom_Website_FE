@@ -11,6 +11,8 @@ import CartPage from './pages/CartPage';
 import NewsPage from './pages/NewsPage';
 import NewsDetailPage from './pages/NewsDetailPage';
 import ThankYouPage from './pages/ThankYouPage.jsx';
+import OrderListPage from './pages/OrderListPage.jsx';
+import OrderDetailPage from './pages/OrderDetailPage.jsx';
 import './App.css';
 
 function App() {
@@ -30,6 +32,8 @@ function App() {
           <Route path="/news" element={<NewsPage />} />
           <Route path="/news/:id" element={<NewsDetailPage />} />
           <Route path="/thankyou" element={<ThankYouPage />} />
+          <Route path="/orders" element={<OrderListPage />} />
+          <Route path="/order/:id" element={<OrderDetailPage />} />
           {/* Add more routes here */}
         </Routes>
       </Layout>

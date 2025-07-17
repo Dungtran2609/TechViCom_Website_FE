@@ -1,0 +1,78 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "iPhone 15 Pro Max",
+      "price": 31990000,
+      "originalPrice": 34990000,
+      "image": "/images/products/iphone-15-pro.jpg",
+      "installment": "Trả góp 0%",
+      "storage": [
+        "256 GB",
+        "512 GB"
+      ],
+      "colors": [
+        "black",
+        "blue"
+      ],
+      "promotion": "Giảm thêm 3.000.000đ khi thanh toán qua VNPay"
+    },
+    {
+      "id": 2,
+      "name": "Samsung Galaxy S24 Ultra",
+      "price": 29990000,
+      "originalPrice": 31990000,
+      "image": "/images/products/samsung-s24.jpg",
+      "installment": "Trả góp 0%",
+      "storage": [
+        "256 GB",
+        "512 GB"
+      ],
+      "colors": [
+        "black",
+        "gray",
+        "purple"
+      ],
+      "promotion": "Thu cũ đổi mới trợ giá đến 5 triệu"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Điện thoại",
+      "icon": "FaMobileAlt",
+      "path": "/dien-thoai"
+    },
+    {
+      "id": 2,
+      "name": "Laptop",
+      "icon": "FaLaptop",
+      "path": "/laptop"
+    }
+  ],
+  "news": [
+    {
+      "id": 1,
+      "title": "iPhone 16 lộ diện: Thiết kế mới, camera nâng cấp vượt trội",
+      "image": "/images/news/iphone16.jpg",
+      "description": "Apple chuẩn bị ra mắt iPhone 16 với nhiều cải tiến về thiết kế và camera, hứa hẹn tạo nên cơn sốt mới trên thị trường smartphone.",
+      "date": "2024-06-01"
+    },
+    {
+      "id": 2,
+      "title": "Samsung trình làng Galaxy Z Fold6 với công nghệ màn hình gập tiên tiến",
+      "image": "/images/news/galaxy-zfold6.jpg",
+      "description": "Galaxy Z Fold6 mang đến trải nghiệm gập mở mượt mà, cấu hình mạnh mẽ và nhiều tính năng thông minh cho người dùng hiện đại.",
+      "date": "2024-06-02"
+    }
+  ],
+  "users": [
+    {
+      "id": "2056",
+      "phone": "0339820485",
+      "password": "12345678",
+      "email": "Hoanganh@mail.thitcholuoc.edu.vn"
+    }
+  ],
+  "orders": []
+}
