@@ -9,8 +9,8 @@ export const registerUser = (user) =>
   }).then(res => res.json());
 
 // Đăng nhập user
-export const loginUser = (username, password) =>
-  fetch(`${API_URL}/users?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`)
+export const loginUser = (phone, password) =>
+  fetch(`${API_URL}/users?phone=${encodeURIComponent(phone)}&password=${encodeURIComponent(password)}`)
     .then(res => res.json());
 
 // Đặt hàng

@@ -1065,3 +1065,24 @@
     border-radius: 10px;
   }
 }
+.color-dot-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  cursor: pointer;
+  outline: none;
+  display: inline-block;
+  margin-right: 10px;
+  transition: box-shadow 0.2s, border 0.2s;
+}
+.color-dot-btn.active {
+  box-shadow: 0 0 0 3px #e83a45;
+  border: 2.5px solid #e83a45;
+}
+.color-dot-btn:hover {
+  box-shadow: 0 0 0 2px #e83a45;
+}
+.color-dot-btn[style*='background: white'] {
+  border: 2px solid #ccc !important;
+}

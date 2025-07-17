@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../api';
+import Toast from '../components/Toast';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -37,8 +38,9 @@ const RegisterPage = () => {
       // Gọi API đăng ký user
       const user = await registerUser({ phone: form.phone, password: form.password, email: form.email });
       localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('success', 'Đăng ký thành công!');
       setLoading(false);
-      navigate('/');
+      navigate('/login');
     } catch (err) {
       setError('Lỗi kết nối tới server!');
       setLoading(false);
@@ -85,7 +87,9 @@ const RegisterPage = () => {
             <label className="block text-gray-700 font-medium mb-1">Nhập lại mật khẩu</label>
             <input type="password" name="confirmPassword" value={form.confirmPassword} onChange={handleChange} placeholder="Nhập lại mật khẩu" className="w-full border border-orange-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />
           </div>
-          {error && <div className="text-red-500 text-sm text-center">{error}</div>}
+          {error && (
+            <Toast message={error} type="error" onClose={() => setError("")} duration={2200} />
+          )}
           <button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-orange-400 to-orange-500 text-white font-bold py-2 rounded-lg text-lg shadow hover:from-orange-500 hover:to-orange-600 transition">{loading ? 'Đang đăng ký...' : 'Đăng ký'}</button>
           <div className="text-xs text-gray-500 text-center mt-2">
             Khi đăng ký, bạn đồng ý với <a href="#" className="text-orange-500 underline">Điều khoản</a> và <a href="#" className="text-orange-500 underline">Chính sách bảo mật</a> của Techvicom ID
