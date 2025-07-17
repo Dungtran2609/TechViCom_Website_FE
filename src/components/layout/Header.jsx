@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaBars, FaUser, FaShoppingCart, FaMobileAlt, FaLaptop, FaHeadphones, FaSignInAlt, FaUserPlus, FaChevronRight, FaSearch, FaFire } from 'react-icons/fa';
+import { FaBars, FaUser, FaShoppingCart, FaMobileAlt, FaLaptop, FaHeadphones, FaSignInAlt, FaUserPlus, FaChevronRight, FaSearch, FaFire, FaSignOutAlt, FaUserCircle, FaClipboardList } from 'react-icons/fa';
 import { MdAir, MdKitchen } from 'react-icons/md';
 import { BsFan } from 'react-icons/bs';
 import { IoPhonePortrait } from 'react-icons/io5';
@@ -39,6 +39,11 @@ const Header = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const searchRef = useRef(null);
   const [isSearching, setIsSearching] = useState(false);
+  const [user, setUser] = useState(() => {
+    const u = localStorage.getItem('user');
+    return u ? JSON.parse(u) : null;
+  });
+  const [isLoggedIn, setIsLoggedIn] = useState(!!user);
 
   // Filter categories based on search
   const filteredCategories = categories.filter(category =>
@@ -81,6 +86,17 @@ const Header = () => {
     };
   }, [isUserMenuOpen, isMenuOpen, showSuggestions]);
 
+  useEffect(() => {
+    // Lắng nghe thay đổi đăng nhập
+    const handleStorage = () => {
+      const u = localStorage.getItem('user');
+      setUser(u ? JSON.parse(u) : null);
+      setIsLoggedIn(!!u);
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
+
   const currentCategory = categories.find(cat => cat.id === hoveredCategory);
 
   const handleProductSearch = async (e) => {
@@ -110,6 +126,14 @@ const Header = () => {
   const handleInputChange = (e) => {
     setProductSearch(e.target.value);
     setShowSuggestions(e.target.value.trim().length > 0);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setUser(null);
+    setIsLoggedIn(false);
+    setIsUserMenuOpen(false);
+    navigate('/');
   };
 
   return (
@@ -366,31 +390,133 @@ const Header = () => {
                 onClick={() => setIsUserMenuOpen((v) => !v)}
                 className="header-action-btn"
               >
-                <FaUser className="user-icon" style={{ color: '#fff', fontSize: 22, transition: 'color 0.2s' }} />
-                <span style={{ color: '#fff', fontWeight: 600, fontSize: 16, transition: 'color 0.2s' }}>Tài khoản</span>
+                <FaUser className="user-icon" />
+                <span>Tài khoản</span>
               </button>
               {isUserMenuOpen && (
                 <div
                   ref={userMenuRef}
                   className="account-popup-modern"
-                  style={{ left: 0, top: '110%', right: 'auto', position: 'absolute', transform: 'none' }}
+                  style={{
+                    left: 0,
+                    top: '110%',
+                    right: 'auto',
+                    position: 'absolute',
+                    transform: 'none',
+                    minWidth: 200,
+                    background: '#fff',
+                    borderRadius: 12,
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.10)',
+                    padding: 0,
+                    overflow: 'hidden',
+                    zIndex: 1000
+                  }}
                 >
-                  <Link
-                    to="/login"
-                    onClick={() => setIsUserMenuOpen(false)}
-                    className="account-popup-btn login-btn"
-                  >
-                    <FaSignInAlt style={{ fontSize: 20 }} />
-                    Đăng nhập
-                  </Link>
-                  <Link
-                    to="/register"
-                    onClick={() => setIsUserMenuOpen(false)}
-                    className="account-popup-btn register-btn"
-                  >
-                    <FaUserPlus style={{ fontSize: 20 }} />
-                    Đăng ký
-                  </Link>
+                  {isLoggedIn ? (
+                    <>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 10,
+                        padding: '16px 16px 10px 16px',
+                        borderBottom: '1px solid #f3f3f3',
+                        background: '#fff7ed'
+                      }}>
+                        <div style={{
+                          width: 36, height: 36, borderRadius: '50%',
+                          background: '#ffe0b2', display: 'flex', alignItems: 'center', justifyContent: 'center'
+                        }}>
+                          <FaUserCircle style={{ fontSize: 24, color: '#ff9800' }} />
+                        </div>
+                        <div>
+                          <div style={{ fontWeight: 600, fontSize: 15, color: '#ff6c2f' }}>
+                            {user?.phone || user?.username || 'Tài khoản'}
+                          </div>
+                          {user?.email && (
+                            <div style={{ fontSize: 12, color: '#888' }}>{user.email}</div>
+                          )}
+                        </div>
+                      </div>
+                      <div style={{padding: '14px 18px 14px 18px'}}>
+                        <Link
+                          to="/profile"
+                          onClick={() => setIsUserMenuOpen(false)}
+                          className="account-popup-btn"
+                          style={{
+                            display: 'flex', alignItems: 'center', gap: 8, padding: '10px 16px',
+                            fontSize: 14, color: '#333', textDecoration: 'none', border: '1px solid #ffb86c',
+                            borderRadius: 8, marginBottom: 10, background: '#fff', transition: 'background 0.2s'
+                          }}
+                          onMouseOver={e => e.currentTarget.style.background = '#fff3e0'}
+                          onMouseOut={e => e.currentTarget.style.background = 'white'}
+                        >
+                          <FaUserCircle style={{ fontSize: 16 }} />
+                          Thông tin cá nhân
+                        </Link>
+                        <Link
+                          to="/orders"
+                          onClick={() => setIsUserMenuOpen(false)}
+                          className="account-popup-btn"
+                          style={{
+                            display: 'flex', alignItems: 'center', gap: 8, padding: '10px 16px',
+                            fontSize: 14, color: '#333', textDecoration: 'none', border: '1px solid #ffb86c',
+                            borderRadius: 8, background: '#fff', transition: 'background 0.2s'
+                          }}
+                          onMouseOver={e => e.currentTarget.style.background = '#fff3e0'}
+                          onMouseOut={e => e.currentTarget.style.background = 'white'}
+                        >
+                          <FaClipboardList style={{ fontSize: 16 }} />
+                          Đơn hàng của tôi
+                        </Link>
+                        <button
+                          onClick={handleLogout}
+                          className="account-popup-btn"
+                          style={{
+                            background: 'none', border: 'none', color: '#e53935', fontWeight: 500,
+                            fontSize: 14, display: 'flex', alignItems: 'center', gap: 7, borderRadius: 8,
+                            padding: '8px 16px', cursor: 'pointer', transition: 'background 0.2s',
+                            marginTop: 10, width: '100%', textAlign: 'left'
+                          }}
+                          onMouseOver={e => e.currentTarget.style.background = '#ffebee'}
+                          onMouseOut={e => e.currentTarget.style.background = 'white'}
+                        >
+                          <FaSignOutAlt style={{ fontSize: 16 }} />
+                          Đăng xuất
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        to="/login"
+                        onClick={() => setIsUserMenuOpen(false)}
+                        className="account-popup-btn login-btn"
+                        style={{
+                          display: 'flex', alignItems: 'center', gap: 10, padding: '14px 20px',
+                          fontSize: 15, color: '#333', textDecoration: 'none', transition: 'background 0.2s'
+                        }}
+                        onMouseOver={e => e.currentTarget.style.background = '#fff3e0'}
+                        onMouseOut={e => e.currentTarget.style.background = 'white'}
+                      >
+                        <FaSignInAlt style={{ fontSize: 20 }} />
+                        Đăng nhập
+                      </Link>
+                      <Link
+                        to="/register"
+                        onClick={() => setIsUserMenuOpen(false)}
+                        className="account-popup-btn register-btn"
+                        style={{
+                          display: 'flex', alignItems: 'center', gap: 10, padding: '14px 20px',
+                          fontSize: 15, color: '#333', textDecoration: 'none', transition: 'background 0.2s'
+                        }}
+                        onMouseOver={e => e.currentTarget.style.background = '#fff3e0'}
+                        onMouseOut={e => e.currentTarget.style.background = 'white'}
+                      >
+                        <FaUserPlus style={{ fontSize: 20 }} />
+                        Đăng ký
+                      </Link>
+                    </>
+                  )}
                 </div>
               )}
             </div>
@@ -398,8 +524,8 @@ const Header = () => {
               className="header-action-btn"
               onClick={() => setIsCartOpen(true)}
             >
-              <FaShoppingCart className="icon" style={{ color: '#fff', fontSize: 22 }} />
-              <span style={{ color: '#fff', fontWeight: 600, fontSize: 16 }}>Giỏ hàng</span>
+              <FaShoppingCart className="icon" />
+              <span>Giỏ hàng</span>
             </button>
           </div>
         </div>

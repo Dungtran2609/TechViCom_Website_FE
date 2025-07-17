@@ -717,20 +717,32 @@
 } 
 
 .header-action-btn {
+  background: #ff6c2f !important;
+  color: #fff !important;
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(255,108,47,0.08);
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 0 22px;
-  background: #ff6c2f;
-  border: none;
   border-radius: 20px;
-  color: #fff;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   height: 40px;
   transition: all 0.22s cubic-bezier(.7,.2,.2,1);
-  box-shadow: 0 2px 8px rgba(255,108,47,0.08);
+}
+.header-action-btn .user-icon,
+.header-action-btn .icon {
+  color: #fff !important;
+  font-size: 22px;
+  transition: color 0.2s;
+}
+.header-action-btn span {
+  color: #fff !important;
+  font-weight: 600;
+  font-size: 16px;
+  transition: color 0.2s;
 }
 .header-action-btn:hover {
   background: #e55a1f;

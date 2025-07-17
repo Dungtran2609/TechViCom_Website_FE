@@ -1,7 +1,42 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginUser } from '../api';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const [form, setForm] = useState({ phone: '', password: '' });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError('');
+    if (!form.phone.trim() || !form.password.trim()) {
+      setError('Vui lòng nhập đầy đủ thông tin!');
+      return;
+    }
+    setLoading(true);
+    try {
+      // Gọi API đăng nhập user
+      const users = await loginUser(form.phone, form.password);
+      if (users.length > 0) {
+        localStorage.setItem('user', JSON.stringify(users[0]));
+        setLoading(false);
+        navigate('/');
+      } else {
+        setError('Sai tài khoản hoặc mật khẩu!');
+        setLoading(false);
+      }
+    } catch (err) {
+      setError('Lỗi kết nối tới server!');
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen pt-24 flex items-center justify-center bg-gradient-to-br from-orange-50 to-white relative overflow-hidden">
       {/* Background hình ảnh bên trái */}
@@ -25,16 +60,17 @@ const LoginPage = () => {
           </div>
           <h2 className="text-xl font-semibold text-gray-800 mb-1">Đăng nhập tài khoản</h2>
         </div>
-        <form className="w-full max-w-sm space-y-4">
+        <form className="w-full max-w-sm space-y-4" onSubmit={handleLogin}>
           <div>
             <label className="block text-gray-700 font-medium mb-1">Số điện thoại</label>
-            <input type="text" placeholder="Nhập số điện thoại" className="w-full border border-orange-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+            <input type="text" name="phone" value={form.phone} onChange={handleChange} placeholder="Nhập số điện thoại" className="w-full border border-orange-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />
           </div>
           <div>
             <label className="block text-gray-700 font-medium mb-1">Mật khẩu</label>
-            <input type="password" placeholder="Nhập mật khẩu" className="w-full border border-orange-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+            <input type="password" name="password" value={form.password} onChange={handleChange} placeholder="Nhập mật khẩu" className="w-full border border-orange-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />
           </div>
-          <button type="submit" className="w-full bg-gradient-to-r from-orange-400 to-orange-500 text-white font-bold py-2 rounded-lg text-lg shadow hover:from-orange-500 hover:to-orange-600 transition">Đăng nhập</button>
+          {error && <div className="text-red-500 text-sm text-center">{error}</div>}
+          <button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-orange-400 to-orange-500 text-white font-bold py-2 rounded-lg text-lg shadow hover:from-orange-500 hover:to-orange-600 transition">{loading ? 'Đang đăng nhập...' : 'Đăng nhập'}</button>
           <div className="text-xs text-gray-500 text-center mt-2">
             Khi đăng nhập, bạn đồng ý với <a href="#" className="text-orange-500 underline">Điều khoản</a> và <a href="#" className="text-orange-500 underline">Chính sách bảo mật</a> của Techvicom ID
           </div>
