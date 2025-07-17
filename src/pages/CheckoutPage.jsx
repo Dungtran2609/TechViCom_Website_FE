@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { products } from '../data/products';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -8,6 +8,22 @@ function useQuery() {
 
 const CheckoutPage = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [form, setForm] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    address: '',
+    addressDetail: '',
+    note: '',
+    delivery: 'Giao hàng tận nơi',
+    payment: '',
+    invoice: false,
+    confirmCall: false,
+  });
+  const [errors, setErrors] = useState({});
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const query = useQuery();
 
   useEffect(() => {
@@ -52,6 +68,44 @@ const CheckoutPage = () => {
   const totalOriginal = cartItems.reduce((sum, item) => sum + item.originalPrice * item.quantity, 0);
   const totalSave = totalOriginal - total;
 
+  // Validate form
+  const validate = () => {
+    const newErrors = {};
+    if (!form.name.trim()) newErrors.name = 'Vui lòng nhập họ tên';
+    if (!/^0\d{9,10}$/.test(form.phone.trim())) newErrors.phone = 'Số điện thoại không hợp lệ';
+    if (form.email && !/^\S+@\S+\.\S+$/.test(form.email.trim())) newErrors.email = 'Email không hợp lệ';
+    if (!form.address.trim()) newErrors.address = 'Vui lòng nhập địa chỉ';
+    if (!form.addressDetail.trim()) newErrors.addressDetail = 'Vui lòng nhập địa chỉ chi tiết';
+    if (!form.payment) newErrors.payment = 'Vui lòng chọn phương thức thanh toán';
+    return newErrors;
+  };
+
+  // Xử lý đặt hàng
+  const handleOrder = () => {
+    const newErrors = validate();
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) return;
+    setLoading(true);
+    setTimeout(() => {
+      // Lưu đơn hàng vào localStorage
+      const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+      orders.push({
+        ...form,
+        items: cartItems,
+        total,
+        createdAt: new Date().toISOString(),
+      });
+      localStorage.setItem('orders', JSON.stringify(orders));
+      // Xóa giỏ hàng
+      localStorage.removeItem('cart');
+      setSuccess(true);
+      setLoading(false);
+      setTimeout(() => {
+        navigate('/thankyou');
+      }, 1800);
+    }, 1200);
+  };
+
   return (
     <div className="bg-gray-100 min-h-screen pt-24 pb-6">
       <div className="max-w-6xl mx-auto checkout-sticky-parent flex gap-6">
@@ -86,9 +140,12 @@ const CheckoutPage = () => {
           <div className="bg-white rounded-lg shadow p-6">
             <h2 className="font-semibold text-gray-800 text-sm mb-4">Người đặt hàng</h2>
             <div className="space-y-3">
-              <input className="w-full border rounded px-3 py-2 text-sm" placeholder="Họ và tên" />
-              <input className="w-full border rounded px-3 py-2 text-sm" placeholder="Số điện thoại" />
-              <input className="w-full border rounded px-3 py-2 text-sm" placeholder="Email (không bắt buộc)" />
+              <input className="w-full border rounded px-3 py-2 text-sm" placeholder="Họ và tên" value={form.name} onChange={e => setForm(f => ({...f, name: e.target.value}))} />
+              {errors.name && <div className="text-red-500 text-xs">{errors.name}</div>}
+              <input className="w-full border rounded px-3 py-2 text-sm" placeholder="Số điện thoại" value={form.phone} onChange={e => setForm(f => ({...f, phone: e.target.value}))} />
+              {errors.phone && <div className="text-red-500 text-xs">{errors.phone}</div>}
+              <input className="w-full border rounded px-3 py-2 text-sm" placeholder="Email (không bắt buộc)" value={form.email} onChange={e => setForm(f => ({...f, email: e.target.value}))} />
+              {errors.email && <div className="text-red-500 text-xs">{errors.email}</div>}
             </div>
           </div>
 
@@ -96,19 +153,21 @@ const CheckoutPage = () => {
           <div className="bg-white rounded-lg shadow p-6">
             <h2 className="font-semibold text-gray-800 text-sm mb-4">Hình thức nhận hàng</h2>
             <div className="flex gap-4 mb-4">
-              <button className="flex-1 border border-blue-500 text-blue-500 rounded px-4 py-2 font-medium text-sm bg-blue-50">Giao hàng tận nơi</button>
-              <button className="flex-1 border border-gray-300 text-gray-500 rounded px-4 py-2 font-medium text-sm">Nhận tại cửa hàng</button>
+              <button type="button" className={`flex-1 border ${form.delivery === 'Giao hàng tận nơi' ? 'border-blue-500 text-blue-500 bg-blue-50' : 'border-gray-300 text-gray-500'} rounded px-4 py-2 font-medium text-sm`} onClick={() => setForm(f => ({...f, delivery: 'Giao hàng tận nơi'}))}>Giao hàng tận nơi</button>
+              <button type="button" className={`flex-1 border ${form.delivery === 'Nhận tại cửa hàng' ? 'border-blue-500 text-blue-500 bg-blue-50' : 'border-gray-300 text-gray-500'} rounded px-4 py-2 font-medium text-sm`} onClick={() => setForm(f => ({...f, delivery: 'Nhận tại cửa hàng'}))}>Nhận tại cửa hàng</button>
             </div>
-            <input className="w-full border rounded px-3 py-2 text-sm mb-2" placeholder="Tỉnh/Thành phố, Quận/Huyện, Phường/Xã" />
-            <input className="w-full border rounded px-3 py-2 text-sm mb-2" placeholder="Địa chỉ nhận hàng (số nhà, tên đường, tên khu vực)" />
-            <textarea className="w-full border rounded px-3 py-2 text-sm mb-2" placeholder="Ghi chú khác (không bắt buộc khi nhận hàng)" rows={2} maxLength={170}></textarea>
+            <input className="w-full border rounded px-3 py-2 text-sm mb-2" placeholder="Tỉnh/Thành phố, Quận/Huyện, Phường/Xã" value={form.address} onChange={e => setForm(f => ({...f, address: e.target.value}))} />
+            {errors.address && <div className="text-red-500 text-xs">{errors.address}</div>}
+            <input className="w-full border rounded px-3 py-2 text-sm mb-2" placeholder="Địa chỉ nhận hàng (số nhà, tên đường, tên khu vực)" value={form.addressDetail} onChange={e => setForm(f => ({...f, addressDetail: e.target.value}))} />
+            {errors.addressDetail && <div className="text-red-500 text-xs">{errors.addressDetail}</div>}
+            <textarea className="w-full border rounded px-3 py-2 text-sm mb-2" placeholder="Ghi chú khác (không bắt buộc khi nhận hàng)" rows={2} maxLength={170} value={form.note} onChange={e => setForm(f => ({...f, note: e.target.value}))}></textarea>
             <div className="flex items-center gap-4 text-xs text-gray-600">
               <label className="flex items-center gap-2">
-                <input type="checkbox" className="accent-blue-500" />
+                <input type="checkbox" className="accent-blue-500" checked={form.invoice} onChange={e => setForm(f => ({...f, invoice: e.target.checked}))} />
                 Xuất hóa đơn điện tử
               </label>
               <label className="flex items-center gap-2">
-                <input type="checkbox" className="accent-blue-500" />
+                <input type="checkbox" className="accent-blue-500" checked={form.confirmCall} onChange={e => setForm(f => ({...f, confirmCall: e.target.checked}))} />
                 Gọi xác nhận trước khi giao hàng
               </label>
             </div>
@@ -118,42 +177,13 @@ const CheckoutPage = () => {
           <div className="bg-white rounded-lg shadow p-6">
             <h2 className="font-semibold text-gray-800 text-sm mb-4">Phương thức thanh toán</h2>
             <div className="space-y-3 text-sm">
-              <label className="flex items-center gap-2">
-                <input type="radio" name="payment" className="accent-red-500" />
-                Thanh toán khi nhận hàng
-              </label>
-              <label className="flex items-center gap-2">
-                <input type="radio" name="payment" className="accent-blue-500" />
-                Thanh toán quét QR code, ví VNPAY, ZaloPay, Momo, ShopeePay
-              </label>
-              <label className="flex items-center gap-2">
-                <input type="radio" name="payment" className="accent-green-500" />
-                Thanh toán qua thẻ ATM nội địa/Internet Banking
-              </label>
-              <label className="flex items-center gap-2">
-                <input type="radio" name="payment" className="accent-yellow-500" />
-                Thanh toán qua thẻ quốc tế Visa, Master, JCB, AMEX, Apple Pay, Google Pay, Samsung Pay
-              </label>
-              <label className="flex items-center gap-2">
-                <input type="radio" name="payment" className="accent-pink-500" />
-                Thanh toán qua thẻ tín dụng/trả góp qua thẻ tín dụng
-              </label>
-              <label className="flex items-center gap-2">
-                <input type="radio" name="payment" className="accent-purple-500" />
-                Thanh toán qua thẻ ATM trả góp qua thẻ nội địa
-              </label>
-              <label className="flex items-center gap-2">
-                <input type="radio" name="payment" className="accent-indigo-500" />
-                Thanh toán qua ví Moca/Grab
-              </label>
-              <label className="flex items-center gap-2">
-                <input type="radio" name="payment" className="accent-blue-400" />
-                Thanh toán qua ví ZaloPay
-              </label>
-              <label className="flex items-center gap-2">
-                <input type="radio" name="payment" className="accent-red-400" />
-                Thanh toán qua ví ShopeePay
-              </label>
+              {["Thanh toán khi nhận hàng","Thanh toán quét QR code, ví VNPAY, ZaloPay, Momo, ShopeePay","Thanh toán qua thẻ ATM nội địa/Internet Banking","Thanh toán qua thẻ quốc tế Visa, Master, JCB, AMEX, Apple Pay, Google Pay, Samsung Pay","Thanh toán qua thẻ tín dụng/trả góp qua thẻ tín dụng","Thanh toán qua thẻ ATM trả góp qua thẻ nội địa","Thanh toán qua ví Moca/Grab","Thanh toán qua ví ZaloPay","Thanh toán qua ví ShopeePay"].map((method, idx) => (
+                <label key={idx} className="flex items-center gap-2">
+                  <input type="radio" name="payment" className="accent-red-500" checked={form.payment === method} onChange={() => setForm(f => ({...f, payment: method}))} />
+                  {method}
+                </label>
+              ))}
+              {errors.payment && <div className="text-red-500 text-xs">{errors.payment}</div>}
             </div>
           </div>
         </div>
@@ -178,7 +208,8 @@ const CheckoutPage = () => {
               <span>Đã bao gồm VAT</span>
               <span>-5.472₫</span>
             </div>
-            <button className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 rounded text-base">Đặt hàng</button>
+            <button className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 rounded text-base" onClick={handleOrder} disabled={loading || cartItems.length === 0}>{loading ? 'Đang xử lý...' : 'Đặt hàng'}</button>
+            {success && <div className="text-green-600 text-center mt-3 font-semibold">Đặt hàng thành công! Đang chuyển hướng...</div>}
             <div className="text-xs text-gray-500 mt-3 text-center">Bằng việc đặt hàng, bạn đồng ý với <span className="text-blue-500 underline cursor-pointer">Điều khoản sử dụng</span> và <span className="text-blue-500 underline cursor-pointer">Chính sách bảo mật</span> của chúng tôi.</div>
           </div>
         </div>

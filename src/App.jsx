@@ -10,6 +10,7 @@ import ScrollToTop from './components/ScrollToTop';
 import CartPage from './pages/CartPage';
 import NewsPage from './pages/NewsPage';
 import NewsDetailPage from './pages/NewsDetailPage';
+import ThankYouPage from './pages/ThankYouPage.jsx';
 import './App.css';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/news" element={<NewsPage />} />
           <Route path="/news/:id" element={<NewsDetailPage />} />
+          <Route path="/thankyou" element={<ThankYouPage />} />
           {/* Add more routes here */}
         </Routes>
       </Layout>
