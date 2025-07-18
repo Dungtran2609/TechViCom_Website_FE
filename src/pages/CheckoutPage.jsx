@@ -27,6 +27,17 @@ const CheckoutPage = () => {
   const query = useQuery();
 
   useEffect(() => {
+    // Lấy thông tin user từ localStorage nếu đã đăng nhập
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      setForm(f => ({
+        ...f,
+        name: user.name || '',
+        phone: user.phone || '',
+        email: user.email || '',
+        address: (user.addresses && user.addresses.find(a => a.isDefault)?.address) || '',
+      }));
+    }
     const buyNowId = query.get('buyNow');
     const buyNowStorage = query.get('storage');
     if (buyNowId) {
@@ -81,28 +92,40 @@ const CheckoutPage = () => {
   };
 
   // Xử lý đặt hàng
-  const handleOrder = () => {
+  const handleOrder = async () => {
     const newErrors = validate();
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
     setLoading(true);
-    setTimeout(() => {
-      // Lưu đơn hàng vào localStorage
-      const orders = JSON.parse(localStorage.getItem('orders') || '[]');
-      orders.push({
-        ...form,
-        items: cartItems,
+    setTimeout(async () => {
+      // Lưu đơn hàng vào user (db.json)
+      const user = JSON.parse(localStorage.getItem('user'));
+      const newOrder = {
+        orderId: 'DH' + Math.floor(Math.random() * 100000),
+        date: new Date().toLocaleDateString('vi-VN'),
         total,
-        createdAt: new Date().toISOString(),
+        status: 'Đang xử lý',
+        products: cartItems.map(item => ({
+          name: item.name,
+          quantity: item.quantity,
+          price: item.price
+        }))
+      };
+      const updatedOrders = [...(user.orders || []), newOrder];
+      await fetch(`http://localhost:3001/users/${user.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orders: updatedOrders })
       });
-      localStorage.setItem('orders', JSON.stringify(orders));
+      const updatedUser = { ...user, orders: updatedOrders };
+      localStorage.setItem('user', JSON.stringify(updatedUser));
       // Xóa giỏ hàng
       localStorage.removeItem('cart');
       setSuccess(true);
       setLoading(false);
       setTimeout(() => {
         navigate('/thankyou');
-      }, 1800);
+      }, 1200);
     }, 1200);
   };
 

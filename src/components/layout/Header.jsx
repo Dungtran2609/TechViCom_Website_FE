@@ -88,14 +88,29 @@ const Header = () => {
   }, [isUserMenuOpen, isMenuOpen, showSuggestions]);
 
   useEffect(() => {
-    const syncUser = () => {
-      const u = localStorage.getItem('user');
-      setUser(u ? JSON.parse(u) : null);
-      setIsLoggedIn(!!u);
-    };
-    window.addEventListener('userChanged', syncUser);
-    syncUser(); // Gọi luôn khi location thay đổi
-    return () => window.removeEventListener('userChanged', syncUser);
+    const u = localStorage.getItem('user');
+    if (u) {
+      const userObj = JSON.parse(u);
+      fetch(`http://localhost:3001/users/${userObj.id}`)
+        .then(res => {
+          if (!res.ok) throw new Error();
+          return res.json();
+        })
+        .then(data => {
+          localStorage.setItem('user', JSON.stringify(data));
+          setUser(data);
+          setIsLoggedIn(true);
+        })
+        .catch(() => {
+          localStorage.removeItem('user');
+          setUser(null);
+          setIsLoggedIn(false);
+          // Nếu đang ở trang tài khoản thì chuyển về login
+          if (location.pathname.startsWith('/account')) {
+            navigate('/login');
+          }
+        });
+    }
   }, [location]);
 
   const currentCategory = categories.find(cat => cat.id === hoveredCategory);
@@ -440,50 +455,51 @@ const Header = () => {
                           )}
                         </div>
                       </div>
-                      <div style={{padding: '14px 18px 14px 18px'}}>
+                      <div style={{padding: '14px 32px 14px 32px', display: 'flex', flexDirection: 'column', gap: 12}}>
                         <Link
-                          to="/profile"
+                          to="/account"
                           onClick={() => setIsUserMenuOpen(false)}
-                          className="account-popup-btn"
                           style={{
-                            display: 'flex', alignItems: 'center', gap: 8, padding: '10px 16px',
-                            fontSize: 14, color: '#333', textDecoration: 'none', border: '1px solid #ffb86c',
-                            borderRadius: 8, marginBottom: 10, background: '#fff', transition: 'background 0.2s'
+                            display: 'flex', alignItems: 'center', gap: 10, padding: '12px 24px',
+                            fontSize: 16, color: '#222', textDecoration: 'none', border: '2px solid #ff9800',
+                            borderRadius: 12, background: '#fff', fontWeight: 600, justifyContent: 'center',
+                            transition: 'background 0.2s, color 0.2s, border 0.2s',
+                            cursor: 'pointer'
                           }}
-                          onMouseOver={e => e.currentTarget.style.background = '#fff3e0'}
-                          onMouseOut={e => e.currentTarget.style.background = 'white'}
+                          onMouseOver={e => { e.currentTarget.style.background = '#fff7ed'; e.currentTarget.style.color = '#ff9800'; }}
+                          onMouseOut={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#222'; }}
                         >
-                          <FaUserCircle style={{ fontSize: 16 }} />
+                          <FaUserCircle style={{ fontSize: 20, color: '#222', marginRight: 8 }} />
                           Thông tin cá nhân
                         </Link>
                         <Link
                           to="/orders"
                           onClick={() => setIsUserMenuOpen(false)}
-                          className="account-popup-btn"
                           style={{
-                            display: 'flex', alignItems: 'center', gap: 8, padding: '10px 16px',
-                            fontSize: 14, color: '#333', textDecoration: 'none', border: '1px solid #ffb86c',
-                            borderRadius: 8, background: '#fff', transition: 'background 0.2s'
+                            display: 'flex', alignItems: 'center', gap: 10, padding: '12px 24px',
+                            fontSize: 16, color: '#222', textDecoration: 'none', border: '2px solid #ff9800',
+                            borderRadius: 12, background: '#fff', fontWeight: 600, justifyContent: 'center',
+                            transition: 'background 0.2s, color 0.2s, border 0.2s',
+                            cursor: 'pointer'
                           }}
-                          onMouseOver={e => e.currentTarget.style.background = '#fff3e0'}
-                          onMouseOut={e => e.currentTarget.style.background = 'white'}
+                          onMouseOver={e => { e.currentTarget.style.background = '#fff7ed'; e.currentTarget.style.color = '#ff9800'; }}
+                          onMouseOut={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#222'; }}
                         >
-                          <FaClipboardList style={{ fontSize: 16 }} />
+                          <FaClipboardList style={{ fontSize: 20, color: '#222', marginRight: 8 }} />
                           Đơn hàng của tôi
                         </Link>
                         <button
                           onClick={handleLogout}
-                          className="account-popup-btn"
                           style={{
-                            background: 'none', border: 'none', color: '#e53935', fontWeight: 500,
-                            fontSize: 14, display: 'flex', alignItems: 'center', gap: 7, borderRadius: 8,
-                            padding: '8px 16px', cursor: 'pointer', transition: 'background 0.2s',
-                            marginTop: 10, width: '100%', textAlign: 'left'
+                            display: 'flex', alignItems: 'center', gap: 10, padding: '12px 0',
+                            fontSize: 16, color: '#e53935', background: '#fff', border: '2px solid #e53935',
+                            borderRadius: 12, fontWeight: 600, justifyContent: 'center',
+                            marginTop: 8, cursor: 'pointer', transition: 'background 0.2s, color 0.2s, border 0.2s'
                           }}
-                          onMouseOver={e => e.currentTarget.style.background = '#ffebee'}
-                          onMouseOut={e => e.currentTarget.style.background = 'white'}
+                          onMouseOver={e => { e.currentTarget.style.background = '#ffebee'; e.currentTarget.style.color = '#b71c1c'; }}
+                          onMouseOut={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#e53935'; }}
                         >
-                          <FaSignOutAlt style={{ fontSize: 16 }} />
+                          <FaSignOutAlt style={{ fontSize: 20, color: '#e53935', marginRight: 8 }} />
                           Đăng xuất
                         </button>
                       </div>

@@ -5,7 +5,7 @@ import Toast from '../components/Toast';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ phone: '', password: '', confirmPassword: '', email: '' });
+  const [form, setForm] = useState({ name: '', phone: '', password: '', confirmPassword: '', email: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -16,7 +16,7 @@ const RegisterPage = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     setError('');
-    if (!form.phone.trim() || !form.password.trim() || !form.confirmPassword.trim()) {
+    if (!form.name.trim() || !form.phone.trim() || !form.password.trim() || !form.confirmPassword.trim()) {
       setError('Vui lòng nhập đầy đủ thông tin!');
       return;
     }
@@ -26,8 +26,9 @@ const RegisterPage = () => {
     }
     setLoading(true);
     try {
-      // Kiểm tra trùng số điện thoại trên đúng port 3002
-      const checkRes = await fetch(`http://localhost:3002/users?phone=${encodeURIComponent(form.phone)}`);
+      const API_URL = 'http://localhost:3001';
+      // Kiểm tra trùng số điện thoại trên đúng port 3001
+      const checkRes = await fetch(`${API_URL}/users?phone=${encodeURIComponent(form.phone)}`);
       const existed = await checkRes.json();
       console.log('Kết quả kiểm tra số điện thoại:', existed); // debug
       if (Array.isArray(existed) && existed.length > 0) {
@@ -36,9 +37,10 @@ const RegisterPage = () => {
         return;
       }
       // Gọi API đăng ký user
-      const user = await registerUser({ phone: form.phone, password: form.password, email: form.email });
+      const user = await registerUser({ name: form.name, phone: form.phone, password: form.password, email: form.email, addresses: [], orders: [], avatar: '/images/avatar-default.png' });
       localStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('success', 'Đăng ký thành công!');
+      localStorage.setItem('firstLogin', 'true');
       setLoading(false);
       navigate('/login');
     } catch (err) {
@@ -72,20 +74,24 @@ const RegisterPage = () => {
         </div>
         <form className="w-full max-w-sm space-y-4" onSubmit={handleRegister}>
           <div>
+            <label className="block text-gray-700 font-medium mb-1">Tên</label>
+            <input type="text" name="name" value={form.name} onChange={handleChange} placeholder="Nhập họ và tên" className="w-full border border-orange-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+          </div>
+          <div>
             <label className="block text-gray-700 font-medium mb-1">Số điện thoại</label>
             <input type="text" name="phone" value={form.phone} onChange={handleChange} placeholder="Nhập số điện thoại" className="w-full border border-orange-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />
           </div>
           <div>
             <label className="block text-gray-700 font-medium mb-1">Email (không bắt buộc)</label>
-            <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="Nhập email" className="w-full border border-orange-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+            <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="Nhập email" className="w-full border border-orange-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" autoComplete="email" />
           </div>
           <div>
             <label className="block text-gray-700 font-medium mb-1">Mật khẩu</label>
-            <input type="password" name="password" value={form.password} onChange={handleChange} placeholder="Nhập mật khẩu" className="w-full border border-orange-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+            <input type="password" name="password" value={form.password} onChange={handleChange} placeholder="Nhập mật khẩu" className="w-full border border-orange-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" autoComplete="new-password" />
           </div>
           <div>
             <label className="block text-gray-700 font-medium mb-1">Nhập lại mật khẩu</label>
-            <input type="password" name="confirmPassword" value={form.confirmPassword} onChange={handleChange} placeholder="Nhập lại mật khẩu" className="w-full border border-orange-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+            <input type="password" name="confirmPassword" value={form.confirmPassword} onChange={handleChange} placeholder="Nhập lại mật khẩu" className="w-full border border-orange-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" autoComplete="new-password" />
           </div>
           {error && (
             <Toast message={error} type="error" onClose={() => setError("")} duration={2200} />

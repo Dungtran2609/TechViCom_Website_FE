@@ -2,15 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { products } from '../data/products';
 import { Link, useNavigate } from 'react-router-dom';
 
+function getCurrentUser() {
+  return JSON.parse(localStorage.getItem('user'));
+}
+
 function getCartProducts() {
-  if (typeof window === 'undefined') return [];
-  const data = localStorage.getItem('cart');
-  if (!data) return [];
-  try {
-    return JSON.parse(data);
-  } catch {
-    return [];
-  }
+  const user = getCurrentUser();
+  return user && user.cart ? user.cart : [];
 }
 
 export default function CartPage() {
@@ -20,6 +18,20 @@ export default function CartPage() {
   useEffect(() => {
     setCart(getCartProducts());
   }, []);
+
+  // Helper để cập nhật cart vào user (db.json và localStorage)
+  const updateUserCart = async (newCart) => {
+    const user = getCurrentUser();
+    if (!user) return;
+    await fetch(`http://localhost:3001/users/${user.id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cart: newCart })
+    });
+    const updatedUser = { ...user, cart: newCart };
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+    setCart(newCart);
+  };
 
   // Tìm thông tin sản phẩm từ products.js
   const cartDetails = cart.map(item => {
@@ -34,20 +46,18 @@ export default function CartPage() {
   const totalSave = totalOriginal - total;
 
   // Xử lý tăng/giảm/xóa
-  const updateQuantity = (id, variant, delta) => {
+  const updateQuantity = async (id, variant, delta) => {
     const newCart = cart.map(item => {
       if (item.id === id && item.variant.storage === variant.storage) {
         return { ...item, quantity: Math.max(1, item.quantity + delta) };
       }
       return item;
     });
-    setCart(newCart);
-    localStorage.setItem('cart', JSON.stringify(newCart));
+    await updateUserCart(newCart);
   };
-  const removeItem = (id, variant) => {
+  const removeItem = async (id, variant) => {
     const newCart = cart.filter(item => !(item.id === id && item.variant.storage === variant.storage));
-    setCart(newCart);
-    localStorage.setItem('cart', JSON.stringify(newCart));
+    await updateUserCart(newCart);
   };
 
   return (

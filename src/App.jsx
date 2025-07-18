@@ -13,6 +13,8 @@ import NewsDetailPage from './pages/NewsDetailPage';
 import ThankYouPage from './pages/ThankYouPage.jsx';
 import OrderListPage from './pages/OrderListPage.jsx';
 import OrderDetailPage from './pages/OrderDetailPage.jsx';
+import AccountPage from './pages/AccountPage';
+import UpdateProfilePage from './pages/UpdateProfilePage';
 import './App.css';
 
 function App() {
@@ -34,6 +36,8 @@ function App() {
           <Route path="/thankyou" element={<ThankYouPage />} />
           <Route path="/orders" element={<OrderListPage />} />
           <Route path="/order/:id" element={<OrderDetailPage />} />
+          <Route path="/account" element={<AccountPage />} />
+          <Route path="/update-profile" element={<UpdateProfilePage />} />
           {/* Add more routes here */}
         </Routes>
       </Layout>
