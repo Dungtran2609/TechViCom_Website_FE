@@ -1,26 +1,47 @@
-const API_URL = "http://localhost:3002";
+// API cho user và orders sử dụng json-server
+const API_URL = 'http://localhost:3001';
 
-// Đăng ký user
-export const registerUser = (user) =>
-  fetch(`${API_URL}/users`, {
+export async function getUser(id = 1) {
+  const res = await fetch(`${API_URL}/users/${id}`);
+  if (!res.ok) throw new Error('Không lấy được thông tin user');
+  return res.json();
+}
+
+export async function updateUser(id, data) {
+  const res = await fetch(`${API_URL}/users/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+  if (!res.ok) throw new Error('Cập nhật thông tin thất bại');
+  return res.json();
+}
+
+export async function getOrders(userId = 1) {
+  const res = await fetch(`${API_URL}/orders?userId=${userId}`);
+  if (!res.ok) throw new Error('Không lấy được lịch sử mua hàng');
+  return res.json();
+}
+
+export async function loginUser(phone, password) {
+  const res = await fetch(`${API_URL}/users?phone=${encodeURIComponent(phone)}&password=${encodeURIComponent(password)}`);
+  if (!res.ok) throw new Error('Lỗi đăng nhập');
+  return res.json();
+}
+
+export async function registerUser(user) {
+  const res = await fetch(`${API_URL}/users`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(user),
-  }).then(res => res.json());
+  });
+  if (!res.ok) throw new Error('Lỗi đăng ký');
+  return res.json();
+}
 
-// Đăng nhập user
-export const loginUser = (phone, password) =>
-  fetch(`${API_URL}/users?phone=${encodeURIComponent(phone)}&password=${encodeURIComponent(password)}`)
-    .then(res => res.json());
-
-// Đặt hàng
-export const createOrder = (order) =>
-  fetch(`${API_URL}/orders`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(order),
-  }).then(res => res.json());
-
-// Lấy đơn hàng theo userId
-export const getOrdersByUser = (userId) =>
-  fetch(`${API_URL}/orders?userId=${userId}`).then(res => res.json()); 
+export function checkUserMissingInfo(user) {
+  if (!user) return true;
+  if (!user.name || !user.birthday || !user.gender || !user.avatar) return true;
+  if (!user.addresses || user.addresses.length === 0 || !user.addresses[0].address) return true;
+  return false;
+}

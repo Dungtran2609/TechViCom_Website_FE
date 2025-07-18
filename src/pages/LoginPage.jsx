@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginUser } from '../api';
+import { loginUser, checkUserMissingInfo } from '../api';
 import Toast from '../components/Toast';
 
 const LoginPage = () => {
@@ -30,7 +30,12 @@ const LoginPage = () => {
         localStorage.setItem('success', 'Đăng nhập thành công!');
         window.dispatchEvent(new Event('userChanged'));
         setLoading(false);
-        navigate('/');
+        if (localStorage.getItem('firstLogin') === 'true') {
+          localStorage.removeItem('firstLogin');
+          navigate('/update-profile');
+        } else {
+          navigate('/');
+        }
       } else {
         setError('Sai tài khoản hoặc mật khẩu!');
         setLoading(false);
@@ -67,11 +72,11 @@ const LoginPage = () => {
         <form className="w-full max-w-sm space-y-4" onSubmit={handleLogin}>
           <div>
             <label className="block text-gray-700 font-medium mb-1">Số điện thoại</label>
-            <input type="text" name="phone" value={form.phone} onChange={handleChange} placeholder="Nhập số điện thoại" className="w-full border border-orange-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+            <input type="text" name="phone" value={form.phone} onChange={handleChange} placeholder="Nhập số điện thoại" className="w-full border border-orange-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" autoComplete="username" />
           </div>
           <div>
             <label className="block text-gray-700 font-medium mb-1">Mật khẩu</label>
-            <input type="password" name="password" value={form.password} onChange={handleChange} placeholder="Nhập mật khẩu" className="w-full border border-orange-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+            <input type="password" name="password" value={form.password} onChange={handleChange} placeholder="Nhập mật khẩu" className="w-full border border-orange-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" autoComplete="current-password" />
           </div>
           {error && (
             <Toast message={error} type="error" onClose={() => setError("")} duration={2200} />
