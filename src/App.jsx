@@ -27,6 +27,7 @@ function App() {
           <Route path="/product/:id" element={<ProductDetailPage />} />
           <Route path="/dien-thoai" element={<ProductListPage />} />
           <Route path="/products" element={<ProductListPage />} />
+          <Route path="/products/:category" element={<ProductListPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />

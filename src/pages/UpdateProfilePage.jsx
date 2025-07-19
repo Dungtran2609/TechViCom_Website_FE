@@ -18,6 +18,7 @@ export default function UpdateProfilePage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -59,6 +60,17 @@ export default function UpdateProfilePage() {
     }
   };
 
+  // Thêm hàm upload avatar
+  const handleAvatarUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      setForm(f => ({ ...f, avatar: ev.target.result }));
+    };
+    reader.readAsDataURL(file);
+  };
+
   useEffect(() => {
     if (!loading && !error && user) {
       const missing = REQUIRED_FIELDS.filter(f => {
@@ -98,14 +110,10 @@ export default function UpdateProfilePage() {
             return (
               <div key={f.name} style={{ marginBottom: 18 }}>
                 <label style={{ fontWeight: 600 }}>Ảnh đại diện</label>
-                <input type="file" accept="image/*" style={{ marginTop: 8 }} onChange={e => {
-                  if (e.target.files && e.target.files[0]) {
-                    const fileName = e.target.files[0].name;
-                    setForm(f => ({ ...f, avatar: `/images/avatars/${fileName}` }));
-                  }
-                }} />
+                <input type="file" accept="image/*" style={{ marginTop: 8 }} onChange={handleAvatarUpload} disabled={uploading} />
                 <div style={{ marginTop: 8 }}>
-                  <img src={form.avatar} alt="avatar" style={{ width: 80, height: 80, borderRadius: '50%', border: '2px solid #ff9800', marginTop: 8 }} />
+                  <img src={form.avatar || '/images/avatar-default.png'} alt="avatar" style={{ width: 80, height: 80, borderRadius: '50%', border: '2px solid #ff9800', marginTop: 8 }} />
+                  {uploading && <div>Đang upload...</div>}
                 </div>
               </div>
             );

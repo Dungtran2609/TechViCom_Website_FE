@@ -202,7 +202,7 @@ const Header = () => {
                           {categories.filter(cat => cat.isHot).slice(0, 4).map((category) => (
                             <Link
                               key={category.id}
-                              to={category.path}
+                              to={`/products${category.path}`}
                               className="hot-category-item"
                               onClick={() => setIsMenuOpen(false)}
                             >
@@ -227,7 +227,7 @@ const Header = () => {
                             onMouseEnter={() => setHoveredCategory(category.id)}
                           >
                             <Link 
-                              to={category.path}
+                              to={`/products${category.path}`}
                               className="category-link"
                               onClick={() => setIsMenuOpen(false)}
                             >
@@ -247,7 +247,7 @@ const Header = () => {
                       <div className="subcategories-panel">
                         <div className="subcategories-header">
                           <h3>{currentCategory.name}</h3>
-                          <Link to={currentCategory.path} className="view-all-link">
+                          <Link to={`/products${currentCategory.path}`} className="view-all-link">
                             Xem tất cả
                           </Link>
                         </div>

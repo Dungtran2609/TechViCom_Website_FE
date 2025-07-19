@@ -129,7 +129,7 @@ const AccountPage = () => {
           onMouseEnter={() => setAvatarHover(true)}
           onMouseLeave={() => setAvatarHover(false)}
         >
-          <img src={user.avatar} alt="avatar" style={{ width: 100, height: 100, borderRadius: "50%", objectFit: "cover", border: '3px solid #ff9800', boxShadow: '0 2px 12px rgba(255,152,0,0.10)' }} />
+          <img src={user.avatar || '/images/avatar-default.png'} alt="avatar" style={{ width: 100, height: 100, borderRadius: "50%", objectFit: "cover", border: '3px solid #ff9800', boxShadow: '0 2px 12px rgba(255,152,0,0.10)' }} />
           {avatarHover && (
             <button
               style={{
@@ -163,7 +163,7 @@ const AccountPage = () => {
           }}>
             <div style={{ background: '#fff', borderRadius: 16, padding: 32, boxShadow: '0 8px 40px rgba(0,0,0,0.18)', minWidth: 320, textAlign: 'center', position: 'relative' }}>
               <h3 style={{ marginBottom: 18, fontSize: 20, fontWeight: 700 }}>Cập nhật ảnh đại diện</h3>
-              <img src={pendingAvatar} alt="avatar-preview" style={{ width: 120, height: 120, borderRadius: '50%', border: '2px solid #ff9800', marginBottom: 18, objectFit: 'cover' }} />
+              <img src={pendingAvatar || '/images/avatar-default.png'} alt="avatar-preview" style={{ width: 120, height: 120, borderRadius: '50%', border: '2px solid #ff9800', marginBottom: 18, objectFit: 'cover' }} />
               <div style={{ display: 'flex', gap: 16, justifyContent: 'center', marginTop: 18 }}>
                 <button
                   style={{ padding: '10px 32px', background: '#ff9800', color: '#fff', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 16, cursor: 'pointer', boxShadow: '0 2px 8px rgba(255,152,0,0.10)' }}
@@ -273,7 +273,7 @@ const AccountPage = () => {
                 </select>
                 <input name="avatar" value={form.avatar} onChange={handleChange} placeholder="URL ảnh đại diện" style={{ width: "100%", marginBottom: 12, padding: 10, borderRadius: 8, border: '1px solid #eee', fontSize: 16 }} />
                 <div style={{ textAlign: 'center', marginBottom: 12 }}>
-                  <img src={form.avatar} alt="avatar-preview" style={{ width: 80, height: 80, borderRadius: '50%', border: '2px solid #ff9800', marginTop: 8 }} />
+                  <img src={form.avatar || '/images/avatar-default.png'} alt="avatar-preview" style={{ width: 80, height: 80, borderRadius: '50%', border: '2px solid #ff9800', marginTop: 8 }} />
                 </div>
                 <div style={{ textAlign: 'center', marginTop: 18 }}>
                   <button onClick={handleSave} style={{
