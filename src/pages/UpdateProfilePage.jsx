@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import { getUser, updateUser } from "../api";
 import { useNavigate } from "react-router-dom";
 
-const USER_ID = 1; // Lấy từ localStorage hoặc context nếu có nhiều user
+// Lấy user hiện tại từ localStorage
+const getCurrentUser = () => {
+  try {
+    return JSON.parse(localStorage.getItem('user'));
+  } catch {
+    return null;
+  }
+};
 
 const REQUIRED_FIELDS = [
   { name: "name", label: "Họ và tên" },
@@ -18,9 +25,17 @@ export default function UpdateProfilePage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
 
+  // Lấy user id từ localStorage
   useEffect(() => {
+    const currentUser = getCurrentUser();
+    if (!currentUser || !currentUser.id) {
+      navigate('/login');
+      return;
+    }
+    const USER_ID = currentUser.id;
     getUser(USER_ID)
       .then(u => {
         setUser(u);
@@ -37,7 +52,7 @@ export default function UpdateProfilePage() {
         setError("Không lấy được thông tin người dùng");
         setLoading(false);
       });
-  }, []);
+  }, [navigate]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -49,14 +64,36 @@ export default function UpdateProfilePage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
+    const currentUser = getCurrentUser();
+    if (!currentUser || !currentUser.id) {
+      navigate('/login');
+      return;
+    }
+    const USER_ID = currentUser.id;
     try {
       await updateUser(USER_ID, form);
       setSaving(false);
+      // Cập nhật lại localStorage user
+      const updatedUser = { ...currentUser, ...form };
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      // Xóa flag firstLogin nếu có
+      localStorage.removeItem('firstLogin');
       navigate("/account");
     } catch {
       setError("Cập nhật thất bại");
       setSaving(false);
     }
+  };
+
+  // Thêm hàm upload avatar
+  const handleAvatarUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      setForm(f => ({ ...f, avatar: ev.target.result }));
+    };
+    reader.readAsDataURL(file);
   };
 
   useEffect(() => {
@@ -98,14 +135,10 @@ export default function UpdateProfilePage() {
             return (
               <div key={f.name} style={{ marginBottom: 18 }}>
                 <label style={{ fontWeight: 600 }}>Ảnh đại diện</label>
-                <input type="file" accept="image/*" style={{ marginTop: 8 }} onChange={e => {
-                  if (e.target.files && e.target.files[0]) {
-                    const fileName = e.target.files[0].name;
-                    setForm(f => ({ ...f, avatar: `/images/avatars/${fileName}` }));
-                  }
-                }} />
+                <input type="file" accept="image/*" style={{ marginTop: 8 }} onChange={handleAvatarUpload} disabled={uploading} />
                 <div style={{ marginTop: 8 }}>
-                  <img src={form.avatar} alt="avatar" style={{ width: 80, height: 80, borderRadius: '50%', border: '2px solid #ff9800', marginTop: 8 }} />
+                  <img src={form.avatar || '/images/avatar-default.png'} alt="avatar" style={{ width: 80, height: 80, borderRadius: '50%', border: '2px solid #ff9800', marginTop: 8 }} />
+                  {uploading && <div>Đang upload...</div>}
                 </div>
               </div>
             );

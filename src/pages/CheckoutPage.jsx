@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { products } from '../data/products';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 function useQuery() {
@@ -8,6 +7,7 @@ function useQuery() {
 
 const CheckoutPage = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [products, setProducts] = useState([]);
   const [form, setForm] = useState({
     name: '',
     phone: '',
@@ -27,7 +27,14 @@ const CheckoutPage = () => {
   const query = useQuery();
 
   useEffect(() => {
-    // Lấy thông tin user từ localStorage nếu đã đăng nhập
+    // Fetch all products from API
+    fetch('http://localhost:3001/products')
+      .then(res => res.json())
+      .then(data => setProducts(data));
+  }, []);
+
+  // useEffect: Cập nhật form user (chỉ chạy 1 lần khi mount)
+  useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
       setForm(f => ({
@@ -38,6 +45,11 @@ const CheckoutPage = () => {
         address: (user.addresses && user.addresses.find(a => a.isDefault)?.address) || '',
       }));
     }
+  }, []);
+
+  // useEffect: Cập nhật cartItems khi products và query thay đổi
+  useEffect(() => {
+    if (!products.length) return;
     const buyNowId = query.get('buyNow');
     const buyNowStorage = query.get('storage');
     if (buyNowId) {
@@ -61,7 +73,7 @@ const CheckoutPage = () => {
       const cart = JSON.parse(localStorage.getItem('cart') || '[]');
       const mapped = cart.map(item => {
         const product = products.find(p => p.id === item.id);
-        const variant = product && product.variants ? product.variants.find(v => v.storage === item.variant.storage) : null;
+        const variant = product && product.variants ? product.variants.find(v => v.storage === item.variant?.storage) : null;
         return {
           ...item,
           name: product ? product.name : '',
@@ -73,7 +85,7 @@ const CheckoutPage = () => {
       });
       setCartItems(mapped);
     }
-  }, [query]);
+  }, [products, query.toString()]);
 
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const totalOriginal = cartItems.reduce((sum, item) => sum + item.originalPrice * item.quantity, 0);
@@ -97,9 +109,13 @@ const CheckoutPage = () => {
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
     setLoading(true);
-    setTimeout(async () => {
-      // Lưu đơn hàng vào user (db.json)
+    try {
       const user = JSON.parse(localStorage.getItem('user'));
+      if (!user || !user.id) {
+        alert('Bạn cần đăng nhập để đặt hàng!');
+        setLoading(false);
+        return;
+      }
       const newOrder = {
         orderId: 'DH' + Math.floor(Math.random() * 100000),
         date: new Date().toLocaleDateString('vi-VN'),
@@ -112,21 +128,25 @@ const CheckoutPage = () => {
         }))
       };
       const updatedOrders = [...(user.orders || []), newOrder];
-      await fetch(`http://localhost:3001/users/${user.id}`, {
+      const res = await fetch(`http://localhost:3001/users/${user.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ orders: updatedOrders })
       });
+      if (!res.ok) throw new Error('Lỗi khi lưu đơn hàng');
       const updatedUser = { ...user, orders: updatedOrders };
       localStorage.setItem('user', JSON.stringify(updatedUser));
-      // Xóa giỏ hàng
       localStorage.removeItem('cart');
       setSuccess(true);
       setLoading(false);
       setTimeout(() => {
         navigate('/thankyou');
-      }, 1200);
-    }, 1200);
+      }, 1500);
+    } catch (err) {
+      setLoading(false);
+      alert('Có lỗi xảy ra khi đặt hàng. Vui lòng thử lại!');
+      console.error('Order error:', err);
+    }
   };
 
   return (

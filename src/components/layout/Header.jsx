@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { FaBars, FaUser, FaShoppingCart, FaMobileAlt, FaLaptop, FaHeadphones, FaSignInAlt, FaUserPlus, FaChevronRight, FaSearch, FaFire, FaSignOutAlt, FaUserCircle, FaClipboardList } from 'react-icons/fa';
+import { FaBars, FaUser, FaShoppingCart, FaMobileAlt, FaLaptop, FaHeadphones, FaSignInAlt, FaUserPlus, FaChevronRight, FaSearch, FaFire, FaSignOutAlt, FaUserCircle, FaClipboardList, FaFilter, FaTimesCircle } from 'react-icons/fa';
 import { MdAir, MdKitchen } from 'react-icons/md';
 import { BsFan } from 'react-icons/bs';
 import { IoPhonePortrait } from 'react-icons/io5';
@@ -9,9 +9,10 @@ import { FaTabletAlt } from 'react-icons/fa';
 import './Header.css';
 import logo from '../../image/logo.png';
 import CartSidebar from './CartSidebar';
-import { products } from '../../data/products';
+// import { products } from '../../data/products';
 import { motion } from 'framer-motion';
-import { categories } from '../../data/categories';
+// import { categories } from '../../data/categories';
+import removeAccents from 'remove-accents';
 
 // Tạo iconMap để ánh xạ tên icon sang component
 const iconMap = {
@@ -45,21 +46,56 @@ const Header = () => {
   });
   const [isLoggedIn, setIsLoggedIn] = useState(!!user);
   const location = useLocation();
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [filter, setFilter] = useState({
+    category: '',
+    color: '',
+    storage: '',
+    priceMin: '',
+    priceMax: ''
+  });
+
+  useEffect(() => {
+    fetch('http://localhost:3001/categories')
+      .then(res => res.json())
+      .then(data => setCategories(data));
+    fetch('http://localhost:3001/products')
+      .then(res => res.json())
+      .then(data => setProducts(data));
+  }, []);
 
   // Filter categories based on search
   const filteredCategories = categories.filter(category =>
     category.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    category.subcategories.some(sub => 
+    (category.subcategories && category.subcategories.some(sub => 
       sub.name.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    ))
   );
 
-  // Lọc sản phẩm gợi ý
-  const suggestions = productSearch.trim()
-    ? products.filter(p => 
-        p.name.toLowerCase().includes(productSearch.toLowerCase())
-      ).slice(0, 5)
-    : [];
+  // Lấy danh sách màu và dung lượng từ products
+  const allColors = Array.from(new Set(products.flatMap(p => p.colors || [])));
+  const allStorages = Array.from(new Set(products.flatMap(p => (p.variants || []).map(v => v.storage))));
+  const allCategories = Array.from(new Set(products.map(p => p.category)));
+
+  // Hàm chuẩn hoá chuỗi tìm kiếm
+  function normalize(str) {
+    return removeAccents((str || '').toLowerCase().trim());
+  }
+
+  // Lọc sản phẩm nâng cao
+  const suggestions = products.filter(p => {
+    // Tìm kiếm theo nhiều trường
+    const q = normalize(productSearch);
+    const matchText = [p.name, p.description, p.intro, p.introFull].map(normalize).join(' ');
+    const match = q === '' || matchText.includes(q);
+    // Lọc theo filter
+    const matchCategory = !filter.category || p.category === filter.category;
+    const matchColor = !filter.color || (p.colors && p.colors.includes(filter.color));
+    const matchStorage = !filter.storage || (p.variants && p.variants.some(v => v.storage === filter.storage));
+    const matchPrice = (!filter.priceMin || (p.price >= +filter.priceMin)) && (!filter.priceMax || (p.price <= +filter.priceMax));
+    return match && matchCategory && matchColor && matchStorage && matchPrice;
+  }).slice(0, 5);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -202,7 +238,7 @@ const Header = () => {
                           {categories.filter(cat => cat.isHot).slice(0, 4).map((category) => (
                             <Link
                               key={category.id}
-                              to={category.path}
+                              to={`/products${category.path}`}
                               className="hot-category-item"
                               onClick={() => setIsMenuOpen(false)}
                             >
@@ -227,7 +263,7 @@ const Header = () => {
                             onMouseEnter={() => setHoveredCategory(category.id)}
                           >
                             <Link 
-                              to={category.path}
+                              to={`/products${category.path}`}
                               className="category-link"
                               onClick={() => setIsMenuOpen(false)}
                             >
@@ -247,7 +283,7 @@ const Header = () => {
                       <div className="subcategories-panel">
                         <div className="subcategories-header">
                           <h3>{currentCategory.name}</h3>
-                          <Link to={currentCategory.path} className="view-all-link">
+                          <Link to={`/products${currentCategory.path}`} className="view-all-link">
                             Xem tất cả
                           </Link>
                         </div>
@@ -328,7 +364,7 @@ const Header = () => {
                   )}
                 </button>
                 {/* Dropdown gợi ý sản phẩm nếu có */}
-                {showSuggestions && suggestions.length > 0 && (
+                {showSuggestions && (
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -349,13 +385,47 @@ const Header = () => {
                       overflowY: 'auto'
                     }}
                   >
+                    {/* Bộ lọc nâng cao */}
+                    <div style={{background:'#f8fafc',borderRadius:12,padding:'12px 12px 8px 12px',margin:'8px',boxShadow:'0 2px 8px #eee',position:'relative',display:'flex',flexWrap:'wrap',alignItems:'flex-end',gap:12}}>
+                      <FaFilter style={{position:'absolute',left:10,top:10,color:'#ff6c2f',fontSize:18}} />
+                      <div style={{display:'flex',flexDirection:'column',minWidth:110}}>
+                        <label style={{fontSize:11,color:'#888',marginBottom:2,marginLeft:2}}>Danh mục</label>
+                        <select value={filter.category} onChange={e=>setFilter(f=>({...f,category:e.target.value}))} style={{padding:'6px 10px',borderRadius:8,border:'1px solid #eee',fontSize:13}}>
+                          <option value=''>Tất cả</option>
+                          {allCategories.map(c=>(<option key={c} value={c}>{c}</option>))}
+                        </select>
+                      </div>
+                      <div style={{display:'flex',flexDirection:'column',minWidth:90}}>
+                        <label style={{fontSize:11,color:'#888',marginBottom:2,marginLeft:2}}>Màu sắc</label>
+                        <select value={filter.color} onChange={e=>setFilter(f=>({...f,color:e.target.value}))} style={{padding:'6px 10px',borderRadius:8,border:'1px solid #eee',fontSize:13}}>
+                          <option value=''>Tất cả</option>
+                          {allColors.map(c=>(<option key={c} value={c}>{c}</option>))}
+                        </select>
+                      </div>
+                      <div style={{display:'flex',flexDirection:'column',minWidth:90}}>
+                        <label style={{fontSize:11,color:'#888',marginBottom:2,marginLeft:2}}>Dung lượng</label>
+                        <select value={filter.storage} onChange={e=>setFilter(f=>({...f,storage:e.target.value}))} style={{padding:'6px 10px',borderRadius:8,border:'1px solid #eee',fontSize:13}}>
+                          <option value=''>Tất cả</option>
+                          {allStorages.map(s=>(<option key={s} value={s}>{s}</option>))}
+                        </select>
+                      </div>
+                      <div style={{display:'flex',flexDirection:'column',minWidth:80}}>
+                        <label style={{fontSize:11,color:'#888',marginBottom:2,marginLeft:2}}>Giá từ</label>
+                        <input type='number' placeholder='Từ' value={filter.priceMin} onChange={e=>setFilter(f=>({...f,priceMin:e.target.value}))} style={{padding:'6px 10px',borderRadius:8,border:'1px solid #eee',fontSize:13}} />
+                      </div>
+                      <div style={{display:'flex',flexDirection:'column',minWidth:80}}>
+                        <label style={{fontSize:11,color:'#888',marginBottom:2,marginLeft:2}}>Đến</label>
+                        <input type='number' placeholder='Đến' value={filter.priceMax} onChange={e=>setFilter(f=>({...f,priceMax:e.target.value}))} style={{padding:'6px 10px',borderRadius:8,border:'1px solid #eee',fontSize:13}} />
+                      </div>
+                      <button onClick={()=>setFilter({category:'',color:'',storage:'',priceMin:'',priceMax:''})} style={{background:'none',border:'none',color:'#ff6c2f',fontSize:18,marginLeft:8,cursor:'pointer',alignSelf:'center'}} title='Xoá lọc'>
+                        <FaTimesCircle />
+                      </button>
+                    </div>
+                    <div style={{height:1,background:'#eee',margin:'0 8px 4px 8px'}} />
                     {suggestions.map((product, index) => (
-                      <motion.div
+                      <Link
                         key={product.id}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.05 }}
-                        onClick={() => handleSuggestionClick(product.name)}
+                        to={`/product/${product.id}`}
                         style={{
                           padding: '12px 16px',
                           cursor: 'pointer',
@@ -363,10 +433,16 @@ const Header = () => {
                           display: 'flex',
                           alignItems: 'center',
                           gap: '12px',
-                          transition: 'background-color 0.2s'
+                          transition: 'background-color 0.2s',
+                          textDecoration: 'none',
+                          color: 'inherit',
                         }}
-                        onMouseEnter={(e) => e.target.style.backgroundColor = '#f9fafb'}
-                        onMouseLeave={(e) => e.target.style.backgroundColor = 'white'}
+                        onClick={() => {
+                          setShowSuggestions(false);
+                          setProductSearch('');
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.backgroundColor = '#f9fafb'}
+                        onMouseLeave={e => e.currentTarget.style.backgroundColor = 'white'}
                       >
                         <img 
                           src={product.image} 
@@ -387,14 +463,11 @@ const Header = () => {
                           }}>
                             {product.name}
                           </div>
-                          <div style={{ 
-                            fontSize: '12px', 
-                            color: '#6b7280'
-                          }}>
+                          <div style={{ fontSize: '12px', color: '#6b7280' }}>
                             {product.price.toLocaleString()}đ
                           </div>
                         </div>
-                      </motion.div>
+                      </Link>
                     ))}
                   </motion.div>
                 )}

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import HomePage from './pages/HomePage';
 import ProductDetailPage from './pages/ProductDetailPage';
@@ -19,7 +19,7 @@ import './App.css';
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <ScrollToTop />
       <Layout>
         <Routes>
@@ -27,6 +27,7 @@ function App() {
           <Route path="/product/:id" element={<ProductDetailPage />} />
           <Route path="/dien-thoai" element={<ProductListPage />} />
           <Route path="/products" element={<ProductListPage />} />
+          <Route path="/products/:category" element={<ProductListPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
@@ -41,7 +42,7 @@ function App() {
           {/* Add more routes here */}
         </Routes>
       </Layout>
-    </Router>
+    </BrowserRouter>
   );
 }
 

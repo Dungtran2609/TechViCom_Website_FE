@@ -2,18 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { FaTimes, FaTrash, FaShoppingCart, FaChevronRight } from 'react-icons/fa';
 import './CartSidebar.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { products } from '../../data/products';
 
 const CartSidebar = ({ isOpen, onClose }) => {
   const [cartItems, setCartItems] = useState([]);
+  const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Fetch all products from API when sidebar opens
+    if (isOpen) {
+      fetch('http://localhost:3001/products')
+        .then(res => res.json())
+        .then(data => setProducts(data));
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
     // Map cart items to full product info
     const mapped = cart.map(item => {
       const product = products.find(p => p.id === item.id);
-      const variant = product && product.variants ? product.variants.find(v => v.storage === item.variant.storage) : null;
+      const variant = product && product.variants ? product.variants.find(v => v.storage === item.variant?.storage) : null;
       return {
         ...item,
         name: product ? product.name : '',
@@ -23,18 +33,18 @@ const CartSidebar = ({ isOpen, onClose }) => {
       };
     });
     setCartItems(mapped);
-  }, [isOpen]);
+  }, [isOpen, products]);
 
   const updateQuantity = (id, storage, delta) => {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const idx = cart.findIndex(item => item.id === id && item.variant.storage === storage);
+    const idx = cart.findIndex(item => item.id === id && item.variant?.storage === storage);
     if (idx > -1) {
       cart[idx].quantity = Math.max(1, cart[idx].quantity + delta);
       localStorage.setItem('cart', JSON.stringify(cart));
       // Cập nhật lại state
       const mapped = cart.map(item => {
         const product = products.find(p => p.id === item.id);
-        const variant = product && product.variants ? product.variants.find(v => v.storage === item.variant.storage) : null;
+        const variant = product && product.variants ? product.variants.find(v => v.storage === item.variant?.storage) : null;
         return {
           ...item,
           name: product ? product.name : '',
@@ -49,12 +59,12 @@ const CartSidebar = ({ isOpen, onClose }) => {
 
   const removeItem = (id, storage) => {
     let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    cart = cart.filter(item => !(item.id === id && item.variant.storage === storage));
+    cart = cart.filter(item => !(item.id === id && item.variant?.storage === storage));
     localStorage.setItem('cart', JSON.stringify(cart));
     // Cập nhật lại state
     const mapped = cart.map(item => {
       const product = products.find(p => p.id === item.id);
-      const variant = product && product.variants ? product.variants.find(v => v.storage === item.variant.storage) : null;
+      const variant = product && product.variants ? product.variants.find(v => v.storage === item.variant?.storage) : null;
       return {
         ...item,
         name: product ? product.name : '',

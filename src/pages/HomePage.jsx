@@ -11,7 +11,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import './HomePage.css';
-import { products } from '../data/products';
 import Toast from '../components/Toast';
 // Categories cho HomePage (đơn giản hơn so với Header)
 const categories = [
@@ -81,199 +80,29 @@ const HomePage = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const banners = [
-    {
-      id: 1,
-      image: '/images/banners/banner1.jpg',
-      title: 'TẬN BỪNG ĐỈNH - AI SMART',
-      subtitle: 'Laptop chỉ từ 8.990.000Đ',
-      features: [
-        'Trả góp 0%',
-        'Giảm thêm 5%',
-        'Tặng SIM Techvicom 60GB/tháng'
-      ],
-      buttonText: 'Khám phá ngay',
-      link: '/khuyen-mai'
-    },
-    {
-      id: 2,
-      image: '/images/banners/banner2.jpg',
-      title: 'Đón đầu 5G - HONOR X9c',
-      subtitle: 'Giảm ngay 700K',
-      features: [
-        'Pin 6.000 mAh',
-        'Dùng thoải mái trả sau',
-        'Bảo hành 2 năm'
-      ],
-      buttonText: 'Mua ngay',
-      link: '/honor-x9c'
-    },
-    {
-      id: 3,
-      image: '/images/banners/banner3.jpg',
-      title: 'DEEBOT mini',
-      subtitle: 'Giá bão bán 7.990.000Đ',
-      features: [
-        'Small in Size Powerful in Style',
-        'Công nghệ AI thông minh',
-        'Thiết kế nhỏ gọn'
-      ],
-      buttonText: 'Tìm hiểu thêm',
-      link: '/deebot-mini'
-    }
-  ];
+  // Fetch banners
+  const [banners, setBanners] = useState([]);
+  useEffect(() => {
+    fetch('http://localhost:3001/banners')
+      .then(res => res.json())
+      .then(setBanners);
+  }, []);
+  // Xóa các fetch productsFeatured, flashSaleProducts, chỉ giữ fetch products
+  const [products, setProducts] = useState([]);
+  const [loadingProducts, setLoadingProducts] = useState(true);
+  useEffect(() => {
+    fetch('http://localhost:3001/products')
+      .then(res => res.json())
+      .then(data => {
+        setProducts(data);
+        setLoadingProducts(false);
+      })
+      .catch(() => setLoadingProducts(false));
+  }, []);
 
-  const flashSaleProducts = [
-    {
-      id: 1,
-      name: 'Quạt tháp Fujihome TF-121HM',
-      price: 899000,
-      originalPrice: 3000000,
-      discount: 70,
-      image: '/images/products/quat-thap.jpg',
-      status: 'Đã bán 0/15 suất'
-    },
-    {
-      id: 2,
-      name: 'Tai nghe Bluetooth nhét tai Defunc TRUE GO Slim',
-      price: 490000,
-      originalPrice: 1490000,
-      discount: 67,
-      image: '/images/products/tai-nghe.jpg',
-      status: 'Đã bán 0/20 suất'
-    },
-    {
-      id: 3,
-      name: 'Quạt điều hòa Hoa Phát HPCF1-022 86W',
-      price: 1690000,
-      originalPrice: 2500000,
-      discount: 40,
-      image: '/images/products/quat-dieu-hoa.jpg',
-      status: 'Đã bán 0/15 suất'
-    },
-    {
-      id: 4,
-      name: 'Nồi chiên không dầu Unie 6.5 lít UE-600',
-      price: 1190000,
-      originalPrice: 2390000,
-      discount: 50,
-      image: '/images/products/noi-chien.jpg',
-      status: 'Đã bán 0/15 suất'
-    }
-  ];
-
-  const productsFeatured = [
-    {
-      id: 1,
-      name: 'iPhone 15 Pro Max 256GB',
-      price: 31990000,
-      originalPrice: 34990000,
-      image: '/images/products/iphone-15-pro.jpg',
-      installment: 'Trả góp 0%',
-      storage: ['256 GB', '512 GB'],
-      colors: ['black', 'blue'],
-      promotion: 'Giảm thêm 3.000.000đ khi thanh toán qua VNPay'
-    },
-    {
-      id: 2,
-      name: 'Samsung Galaxy S24 Ultra 5G',
-      price: 29990000,
-      originalPrice: 31990000,
-      image: '/images/products/samsung-s24.jpg',
-      installment: 'Trả góp 0%',
-      storage: ['256 GB', '512 GB'],
-      colors: ['black', 'gray', 'purple'],
-      promotion: 'Thu cũ đổi mới trợ giá đến 5 triệu'
-    },
-    {
-      id: 3,
-      name: 'OPPO Find X7 Ultra',
-      price: 25990000,
-      originalPrice: 27990000,
-      image: '/images/products/oppo-find-x7.jpg',
-      installment: 'Trả góp 0%',
-      storage: ['256 GB'],
-      colors: ['black', 'blue'],
-      promotion: 'Tặng tai nghe Enco Air3 Pro trị giá 2 triệu'
-    },
-    {
-      id: 4,
-      name: 'Xiaomi 14 Pro',
-      price: 23990000,
-      originalPrice: 24990000,
-      image: '/images/products/xiaomi-14-pro.jpg',
-      installment: 'Trả góp 0%',
-      storage: ['256 GB', '512 GB'],
-      colors: ['black', 'white'],
-      promotion: 'Giảm 2.000.000đ khi thanh toán online'
-    },
-    {
-      id: 5,
-      name: 'Vivo V29e 5G',
-      price: 8990000,
-      originalPrice: 9990000,
-      image: '/images/products/vivo-v29e.jpg',
-      installment: 'Trả góp 0%',
-      storage: ['256 GB'],
-      colors: ['blue', 'yellow'],
-      promotion: 'Tặng PMH 500.000đ mua kèm phụ kiện'
-    },
-    {
-      id: 6,
-      name: 'Google Pixel 8 Pro',
-      price: 22990000,
-      originalPrice: 24990000,
-      image: '/images/products/pixel-8-pro.jpg',
-      installment: 'Trả góp 0%',
-      storage: ['256 GB', '512 GB'],
-      colors: ['black', 'blue'],
-      promotion: 'Tặng đồng hồ Pixel Watch 2 trị giá 8 triệu'
-    },
-    {
-      id: 7,
-      name: 'OnePlus 12',
-      price: 19990000,
-      originalPrice: 21990000,
-      image: '/images/products/oneplus-12.jpg',
-      installment: 'Trả góp 0%',
-      storage: ['256 GB', '512 GB'],
-      colors: ['green', 'black'],
-      promotion: 'Tặng tai nghe OnePlus Buds Pro 2'
-    },
-    {
-      id: 8,
-      name: 'Realme GT5 Pro',
-      price: 16990000,
-      originalPrice: 18990000,
-      image: '/images/products/realme-gt5.jpg',
-      installment: 'Trả góp 0%',
-      storage: ['256 GB'],
-      colors: ['red', 'blue'],
-      promotion: 'Giảm 1.000.000đ khi thanh toán qua VNPAY'
-    },
-    {
-      id: 9,
-      name: 'Nothing Phone (2)',
-      price: 15990000,
-      originalPrice: 16990000,
-      image: '/images/products/nothing-phone-2.jpg',
-      installment: 'Trả góp 0%',
-      storage: ['256 GB'],
-      colors: ['white', 'black'],
-      promotion: 'Tặng ốp lưng chính hãng trị giá 790.000đ'
-    },
-    {
-      id: 10,
-      name: 'Huawei P60 Pro',
-      price: 24990000,
-      originalPrice: 26990000,
-      image: '/images/products/huawei-p60.jpg',
-      installment: 'Trả góp 0%',
-      storage: ['256 GB', '512 GB'],
-      colors: ['black', 'purple'],
-      promotion: 'Tặng Watch GT4 trị giá 6.990.000đ'
-    }
-  ];
+  // Ví dụ filter sản phẩm nổi bật, flash sale từ products nếu có flag
+  const featuredProducts = products.filter(p => p.isFeatured);
+  const flashSaleProducts = products.filter(p => p.isFlashSale);
 
   const [successMessage, setSuccessMessage] = useState('');
   useEffect(() => {
@@ -284,6 +113,15 @@ const HomePage = () => {
       setTimeout(() => setSuccessMessage(''), 2000);
     }
   }, []);
+
+  // Fetch bài viết nổi bật từ API
+  const [news, setNews] = useState([]);
+  useEffect(() => {
+    fetch('http://localhost:3001/news')
+      .then(res => res.json())
+      .then(data => setNews(data));
+  }, []);
+  const featuredNews = news.slice(0, 3); // 3 bài mới nhất
 
   return (
     <div className="home-page">
@@ -403,46 +241,32 @@ const HomePage = () => {
       <section className="products-section center-section">
         <h2 className="section-title">Gợi ý cho bạn</h2>
         <div className="products-grid">
-          {products.map((product) => (
-            <Link to={`/product/${product.id}`} key={product.id} className="product-card">
-              <div className="product-image">
-                <img src={product.image} alt={product.name} />
-                <span className="installment-badge">{product.installment}</span>
-              </div>
-              <div className="product-info">
-                <h3 className="product-name">{product.name}</h3>
-                <div className="product-price">
-                  <span className="current-price">
-                    {product.price.toLocaleString()}đ
-                  </span>
-                  <span className="original-price">
-                    {product.originalPrice.toLocaleString()}đ
-                  </span>
+          {loadingProducts ? (
+            <div style={{padding: 40, textAlign: 'center', width: '100%'}}>Đang tải sản phẩm...</div>
+          ) : products.length === 0 ? (
+            <div style={{padding: 40, textAlign: 'center', width: '100%'}}>Không có sản phẩm nào.</div>
+          ) : (
+            products.map((product) => (
+              <Link to={`/product/${product.id}`} key={product.id} className="product-card-modern">
+                <div className="product-image-modern">
+                  <img src={product.image} alt={product.name} />
                 </div>
-                <div className="product-storage">
-                  {product.variants.map((variant, index) => (
-                    <button key={index} className="storage-option">
-                      {variant.storage}
-                    </button>
-                  ))}
-                </div>
-                <div className="product-colors">
-                  {product.colors.map((color, index) => (
-                    <span 
-                      key={index} 
-                      className="color-dot"
-                      style={{ backgroundColor: color }}
-                    />
-                  ))}
-                </div>
-                <div className="product-promotion" style={{marginTop: 'auto', minHeight: '40px', display: product.promotion ? 'flex' : 'none', alignItems: 'center', justifyContent: 'center'}}>
+                <div className="product-info-modern">
+                  <h3 className="product-name-modern">{product.name}</h3>
+                  <div className="product-price-modern">
+                    <span className="current-price-modern">{product.price.toLocaleString()}đ</span>
+                    {product.originalPrice && product.originalPrice !== product.price && (
+                      <span className="original-price-modern">{product.originalPrice.toLocaleString()}đ</span>
+                    )}
+                  </div>
                   {product.promotion && (
-                    <span className="promotion-text">{product.promotion}</span>
+                    <div className="promotion-text-modern">{product.promotion}</div>
                   )}
+                  <button className="buy-btn-modern">Mua ngay</button>
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            ))
+          )}
         </div>
       </section>
 
@@ -484,35 +308,23 @@ const HomePage = () => {
       <section className="products-section center-section">
         <h2 className="section-title">Điện thoại nổi bật nhất</h2>
         <div className="products-grid">
-          {productsFeatured.map((product) => (
-            <Link to={`/product/${product.id}`} key={product.id} className="product-card">
-              <div className="product-image">
+          {featuredProducts.map((product) => (
+            <Link to={`/product/${product.id}`} key={product.id} className="product-card-modern">
+              <div className="product-image-modern">
                 <img src={product.image} alt={product.name} />
-                <span className="installment-badge">{product.installment}</span>
               </div>
-              <div className="product-info">
-                <h3 className="product-name">{product.name}</h3>
-                <div className="price-container">
-                  <span className="current-price">{product.price.toLocaleString()}đ</span>
-                  <span className="original-price">{product.originalPrice.toLocaleString()}đ</span>
+              <div className="product-info-modern">
+                <h3 className="product-name-modern">{product.name}</h3>
+                <div className="product-price-modern">
+                  <span className="current-price-modern">{product.price.toLocaleString()}đ</span>
+                  {product.originalPrice && product.originalPrice !== product.price && (
+                    <span className="original-price-modern">{product.originalPrice.toLocaleString()}đ</span>
+                  )}
                 </div>
-                <div className="storage-options">
-                  {product.storage.map((size, index) => (
-                    <span key={index} className="storage-option">{size}</span>
-                  ))}
-                </div>
-                <div className="color-options">
-                  {product.colors.map((color, index) => (
-                    <span 
-                      key={index} 
-                      className="color-dot"
-                      style={{ backgroundColor: color }}
-                    />
-                  ))}
-                </div>
-                <div className="promotion-text">
-                  {product.promotion}
-                </div>
+                {product.promotion && (
+                  <div className="promotion-text-modern">{product.promotion}</div>
+                )}
+                <button className="buy-btn-modern">Mua ngay</button>
               </div>
             </Link>
           ))}
@@ -531,7 +343,7 @@ const HomePage = () => {
               >
                 <div className="overflow-hidden">
                   <img
-                    src={news.image}
+                    src={news.thumbnail}
                     alt={news.title}
                     className="h-56 w-full object-cover rounded-t-3xl transition-all duration-300 group-hover:scale-110 group-hover:brightness-105"
                   />
@@ -540,7 +352,7 @@ const HomePage = () => {
                   <h3 className="text-xl font-bold mb-3 text-gray-900 transition-colors duration-300 group-hover:text-orange-600 line-clamp-2">
                     {news.title}
                   </h3>
-                  <p className="text-gray-600 mb-6 flex-1 line-clamp-3">{news.description}</p>
+                  <p className="text-gray-600 mb-6 flex-1 line-clamp-3">{news.date}</p>
                   <Link to={`/news/${news.id}`} className="inline-flex items-center justify-center gap-2 mt-auto px-5 py-2.5 bg-orange-500 text-white rounded-full font-semibold shadow transition-all duration-200 hover:bg-orange-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-orange-300 w-full text-lg">
                     → Xem bài viết
                   </Link>

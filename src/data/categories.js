@@ -169,3 +169,6 @@ export const categories = [
     ]
   }
 ];
+
+// Dưới đây là export bổ sung để tiện import danh mục cho router và tạo trang
+export const categorySlugs = categories.map(cat => ({ slug: cat.path.replace(/^\//, ''), name: cat.name }));

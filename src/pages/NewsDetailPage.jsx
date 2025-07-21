@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { newsList } from '../data/news';
 
 const NewsDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const news = newsList.find((item) => item.id === id) || newsList[0];
+  const [news, setNews] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(`http://localhost:3001/news/${id}`)
+      .then(res => res.json())
+      .then(data => {
+        setNews(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, [id]);
+
+  if (loading) return <div className="text-center py-20 text-lg">Đang tải bài viết...</div>;
+  if (!news) return <div className="text-center py-20 text-lg text-red-500">Không tìm thấy bài viết!</div>;
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10 mt-10 md:mt-16">

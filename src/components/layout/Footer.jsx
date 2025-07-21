@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './Footer.css';
+import { FaComments } from 'react-icons/fa';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [showChat, setShowChat] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -122,6 +124,28 @@ const Footer = () => {
       >
         <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 19V5M12 5l-7 7m7-7l7 7" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
       </button>
+      {/* Chat Box Floating Button */}
+      <button
+        className="footer-chatbox-btn"
+        style={{position:'fixed',right:32,bottom:96,zIndex:101,background:'linear-gradient(135deg,#ff6c2f,#ffb86c)',color:'#fff',border:'none',borderRadius:'50%',width:54,height:54,display:'flex',alignItems:'center',justifyContent:'center',boxShadow:'0 4px 16px rgba(255,108,47,0.18)',cursor:'pointer'}}
+        onClick={()=>setShowChat(v=>!v)}
+        aria-label="Chat hỗ trợ"
+      >
+        <FaComments style={{fontSize:28}} />
+      </button>
+      {showChat && (
+        <div style={{position:'fixed',right:32,bottom:160,zIndex:102,width:340,maxWidth:'95vw',background:'#fff',borderRadius:16,boxShadow:'0 8px 32px rgba(0,0,0,0.18)',padding:0,overflow:'hidden',display:'flex',flexDirection:'column'}}>
+          <div style={{background:'linear-gradient(90deg,#ffb86c,#ff6c2f)',color:'#fff',padding:'14px 18px',fontWeight:700,fontSize:18,display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+            <span>Hỗ trợ trực tuyến</span>
+            <button onClick={()=>setShowChat(false)} style={{background:'none',border:'none',color:'#fff',fontSize:22,cursor:'pointer'}}>&times;</button>
+          </div>
+          <div style={{padding:18,minHeight:120,maxHeight:320,overflowY:'auto',fontSize:15,color:'#222'}}>Xin chào! Bạn cần hỗ trợ gì? (Demo chat box)</div>
+          <div style={{padding:12,borderTop:'1px solid #eee',display:'flex',gap:8}}>
+            <input type="text" placeholder="Nhập tin nhắn..." style={{flex:1,padding:'8px 12px',borderRadius:8,border:'1px solid #eee',fontSize:15}} />
+            <button style={{background:'#ff6c2f',color:'#fff',border:'none',borderRadius:8,padding:'8px 18px',fontWeight:600,cursor:'pointer'}}>Gửi</button>
+          </div>
+        </div>
+      )}
     </footer>
   );
 };
