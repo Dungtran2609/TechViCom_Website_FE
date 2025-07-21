@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { products } from '../data/products';
 import { Link, useNavigate } from 'react-router-dom';
 
 function getCurrentUser() {
@@ -13,10 +12,18 @@ function getCartProducts() {
 
 export default function CartPage() {
   const [cart, setCart] = useState(getCartProducts());
+  const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     setCart(getCartProducts());
+  }, []);
+
+  useEffect(() => {
+    // Fetch all products from API
+    fetch('http://localhost:3001/products')
+      .then(res => res.json())
+      .then(data => setProducts(data));
   }, []);
 
   // Helper để cập nhật cart vào user (db.json và localStorage)
@@ -33,10 +40,10 @@ export default function CartPage() {
     setCart(newCart);
   };
 
-  // Tìm thông tin sản phẩm từ products.js
+  // Tìm thông tin sản phẩm từ products API
   const cartDetails = cart.map(item => {
     const product = products.find(p => p.id === item.id);
-    const variant = product && product.variants ? product.variants.find(v => v.storage === item.variant.storage) : null;
+    const variant = product && product.variants ? product.variants.find(v => v.storage === item.variant?.storage) : null;
     return { ...item, product, variant };
   });
 
@@ -48,7 +55,7 @@ export default function CartPage() {
   // Xử lý tăng/giảm/xóa
   const updateQuantity = async (id, variant, delta) => {
     const newCart = cart.map(item => {
-      if (item.id === id && item.variant.storage === variant.storage) {
+      if (item.id === id && item.variant?.storage === variant?.storage) {
         return { ...item, quantity: Math.max(1, item.quantity + delta) };
       }
       return item;
@@ -56,7 +63,7 @@ export default function CartPage() {
     await updateUserCart(newCart);
   };
   const removeItem = async (id, variant) => {
-    const newCart = cart.filter(item => !(item.id === id && item.variant.storage === variant.storage));
+    const newCart = cart.filter(item => !(item.id === id && item.variant?.storage === variant?.storage));
     await updateUserCart(newCart);
   };
 
@@ -115,16 +122,13 @@ export default function CartPage() {
                 <span className="text-green-600">{totalSave > 0 ? totalSave.toLocaleString() : 0}₫</span>
               </div>
               <div className="flex justify-between text-base font-semibold mb-2">
-                <span>Tổng cộng</span>
-                <span className="text-red-500">{total.toLocaleString()}₫</span>
+                <span>Thành tiền</span>
+                <span className="text-orange-600">{total.toLocaleString()}₫</span>
               </div>
               <button
-                className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 rounded text-base mt-4 shadow-lg transition"
+                className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg mt-4 text-lg shadow"
                 onClick={() => navigate('/checkout')}
-              >
-                Tiến hành đặt hàng
-              </button>
-              <div className="text-xs text-gray-500 mt-3 text-center">Miễn phí vận chuyển cho đơn hàng trên 2 triệu.</div>
+              >Tiến hành đặt hàng</button>
             </div>
           </div>
         )}

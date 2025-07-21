@@ -1,146 +1,1135 @@
 {
   "products": [
     {
-      "id": 1,
+      "id": "1",
+      "name": "iPhone 15 Pro Max 256GB",
+      "price": 31990000,
+      "originalPrice": 34990000,
+      "image": "/images/products/iphone-15-pro.jpg",
+      "installment": "Trả góp 0%",
+      "storage": [
+        "256 GB",
+        "512 GB"
+      ],
+      "colors": [
+        "black",
+        "blue"
+      ],
+      "promotion": "Giảm thêm 3.000.000đ khi thanh toán qua VNPay",
+      "description": "iPhone 15 Pro Max với chip A17 Pro, camera nâng cấp, thiết kế titan siêu nhẹ.",
+      "specs": [
+        {
+          "label": "Màn hình",
+          "value": "6.7 inch OLED"
+        },
+        {
+          "label": "Chip",
+          "value": "A17 Pro"
+        },
+        {
+          "label": "Camera",
+          "value": "48MP + 12MP + 12MP"
+        }
+      ],
+      "intro": "iPhone 15 Pro Max là siêu phẩm mới nhất của Apple, sở hữu thiết kế titan siêu nhẹ, màn hình Super Retina XDR 6.7 inch sắc nét, chip A17 Pro mạnh mẽ cho hiệu năng vượt trội. Camera 48MP nâng cấp cho khả năng chụp ảnh chuyên nghiệp, pin bền bỉ, hỗ trợ sạc nhanh MagSafe. Sản phẩm tích hợp Face ID, kết nối 5G, bảo mật cao và nhiều tính năng thông minh, đáp ứng mọi nhu cầu công việc lẫn giải trí của bạn.",
+      "introImage": "/images/products/iphone-15-pro-intro.jpg",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "category": "dien-thoai",
+      "variants": [
+        {
+          "storage": "256 GB",
+          "price": 31990000
+        },
+        {
+          "storage": "512 GB",
+          "price": 34990000
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Samsung Galaxy S24 Ultra 5G",
+      "price": 29990000,
+      "originalPrice": 31990000,
+      "image": "/images/products/samsung-s24.jpg",
+      "installment": "Trả góp 0%",
+      "storage": [
+        "256 GB",
+        "512 GB"
+      ],
+      "colors": [
+        "black",
+        "gray",
+        "purple"
+      ],
+      "promotion": "Thu cũ đổi mới trợ giá đến 5 triệu",
+      "description": "Samsung S24 Ultra với màn hình Dynamic AMOLED 2X, camera 200MP, pin 5000mAh.",
+      "specs": [
+        {
+          "label": "Màn hình",
+          "value": "6.8 inch Dynamic AMOLED 2X"
+        },
+        {
+          "label": "Camera",
+          "value": "200MP + 12MP + 10MP + 10MP"
+        }
+      ],
+      "intro": "Samsung Galaxy S24 Ultra 5G nổi bật với màn hình Dynamic AMOLED 2X 6.8 inch siêu mượt, camera 200MP chụp ảnh sắc nét, zoom xa ấn tượng. Máy trang bị chip Snapdragon 8 Gen 3, pin 5000mAh, hỗ trợ sạc nhanh, bút S Pen tiện lợi, kết nối 5G tốc độ cao. Thiết kế sang trọng, bảo mật vân tay siêu âm, nhiều tính năng AI thông minh cho trải nghiệm đỉnh cao.",
+      "introImage": "/images/products/samsung-s24-intro.jpg",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "category": "dien-thoai",
+      "variants": [
+        {
+          "storage": "256 GB",
+          "price": 29990000
+        },
+        {
+          "storage": "512 GB",
+          "price": 31990000
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "OPPO Find X7 Ultra",
+      "price": 25990000,
+      "originalPrice": 27990000,
+      "image": "/images/products/oppo-find-x7.jpg",
+      "installment": "Trả góp 0%",
+      "storage": [
+        "256 GB"
+      ],
+      "colors": [
+        "black",
+        "blue"
+      ],
+      "promotion": "Tặng tai nghe Enco Air3 Pro trị giá 2 triệu",
+      "description": "OPPO Find X7 Ultra với camera siêu zoom, thiết kế sang trọng.",
+      "specs": [
+        {
+          "label": "Màn hình",
+          "value": "6.82 inch AMOLED"
+        },
+        {
+          "label": "Camera",
+          "value": "50MP + 50MP + 50MP + 50MP"
+        }
+      ],
+      "intro": "OPPO Find X7 Ultra là flagship mới nhất với cụm 4 camera 50MP siêu zoom, cảm biến lớn cho ảnh chụp đêm xuất sắc. Máy sở hữu màn hình AMOLED 6.82 inch, chip Snapdragon 8 Gen 2, pin dung lượng lớn, sạc siêu nhanh. Thiết kế cao cấp, mặt lưng kính sang trọng, nhiều tính năng chụp ảnh AI, bảo mật vân tay dưới màn hình.",
+      "introImage": "/images/products/oppo-find-x7-intro.jpg",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "category": "dien-thoai",
+      "variants": [
+        {
+          "storage": "256 GB",
+          "price": 25990000
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Xiaomi 14 Pro",
+      "price": 23990000,
+      "originalPrice": 24990000,
+      "image": "/images/products/xiaomi-14-pro.jpg",
+      "installment": "Trả góp 0%",
+      "storage": [
+        "256 GB",
+        "512 GB"
+      ],
+      "colors": [
+        "black",
+        "white"
+      ],
+      "promotion": "Giảm 2.000.000đ khi thanh toán online",
+      "description": "Xiaomi 14 Pro với chip Snapdragon 8 Gen 3, camera Leica.",
+      "specs": [
+        {
+          "label": "Màn hình",
+          "value": "6.73 inch AMOLED"
+        },
+        {
+          "label": "Camera",
+          "value": "50MP + 50MP + 50MP"
+        }
+      ],
+      "intro": "Xiaomi 14 Pro sở hữu màn hình AMOLED 6.73 inch sắc nét, chip Snapdragon 8 Gen 3 mạnh mẽ, camera Leica chuyên nghiệp cho ảnh chụp chân thực. Máy có thiết kế mỏng nhẹ, pin lớn, sạc nhanh 120W, hỗ trợ 5G, cảm biến vân tay dưới màn hình, nhiều tính năng thông minh, phù hợp cho người yêu công nghệ.",
+      "introImage": "/images/products/xiaomi-14-pro-intro.jpg",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "category": "dien-thoai",
+      "variants": [
+        {
+          "storage": "256 GB",
+          "price": 23990000
+        },
+        {
+          "storage": "512 GB",
+          "price": 24990000
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Vivo V29e 5G",
+      "price": 8990000,
+      "originalPrice": 9990000,
+      "image": "/images/products/vivo-v29e.jpg",
+      "installment": "Trả góp 0%",
+      "storage": [
+        "256 GB"
+      ],
+      "colors": [
+        "blue",
+        "yellow"
+      ],
+      "promotion": "Tặng PMH 500.000đ mua kèm phụ kiện",
+      "description": "Vivo V29e 5G với camera selfie 50MP, pin 5000mAh.",
+      "specs": [
+        {
+          "label": "Màn hình",
+          "value": "6.78 inch AMOLED"
+        },
+        {
+          "label": "Camera",
+          "value": "64MP + 8MP"
+        }
+      ],
+      "intro": "Vivo V29e 5G nổi bật với camera selfie 50MP sắc nét, màn hình AMOLED 6.78 inch sống động, chip Snapdragon 695 5G cho hiệu năng ổn định. Máy có thiết kế trẻ trung, pin 5000mAh, sạc nhanh, nhiều chế độ chụp ảnh AI, bảo mật vân tay dưới màn hình, phù hợp cho giới trẻ năng động.",
+      "introImage": "/images/products/vivo-v29e-intro.jpg",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "category": "dien-thoai",
+      "variants": [
+        {
+          "storage": "256 GB",
+          "price": 8990000
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Quạt tháp Fujihome TF-121HM",
+      "price": 899000,
+      "originalPrice": 3000000,
+      "image": "/images/products/quat-thap.jpg",
+      "promotion": "Flash Sale",
+      "description": "Quạt tháp tiết kiệm điện, thiết kế hiện đại.",
+      "isFeatured": false,
+      "isFlashSale": true
+    },
+    {
+      "id": "7",
+      "name": "Tai nghe Bluetooth nhét tai Defunc TRUE GO Slim",
+      "price": 490000,
+      "originalPrice": 1490000,
+      "image": "/images/products/tai-nghe.jpg",
+      "promotion": "Flash Sale",
+      "description": "Tai nghe Bluetooth nhỏ gọn, pin lâu.",
+      "isFeatured": false,
+      "isFlashSale": true
+    },
+    {
+      "id": "8",
+      "name": "Quạt điều hòa Hoa Phát HPCF1-022 86W",
+      "price": 1690000,
+      "originalPrice": 2500000,
+      "image": "/images/products/quat-dieu-hoa.jpg",
+      "promotion": "Flash Sale",
+      "description": "Quạt điều hòa công suất lớn, làm mát nhanh.",
+      "isFeatured": false,
+      "isFlashSale": true
+    },
+    {
+      "id": "9",
+      "name": "Nồi chiên không dầu Unie 6.5 lít UE-600",
+      "price": 1190000,
+      "originalPrice": 2390000,
+      "image": "/images/products/noi-chien.jpg",
+      "promotion": "Flash Sale",
+      "description": "Nồi chiên không dầu dung tích lớn, dễ vệ sinh.",
+      "isFeatured": false,
+      "isFlashSale": true
+    },
+    {
+      "id": "11",
       "name": "MacBook Air M2",
       "price": 24990000,
+      "originalPrice": 26990000,
       "image": "/images/products/macbook-air.jpg",
-      "category": "laptop"
+      "storage": [
+        "256 GB",
+        "512 GB"
+      ],
+      "colors": [
+        "gray",
+        "silver"
+      ],
+      "promotion": "Giảm 2 triệu khi thanh toán online",
+      "description": "MacBook Air M2 với chip Apple M2, thiết kế mỏng nhẹ.",
+      "specs": [
+        {
+          "label": "Màn hình",
+          "value": "13.6 inch Liquid Retina"
+        },
+        {
+          "label": "CPU",
+          "value": "Apple M2"
+        }
+      ],
+      "intro": "MacBook Air M2 là lựa chọn tuyệt vời cho học sinh, sinh viên.",
+      "introImage": "/images/products/macbook-air-intro.jpg",
+      "category": "laptop",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "256 GB",
+          "price": 24990000
+        },
+        {
+          "storage": "512 GB",
+          "price": 26990000
+        }
+      ]
     },
     {
-      "id": 2,
+      "id": "12",
       "name": "Dell XPS 13",
       "price": 28990000,
+      "originalPrice": 30990000,
       "image": "/images/products/dell-xps.jpg",
-      "category": "laptop"
+      "storage": [
+        "512 GB"
+      ],
+      "colors": [
+        "silver"
+      ],
+      "promotion": "Tặng balo Dell chính hãng",
+      "description": "Dell XPS 13 với màn hình InfinityEdge, thiết kế siêu mỏng.",
+      "specs": [
+        {
+          "label": "Màn hình",
+          "value": "13.4 inch FHD+"
+        },
+        {
+          "label": "CPU",
+          "value": "Intel Core i7"
+        }
+      ],
+      "intro": "Dell XPS 13 là ultrabook cao cấp cho doanh nhân.",
+      "introImage": "/images/products/dell-xps-intro.jpg",
+      "category": "laptop",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "512 GB",
+          "price": 28990000
+        }
+      ]
     },
     {
-      "id": 3,
+      "id": "13",
       "name": "Samsung Side by Side",
       "price": 18990000,
+      "originalPrice": 20990000,
       "image": "/images/products/samsung-fridge.jpg",
-      "category": "tu-lanh"
+      "promotion": "Tặng phiếu mua hàng 1 triệu",
+      "description": "Tủ lạnh Samsung Side by Side dung tích lớn, tiết kiệm điện.",
+      "specs": [
+        {
+          "label": "Dung tích",
+          "value": "650L"
+        },
+        {
+          "label": "Công nghệ",
+          "value": "Digital Inverter"
+        }
+      ],
+      "intro": "Tủ lạnh Samsung Side by Side phù hợp cho gia đình đông người.",
+      "introImage": "/images/products/samsung-fridge-intro.jpg",
+      "category": "tu-lanh",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "650L",
+          "price": 18990000
+        }
+      ]
     },
     {
-      "id": 4,
+      "id": "14",
       "name": "LG Multi Door",
       "price": 22990000,
+      "originalPrice": 24990000,
       "image": "/images/products/lg-fridge.jpg",
-      "category": "tu-lanh"
+      "promotion": "Tặng máy xay sinh tố",
+      "description": "Tủ lạnh LG Multi Door với công nghệ DoorCooling+.",
+      "specs": [
+        {
+          "label": "Dung tích",
+          "value": "601L"
+        },
+        {
+          "label": "Công nghệ",
+          "value": "DoorCooling+"
+        }
+      ],
+      "intro": "LG Multi Door giúp bảo quản thực phẩm tươi lâu hơn.",
+      "introImage": "/images/products/lg-fridge-intro.jpg",
+      "category": "tu-lanh",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "601L",
+          "price": 22990000
+        }
+      ]
     },
     {
-      "id": 5,
-      "name": "iPhone 15 Pro Max",
-      "price": 31990000,
-      "image": "/images/products/iphone-15-pro.jpg",
-      "category": "dien-thoai"
-    },
-    {
-      "id": 6,
-      "name": "Samsung Galaxy S24 Ultra",
-      "price": 29990000,
-      "image": "/images/products/samsung-s24.jpg",
-      "category": "dien-thoai"
-    },
-    {
-      "id": 7,
+      "id": "15",
       "name": "Daikin 1.5HP Inverter",
       "price": 12990000,
+      "originalPrice": 14990000,
       "image": "/images/products/daikin-ac.jpg",
-      "category": "may-lanh"
+      "promotion": "Lắp đặt miễn phí",
+      "description": "Điều hòa Daikin Inverter tiết kiệm điện, làm lạnh nhanh.",
+      "specs": [
+        {
+          "label": "Công suất",
+          "value": "1.5 HP"
+        },
+        {
+          "label": "Công nghệ",
+          "value": "Inverter"
+        }
+      ],
+      "intro": "Daikin 1.5HP Inverter phù hợp cho phòng 20-25m2.",
+      "introImage": "/images/products/daikin-ac-intro.jpg",
+      "category": "may-lanh",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "1.5 HP",
+          "price": 12990000
+        }
+      ]
     },
     {
-      "id": 8,
+      "id": "16",
       "name": "Panasonic 2HP",
       "price": 15990000,
+      "originalPrice": 17990000,
       "image": "/images/products/panasonic-ac.jpg",
-      "category": "may-lanh"
+      "promotion": "Tặng phiếu mua hàng 500k",
+      "description": "Điều hòa Panasonic 2HP làm lạnh nhanh, vận hành êm ái.",
+      "specs": [
+        {
+          "label": "Công suất",
+          "value": "2 HP"
+        },
+        {
+          "label": "Công nghệ",
+          "value": "Inverter"
+        }
+      ],
+      "intro": "Panasonic 2HP phù hợp cho phòng lớn.",
+      "introImage": "/images/products/panasonic-ac-intro.jpg",
+      "category": "may-lanh",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "2 HP",
+          "price": 15990000
+        }
+      ]
+    },
+    {
+      "id": "17",
+      "name": "Máy lọc không khí Philips AC0820/20 20W",
+      "price": 2990000,
+      "originalPrice": 4000000,
+      "image": "/images/products/philips-ac0820.jpg",
+      "promotion": "Giảm 25%",
+      "description": "Máy lọc không khí Philips lọc sạch bụi mịn PM2.5.",
+      "specs": [
+        {
+          "label": "Công suất",
+          "value": "20W"
+        },
+        {
+          "label": "Diện tích sử dụng",
+          "value": "49m2"
+        }
+      ],
+      "intro": "Giải pháp không khí sạch cho gia đình bạn.",
+      "introImage": "/images/products/philips-ac0820-intro.jpg",
+      "category": "dien-gia-dung",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "20W",
+          "price": 2990000
+        }
+      ]
+    },
+    {
+      "id": "18",
+      "name": "SIM 5G 60GB/tháng",
+      "price": 199000,
+      "originalPrice": 299000,
+      "image": "/images/products/sim-5g.jpg",
+      "promotion": "Tặng 1 tháng sử dụng miễn phí",
+      "description": "SIM 5G tốc độ cao, dung lượng lớn.",
+      "specs": [
+        {
+          "label": "Dung lượng",
+          "value": "60GB/tháng"
+        },
+        {
+          "label": "Loại",
+          "value": "5G"
+        }
+      ],
+      "intro": "SIM Techvicom 5G cho trải nghiệm internet mượt mà.",
+      "introImage": "/images/products/sim-5g-intro.jpg",
+      "category": "sim-techvicom",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "60GB/tháng",
+          "price": 199000
+        }
+      ]
+    },
+    {
+      "id": "19",
+      "name": "iPad Air 5",
+      "price": 16990000,
+      "originalPrice": 18990000,
+      "image": "/images/products/ipad-air.jpg",
+      "storage": [
+        "64 GB",
+        "256 GB"
+      ],
+      "colors": [
+        "blue",
+        "gray"
+      ],
+      "promotion": "Tặng bút Apple Pencil",
+      "description": "iPad Air 5 với chip M1, màn hình 10.9 inch.",
+      "specs": [
+        {
+          "label": "Màn hình",
+          "value": "10.9 inch Liquid Retina"
+        },
+        {
+          "label": "CPU",
+          "value": "Apple M1"
+        }
+      ],
+      "intro": "iPad Air 5 phù hợp cho học tập, giải trí.",
+      "introImage": "/images/products/ipad-air-intro.jpg",
+      "category": "may-tinh-bang",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "64 GB",
+          "price": 16990000
+        },
+        {
+          "storage": "256 GB",
+          "price": 18990000
+        }
+      ]
+    },
+    {
+      "id": "20",
+      "name": "AirPods Pro 2",
+      "price": 6990000,
+      "originalPrice": 7990000,
+      "image": "/images/products/airpods-pro.jpg",
+      "promotion": "Giảm 1 triệu khi mua kèm iPhone",
+      "description": "Tai nghe AirPods Pro 2 chống ồn chủ động.",
+      "specs": [
+        {
+          "label": "Loại",
+          "value": "Tai nghe không dây"
+        },
+        {
+          "label": "Chống ồn",
+          "value": "Có"
+        }
+      ],
+      "intro": "AirPods Pro 2 cho trải nghiệm âm thanh tuyệt vời.",
+      "introImage": "/images/products/airpods-pro-intro.jpg",
+      "category": "phu-kien",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "Tai nghe không dây",
+          "price": 6990000
+        }
+      ]
     }
   ],
   "categories": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Điện thoại",
       "icon": "FaMobileAlt",
-      "path": "/dien-thoai"
+      "path": "/dien-thoai",
+      "subcategories": [
+        {
+          "name": "iPhone",
+          "path": "/dien-thoai/iphone",
+          "isPopular": true
+        },
+        {
+          "name": "Samsung",
+          "path": "/dien-thoai/samsung",
+          "isPopular": true
+        },
+        {
+          "name": "OPPO",
+          "path": "/dien-thoai/oppo"
+        },
+        {
+          "name": "Xiaomi",
+          "path": "/dien-thoai/xiaomi"
+        },
+        {
+          "name": "Vivo",
+          "path": "/dien-thoai/vivo"
+        },
+        {
+          "name": "Realme",
+          "path": "/dien-thoai/realme"
+        },
+        {
+          "name": "Nothing",
+          "path": "/dien-thoai/nothing"
+        },
+        {
+          "name": "Google Pixel",
+          "path": "/dien-thoai/google-pixel"
+        }
+      ],
+      "featuredProducts": [
+        {
+          "id": 6,
+          "name": "iPhone 15 Pro Max 256GB",
+          "price": "31.990.000đ",
+          "image": "/images/products/iphone-15-pro.jpg"
+        },
+        {
+          "id": 7,
+          "name": "Samsung Galaxy S24 Ultra 5G",
+          "price": "29.990.000đ",
+          "image": "/images/products/samsung-s24.jpg"
+        }
+      ]
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "Laptop",
       "icon": "FaLaptop",
-      "path": "/laptop"
+      "path": "/laptop",
+      "subcategories": [
+        {
+          "name": "Gaming",
+          "path": "/laptop/gaming",
+          "isPopular": true
+        },
+        {
+          "name": "Văn phòng",
+          "path": "/laptop/van-phong"
+        },
+        {
+          "name": "Đồ họa",
+          "path": "/laptop/do-hoa"
+        },
+        {
+          "name": "MacBook",
+          "path": "/laptop/macbook",
+          "isPopular": true
+        },
+        {
+          "name": "Dell",
+          "path": "/laptop/dell"
+        },
+        {
+          "name": "HP",
+          "path": "/laptop/hp"
+        },
+        {
+          "name": "Lenovo",
+          "path": "/laptop/lenovo"
+        },
+        {
+          "name": "Asus",
+          "path": "/laptop/asus"
+        }
+      ],
+      "featuredProducts": [
+        {
+          "id": 12,
+          "name": "MacBook Air M2",
+          "price": "24.990.000đ",
+          "image": "/images/products/macbook-air.jpg"
+        },
+        {
+          "id": 13,
+          "name": "Dell XPS 13",
+          "price": "28.990.000đ",
+          "image": "/images/products/dell-xps.jpg"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Điều hòa",
+      "icon": "MdAir",
+      "path": "/may-lanh",
+      "subcategories": [
+        {
+          "name": "1 HP",
+          "path": "/may-lanh/1hp"
+        },
+        {
+          "name": "1.5 HP",
+          "path": "/may-lanh/1-5hp",
+          "isPopular": true
+        },
+        {
+          "name": "2 HP",
+          "path": "/may-lanh/2hp"
+        },
+        {
+          "name": "Inverter",
+          "path": "/may-lanh/inverter",
+          "isPopular": true
+        },
+        {
+          "name": "Daikin",
+          "path": "/may-lanh/daikin"
+        },
+        {
+          "name": "Panasonic",
+          "path": "/may-lanh/panasonic"
+        },
+        {
+          "name": "LG",
+          "path": "/may-lanh/lg"
+        },
+        {
+          "name": "Samsung",
+          "path": "/may-lanh/samsung"
+        }
+      ],
+      "featuredProducts": [
+        {
+          "id": 14,
+          "name": "Daikin 1.5HP Inverter",
+          "price": "12.990.000đ",
+          "image": "/images/products/daikin-ac.jpg"
+        },
+        {
+          "id": 15,
+          "name": "Panasonic 2HP",
+          "price": "15.990.000đ",
+          "image": "/images/products/panasonic-ac.jpg"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Tủ lạnh",
+      "icon": "MdKitchen",
+      "path": "/tu-lanh",
+      "subcategories": [
+        {
+          "name": "Side by Side",
+          "path": "/tu-lanh/side-by-side",
+          "isPopular": true
+        },
+        {
+          "name": "Multi Door",
+          "path": "/tu-lanh/multi-door"
+        },
+        {
+          "name": "Ngăn đá trên",
+          "path": "/tu-lanh/ngan-da-tren"
+        },
+        {
+          "name": "Ngăn đá dưới",
+          "path": "/tu-lanh/ngan-da-duoi",
+          "isPopular": true
+        },
+        {
+          "name": "Samsung",
+          "path": "/tu-lanh/samsung"
+        },
+        {
+          "name": "LG",
+          "path": "/tu-lanh/lg"
+        },
+        {
+          "name": "Panasonic",
+          "path": "/tu-lanh/panasonic"
+        },
+        {
+          "name": "Sharp",
+          "path": "/tu-lanh/sharp"
+        }
+      ],
+      "featuredProducts": [
+        {
+          "id": 16,
+          "name": "Samsung Side by Side",
+          "price": "18.990.000đ",
+          "image": "/images/products/samsung-fridge.jpg"
+        },
+        {
+          "id": 17,
+          "name": "LG Multi Door",
+          "price": "22.990.000đ",
+          "image": "/images/products/lg-fridge.jpg"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Điện gia dụng",
+      "icon": "GiWashingMachine",
+      "path": "/dien-gia-dung",
+      "subcategories": [
+        {
+          "name": "Máy giặt",
+          "path": "/dien-gia-dung/may-giat",
+          "isPopular": true
+        },
+        {
+          "name": "Máy sấy",
+          "path": "/dien-gia-dung/may-say"
+        },
+        {
+          "name": "Bếp từ",
+          "path": "/dien-gia-dung/bep-tu"
+        },
+        {
+          "name": "Lò vi sóng",
+          "path": "/dien-gia-dung/lo-vi-song"
+        },
+        {
+          "name": "Máy hút bụi",
+          "path": "/dien-gia-dung/may-hut-bui",
+          "isPopular": true
+        },
+        {
+          "name": "Máy lọc không khí",
+          "path": "/dien-gia-dung/may-loc-khong-khi"
+        },
+        {
+          "name": "Nồi cơm điện",
+          "path": "/dien-gia-dung/noi-com-dien"
+        },
+        {
+          "name": "Máy xay sinh tố",
+          "path": "/dien-gia-dung/may-xay-sinh-to"
+        }
+      ],
+      "featuredProducts": [
+        {
+          "id": 18,
+          "name": "Samsung Máy giặt 10kg",
+          "price": "8.990.000đ",
+          "image": "/images/products/samsung-washer.jpg"
+        },
+        {
+          "id": 19,
+          "name": "Dyson V15",
+          "price": "19.990.000đ",
+          "image": "/images/products/dyson-v15.jpg"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Máy tính bảng",
+      "icon": "FaTabletAlt",
+      "path": "/may-tinh-bang",
+      "subcategories": [
+        {
+          "name": "iPad",
+          "path": "/may-tinh-bang/ipad",
+          "isPopular": true
+        },
+        {
+          "name": "Samsung Tab",
+          "path": "/may-tinh-bang/samsung-tab"
+        },
+        {
+          "name": "Xiaomi Pad",
+          "path": "/may-tinh-bang/xiaomi-pad"
+        },
+        {
+          "name": "Lenovo Tab",
+          "path": "/may-tinh-bang/lenovo-tab"
+        },
+        {
+          "name": "Huawei MatePad",
+          "path": "/may-tinh-bang/huawei-matepad"
+        }
+      ],
+      "featuredProducts": [
+        {
+          "id": 20,
+          "name": "iPad Air 5",
+          "price": "16.990.000đ",
+          "image": "/images/products/ipad-air.jpg"
+        },
+        {
+          "id": 21,
+          "name": "Samsung Tab S9",
+          "price": "14.990.000đ",
+          "image": "/images/products/samsung-tab.jpg"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Phụ kiện",
+      "icon": "FaHeadphones",
+      "path": "/phu-kien",
+      "subcategories": [
+        {
+          "name": "Tai nghe",
+          "path": "/phu-kien/tai-nghe",
+          "isPopular": true
+        },
+        {
+          "name": "Sạc dự phòng",
+          "path": "/phu-kien/sac-du-phong"
+        },
+        {
+          "name": "Cáp sạc",
+          "path": "/phu-kien/cap-sac"
+        },
+        {
+          "name": "Ốp lưng",
+          "path": "/phu-kien/op-lung"
+        },
+        {
+          "name": "Bàn phím",
+          "path": "/phu-kien/ban-phim"
+        },
+        {
+          "name": "Chuột",
+          "path": "/phu-kien/chuot"
+        },
+        {
+          "name": "Webcam",
+          "path": "/phu-kien/webcam"
+        },
+        {
+          "name": "Microphone",
+          "path": "/phu-kien/microphone"
+        }
+      ],
+      "featuredProducts": [
+        {
+          "id": 22,
+          "name": "AirPods Pro 2",
+          "price": "6.990.000đ",
+          "image": "/images/products/airpods-pro.jpg"
+        },
+        {
+          "id": 23,
+          "name": "Sạc dự phòng 20.000mAh",
+          "price": "1.990.000đ",
+          "image": "/images/products/powerbank.jpg"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "SIM Techvicom",
+      "icon": "IoPhonePortrait",
+      "path": "/sim-techvicom",
+      "subcategories": [
+        {
+          "name": "SIM 4G",
+          "path": "/sim-techvicom/sim-4g"
+        },
+        {
+          "name": "SIM 5G",
+          "path": "/sim-techvicom/sim-5g",
+          "isPopular": true
+        },
+        {
+          "name": "Gói cước",
+          "path": "/sim-techvicom/goi-cuoc"
+        },
+        {
+          "name": "Thẻ nạp",
+          "path": "/sim-techvicom/the-nap"
+        }
+      ],
+      "featuredProducts": [
+        {
+          "id": 24,
+          "name": "SIM 5G 60GB/tháng",
+          "price": "199.000đ",
+          "image": "/images/products/sim-5g.jpg"
+        },
+        {
+          "id": 25,
+          "name": "Gói cước 4G",
+          "price": "99.000đ",
+          "image": "/images/products/data-plan.jpg"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Quạt điều hòa",
+      "icon": "BsFan",
+      "path": "/quat-dieu-hoa",
+      "subcategories": [
+        {
+          "name": "Quạt tháp",
+          "path": "/quat-dieu-hoa/quat-thap",
+          "isPopular": true
+        },
+        {
+          "name": "Quạt đứng",
+          "path": "/quat-dieu-hoa/quat-dung"
+        },
+        {
+          "name": "Quạt treo tường",
+          "path": "/quat-dieu-hoa/quat-treo-tuong"
+        },
+        {
+          "name": "Quạt hơi nước",
+          "path": "/quat-dieu-hoa/quat-hoi-nuoc"
+        }
+      ],
+      "featuredProducts": [
+        {
+          "id": 26,
+          "name": "Quạt tháp Fujihome",
+          "price": "899.000đ",
+          "image": "/images/products/quat-thap.jpg"
+        },
+        {
+          "id": 27,
+          "name": "Quạt điều hòa Hoa Phát",
+          "price": "1.690.000đ",
+          "image": "/images/products/quat-dieu-hoa.jpg"
+        }
+      ]
     }
   ],
   "news": [
     {
       "id": "1",
       "title": "iPhone 16 lộ diện: Thiết kế mới, camera nâng cấp vượt trội",
-      "image": "/images/news/iphone16.jpg",
-      "description": "Apple chuẩn bị ra mắt iPhone 16 với nhiều cải tiến về thiết kế và camera, hứa hẹn tạo nên cơn sốt mới trên thị trường smartphone.",
-      "date": "2024-06-01"
+      "thumbnail": "/images/news/iphone16.jpg",
+      "images": [
+        "/images/news/iphone16-2.jpg",
+        "/images/news/iphone16-3.jpg"
+      ],
+      "date": "2025-06-01",
+      "content": "Apple chuẩn bị ra mắt iPhone 16 với nhiều cải tiến về thiết kế và camera. Sản phẩm hứa hẹn tạo nên cơn sốt mới trên thị trường smartphone với nhiều tính năng thông minh, hiệu năng vượt trội và thiết kế sang trọng.<br/><br/>\n\n<img src=\"/images/news/iphone16-2.jpg\" alt=\"iPhone 16 thực tế\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/>\n\n<strong>Giới thiệu tổng quan:</strong><br/>\nSau thành công của iPhone 15, Apple tiếp tục khẳng định vị thế dẫn đầu với iPhone 16. Sản phẩm được kỳ vọng sẽ tạo nên xu hướng mới về thiết kế và công nghệ trong năm 2025.<br/><br/>\n\n<img src=\"/images/news/iphone16-3.jpg\" alt=\"iPhone 16 camera\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/>\n\n<strong>Những điểm nổi bật của iPhone 16:</strong><br/>\n- Thiết kế viền mỏng hơn, mặt lưng kính mờ cao cấp<br/>\n- Camera chính 48MP, hỗ trợ quay video 8K, chụp đêm xuất sắc<br/>\n- Chip A18 Bionic mới nhất, tiết kiệm pin hơn 20%<br/>\n- Màn hình ProMotion 120Hz siêu mượt<br/>\n- Hỗ trợ sạc nhanh 45W và sạc không dây MagSafe<br/><br/>\n\n<strong>Công nghệ AI thông minh:</strong><br/>\nApple tích hợp AI vào camera, giúp nhận diện cảnh vật, tối ưu màu sắc và ánh sáng tự động. Ngoài ra, iPhone 16 còn có tính năng dịch trực tiếp trên hình ảnh, hỗ trợ AR mạnh mẽ.<br/><br/>\n\n<strong>Bảng thông số kỹ thuật:</strong><br/>\n<table style=\"width:100%;margin:16px 0;border-collapse:collapse;\">\n<tr><th style=\"border:1px solid #eee;padding:6px;\">Thông số</th><th style=\"border:1px solid #eee;padding:6px;\">Giá trị</th></tr>\n<tr><td style=\"border:1px solid #eee;padding:6px;\">Màn hình</td><td style=\"border:1px solid #eee;padding:6px;\">6.7&quot; ProMotion 120Hz</td></tr>\n<tr><td style=\"border:1px solid #eee;padding:6px;\">Camera chính</td><td style=\"border:1px solid #eee;padding:6px;\">48MP</td></tr>\n<tr><td style=\"border:1px solid #eee;padding:6px;\">Chip</td><td style=\"border:1px solid #eee;padding:6px;\">Apple A18 Bionic</td></tr>\n<tr><td style=\"border:1px solid #eee;padding:6px;\">Pin</td><td style=\"border:1px solid #eee;padding:6px;\">4500mAh</td></tr>\n<tr><td style=\"border:1px solid #eee;padding:6px;\">Sạc nhanh</td><td style=\"border:1px solid #eee;padding:6px;\">45W</td></tr>\n</table><br/>\n\n<strong>Nhận định chuyên gia:</strong><br/>\n<i>\"iPhone 16 là bước tiến lớn về công nghệ di động, đặc biệt ở khả năng xử lý hình ảnh và hiệu năng tổng thể.\"</i> - TechReview<br/><br/>\n\n<strong>Kết luận:</strong><br/>\niPhone 16 sẽ là lựa chọn hàng đầu cho người yêu công nghệ, nhiếp ảnh và trải nghiệm mượt mà.<br/><br/>---<br/><br/>"
     },
     {
       "id": "2",
       "title": "Samsung trình làng Galaxy Z Fold6 với công nghệ màn hình gập tiên tiến",
-      "image": "/images/news/galaxy-zfold6.jpg",
-      "description": "Galaxy Z Fold6 mang đến trải nghiệm gập mở mượt mà, cấu hình mạnh mẽ và nhiều tính năng thông minh cho người dùng hiện đại.",
-      "date": "2024-06-02"
+      "thumbnail": "/images/news/galaxy-zfold6.jpg",
+      "images": [
+        "/images/news/galaxy-zfold6-2.jpg"
+      ],
+      "date": "2025-05-28",
+      "content": "Samsung vừa chính thức giới thiệu Galaxy Z Fold6 với nhiều nâng cấp về thiết kế và hiệu năng, tiếp tục khẳng định vị thế dẫn đầu trong phân khúc điện thoại màn hình gập.<br/><br/>..."
+    },
+    {
+      "id": "3",
+      "title": "Top 5 laptop mỏng nhẹ đáng mua nhất năm 2025",
+      "thumbnail": "/images/news/laptop2025.jpg",
+      "images": [
+        "/images/news/laptop2025-2.jpg"
+      ],
+      "date": "2025-05-20",
+      "content": "Năm 2025 chứng kiến sự bùng nổ của các mẫu laptop mỏng nhẹ, cấu hình mạnh, pin lâu và thiết kế thời trang. Dưới đây là 5 mẫu laptop nổi bật nhất:<br/><br/>..."
+    },
+    {
+      "id": "4",
+      "title": "Google Pixel 9 Pro ra mắt: Đột phá với chip Tensor G4 và camera AI",
+      "thumbnail": "/images/news/pixel9pro.jpg",
+      "images": [
+        "/images/news/pixel9pro-1.jpg",
+        "/images/news/pixel9pro-2.jpg"
+      ],
+      "date": "2025-06-15",
+      "content": "Google vừa trình làng Pixel 9 Pro với nhiều nâng cấp mạnh mẽ về hiệu năng và camera AI.<br/><br/>..."
+    },
+    {
+      "id": "5",
+      "title": "ASUS ROG Flow Z14 2025: Laptop gaming lai tablet mạnh mẽ",
+      "thumbnail": "/images/news/rogflowz14.jpg",
+      "images": [
+        "/images/news/rogflowz14-1.jpg"
+      ],
+      "date": "2025-06-10",
+      "content": "ASUS tiếp tục khuấy động thị trường gaming với ROG Flow Z14 2025 - chiếc laptop gaming lai tablet độc đáo.<br/><br/>..."
+    },
+    {
+      "id": "6",
+      "title": "OnePlus 12 chính thức ra mắt: Hiệu năng mạnh, sạc siêu nhanh",
+      "thumbnail": "/images/news/oneplus12.jpg",
+      "images": [
+        "/images/news/oneplus12-1.jpg",
+        "/images/news/oneplus12-2.jpg"
+      ],
+      "date": "2025-06-05",
+      "content": "OnePlus 12 vừa ra mắt với nhiều nâng cấp về hiệu năng và sạc nhanh.<br/><br/>..."
+    },
+    {
+      "id": "7",
+      "title": "MacBook Pro M4: Sức mạnh mới cho dân sáng tạo",
+      "thumbnail": "/images/news/macbookpro-m4.jpg",
+      "images": [
+        "/images/news/macbookpro-m4-1.jpg"
+      ],
+      "date": "2025-05-30",
+      "content": "Apple vừa giới thiệu MacBook Pro M4 với hiệu năng vượt trội, pin lâu và màn hình Liquid Retina XDR.<br/><br/>..."
+    },
+    {
+      "id": "8",
+      "title": "Sony Alpha A7 V: Máy ảnh full-frame cho nhiếp ảnh gia chuyên nghiệp",
+      "thumbnail": "/images/news/alpha-a7v.jpg",
+      "images": [
+        "/images/news/alpha-a7v-1.jpg",
+        "/images/news/alpha-a7v-2.jpg"
+      ],
+      "date": "2025-05-25",
+      "content": "Sony Alpha A7 V vừa ra mắt với cảm biến full-frame 33MP, quay video 8K và lấy nét AI.<br/><br/>..."
     }
   ],
   "users": [
-    {
-      "id": "1",
-      "phone": "0345417706",
-      "email": "nguyentph50347@gmail.com",
-      "password": "12345678",
-      "name": "Tạ Nguyên",
-      "birthday": "19/07/2025",
-      "gender": "Nam",
-      "avatar": "/images/avatar-default.png",
-      "addresses": [
-        {
-          "address": "Hà Noi, Ái Quốc, Tiên Hải, Ha Noi",
-          "isDefault": true
-        },
-        {
-          "address": "123 Đường ABC, Quận 1, TP.HCM",
-          "isDefault": false
-        }
-      ],
-      "orders": [
-        {
-          "orderId": "DH001",
-          "date": "01/05/2024",
-          "total": 3500000,
-          "status": "Đã giao",
-          "products": [
-            {
-              "name": "iPhone 15 Pro",
-              "quantity": 1,
-              "price": 3000000
-            },
-            {
-              "name": "Ốp lưng iPhone",
-              "quantity": 2,
-              "price": 250000
-            }
-          ]
-        },
-        {
-          "orderId": "DH002",
-          "date": "15/04/2024",
-          "total": 1200000,
-          "status": "Đang xử lý",
-          "products": [
-            {
-              "name": "Tai nghe Bluetooth",
-              "quantity": 1,
-              "price": 1200000
-            }
-          ]
-        }
-      ]
-    },
     {
       "id": "bf09",
       "name": "MAI HOANG ANH",
@@ -168,50 +1157,78 @@
           ]
         },
         {
-          "orderId": "DH84717",
-          "date": "18/7/2025",
-          "total": 2990000,
+          "orderId": "DH36080",
+          "date": "21/7/2025",
+          "total": 31990000,
           "status": "Đang xử lý",
           "products": [
             {
-              "name": "TCL 60R 5G 4GB 128GB",
+              "name": "iPhone 15 Pro Max 256GB",
               "quantity": 1,
-              "price": 2990000
-            }
-          ]
-        }
-      ],
-      "birthday": "19-11-2005"
-      
-    },
-    {
-      "id": "9143",
-      "name": "MAI HOANG ANH",
-      "phone": "0339820485",
-      "password": "0987654321",
-      "email": "hoanganhm@ma.edu.vn",
-      "addresses": [
-        {
-          "address": "kdt vân canh",
-          "isDefault": true
-        }
-      ],
-      "orders": [
-        {
-          "orderId": "DH26572",
-          "date": "19/7/2025",
-          "total": 25990000,
-          "status": "Đang xử lý",
-          "products": [
-            {
-              "name": "OPPO Find X7 Ultra",
-              "quantity": 1,
-              "price": 25990000
+              "price": 31990000
             }
           ]
         }
       ],
       "birthday": "19-11-2000"
+    },
+    {
+      "id": "633f",
+      "name": "MAI HOANG ANH",
+      "phone": "0339820485",
+      "password": "0987654321",
+      "email": "hoanganhm2005@gmail.com",
+      "addresses": [
+        {
+          "address": "hanoi",
+          "isDefault": true
+        }
+      ],
+      "orders": [],
+      "avatar": "/images/avatar-default.png",
+      "birthday": "19-11-2005",
+      "gender": "Nữ"
+    }
+  ],
+  "banners": [
+    {
+      "id": "1",
+      "image": "/images/banners/banner1.jpg",
+      "title": "TẬN BỪNG ĐỈNH - AI SMART",
+      "subtitle": "Laptop chỉ từ 8.990.000Đ",
+      "features": [
+        "Trả góp 0%",
+        "Giảm thêm 5%",
+        "Tặng SIM Techvicom 60GB/tháng"
+      ],
+      "buttonText": "Khám phá ngay",
+      "link": "/khuyen-mai"
+    },
+    {
+      "id": "2",
+      "image": "/images/banners/banner2.jpg",
+      "title": "Đón đầu 5G - HONOR X9c",
+      "subtitle": "Giảm ngay 700K",
+      "features": [
+        "Pin 6.000 mAh",
+        "Dùng thoải mái trả sau",
+        "Bảo hành 2 năm"
+      ],
+      "buttonText": "Mua ngay",
+      "link": "/honor-x9c"
+    },
+    {
+      "id": "3",
+      "image": "/images/banners/banner3.jpg",
+      "title": "DEEBOT mini",
+      "subtitle": "Giá bão bán 7.990.000Đ",
+      "features": [
+        "Small in Size Powerful in Style",
+        "Công nghệ AI thông minh",
+        "Thiết kế nhỏ gọn"
+      ],
+      "buttonText": "Tìm hiểu thêm",
+      "link": "/deebot-mini"
     }
   ]
 }

@@ -1,8 +1,14 @@
-import React from 'react';
-import { newsList } from '../data/news';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const NewsPage = () => {
+  const [newsList, setNewsList] = useState([]);
+  useEffect(() => {
+    fetch('http://localhost:3001/news')
+      .then(res => res.json())
+      .then(data => setNewsList(data));
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-orange-50 to-white py-12 px-2 pt-28">
       <div className="max-w-7xl mx-auto">

@@ -6,8 +6,8 @@ export default function OrderListPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('orders') || '[]');
-    setOrders(data.reverse());
+    const user = JSON.parse(localStorage.getItem('user'));
+    setOrders(user && user.orders ? [...user.orders].reverse() : []);
   }, []);
 
   return (
@@ -24,14 +24,14 @@ export default function OrderListPage() {
             {orders.map((order, idx) => (
               <div key={idx} className="bg-white rounded-xl shadow p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <div className="font-semibold text-base text-gray-900">Mã đơn: <span className="text-orange-500">{order.createdAt.replace(/[-:T.]/g, '').slice(0,14)}</span></div>
-                  <div className="text-sm text-gray-600">Ngày đặt: {new Date(order.createdAt).toLocaleString()}</div>
-                  <div className="text-sm text-gray-600">Tổng tiền: <span className="text-red-500 font-semibold">{order.total.toLocaleString()}₫</span></div>
-                  <div className="text-sm text-gray-600">Số sản phẩm: {order.items.length}</div>
+                  <div className="font-semibold text-base text-gray-900">Mã đơn: <span className="text-orange-500">{order.createdAt ? order.createdAt.replace(/[-:T.]/g, '').slice(0,14) : (order.orderId || 'N/A')}</span></div>
+                  <div className="text-sm text-gray-600">Ngày đặt: {order.createdAt ? new Date(order.createdAt).toLocaleString() : (order.date || '')}</div>
+                  <div className="text-sm text-gray-600">Tổng tiền: <span className="text-red-500 font-semibold">{order.total?.toLocaleString()}₫</span></div>
+                  <div className="text-sm text-gray-600">Số sản phẩm: {order.items ? order.items.length : (order.products ? order.products.length : 0)}</div>
                 </div>
                 <button
                   className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded text-base shadow transition"
-                  onClick={() => navigate(`/order/${order.createdAt}`)}
+                  onClick={() => navigate(`/order/${order.createdAt || order.orderId}`)}
                 >
                   Xem chi tiết
                 </button>

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import HomePage from './pages/HomePage';
 import ProductDetailPage from './pages/ProductDetailPage';
@@ -19,7 +19,7 @@ import './App.css';
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <ScrollToTop />
       <Layout>
         <Routes>
@@ -42,7 +42,7 @@ function App() {
           {/* Add more routes here */}
         </Routes>
       </Layout>
-    </Router>
+    </BrowserRouter>
   );
 }
 

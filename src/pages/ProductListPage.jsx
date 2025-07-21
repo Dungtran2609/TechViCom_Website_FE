@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams, useLocation } from 'react-router-dom';
 
 export default function ProductListPage() {
-  const { category } = useParams();
+  const { category } = useParams(); // slug, ví dụ: 'laptop', 'dien-thoai', ...
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -13,17 +13,7 @@ export default function ProductListPage() {
       setLoading(true);
       setError(null);
       try {
-        let url = 'http://localhost:3001/products';
-        if (category) {
-          url += `?category=${encodeURIComponent(category)}`;
-        } else {
-          // Nếu không có category, kiểm tra query search
-          const params = new URLSearchParams(location.search);
-          if (params.get('q')) {
-            url += `?q=${encodeURIComponent(params.get('q'))}`;
-          }
-        }
-        const res = await fetch(url);
+        const res = await fetch('http://localhost:3001/products');
         if (!res.ok) throw new Error('Lỗi khi lấy dữ liệu sản phẩm');
         const data = await res.json();
         setProducts(data);
@@ -34,7 +24,12 @@ export default function ProductListPage() {
       }
     }
     fetchProducts();
-  }, [category, location.search]);
+  }, []);
+
+  // Lọc sản phẩm theo category slug nếu có
+  const filteredProducts = category
+    ? products.filter(product => product.category === category)
+    : products;
 
   return (
     <div className="bg-gray-50 min-h-screen py-8 px-2">
@@ -46,11 +41,11 @@ export default function ProductListPage() {
           <div className="text-center text-gray-500 text-lg py-10">Đang tải sản phẩm...</div>
         ) : error ? (
           <div className="text-center text-red-500 text-lg py-10">{error}</div>
-        ) : products.length === 0 ? (
+        ) : filteredProducts.length === 0 ? (
           <div className="col-span-full text-center text-gray-500 text-lg py-10">Không tìm thấy sản phẩm phù hợp.</div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {products.map(product => (
+            {filteredProducts.map(product => (
               <Link
                 to={`/product/${product.id}`}
                 key={product.id}

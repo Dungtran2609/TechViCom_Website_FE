@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import { getUser, updateUser } from "../api";
 import { useNavigate } from "react-router-dom";
 
-const USER_ID = 1; // Lấy từ localStorage hoặc context nếu có nhiều user
+// Lấy user hiện tại từ localStorage
+const getCurrentUser = () => {
+  try {
+    return JSON.parse(localStorage.getItem('user'));
+  } catch {
+    return null;
+  }
+};
 
 const REQUIRED_FIELDS = [
   { name: "name", label: "Họ và tên" },
@@ -21,7 +28,14 @@ export default function UpdateProfilePage() {
   const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
 
+  // Lấy user id từ localStorage
   useEffect(() => {
+    const currentUser = getCurrentUser();
+    if (!currentUser || !currentUser.id) {
+      navigate('/login');
+      return;
+    }
+    const USER_ID = currentUser.id;
     getUser(USER_ID)
       .then(u => {
         setUser(u);
@@ -38,7 +52,7 @@ export default function UpdateProfilePage() {
         setError("Không lấy được thông tin người dùng");
         setLoading(false);
       });
-  }, []);
+  }, [navigate]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -50,9 +64,20 @@ export default function UpdateProfilePage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
+    const currentUser = getCurrentUser();
+    if (!currentUser || !currentUser.id) {
+      navigate('/login');
+      return;
+    }
+    const USER_ID = currentUser.id;
     try {
       await updateUser(USER_ID, form);
       setSaving(false);
+      // Cập nhật lại localStorage user
+      const updatedUser = { ...currentUser, ...form };
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      // Xóa flag firstLogin nếu có
+      localStorage.removeItem('firstLogin');
       navigate("/account");
     } catch {
       setError("Cập nhật thất bại");
