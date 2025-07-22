@@ -1,209 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
 import './ProductDetailPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShieldAlt, faTruck, faHeadset, faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
-
-// Dữ liệu recommendedProducts copy từ HomePage.jsx
-const recommendedProducts = [
-  {
-    id: 1,
-    name: 'iPhone 15 Pro Max 256GB',
-    price: 31990000,
-    originalPrice: 34990000,
-    image: '/images/products/iphone-15-pro.jpg',
-    installment: 'Trả góp 0%',
-    storage: ['256 GB', '512 GB'],
-    colors: ['black', 'blue'],
-    promotion: 'Giảm thêm 3.000.000đ khi thanh toán qua VNPay'
-  },
-  {
-    id: 2,
-    name: 'Samsung Galaxy S24 Ultra 5G',
-    price: 29990000,
-    originalPrice: 31990000,
-    image: '/images/products/samsung-s24.jpg',
-    installment: 'Trả góp 0%',
-    storage: ['256 GB', '512 GB'],
-    colors: ['black', 'gray', 'purple'],
-    promotion: 'Thu cũ đổi mới trợ giá đến 5 triệu'
-  },
-  {
-    id: 3,
-    name: 'OPPO Find X7 Ultra',
-    price: 25990000,
-    originalPrice: 27990000,
-    image: '/images/products/oppo-find-x7.jpg',
-    installment: 'Trả góp 0%',
-    storage: ['256 GB'],
-    colors: ['black', 'blue'],
-    promotion: 'Tặng tai nghe Enco Air3 Pro trị giá 2 triệu'
-  },
-  {
-    id: 4,
-    name: 'Xiaomi 14 Pro',
-    price: 23990000,
-    originalPrice: 24990000,
-    image: '/images/products/xiaomi-14-pro.jpg',
-    installment: 'Trả góp 0%',
-    storage: ['256 GB', '512 GB'],
-    colors: ['black', 'white'],
-    promotion: 'Giảm 2.000.000đ khi thanh toán online'
-  },
-  {
-    id: 5,
-    name: 'Vivo V29e 5G',
-    price: 8990000,
-    originalPrice: 9990000,
-    image: '/images/products/vivo-v29e.jpg',
-    installment: 'Trả góp 0%',
-    storage: ['256 GB'],
-    colors: ['blue', 'yellow'],
-    promotion: 'Tặng PMH 500.000đ mua kèm phụ kiện'
-  }
-];
-
-// Dữ liệu products và recommendedProducts copy từ HomePage.jsx
-const allSuggestedProducts = [
-  // recommendedProducts
-  {
-    id: 1,
-    name: 'iPhone 15 Pro Max 256GB',
-    price: 31990000,
-    originalPrice: 34990000,
-    image: '/images/products/iphone-15-pro.jpg',
-    installment: 'Trả góp 0%',
-    storage: ['256 GB', '512 GB'],
-    colors: ['black', 'blue'],
-    promotion: 'Giảm thêm 3.000.000đ khi thanh toán qua VNPay'
-  },
-  {
-    id: 2,
-    name: 'Samsung Galaxy S24 Ultra 5G',
-    price: 29990000,
-    originalPrice: 31990000,
-    image: '/images/products/samsung-s24.jpg',
-    installment: 'Trả góp 0%',
-    storage: ['256 GB', '512 GB'],
-    colors: ['black', 'gray', 'purple'],
-    promotion: 'Thu cũ đổi mới trợ giá đến 5 triệu'
-  },
-  {
-    id: 3,
-    name: 'OPPO Find X7 Ultra',
-    price: 25990000,
-    originalPrice: 27990000,
-    image: '/images/products/oppo-find-x7.jpg',
-    installment: 'Trả góp 0%',
-    storage: ['256 GB'],
-    colors: ['black', 'blue'],
-    promotion: 'Tặng tai nghe Enco Air3 Pro trị giá 2 triệu'
-  },
-  {
-    id: 4,
-    name: 'Xiaomi 14 Pro',
-    price: 23990000,
-    originalPrice: 24990000,
-    image: '/images/products/xiaomi-14-pro.jpg',
-    installment: 'Trả góp 0%',
-    storage: ['256 GB', '512 GB'],
-    colors: ['black', 'white'],
-    promotion: 'Giảm 2.000.000đ khi thanh toán online'
-  },
-  {
-    id: 5,
-    name: 'Vivo V29e 5G',
-    price: 8990000,
-    originalPrice: 9990000,
-    image: '/images/products/vivo-v29e.jpg',
-    installment: 'Trả góp 0%',
-    storage: ['256 GB'],
-    colors: ['blue', 'yellow'],
-    promotion: 'Tặng PMH 500.000đ mua kèm phụ kiện'
-  },
-  // products từ HomePage
-  {
-    id: 6,
-    name: 'TCL 60R 5G 4GB 128GB',
-    price: 2990000,
-    originalPrice: 3990000,
-    image: '/images/products/tcl-60r.jpg',
-    installment: 'Trả góp 0%',
-    colors: ['black'],
-    variants: [
-      { storage: '128 GB', price: 2990000 }
-    ],
-    promotion: 'Cho thẻ Home Credit: Giảm 400.000đ cho hóa đơn từ 8 triệu'
-  },
-  {
-    id: 7,
-    name: 'Nubia V70 Design 8GB 128GB',
-    price: 2790000,
-    originalPrice: 3990000,
-    image: '/images/products/nubia-v70.jpg',
-    installment: 'Trả góp 0%',
-    colors: ['black', 'blue', 'purple'],
-    variants: [
-      { storage: '128 GB', price: 2790000 },
-      { storage: '256 GB', price: 3290000 }
-    ],
-    promotion: 'Cho thẻ HD Bank: Giảm 500.000đ đơn từ 5 triệu'
-  },
-  {
-    id: 8,
-    name: 'Xiaomi Poco M7 Pro 5G 8GB 256GB',
-    price: 5990000,
-    originalPrice: 6990000,
-    image: '/images/products/poco-m7.jpg',
-    installment: 'Trả góp 0%',
-    colors: ['green', 'black', 'blue'],
-    variants: [
-      { storage: '256 GB', price: 5990000 }
-    ],
-    promotion: 'Cho thẻ Home Credit: Giảm 400.000đ cho hóa đơn từ 8 triệu'
-  },
-  {
-    id: 9,
-    name: 'Samsung Galaxy M55 5G 256GB',
-    price: 7390000,
-    originalPrice: 8490000,
-    image: '/images/products/samsung-m55.jpg',
-    installment: 'Trả góp 0%',
-    colors: ['black'],
-    variants: [
-      { storage: '256 GB', price: 7390000 }
-    ],
-    promotion: 'Cho thẻ Home Credit: Giảm 400.000đ cho hóa đơn từ 8 triệu'
-  },
-  {
-    id: 10,
-    name: 'Honor X9c 5G 12GB 256GB',
-    price: 8790000,
-    originalPrice: 9490000,
-    image: '/images/products/honor-x9c.jpg',
-    installment: 'Trả góp 0%',
-    colors: ['pink', 'black', 'gray'],
-    variants: [
-      { storage: '256 GB', price: 8790000 }
-    ],
-    promotion: 'Cho thẻ Home Credit: Giảm 400.000đ cho hóa đơn từ 8 triệu'
-  }
-];
+import { getProductById, getProducts } from '../api';
 
 export default function ProductDetailPage() {
-  // Tất cả các hook ở đầu function!
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
+  const [suggestedProducts, setSuggestedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedColor, setSelectedColor] = useState('');
   const [selectedStorage, setSelectedStorage] = useState('');
   const [mainImgIdx, setMainImgIdx] = useState(0);
   const [showFullIntro, setShowFullIntro] = useState(false);
   const [showAddCartToast, setShowAddCartToast] = useState(false);
-  const [suggestedStart, setSuggestedStart] = useState(0);
-  const suggestedToShow = 5;
   const [showSelectStorageToast, setShowSelectStorageToast] = useState(false);
 
   // Đánh giá & bình luận
@@ -215,14 +32,40 @@ export default function ProductDetailPage() {
   const [filterStar, setFilterStar] = useState(0); // 0: all
 
   useEffect(() => {
-    setLoading(true);
-    fetch(`http://localhost:3001/products/${id}`)
-      .then(res => res.json())
-      .then(data => {
-        setProduct(data);
+    const fetchProductData = async () => {
+      setLoading(true);
+      try {
+        const productData = await getProductById(id);
+        setProduct(productData);
+
+        // Fetch suggested products
+        let suggestions = [];
+        if (productData && productData.category) {
+          // 1. Get products from the same category
+          const sameCategoryProducts = await getProducts({ category: productData.category });
+          suggestions = sameCategoryProducts.filter(p => p.id !== productData.id);
+        }
+
+        // 2. If not enough, fill with other products
+        if (suggestions.length < 10) {
+          const allProducts = await getProducts();
+          const otherProducts = allProducts.filter(p => 
+            p.id !== productData.id && !suggestions.find(s => s.id === p.id)
+          );
+          
+          const needed = 10 - suggestions.length;
+          suggestions.push(...otherProducts.slice(0, needed));
+        }
+        
+        setSuggestedProducts(suggestions.slice(0, 10));
+
+      } catch (error) {
+        console.error("Lỗi khi tải dữ liệu:", error);
+      } finally {
         setLoading(false);
-      })
-      .catch(() => setLoading(false));
+      }
+    };
+    fetchProductData();
   }, [id]);
 
   useEffect(() => {
@@ -253,14 +96,6 @@ export default function ProductDetailPage() {
   const storages = Array.isArray(product.storage) ? product.storage : [];
   const colors = Array.isArray(product.colors) ? product.colors : [];
   const currentVariant = variants.find(v => v.storage === selectedStorage) || variants[0] || null;
-
-  // State cho slider sản phẩm gợi ý
-  const handlePrev = () => {
-    setSuggestedStart(s => Math.max(0, s - 1));
-  };
-  const handleNext = () => {
-    setSuggestedStart(s => Math.min(allSuggestedProducts.length - suggestedToShow, s + 1));
-  };
 
   // Thêm hàm xử lý mua ngay
   const handleBuyNow = () => {
@@ -631,32 +466,43 @@ export default function ProductDetailPage() {
           ))}
         </div>
       </div>
-      {/* Sản phẩm gợi ý */}
+      {/* Sản phẩm gợi ý - Slider */}
       <div className="suggested-products-section">
-        <h2 className="suggested-title">Sản phẩm gợi ý</h2>
-        <div className="suggested-products-wrapper">
-          <button className="arrow-btn left" onClick={handlePrev} disabled={suggestedStart === 0}>&#8592;</button>
-          <div className="suggested-products-list no-scroll">
-            {allSuggestedProducts.slice(suggestedStart, suggestedStart + suggestedToShow).map(product => (
-              <div className="suggested-product-card" key={product.id}>
-                <img src={product.image} alt={product.name} className="suggested-product-img" />
-                <div className="suggested-product-name">{product.name}</div>
-                <div className="suggested-product-price-block">
-                  <span className="suggested-product-price">{product.price.toLocaleString()}đ</span>
-                  {product.originalPrice && product.originalPrice !== product.price && (
-                    <span className="suggested-product-old-price">{product.originalPrice.toLocaleString()}đ</span>
-                  )}
-                </div>
-                {product.intro && (
-                  <div className="suggested-product-intro" style={{fontSize: 13, color: '#666', marginTop: 4}}>
-                    {product.intro.slice(0, 60)}{product.intro.length > 60 ? '...' : ''}
+        <h2 className="suggested-title">Sản phẩm tương tự</h2>
+        {suggestedProducts.length > 0 ? (
+          <Swiper
+            modules={[Navigation]}
+            spaceBetween={24}
+            slidesPerView={5}
+            navigation
+            breakpoints={{
+              320: { slidesPerView: 2, spaceBetween: 12 },
+              640: { slidesPerView: 3, spaceBetween: 16 },
+              1024: { slidesPerView: 4, spaceBetween: 20 },
+              1280: { slidesPerView: 5, spaceBetween: 24 },
+            }}
+            className="suggested-products-slider"
+          >
+            {suggestedProducts.map(p => (
+              <SwiperSlide key={p.id}>
+                <Link to={`/product/${p.id}`} className="suggested-product-card-new">
+                  <div className="suggested-product-img-wrapper">
+                    <img src={p.image} alt={p.name} className="suggested-product-img" />
                   </div>
-                )}
-              </div>
+                  <h3 className="suggested-product-name">{p.name}</h3>
+                  <div className="suggested-product-price-block">
+                    <span className="suggested-product-price">{p.price.toLocaleString()}đ</span>
+                    {p.originalPrice && (
+                      <span className="suggested-product-old-price">{p.originalPrice.toLocaleString()}đ</span>
+                    )}
+                  </div>
+                </Link>
+              </SwiperSlide>
             ))}
-          </div>
-          <button className="arrow-btn right" onClick={handleNext} disabled={suggestedStart >= allSuggestedProducts.length - suggestedToShow}>&#8594;</button>
-        </div>
+          </Swiper>
+        ) : (
+          <div style={{color:'#888', padding:'16px 0', textAlign: 'center'}}>Không có sản phẩm gợi ý nào.</div>
+        )}
       </div>
     </div>
   );
