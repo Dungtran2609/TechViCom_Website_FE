@@ -587,7 +587,7 @@
   ],
   "categories": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Điện thoại",
       "icon": "FaMobileAlt",
       "path": "/dien-thoai",
@@ -643,7 +643,7 @@
       ]
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Laptop",
       "icon": "FaLaptop",
       "path": "/laptop",
@@ -699,7 +699,7 @@
       ]
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Điều hòa",
       "icon": "MdAir",
       "path": "/may-lanh",
@@ -755,7 +755,7 @@
       ]
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Tủ lạnh",
       "icon": "MdKitchen",
       "path": "/tu-lanh",
@@ -811,7 +811,7 @@
       ]
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Điện gia dụng",
       "icon": "GiWashingMachine",
       "path": "/dien-gia-dung",
@@ -867,7 +867,7 @@
       ]
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Máy tính bảng",
       "icon": "FaTabletAlt",
       "path": "/may-tinh-bang",
@@ -910,7 +910,7 @@
       ]
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "Phụ kiện",
       "icon": "FaHeadphones",
       "path": "/phu-kien",
@@ -965,7 +965,7 @@
       ]
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "SIM Techvicom",
       "icon": "IoPhonePortrait",
       "path": "/sim-techvicom",
@@ -1004,7 +1004,7 @@
       ]
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Quạt điều hòa",
       "icon": "BsFan",
       "path": "/quat-dieu-hoa",
@@ -1047,86 +1047,154 @@
     {
       "id": "1",
       "title": "iPhone 16 lộ diện: Thiết kế mới, camera nâng cấp vượt trội",
-      "thumbnail": "/images/news/iphone16.jpg",
+      "thumbnail": "/images/news/anhbv1.jpg",
+      "author": "Mai Hoàng Anh",
       "images": [
-        "/images/news/iphone16-2.jpg",
-        "/images/news/iphone16-3.jpg"
+        "/images/news/man.jpg",
+        "/images/news/cam.jpg"
       ],
       "date": "2025-06-01",
-      "content": "Apple chuẩn bị ra mắt iPhone 16 với nhiều cải tiến về thiết kế và camera. Sản phẩm hứa hẹn tạo nên cơn sốt mới trên thị trường smartphone với nhiều tính năng thông minh, hiệu năng vượt trội và thiết kế sang trọng.<br/><br/>\n\n<img src=\"/images/news/iphone16-2.jpg\" alt=\"iPhone 16 thực tế\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/>\n\n<strong>Giới thiệu tổng quan:</strong><br/>\nSau thành công của iPhone 15, Apple tiếp tục khẳng định vị thế dẫn đầu với iPhone 16. Sản phẩm được kỳ vọng sẽ tạo nên xu hướng mới về thiết kế và công nghệ trong năm 2025.<br/><br/>\n\n<img src=\"/images/news/iphone16-3.jpg\" alt=\"iPhone 16 camera\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/>\n\n<strong>Những điểm nổi bật của iPhone 16:</strong><br/>\n- Thiết kế viền mỏng hơn, mặt lưng kính mờ cao cấp<br/>\n- Camera chính 48MP, hỗ trợ quay video 8K, chụp đêm xuất sắc<br/>\n- Chip A18 Bionic mới nhất, tiết kiệm pin hơn 20%<br/>\n- Màn hình ProMotion 120Hz siêu mượt<br/>\n- Hỗ trợ sạc nhanh 45W và sạc không dây MagSafe<br/><br/>\n\n<strong>Công nghệ AI thông minh:</strong><br/>\nApple tích hợp AI vào camera, giúp nhận diện cảnh vật, tối ưu màu sắc và ánh sáng tự động. Ngoài ra, iPhone 16 còn có tính năng dịch trực tiếp trên hình ảnh, hỗ trợ AR mạnh mẽ.<br/><br/>\n\n<strong>Bảng thông số kỹ thuật:</strong><br/>\n<table style=\"width:100%;margin:16px 0;border-collapse:collapse;\">\n<tr><th style=\"border:1px solid #eee;padding:6px;\">Thông số</th><th style=\"border:1px solid #eee;padding:6px;\">Giá trị</th></tr>\n<tr><td style=\"border:1px solid #eee;padding:6px;\">Màn hình</td><td style=\"border:1px solid #eee;padding:6px;\">6.7&quot; ProMotion 120Hz</td></tr>\n<tr><td style=\"border:1px solid #eee;padding:6px;\">Camera chính</td><td style=\"border:1px solid #eee;padding:6px;\">48MP</td></tr>\n<tr><td style=\"border:1px solid #eee;padding:6px;\">Chip</td><td style=\"border:1px solid #eee;padding:6px;\">Apple A18 Bionic</td></tr>\n<tr><td style=\"border:1px solid #eee;padding:6px;\">Pin</td><td style=\"border:1px solid #eee;padding:6px;\">4500mAh</td></tr>\n<tr><td style=\"border:1px solid #eee;padding:6px;\">Sạc nhanh</td><td style=\"border:1px solid #eee;padding:6px;\">45W</td></tr>\n</table><br/>\n\n<strong>Nhận định chuyên gia:</strong><br/>\n<i>\"iPhone 16 là bước tiến lớn về công nghệ di động, đặc biệt ở khả năng xử lý hình ảnh và hiệu năng tổng thể.\"</i> - TechReview<br/><br/>\n\n<strong>Kết luận:</strong><br/>\niPhone 16 sẽ là lựa chọn hàng đầu cho người yêu công nghệ, nhiếp ảnh và trải nghiệm mượt mà.<br/><br/>---<br/><br/>"
+      "content": "Apple chuẩn bị ra mắt iPhone 16 với nhiều cải tiến về thiết kế và camera. Sản phẩm hứa hẹn tạo nên cơn sốt mới trên thị trường smartphone với nhiều tính năng thông minh, hiệu năng vượt trội và thiết kế sang trọng.<br/><br/>\n\n<img src=\"/images/news/man.jpg\" alt=\"iPhone 16 Pro với viền màn hình siêu mỏng\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/>\n\n<strong>Giới thiệu tổng quan:</strong><br/>\nSau thành công của iPhone 15, Apple tiếp tục khẳng định vị thế dẫn đầu với iPhone 16. Sản phẩm được kỳ vọng sẽ tạo nên xu hướng mới về thiết kế và công nghệ trong năm 2025.<br/><br/>\n\n<img src=\"/images/news/cam.jpg\" alt=\"Cụm camera dọc mới của iPhone 16\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/>\n\n<strong>Những điểm nổi bật của iPhone 16:</strong><br/>\n- Thiết kế viền mỏng hơn, mặt lưng kính mờ cao cấp<br/>\n- Camera chính 48MP, hỗ trợ quay video 8K, chụp đêm xuất sắc<br/>\n- Chip A18 Bionic mới nhất, tiết kiệm pin hơn 20%<br/>\n- Màn hình ProMotion 120Hz siêu mượt<br/>\n- Hỗ trợ sạc nhanh 45W và sạc không dây MagSafe<br/><br/>\n\n<strong>Công nghệ AI thông minh:</strong><br/>\nApple tích hợp AI vào camera, giúp nhận diện cảnh vật, tối ưu màu sắc và ánh sáng tự động. Ngoài ra, iPhone 16 còn có tính năng dịch trực tiếp trên hình ảnh, hỗ trợ AR mạnh mẽ.<br/><br/>\n\n<strong>Bảng thông số kỹ thuật:</strong><br/>\n<table style=\"width:100%;margin:16px 0;border-collapse:collapse;\">\n<tr><th style=\"border:1px solid #eee;padding:6px;\">Thông số</th><th style=\"border:1px solid #eee;padding:6px;\">Giá trị</th></tr>\n<tr><td style=\"border:1px solid #eee;padding:6px;\">Màn hình</td><td style=\"border:1px solid #eee;padding:6px;\">6.7\\\" ProMotion 120Hz</td></tr>\n<tr><td style=\"border:1px solid #eee;padding:6px;\">Camera chính</td><td style=\"border:1px solid #eee;padding:6px;\">48MP</td></tr>\n<tr><td style=\"border:1px solid #eee;padding:6px;\">Chip</td><td style=\"border:1px solid #eee;padding:6px;\">Apple A18 Bionic</td></tr>\n<tr><td style=\"border:1px solid #eee;padding:6px;\">Pin</td><td style=\"border:1px solid #eee;padding:6px;\">4500mAh</td></tr>\n<tr><td style=\"border:1px solid #eee;padding:6px;\">Sạc nhanh</td><td style=\"border:1px solid #eee;padding:6px;\">45W</td></tr>\n</table><br/>\n\n<strong>Nhận định chuyên gia:</strong><br/>\n<i>\"iPhone 16 là bước tiến lớn về công nghệ di động, đặc biệt ở khả năng xử lý hình ảnh và hiệu năng tổng thể.\"</i> - TechReview<br/><br/>\n\n<strong>Kết luận:</strong><br/>\niPhone 16 sẽ là lựa chọn hàng đầu cho người yêu công nghệ, nhiếp ảnh và trải nghiệm mượt mà.<br/><br/>---<br/><br/>",
+      "comments": [
+        {
+          "id": 1753521720258,
+          "author": "MAI HOANG ANH",
+          "avatar": "/images/avatar-default.png",
+          "text": "1234545654321234565432234543234543",
+          "timestamp": "2025-07-26T09:22:00.258Z"
+        },
+        {
+          "id": 1753522199682,
+          "author": "MAI HOANG ANH",
+          "avatar": "/images/avatar-default.png",
+          "text": "0987654321",
+          "timestamp": "2025-07-26T09:29:59.682Z"
+        },
+        {
+          "id": 1753523564627,
+          "author": "MAI HOANG ANH",
+          "avatar": "/images/avatar-default.png",
+          "text": "sccsegv",
+          "timestamp": "2025-07-26T09:52:44.627Z"
+        }
+      ]
     },
     {
       "id": "2",
       "title": "Samsung trình làng Galaxy Z Fold6 với công nghệ màn hình gập tiên tiến",
-      "thumbnail": "/images/news/galaxy-zfold6.jpg",
+      "thumbnail": "/images/news/anhbv2.jpg",
+      "author": "Trần Văn Nam",
       "images": [
-        "/images/news/galaxy-zfold6-2.jpg"
+        "/images/news/galaxy-zfold6-hinge.jpg",
+        "/images/news/galaxy-zfold6-ai.jpg"
       ],
       "date": "2025-05-28",
-      "content": "Samsung vừa chính thức giới thiệu Galaxy Z Fold6 với nhiều nâng cấp về thiết kế và hiệu năng, tiếp tục khẳng định vị thế dẫn đầu trong phân khúc điện thoại màn hình gập.<br/><br/>..."
+      "content": "Samsung vừa chính thức giới thiệu Galaxy Z Fold6 với nhiều nâng cấp về thiết kế và hiệu năng, tiếp tục khẳng định vị thế dẫn đầu trong phân khúc điện thoại màn hình gập.<br/><br/><strong>Thiết kế mỏng hơn, bản lề bền bỉ hơn:</strong><br/>Galaxy Z Fold6 có thiết kế mỏng và nhẹ hơn đáng kể so với thế hệ trước, giúp cảm giác cầm nắm thoải mái hơn. Bản lề mới được cải tiến để gập mở mượt mà và bền bỉ hơn, đồng thời giảm nếp gấp trên màn hình chính.<br/><br/><img src=\"/images/news/banle.jpg\" alt=\"Bản lề mới của Galaxy Z Fold6\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/><strong>Hiệu năng đỉnh cao với Galaxy AI:</strong><br/>Sức mạnh của Z Fold6 đến từ chip Snapdragon 8 Gen 4 for Galaxy, kết hợp với các tính năng Galaxy AI thông minh như Khoanh vùng tìm kiếm (Circle to Search), Trợ lý phiên dịch trực tiếp và Trợ lý chỉnh ảnh chuyên nghiệp, mang lại trải nghiệm đa nhiệm và sáng tạo không giới hạn.<br/><br/><img src=\"/images/news/bv2.jpg\" alt=\"Tính năng Galaxy AI trên Z Fold6\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/><strong>Camera nâng cấp:</strong><br/>Cụm camera trên Z Fold6 cũng được nâng cấp, đặc biệt là camera dưới màn hình (UDC) đã được cải thiện để cho chất lượng ảnh selfie tốt hơn. Camera chính 108MP vẫn giữ vững phong độ chụp ảnh sắc nét, chi tiết.",
+      "comments": []
     },
     {
       "id": "3",
       "title": "Top 5 laptop mỏng nhẹ đáng mua nhất năm 2025",
-      "thumbnail": "/images/news/laptop2025.jpg",
+      "thumbnail": "/images/news/bv3.jpg",
+      "author": "Lê Thị Thảo",
       "images": [
-        "/images/news/laptop2025-2.jpg"
+        "/images/news/dell-xps-14-2025.jpg",
+        "/images/news/asus-zenbook-duo-2025.jpg"
       ],
       "date": "2025-05-20",
-      "content": "Năm 2025 chứng kiến sự bùng nổ của các mẫu laptop mỏng nhẹ, cấu hình mạnh, pin lâu và thiết kế thời trang. Dưới đây là 5 mẫu laptop nổi bật nhất:<br/><br/>..."
+      "content": "Năm 2025 chứng kiến sự bùng nổ của các mẫu laptop mỏng nhẹ, cấu hình mạnh, pin lâu và thiết kế thời trang. Dưới đây là 5 mẫu laptop nổi bật nhất, phù hợp với nhiều nhu cầu từ công việc văn phòng đến sáng tạo nội dung.<br/><br/><strong>1. MacBook Air M3:</strong><br/>Vẫn là vị vua trong phân khúc ultrabook, MacBook Air M3 tiếp tục mang đến hiệu năng ấn tượng, thời lượng pin cả ngày và thiết kế không quạt yên tĩnh. Màn hình Liquid Retina vẫn cho chất lượng hiển thị xuất sắc.<br/><br/><strong>2. Dell XPS 14 (2025):</strong><br/>Dell XPS 14 là đối trọng lớn nhất của MacBook. Với thiết kế kim loại nguyên khối sang trọng, viền màn hình siêu mỏng và bàn phím, trackpad độc đáo, đây là lựa chọn hàng đầu cho người dùng Windows yêu thích sự cao cấp.<br/><br/><img src=\"/images/news/sp1bv3.jpg\" alt=\"Laptop Dell XPS 14 2025\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/><strong>3. ASUS Zenbook Duo (2025):</strong><br/>ASUS tiếp tục tiên phong với thiết kế hai màn hình độc đáo, giúp tăng không gian làm việc và khả năng đa nhiệm. Phiên bản 2025 có màn hình OLED sắc nét hơn và bản lề linh hoạt hơn.<br/><br/><img src=\"/images/news/sp2bv3.jpg\" alt=\"Laptop hai màn hình ASUS Zenbook Duo\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/><strong>4. HP Spectre x360 14:</strong><br/>Chiếc laptop 2 trong 1 này nổi bật với thiết kế viền cắt kim cương tinh xảo, màn hình OLED cảm ứng tuyệt đẹp và bút cảm ứng đi kèm, là lựa chọn lý tưởng cho người làm sáng tạo.<br/><br/><strong>5. Lenovo Yoga Slim 7i:</strong><br/>Lenovo mang đến một lựa chọn cân bằng hoàn hảo giữa giá cả và hiệu năng. Yoga Slim 7i có cấu hình mạnh mẽ, thiết kế bền bỉ và thời lượng pin tốt, phù hợp cho sinh viên và nhân viên văn phòng.",
+      "comments": []
     },
     {
       "id": "4",
       "title": "Google Pixel 9 Pro ra mắt: Đột phá với chip Tensor G4 và camera AI",
-      "thumbnail": "/images/news/pixel9pro.jpg",
+      "thumbnail": "/images/news/pixel-9-pro-front.jpg",
+      "author": "Mai Hoàng Anh",
       "images": [
-        "/images/news/pixel9pro-1.jpg",
-        "/images/news/pixel9pro-2.jpg"
+        "/images/news/pixel-9-pro-camera.jpg",
+        "/images/news/pixel-9-pro-screen.jpg"
       ],
       "date": "2025-06-15",
-      "content": "Google vừa trình làng Pixel 9 Pro với nhiều nâng cấp mạnh mẽ về hiệu năng và camera AI.<br/><br/>..."
+      "content": "Google vừa trình làng Pixel 9 Pro, tiếp tục đẩy mạnh cuộc đua công nghệ với những nâng cấp mạnh mẽ về hiệu năng và nhiếp ảnh AI.<br/><br/><strong>Chip Tensor G4 và Sức mạnh AI:</strong><br/>Trái tim của Pixel 9 Pro là con chip Tensor G4 do chính Google thiết kế, tối ưu hóa cho các tác vụ trí tuệ nhân tạo. Điều này giúp các tính năng như Magic Eraser, Photo Unblur và Real Tone hoạt động nhanh và hiệu quả hơn bao giờ hết. Google cũng giới thiệu 'AI Video Boost', một tính năng mới giúp cải thiện chất lượng video quay trong điều kiện thiếu sáng.<br/><br/><img src=\"/images/news/pixel-9-pro-camera.jpg\" alt=\"Camera Google Pixel 9 Pro\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/><strong>Thiết kế mới và màn hình Super Actua:</strong><br/>Pixel 9 Pro có thiết kế mới với cụm camera được làm lại trông gọn gàng hơn. Màn hình Super Actua Display cho độ sáng cực cao, giúp hiển thị rõ nét ngay cả dưới trời nắng gắt, cùng tần số quét 120Hz mượt mà. Đây là một trong những màn hình tốt nhất trên thị trường hiện nay.<br/><br/><img src=\"/images/news/pixel-9-pro-screen.jpg\" alt=\"Màn hình Super Actua của Pixel 9 Pro\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/><strong>Cam kết cập nhật phần mềm 7 năm:</strong><br/>Google tiếp tục cam kết hỗ trợ cập nhật hệ điều hành Android và các bản vá bảo mật trong 7 năm, mang lại sự yên tâm tuyệt đối cho người dùng về lâu dài.",
+      "comments": []
     },
     {
       "id": "5",
       "title": "ASUS ROG Flow Z14 2025: Laptop gaming lai tablet mạnh mẽ",
-      "thumbnail": "/images/news/rogflowz14.jpg",
+      "thumbnail": "/images/news/rog-flow-z14-main.jpg",
+      "author": "Phạm Hùng Cường",
       "images": [
-        "/images/news/rogflowz14-1.jpg"
+        "/images/news/rog-flow-z14-gaming.jpg",
+        "/images/news/rog-flow-z14-tablet.jpg"
       ],
       "date": "2025-06-10",
-      "content": "ASUS tiếp tục khuấy động thị trường gaming với ROG Flow Z14 2025 - chiếc laptop gaming lai tablet độc đáo.<br/><br/>..."
+      "content": "ASUS tiếp tục khuấy động thị trường gaming với ROG Flow Z14 2025 - chiếc laptop gaming lai tablet độc đáo, kết hợp sự linh hoạt của máy tính bảng và sức mạnh của một cỗ máy chơi game thực thụ.<br/><br/><strong>Sức mạnh không tưởng trong thân hình nhỏ gọn:</strong><br/>ROG Flow Z14 2025 được trang bị CPU Intel Core i9 thế hệ mới nhất và GPU NVIDIA GeForce RTX 40-series, mang lại hiệu năng đủ sức cân mọi tựa game AAA ở thiết lập cao. Hệ thống tản nhiệt buồng hơi được cải tiến giúp máy hoạt động mát mẻ ngay cả khi chơi game trong thời gian dài.<br/><br/><img src=\"/images/news/rog-flow-z14-gaming.jpg\" alt=\"ASUS ROG Flow Z14 chơi game\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/><strong>Màn hình Nebula Display HDR:</strong><br/>Máy sở hữu màn hình Nebula Display HDR với độ phân giải QHD+, tần số quét 165Hz và độ sáng 500 nits, cho hình ảnh chơi game siêu mượt và sống động. Màn hình cảm ứng cũng hỗ trợ bút stylus, biến Z14 thành một công cụ sáng tạo mạnh mẽ.<br/><br/><img src=\"/images/news/rog-flow-z14-tablet.jpg\" alt=\"Sử dụng ROG Flow Z14 ở chế độ tablet\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/><strong>Kết nối XG Mobile:</strong><br/>Điểm đặc biệt của dòng Flow là khả năng kết nối với XG Mobile - một eGPU (card đồ họa rời) gắn ngoài, giúp nâng cấp sức mạnh đồ họa lên mức của một PC desktop, mang lại trải nghiệm gaming đỉnh cao.",
+      "comments": []
     },
     {
       "id": "6",
       "title": "OnePlus 12 chính thức ra mắt: Hiệu năng mạnh, sạc siêu nhanh",
-      "thumbnail": "/images/news/oneplus12.jpg",
+      "thumbnail": "/images/news/oneplus-12-overview.jpg",
+      "author": "Lê Thị Thảo",
       "images": [
-        "/images/news/oneplus12-1.jpg",
-        "/images/news/oneplus12-2.jpg"
+        "/images/news/oneplus-12-charging.jpg",
+        "/images/news/oneplus-12-hasselblad.jpg"
       ],
       "date": "2025-06-05",
-      "content": "OnePlus 12 vừa ra mắt với nhiều nâng cấp về hiệu năng và sạc nhanh.<br/><br/>..."
+      "content": "OnePlus 12 vừa được trình làng với khẩu hiệu 'Never Settle', tiếp tục mang đến một chiếc flagship có hiệu năng đỉnh cao, sạc siêu nhanh và camera chất lượng, nhưng với mức giá cạnh tranh.<br/><br/><strong>Sạc nhanh SUPERVOOC 150W:</strong><br/>Một trong những điểm nhấn lớn nhất là công nghệ sạc nhanh SUPERVOOC 150W, cho phép sạc đầy viên pin 5000mAh chỉ trong vòng chưa đầy 20 phút. Đây là một trong những tốc độ sạc nhanh nhất trên thị trường, cực kỳ tiện lợi cho người dùng bận rộn.<br/><br/><img src=\"/images/news/oneplus-12-charging.jpg\" alt=\"Công nghệ sạc nhanh trên OnePlus 12\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/><strong>Camera Hasselblad thế hệ thứ 4:</strong><br/>OnePlus tiếp tục hợp tác với hãng máy ảnh danh tiếng Hasselblad để tinh chỉnh hệ thống camera. Cảm biến chính lớn hơn, kết hợp với thuật toán xử lý màu sắc tự nhiên của Hasselblad, mang lại những bức ảnh có màu sắc chân thực và chi tiết cao.<br/><br/><img src=\"/images/news/oneplus-12-hasselblad.jpg\" alt=\"Camera Hasselblad của OnePlus 12\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/><strong>Màn hình ProXDR 2K:</strong><br/>Màn hình 2K với công nghệ ProXDR cho độ sáng tối đa lên tới 4500 nits, hiển thị nội dung HDR một cách ấn tượng. Tần số quét 1-120Hz linh hoạt giúp tiết kiệm pin mà vẫn đảm bảo sự mượt mà.",
+      "comments": []
     },
     {
       "id": "7",
       "title": "MacBook Pro M4: Sức mạnh mới cho dân sáng tạo",
-      "thumbnail": "/images/news/macbookpro-m4.jpg",
+      "thumbnail": "/images/news/macbook-pro-m4-hero.jpg",
+      "author": "Mai Hoàng Anh",
       "images": [
-        "/images/news/macbookpro-m4-1.jpg"
+        "/images/news/macbook-pro-m4-creative.jpg",
+        "/images/news/macbook-pro-m4-chip.jpg"
       ],
       "date": "2025-05-30",
-      "content": "Apple vừa giới thiệu MacBook Pro M4 với hiệu năng vượt trội, pin lâu và màn hình Liquid Retina XDR.<br/><br/>..."
+      "content": "Apple vừa giới thiệu dòng MacBook Pro mới trang bị chip M4, mang lại một bước nhảy vọt về hiệu năng đồ họa và xử lý AI, nhắm thẳng đến đối tượng người dùng chuyên nghiệp như lập trình viên, nhà thiết kế đồ họa, và biên tập video.<br/><br/><strong>Chip M4 với Neural Engine cải tiến:</strong><br/>Chip M4 được xây dựng trên tiến trình 3nm thế hệ thứ hai, không chỉ tăng số lượng nhân CPU và GPU mà còn nâng cấp mạnh mẽ Neural Engine, giúp tăng tốc các tác vụ máy học nhanh hơn tới 60% so với M3. Điều này đặc biệt hữu ích cho các ứng dụng sáng tạo có tích hợp AI.<br/><br/><img src=\"/images/news/macbook-pro-m4-chip.jpg\" alt=\"Chip Apple M4\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/><strong>Màn hình Liquid Retina XDR sáng hơn:</strong><br/>Màn hình mini-LED trên MacBook Pro M4 được cải tiến để có độ sáng duy trì cao hơn, lên tới 1200 nits, và độ sáng tối đa 1800 nits cho nội dung HDR, mang lại trải nghiệm hình ảnh chân thực và sống động nhất.<br/><br/><img src=\"/images/news/macbook-pro-m4-creative.jpg\" alt=\"MacBook Pro M4 cho công việc sáng tạo\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/><strong>Thời lượng pin ấn tượng:</strong><br/>Mặc dù hiệu năng tăng vọt, MacBook Pro M4 vẫn duy trì thời lượng pin lên đến 22 giờ xem video nhờ sự tối ưu hóa tuyệt vời giữa phần cứng và phần mềm của Apple. Đây vẫn là một trong những chiếc laptop chuyên nghiệp có thời lượng pin tốt nhất thị trường.",
+      "comments": []
     },
     {
       "id": "8",
       "title": "Sony Alpha A7 V: Máy ảnh full-frame cho nhiếp ảnh gia chuyên nghiệp",
-      "thumbnail": "/images/news/alpha-a7v.jpg",
+      "thumbnail": "/images/news/sony-a7v-front.jpg",
+      "author": "Nguyễn Tuấn Anh",
       "images": [
-        "/images/news/alpha-a7v-1.jpg",
-        "/images/news/alpha-a7v-2.jpg"
+        "/images/news/sony-a7v-side.jpg",
+        "/images/news/sony-a7v-in-hand.jpg"
       ],
       "date": "2025-05-25",
-      "content": "Sony Alpha A7 V vừa ra mắt với cảm biến full-frame 33MP, quay video 8K và lấy nét AI.<br/><br/>..."
+      "content": "Sony tiếp tục khẳng định vị thế thống trị trong thị trường máy ảnh mirrorless full-frame với việc ra mắt Alpha A7 V. Đây là một chiếc máy ảnh toàn diện, mạnh mẽ ở cả khả năng chụp ảnh và quay phim.<br/><br/><strong>Bộ xử lý AI chuyên dụng:</strong><br/>Điểm nhấn lớn nhất trên A7 V là bộ xử lý AI chuyên dụng, giúp hệ thống lấy nét tự động nhận diện chủ thể một cách thông minh và chính xác hơn. Máy có thể nhận diện không chỉ mắt người, động vật mà còn cả máy bay, ô tô và côn trùng, đồng thời dự đoán chuyển động của chủ thể để bám nét liên tục.<br/><br/><img src=\"/images/news/sony-a7v-side.jpg\" alt=\"Cận cảnh Sony Alpha A7 V\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/><strong>Quay video 8K và 4K/120p:</strong><br/>A7 V có khả năng quay video 8K/24p và 4K/120p, đáp ứng nhu cầu của các nhà làm phim chuyên nghiệp. Hệ thống tản nhiệt mới giúp máy có thể quay phim trong thời gian dài mà không bị quá nhiệt.<br/><br/><img src=\"/images/news/sony-a7v-in-hand.jpg\" alt=\"Sony A7V trên tay nhiếp ảnh gia\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/><strong>Cảm biến 61MP và chống rung 8-stop:</strong><br/>Cảm biến Exmor R CMOS 61MP mang lại hình ảnh có độ chi tiết cực cao. Hệ thống chống rung trong thân máy (IBIS) được nâng cấp lên tới 8-stop, cho phép chụp ảnh và quay phim cầm tay mượt mà hơn trong điều kiện thiếu sáng.",
+      "comments": []
+    },
+    {
+      "id": "9",
+      "title": "Xu hướng nhà thông minh 2025: Trợ lý AI và các thiết bị tự động hóa lên ngôi",
+      "thumbnail": "/images/news/smart-home-living-room.jpg",
+      "author": "Trần Văn Nam",
+      "images": [
+        "/images/news/smart-home-control.jpg",
+        "/images/news/smart-home-security.jpg"
+      ],
+      "date": "2025-06-18",
+      "content": "Năm 2025 đánh dấu sự phát triển vượt bậc của nhà thông minh, nơi các thiết bị không chỉ kết nối với nhau mà còn có khả năng tự động học hỏi và phục vụ chủ nhân một cách thông minh nhờ vào trí tuệ nhân tạo (AI).<br/><br/><strong>Trợ lý ảo là trung tâm của ngôi nhà:</strong><br/>Các trợ lý ảo như Google Assistant, Amazon Alexa và Apple Siri ngày càng thông minh hơn, trở thành trung tâm điều khiển của toàn bộ hệ sinh thái nhà thông minh. Người dùng có thể ra lệnh bằng giọng nói để điều khiển từ đèn, rèm cửa, điều hòa cho đến robot hút bụi, TV và hệ thống an ninh.<br/><br/><img src=\"/images/news/smart-home-control.jpg\" alt=\"Điều khiển nhà thông minh bằng giọng nói và điện thoại\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/><strong>Tự động hóa theo ngữ cảnh:</strong><br/>Các thiết bị giờ đây có thể tự động hoạt động dựa trên thói quen của người dùng. Ví dụ, hệ thống sẽ tự động bật đèn vàng ấm và mở nhạc nhẹ khi bạn về nhà vào buổi tối, hoặc tự động tắt tất cả các thiết bị điện không cần thiết khi bạn ra khỏi nhà.<br/><br/><strong>Tiết kiệm năng lượng và bảo mật:</strong><br/>Các hệ thống nhà thông minh mới giúp tối ưu hóa việc sử dụng năng lượng bằng cách tự điều chỉnh nhiệt độ điều hòa, tắt đèn khi không có người. Hệ thống camera an ninh tích hợp AI có thể phân biệt giữa người lạ, người quen và vật nuôi, gửi cảnh báo chính xác hơn đến điện thoại của bạn.<br/><br/><img src=\"/images/news/smart-home-security.jpg\" alt=\"Camera an ninh thông minh\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" />",
+      "comments": []
+    },
+    {
+      "id": "10",
+      "title": "Apple Watch Series 10: Thiết kế mới và tính năng theo dõi sức khỏe đột phá",
+      "thumbnail": "/images/news/apple-watch-x-concept.jpg",
+      "author": "Mai Hoàng Anh",
+      "images": [
+        "/images/news/apple-watch-x-health.jpg",
+        "/images/news/apple-watch-x-design.jpg"
+      ],
+      "date": "2025-06-20",
+      "content": "Apple Watch Series 10, phiên bản kỷ niệm 10 năm của dòng đồng hồ thông minh bán chạy nhất thế giới, được kỳ vọng sẽ mang đến một cuộc cách mạng về cả thiết kế và tính năng sức khỏe.<br/><br/><strong>Thiết kế mỏng hơn và cơ chế dây đeo mới:</strong><br/>Theo các nguồn tin, Series 10 (còn được gọi là Apple Watch X) sẽ có thiết kế mỏng hơn đáng kể, mang lại cảm giác thoải mái hơn khi đeo. Apple cũng có thể giới thiệu một cơ chế gắn dây đeo mới bằng nam châm, giúp việc thay đổi dây đeo trở nên dễ dàng và nhanh chóng hơn.<br/><br/><img src=\"/images/news/apple-watch-x-design.jpg\" alt=\"Thiết kế concept của Apple Watch Series 10\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/><strong>Cảm biến theo dõi huyết áp và phát hiện ngưng thở khi ngủ:</strong><br/>Đây là hai tính năng sức khỏe được mong chờ nhất. Apple Watch Series 10 được cho là sẽ tích hợp cảm biến mới có khả năng theo dõi xu hướng huyết áp của người dùng và cảnh báo khi có dấu hiệu bất thường. Ngoài ra, máy cũng có thể phát hiện các dấu hiệu của chứng ngưng thở khi ngủ, một rối loạn giấc ngủ nguy hiểm.<br/><br/><img src=\"/images/news/apple-watch-x-health.jpg\" alt=\"Tính năng theo dõi sức khỏe mới trên Apple Watch\" style=\"margin: 24px auto; border-radius: 12px; max-width: 100%;\" /><br/><br/><strong>Màn hình microLED và thời lượng pin cải thiện:</strong><br/>Việc chuyển sang công nghệ màn hình microLED sẽ giúp màn hình sáng hơn, hiển thị màu sắc tốt hơn và tiết kiệm năng lượng hơn so với màn hình OLED hiện tại. Kết hợp với chip S10 mới, thời lượng pin của Series 10 được kỳ vọng sẽ cải thiện đáng kể.",
+      "comments": []
     }
   ],
   "users": [
@@ -1170,7 +1238,30 @@
           ]
         }
       ],
-      "birthday": "19-11-2000"
+      "birthday": "19-11-2000",
+      "cart": [
+        {
+          "id": "4",
+          "variant": {
+            "storage": "256 GB",
+            "price": 23990000
+          },
+          "quantity": 1
+        },
+        {
+          "id": "5",
+          "variant": {
+            "storage": "256 GB",
+            "price": 8990000
+          },
+          "quantity": 1
+        },
+        {
+          "id": "9",
+          "variant": null,
+          "quantity": 1
+        }
+      ]
     },
     {
       "id": "633f",
@@ -1180,14 +1271,248 @@
       "email": "hoanganhm2005@gmail.com",
       "addresses": [
         {
-          "address": "hanoi",
+          "address": "Khử đô thị vân canh",
           "isDefault": true
         }
       ],
-      "orders": [],
-      "avatar": "/images/avatar-default.png",
+      "orders": [
+        {
+          "orderId": "DH37191",
+          "date": "26/7/2025",
+          "total": 25990000,
+          "status": "Đang xử lý",
+          "products": [
+            {
+              "name": "OPPO Find X7 Ultra",
+              "quantity": 1,
+              "price": 25990000
+            }
+          ]
+        },
+        {
+          "orderId": "DH84511",
+          "date": "26/7/2025",
+          "total": 25990000,
+          "status": "Đang xử lý",
+          "products": [
+            {
+              "name": "OPPO Find X7 Ultra",
+              "quantity": 1,
+              "price": 25990000
+            }
+          ]
+        },
+        {
+          "orderId": "DH60410",
+          "date": "26/7/2025",
+          "total": 25990000,
+          "status": "Đang xử lý",
+          "products": [
+            {
+              "name": "OPPO Find X7 Ultra",
+              "quantity": 1,
+              "price": 25990000
+            }
+          ]
+        },
+        {
+          "orderId": "DH99509",
+          "date": "26/7/2025",
+          "total": 25990000,
+          "status": "Đang xử lý",
+          "products": [
+            {
+              "name": "OPPO Find X7 Ultra",
+              "quantity": 1,
+              "price": 25990000
+            }
+          ]
+        },
+        {
+          "orderId": "DH51874",
+          "date": "26/7/2025",
+          "total": 31990000,
+          "status": "Đang xử lý",
+          "products": [
+            {
+              "name": "iPhone 15 Pro Max 256GB",
+              "quantity": 1,
+              "price": 31990000
+            }
+          ]
+        },
+        {
+          "orderId": "DH69728",
+          "date": "26/7/2025",
+          "total": 31990000,
+          "status": "Đang xử lý",
+          "products": [
+            {
+              "name": "iPhone 15 Pro Max 256GB",
+              "quantity": 1,
+              "price": 31990000
+            }
+          ]
+        },
+        {
+          "orderId": "DH44328",
+          "date": "26/7/2025",
+          "total": 31990000,
+          "status": "Đang xử lý",
+          "products": [
+            {
+              "name": "iPhone 15 Pro Max 256GB",
+              "quantity": 1,
+              "price": 31990000
+            }
+          ]
+        },
+        {
+          "orderId": "DH50767",
+          "date": "26/7/2025",
+          "total": 29990000,
+          "status": "Đang xử lý",
+          "products": [
+            {
+              "name": "Samsung Galaxy S24 Ultra 5G",
+              "quantity": 1,
+              "price": 29990000
+            }
+          ]
+        },
+        {
+          "orderId": "DH77855",
+          "date": "26/7/2025",
+          "total": 25990000,
+          "status": "Đang xử lý",
+          "products": [
+            {
+              "name": "OPPO Find X7 Ultra",
+              "quantity": 1,
+              "price": 25990000
+            }
+          ]
+        },
+        {
+          "orderId": "DH25718",
+          "date": "26/7/2025",
+          "total": 31990000,
+          "status": "Đang xử lý",
+          "products": [
+            {
+              "name": "iPhone 15 Pro Max 256GB",
+              "quantity": 1,
+              "price": 31990000
+            }
+          ]
+        }
+      ],
+      "avatar": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/",
       "birthday": "19-11-2005",
-      "gender": "Nữ"
+      "gender": "Nữ",
+      "cart": [
+        {
+          "id": "4",
+          "variant": {
+            "storage": "256 GB",
+            "price": 23990000
+          },
+          "quantity": 1
+        },
+        {
+          "id": "7",
+          "variant": null,
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "b96e",
+      "name": "Tạ trung nguyên ",
+      "phone": "0339820486",
+      "password": "1234567890",
+      "email": "nguyentph50347@gmail.com",
+      "addresses": [
+        {
+          "address": "1234567",
+          "isDefault": true
+        }
+      ],
+      "orders": [
+        {
+          "orderId": "DH39369",
+          "date": "26/7/2025",
+          "total": 31990000,
+          "status": "Đang xử lý",
+          "products": [
+            {
+              "name": "iPhone 15 Pro Max 256GB",
+              "quantity": 1,
+              "price": 31990000
+            }
+          ]
+        },
+        {
+          "orderId": "DH46384",
+          "date": "26/7/2025",
+          "total": 8990000,
+          "status": "Đang xử lý",
+          "products": [
+            {
+              "name": "Vivo V29e 5G",
+              "quantity": 1,
+              "price": 8990000
+            }
+          ]
+        }
+      ],
+      "avatar": "/images/avatar-default.png",
+      "birthday": "19-11-2000",
+      "gender": "Nữ",
+      "cart": [
+        {
+          "id": "1",
+          "variant": {
+            "storage": "256 GB",
+            "price": 31990000
+          },
+          "quantity": 2,
+          "name": "iPhone 15 Pro Max 256GB",
+          "image": "/images/products/iphone-15-pro.jpg",
+          "price": 31990000,
+          "storage": "256 GB"
+        },
+        {
+          "id": "2",
+          "variant": {
+            "storage": "256 GB",
+            "price": 29990000
+          },
+          "quantity": 2,
+          "name": "Samsung Galaxy S24 Ultra 5G",
+          "image": "/images/products/samsung-s24.jpg",
+          "price": 29990000,
+          "storage": "256 GB"
+        },
+        {
+          "id": "8",
+          "variant": null,
+          "quantity": 2,
+          "name": "Quạt điều hòa Hoa Phát HPCF1-022 86W",
+          "image": "/images/products/quat-dieu-hoa.jpg",
+          "price": 1690000,
+          "storage": ""
+        },
+        {
+          "id": "9",
+          "variant": null,
+          "quantity": 2,
+          "name": "Nồi chiên không dầu Unie 6.5 lít UE-600",
+          "image": "/images/products/noi-chien.jpg",
+          "price": 1190000,
+          "storage": ""
+        }
+      ]
     }
   ],
   "banners": [
