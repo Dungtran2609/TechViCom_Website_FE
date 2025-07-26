@@ -1,7 +1,6 @@
 // API cho user và orders sử dụng json-server
 const API_URL = 'http://localhost:3001';
 
-// --- USER ---
 export async function getUser(id = 1) {
   const res = await fetch(`${API_URL}/users/${id}`);
   if (!res.ok) throw new Error('Không lấy được thông tin user');
@@ -15,6 +14,12 @@ export async function updateUser(id, data) {
     body: JSON.stringify(data)
   });
   if (!res.ok) throw new Error('Cập nhật thông tin thất bại');
+  return res.json();
+}
+
+export async function getOrders(userId = 1) {
+  const res = await fetch(`${API_URL}/orders?userId=${userId}`);
+  if (!res.ok) throw new Error('Không lấy được lịch sử mua hàng');
   return res.json();
 }
 
@@ -41,51 +46,28 @@ export function checkUserMissingInfo(user) {
   return false;
 }
 
-// --- ORDERS ---
-export async function getOrders(userId = 1) {
-  const res = await fetch(`${API_URL}/orders?userId=${userId}`);
-  if (!res.ok) throw new Error('Không lấy được lịch sử mua hàng');
-  return res.json();
-}
-
-// --- PRODUCTS ---
-export async function getProducts(params = {}) {
-  const query = new URLSearchParams(params).toString();
-  const res = await fetch(`${API_URL}/products${query ? '?' + query : ''}`);
+// Thêm các hàm API cho sản phẩm
+export async function getProducts(filters = {}) {
+  let url = `${API_URL}/products`;
+  
+  // Xử lý filters nếu có
+  if (Object.keys(filters).length > 0) {
+    const queryParams = new URLSearchParams();
+    for (const key in filters) {
+      if (filters[key]) {
+        queryParams.append(key, filters[key]);
+      }
+    }
+    url += `?${queryParams.toString()}`;
+  }
+  
+  const res = await fetch(url);
   if (!res.ok) throw new Error('Không lấy được danh sách sản phẩm');
   return res.json();
 }
 
 export async function getProductById(id) {
   const res = await fetch(`${API_URL}/products/${id}`);
-  if (!res.ok) throw new Error('Không lấy được sản phẩm');
-  return res.json();
-}
-
-// --- CATEGORIES ---
-export async function getCategories() {
-  const res = await fetch(`${API_URL}/categories`);
-  if (!res.ok) throw new Error('Không lấy được danh mục');
-  return res.json();
-}
-
-// --- NEWS ---
-export async function getNews(params = {}) {
-  const query = new URLSearchParams(params).toString();
-  const res = await fetch(`${API_URL}/news${query ? '?' + query : ''}`);
-  if (!res.ok) throw new Error('Không lấy được tin tức');
-  return res.json();
-}
-
-export async function getNewsById(id) {
-  const res = await fetch(`${API_URL}/news/${id}`);
-  if (!res.ok) throw new Error('Không lấy được bài viết');
-  return res.json();
-}
-
-// --- BANNERS ---
-export async function getBanners() {
-  const res = await fetch(`${API_URL}/banners`);
-  if (!res.ok) throw new Error('Không lấy được banner');
+  if (!res.ok) throw new Error('Không tìm thấy sản phẩm');
   return res.json();
 }

@@ -992,50 +992,50 @@
 }
 
 /* Products Section */
-.products-section {
-  width: 100%;
-  padding: 8px 32px; /* tăng padding hai bên để card rộng mà không tràn */
-  border-radius: 24px;
-  background: #fff;
-  font-size: 16px;
-  box-sizing: border-box;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.04);
-}
 .products-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 12px; /* gap nhỏ, card sát nhau hơn */
+  gap: 32px;
   max-width: 100%;
-  padding: 0 0 32px 0;
+  padding: 0 8px 32px 8px;
 }
 @media (max-width: 1200px) {
-  .products-section {
-    padding: 8px 12px;
-  }
   .products-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    padding: 0 0 24px 0;
+    gap: 20px;
+    padding: 0 4px 24px 4px;
   }
 }
 @media (max-width: 900px) {
-  .products-section {
-    padding: 8px 4px;
-  }
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    padding: 0 0 16px 0;
+    gap: 14px;
+    padding: 0 2px 16px 2px;
   }
 }
 @media (max-width: 600px) {
-  .products-section {
-    padding: 8px 2px;
-  }
   .products-grid {
     grid-template-columns: 1fr;
-    gap: 6px;
-    padding: 0 0 8px 0;
+    gap: 8px;
+    padding: 0 1px 8px 1px;
+  }
+  .product-card-modern {
+    min-height: 320px;
+    border-radius: 12px;
+    padding-bottom: 4px;
+  }
+  .product-image-modern {
+    min-height: 120px;
+    border-radius: 12px 12px 0 0;
+    padding: 8px 0 4px 0;
+  }
+  .product-info-modern {
+    padding: 8px 6px 6px 6px;
+    min-height: 100px;
+  }
+  .product-name-modern {
+    font-size: 1rem;
+    min-height: 32px;
   }
 }
 
@@ -1059,21 +1059,8 @@
   border-radius: 12px;
   overflow: hidden;
   background: #f0f9ff;
-  transition: transform 0.3s, box-shadow 0.3s, filter 0.3s;
-  cursor: pointer;
 }
-.service-item:hover {
-  transform: scale(1.04) translateY(-4px);
-  box-shadow: 0 8px 32px rgba(255,108,47,0.18), 0 2px 8px rgba(0,0,0,0.08);
-  filter: brightness(1.08);
-  z-index: 2;
-}
-.service-item .service-content {
-  transition: background 0.3s;
-}
-.service-item:hover .service-content {
-  background: rgba(255,108,47,0.10);
-}
+
 .service-item.large {
   grid-column: span 1;
   grid-row: span 2;

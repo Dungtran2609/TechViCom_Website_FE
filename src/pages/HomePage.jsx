@@ -273,28 +273,28 @@ const HomePage = () => {
       {/* Services Banner Section */}
       <section className="services-banner">
         <div className="services-grid">
-          <Link to="/may-lanh" className="service-item large">
+        <Link to="/products/may-lanh" className="service-item large">
             <img src="/images/services/ac-service.jpg" alt="Mở máy lạnh hệ mát lạnh" />
             <div className="service-content">
               <h3 className="drop-shadow-lg font-bold text-white">Mở máy lạnh<br />hệ mát lạnh</h3>
               <button className="service-btn">Xem ngay</button>
             </div>
           </Link>
-          <Link to="/dien-gia-dung" className="service-item large">
+          <Link to="/products/dien-gia-dung" className="service-item large">
             <img src="/images/services/massage.jpg" alt="Massage tại nhà đã gì đâu" />
             <div className="service-content">
               <h3 className="drop-shadow-lg font-bold text-white">Massage tại nhà<br />đã gì đâu</h3>
               <button className="service-btn">Xem ngay</button>
             </div>
           </Link>
-          <Link to="/may-loc-khong-khi" className="service-item">
+          <Link to="/products/quat-dieu-hoa" className="service-item">
             <img src="/images/services/air-purifier.jpg" alt="Không khí sạch khỏe mọi vui" />
             <div className="service-content">
               <h3 className="drop-shadow-lg font-bold text-white">Không khí sạch<br />khỏe mọi vui</h3>
               <button className="service-btn">Chọn ngay</button>
             </div>
           </Link>
-          <Link to="/smart-tv" className="service-item">
+          <Link to="/products/dien-gia-dung" className="service-item">
             <img src="/images/services/smart-tv.jpg" alt="Giải trí cực đã với Smart TV" />
             <div className="service-content">
               <h3 className="drop-shadow-lg font-bold text-white">Giải trí cực đã<br />với Smart TV</h3>

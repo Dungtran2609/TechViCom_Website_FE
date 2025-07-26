@@ -6,9 +6,14 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import './ProductDetailPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShieldAlt, faTruck, faHeadset, faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
+import { faShieldAlt, faTruck, faHeadset, faStar as faStarSolid, faSignInAlt } from '@fortawesome/free-solid-svg-icons'; // Thêm icon
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { getProductById, getProducts } from '../api';
+
+const getCurrentUser = () => {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+};
 
 export default function ProductDetailPage() {
   const { id } = useParams();
@@ -22,14 +27,17 @@ export default function ProductDetailPage() {
   const [showFullIntro, setShowFullIntro] = useState(false);
   const [showAddCartToast, setShowAddCartToast] = useState(false);
   const [showSelectStorageToast, setShowSelectStorageToast] = useState(false);
+  
+  // ==========================================================
+  // THAY ĐỔI: Sử dụng state cho popup thay vì toast
+  // ==========================================================
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
 
-  // Đánh giá & bình luận
   const [reviews, setReviews] = useState([]);
   const [reviewText, setReviewText] = useState("");
   const [reviewRating, setReviewRating] = useState(0);
-  const [reviewName, setReviewName] = useState("");
   const [charCount, setCharCount] = useState(0);
-  const [filterStar, setFilterStar] = useState(0); // 0: all
+  const [filterStar, setFilterStar] = useState(0);
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -38,15 +46,12 @@ export default function ProductDetailPage() {
         const productData = await getProductById(id);
         setProduct(productData);
 
-        // Fetch suggested products
         let suggestions = [];
-        if (productData && productData.category) {
-          // 1. Get products from the same category
+        if (productData?.category) {
           const sameCategoryProducts = await getProducts({ category: productData.category });
           suggestions = sameCategoryProducts.filter(p => p.id !== productData.id);
         }
 
-        // 2. If not enough, fill with other products
         if (suggestions.length < 10) {
           const allProducts = await getProducts();
           const otherProducts = allProducts.filter(p => 
@@ -77,7 +82,6 @@ export default function ProductDetailPage() {
     }
   }, [product]);
 
-  // Load đánh giá từ localStorage khi vào trang
   useEffect(() => {
     if (!product) return;
     const saved = localStorage.getItem(`reviews_${product.id}`);
@@ -91,68 +95,89 @@ export default function ProductDetailPage() {
     return <div style={{padding: 40, textAlign: 'center'}}>Không tìm thấy sản phẩm!</div>;
   }
 
-  // Từ đây trở đi, product chắc chắn đã tồn tại!
   const variants = Array.isArray(product.variants) ? product.variants : [];
   const storages = Array.isArray(product.storage) ? product.storage : [];
   const colors = Array.isArray(product.colors) ? product.colors : [];
   const currentVariant = variants.find(v => v.storage === selectedStorage) || variants[0] || null;
 
-  // Thêm hàm xử lý mua ngay
+  // ====================================================================
+  // SỬA ĐỔI Ở ĐÂY: Hàm Mua Ngay sẽ hiển thị popup
+  // ====================================================================
   const handleBuyNow = () => {
+    const currentUser = getCurrentUser();
+    if (!currentUser) {
+      setShowLoginPopup(true); // Hiển thị popup
+      return;
+    }
+
     if (variants.length > 0 && !selectedStorage) {
       setShowSelectStorageToast(true);
       setTimeout(() => setShowSelectStorageToast(false), 1500);
-      // Scroll đến phần chọn dung lượng
       document.querySelector('.option-group')?.scrollIntoView({behavior:'smooth', block:'center'});
       return;
     }
     const params = new URLSearchParams();
     params.set('buyNow', product.id);
-    if (currentVariant && currentVariant.storage) params.set('storage', currentVariant.storage);
+    if (currentVariant?.storage) params.set('storage', currentVariant.storage);
     navigate(`/checkout?${params.toString()}`);
   };
 
-  // Thêm vào giỏ hàng
-  const handleAddToCart = () => {
+  // ====================================================================
+  // SỬA ĐỔI Ở ĐÂY: Hàm Thêm vào giỏ sẽ hiển thị popup
+  // ====================================================================
+  const handleAddToCart = async () => {
+    const currentUser = getCurrentUser();
+    if (!currentUser) {
+      setShowLoginPopup(true); // Hiển thị popup
+      return;
+    }
+
     if (variants.length > 0 && !selectedStorage) {
       setShowSelectStorageToast(true);
       setTimeout(() => setShowSelectStorageToast(false), 1500);
-      document.querySelector('.option-group')?.scrollIntoView({behavior:'smooth', block:'center'});
+      document.querySelector('.option-group')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const idx = cart.findIndex(item => item.id === product.id && item.variant.storage === currentVariant.storage);
-    if (idx > -1) {
-      cart[idx].quantity += 1;
+    
+    let currentCart = currentUser.cart || [];
+    const existingItemIndex = currentCart.findIndex(item => item.id === product.id && item.variant?.storage === currentVariant?.storage);
+
+    if (existingItemIndex > -1) {
+      currentCart[existingItemIndex].quantity += 1;
     } else {
-      cart.push({ id: product.id, variant: currentVariant, quantity: 1 });
+      currentCart.push({ id: product.id, variant: currentVariant, quantity: 1 });
     }
-    localStorage.setItem('cart', JSON.stringify(cart));
+
+    try {
+      const response = await fetch(`http://localhost:3001/users/${currentUser.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cart: currentCart }),
+      });
+      const updatedUser = await response.json();
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+    } catch (error) {
+      console.error("Lỗi khi cập nhật giỏ hàng:", error);
+      return;
+    }
+    
     setShowAddCartToast(true);
     setTimeout(() => setShowAddCartToast(false), 1500);
+    window.dispatchEvent(new Event('storage'));
   };
 
-  // Tính điểm trung bình và số lượt đánh giá
   const avgRating = reviews.length ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1) : '0.0';
   const ratingCount = reviews.length;
-
-  // Đếm số đánh giá theo từng sao
-  const starCounts = [0,0,0,0,0,0]; // 0 unused, 1-5
+  const starCounts = [0,0,0,0,0,0]; 
   reviews.forEach(r => { starCounts[r.rating]++; });
+  const currentUser = getCurrentUser();
 
-  // Lấy user hiện tại
-  const currentUser = JSON.parse(localStorage.getItem('user'));
-
-  // Gửi đánh giá
   const handleSubmitReview = (e) => {
     e.preventDefault();
-    if (!reviewText.trim() || reviewRating === 0) return;
-    if (!currentUser) return;
-    const name = currentUser.name || 'Khách';
-    const userId = currentUser.id;
+    if (!reviewText.trim() || reviewRating === 0 || !currentUser) return;
     const newReview = {
-      name,
-      userId,
+      name: currentUser.name || 'Khách',
+      userId: currentUser.id,
       rating: reviewRating,
       text: reviewText.trim(),
       time: Date.now(),
@@ -165,7 +190,6 @@ export default function ProductDetailPage() {
     setCharCount(0);
   };
 
-  // Hiển thị thời gian tương đối
   function timeAgo(ts) {
     const diff = Math.floor((Date.now() - ts) / 1000);
     if (diff < 60) return 'vừa xong';
@@ -176,11 +200,31 @@ export default function ProductDetailPage() {
 
   return (
     <div className="product-detail-tgdd">
+      {/* ========================================================== */}
+      {/* THÊM MỚI: JSX cho popup yêu cầu đăng nhập */}
+      {/* ========================================================== */}
+      {showLoginPopup && (
+        <div className="login-popup-overlay">
+          <div className="login-popup-content">
+            <FontAwesomeIcon icon={faSignInAlt} className="login-popup-icon" />
+            <h2>Yêu cầu đăng nhập</h2>
+            <p>Vui lòng đăng nhập hoặc tạo tài khoản để tiếp tục mua sắm.</p>
+            <div className="login-popup-actions">
+              <button className="login-btn-secondary" onClick={() => setShowLoginPopup(false)}>
+                Để sau
+              </button>
+              <button className="login-btn-primary" onClick={() => navigate('/login')}>
+                Đăng nhập
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="product-detail-breadcrumb">
         <a href="/">Trang chủ</a> / <a href="/dien-thoai">Điện thoại</a> / <span>{product.name}</span>
       </div>
       <div className="product-detail-main">
-        {/* Left: Gallery/Slider */}
         <div className="product-gallery-tgdd">
           <div className="gallery-slider-bg">
             <img className="gallery-main-img" src={product.images ? product.images[mainImgIdx] : product.image} alt="main" />
@@ -201,8 +245,6 @@ export default function ProductDetailPage() {
               ))}
             </div>
           )}
-
-          {/* Thông tin nổi bật và chính sách sản phẩm */}
           <div className="product-extra-info">
             <div className="highlight-specs-block">
               <h3>Thông số nổi bật</h3>
@@ -235,10 +277,8 @@ export default function ProductDetailPage() {
             </div>
           </div>
         </div>
-        {/* Right: Info */}
         <div className="product-info-tgdd">
           <h1 className="product-title-tgdd">{product.name}</h1>
-          {/* Hiển thị dung lượng nếu có */}
           {variants.length > 0 && (
             <div style={{margin:'8px 0',fontWeight:500,fontSize:15,color:'#ff6c2f'}}>
               Dung lượng khả dụng: {variants.map(v => v.storage).join(', ')}
@@ -253,7 +293,7 @@ export default function ProductDetailPage() {
           <div className="product-options-tgdd">
             <div className="option-label">Dung lượng</div>
             <div className="option-group">
-              {variants.map((v, idx) => (
+              {variants.map((v) => (
                 <button
                   key={v.storage}
                   className={`option-btn${selectedStorage === v.storage ? ' active' : ''}`}
@@ -266,22 +306,11 @@ export default function ProductDetailPage() {
             <div className="option-label">Màu sắc</div>
             {colors.length > 0 && (
             <div className="option-group option-group-color">
-                {colors.map((c, idx) => (
+                {colors.map((c) => (
                 <button
                   key={c}
                   className={`color-dot-btn${selectedColor === c ? ' active' : ''}`}
-                  style={{
-                    background: c,
-                    border: c === 'white' ? '2px solid #ccc' : '2px solid #fff',
-                    boxShadow: selectedColor === c ? '0 0 0 3px #e83a45' : 'none',
-                    width: 32,
-                    height: 32,
-                    borderRadius: '50%',
-                    cursor: 'pointer',
-                    outline: 'none',
-                    display: 'inline-block',
-                    marginRight: 10
-                  }}
+                  style={{ background: c }}
                   title={c}
                   onClick={() => setSelectedColor(c)}
                 />
@@ -333,41 +362,43 @@ export default function ProductDetailPage() {
             <button className="addcart-btn-tgdd" onClick={handleAddToCart}>Thêm vào giỏ</button>
           </div>
           {showAddCartToast && (
-            <div style={{position: 'fixed', top: 80, right: 32, zIndex: 9999, background: '#4caf50', color: '#fff', padding: '14px 28px', borderRadius: 12, fontWeight: 600, fontSize: 18, boxShadow: '0 4px 16px rgba(0,0,0,0.12)'}}>
+            <div className="toast-notification success">
               Đã thêm sản phẩm vào giỏ hàng!
             </div>
           )}
           {showSelectStorageToast && (
-            <div style={{position: 'fixed', top: 80, right: 32, zIndex: 9999, background: '#e83a45', color: '#fff', padding: '14px 28px', borderRadius: 12, fontWeight: 600, fontSize: 18, boxShadow: '0 4px 16px rgba(0,0,0,0.12)'}}>
+            <div className="toast-notification error">
               Vui lòng chọn dung lượng trước khi tiếp tục!
             </div>
           )}
         </div>
       </div>
-      {/* Đánh giá và bình luận */}
       <div className="product-comments-section">
-        <h2 className="comments-title">Đánh giá và bình luận</h2>
+        <h2 className="comments-section-title">Đánh giá & Nhận xét về {product.name}</h2>
         <div className="rating-summary-block">
-          <div className="rating-score">
-            <div className="score-value">{avgRating}</div>
-            <div className="score-label">{ratingCount} lượt đánh giá</div>
-            <div className="score-stars">
+          <div className="rating-summary-left">
+            <div className="average-score-display">
+              <p className="average-score">{avgRating}<span>/5</span></p>
+            </div>
+            <div className="average-stars">
               {[1,2,3,4,5].map(i => (
-                <span key={i} className={i <= Math.round(avgRating) ? 'star active' : 'star'}>★</span>
+                  <FontAwesomeIcon key={i} icon={faStarSolid} className={i <= Math.round(avgRating) ? 'star-icon active' : 'star-icon'} />
               ))}
             </div>
-            <button className="rate-btn" onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})}>Đánh giá sản phẩm</button>
+            <p className="total-reviews-text">({ratingCount} đánh giá)</p>
           </div>
-          <div className="rating-bars">
-            {[5,4,3,2,1].map(star => (
-              <div className="rating-bar-row" key={star}>
-                <span className="star-label">{star} <span className="star">★</span></span>
-                <div className="bar-bg">
-                  <div className="bar-fill" style={{width: ratingCount ? `${(starCounts[star]/ratingCount*100).toFixed(0)}%` : '0%'}}></div>
+          <div className="rating-summary-right">
+            <div className="rating-bars">
+              {[5,4,3,2,1].map(star => (
+                <div className="rating-bar-row" key={star}>
+                  <span className="star-label">{star} <FontAwesomeIcon icon={faStarSolid}/></span>
+                  <div className="bar-bg">
+                    <div className="bar-fill" style={{width: ratingCount ? `${(starCounts[star]/ratingCount*100).toFixed(0)}%` : '0%'}}></div>
+                  </div>
+                  <span className="bar-count">{starCounts[star]}</span>
                 </div>
-                <span className="bar-count">{starCounts[star]}</span>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
         <div className="comments-filter-row">
@@ -375,131 +406,115 @@ export default function ProductDetailPage() {
           <div className="filter-btns">
             <button className={`filter-btn${filterStar===0?' active':''}`} onClick={()=>setFilterStar(0)}>Tất cả</button>
             {[5,4,3,2,1].map(star => (
-              <button className={`filter-btn${filterStar===star?' active':''}`} key={star} onClick={()=>setFilterStar(star)}>{star} <span className="star">☆</span></button>
+              <button className={`filter-btn${filterStar===star?' active':''}`} key={star} onClick={()=>setFilterStar(star)}>{star} ★</button>
             ))}
           </div>
         </div>
-        <form className="comment-form redesigned" onSubmit={handleSubmitReview} style={{
-          display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', gap: 16, background: '#fff', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.06)', padding: 20, margin: '18px 0', border: '1px solid #f3f3f3',
-        }}>
-          {/* Nếu chưa đăng nhập, hiển thị thông báo và disable form */}
-          {!currentUser && (
-            <div style={{width:'100%', color:'#e83a45', fontWeight:600, fontSize:16, marginBottom:8}}>
-              Bạn cần <a href="/login" style={{color:'#ff6c2f', textDecoration:'underline'}}>đăng nhập</a> để gửi đánh giá.
+        <div className="review-form-card">
+          {!currentUser ? (
+            <div className="login-prompt">
+              Vui lòng <Link to="/login">đăng nhập</Link> để gửi đánh giá của bạn.
             </div>
-          )}
-          {/* Nếu đã đăng nhập, ẩn input tên và tự động lấy tên user */}
-          {currentUser && (
-            <div style={{flex:'0 0 180px', minWidth:120, maxWidth:200, height:40, display:'flex', alignItems:'center', color:'#888', fontSize:15, marginBottom:8}}>
-              <span style={{fontWeight:600, color:'#222'}}>Tài khoản:</span>&nbsp;{currentUser.name}
-              </div>
-          )}
-          {/* Nếu chưa đăng nhập, không cho nhập tên */}
-          {/* <input ...> bị ẩn khi đã đăng nhập */}
-          {/* Chọn sao và nội dung vẫn cho nhập nhưng disable nếu chưa đăng nhập */}
-          <div className="rating-input-row redesigned" style={{display: 'flex', alignItems: 'center', gap: 4, minWidth: 140, marginBottom: 8}}>
-            <span style={{color:'#888', fontSize:15, marginRight: 4}}>Chọn đánh giá:</span>
-            {[1,2,3,4,5].map(i => (
-              <span
-                key={i}
-                className={`star-input redesigned${i <= reviewRating ? ' active' : ''}`}
-                style={{
-                  cursor: currentUser ? 'pointer' : 'not-allowed', fontSize:22, color: i <= reviewRating ? '#FFD600' : '#ccc', transition: 'color 0.15s',
-                  filter: i <= reviewRating ? 'drop-shadow(0 1px 2px #ffe082)' : 'none',
-                  opacity: currentUser ? 1 : 0.5
-                }}
-                onClick={()=> currentUser && setReviewRating(i)}
-                onMouseOver={e => currentUser && (e.target.style.color = '#FFD600')}
-                onMouseOut={e => currentUser && (e.target.style.color = i <= reviewRating ? '#FFD600' : '#ccc')}
-                role="button"
-                aria-label={`Chọn ${i} sao`}
-              >★</span>
-            ))}
-              </div>
-          <div style={{flex: 1, minWidth: 220, display: 'flex', flexDirection: 'column', gap: 4}}>
-            <textarea
-              className="comment-input redesigned"
-              placeholder={currentUser ? "Nhập nội dung bình luận..." : "Bạn cần đăng nhập để bình luận"}
-              maxLength={3000}
-              value={reviewText}
-              onChange={e => { setReviewText(e.target.value); setCharCount(e.target.value.length); }}
-              required
-              rows={3}
-              style={{resize:'vertical', borderRadius: 10, border: '1px solid #e0e0e0', padding: '12px 14px', fontSize: 15, color: '#222', background: '#fafafa', minHeight: 48, boxSizing: 'border-box'}}
-              disabled={!currentUser}
-            />
-            <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
-              <span className="comment-char-count redesigned" style={{fontSize:13, color:'#888'}}>{charCount}/3000</span>
-            </div>
-          </div>
-          <button type="submit" className="comment-submit-btn highlight redesigned" disabled={!reviewText.trim() || reviewRating===0 || !currentUser} style={{
-            height: 44, minWidth: 120, borderRadius: 24, background: '#222', color: '#fff', fontWeight: 600, fontSize: 17, border: 'none', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', cursor: (!reviewText.trim() || reviewRating===0 || !currentUser) ? 'not-allowed' : 'pointer', transition: 'background 0.18s', marginLeft: 8, marginTop: 2
-          }}>Gửi đánh giá</button>
-        </form>
-        <div className="comment-upload-tip">(Chỉ demo: Đánh giá sẽ được lưu trên trình duyệt của bạn)</div>
-        <div className="comments-list">
-          {reviews.length === 0 && <div style={{color:'#888',padding:'16px 0'}}>Chưa có đánh giá nào. Hãy là người đầu tiên đánh giá sản phẩm này!</div>}
-          {reviews.filter(r => filterStar===0 || r.rating===filterStar).map((r, idx) => (
-            <div className="comment-item redesigned" key={idx} style={{
-              display: 'flex', alignItems: 'flex-start', gap: 16, background: '#fff', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.06)', padding: 18, marginBottom: 18, border: '1px solid #f3f3f3', transition: 'box-shadow 0.2s',
-            }}>
-              <div className="comment-avatar redesigned" style={{
-                width: 48, height: 48, borderRadius: '50%', background: '#ffe0b2', color: '#ff6c2f', fontWeight: 700, fontSize: 22, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', flexShrink: 0
-              }}>{r.name.charAt(0).toUpperCase()}</div>
-              <div className="comment-main redesigned" style={{flex: 1}}>
-                <div className="comment-header redesigned" style={{display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4}}>
-                  <span className="comment-author redesigned" style={{fontWeight: 600, fontSize: 16, color: '#222'}}>{r.name}</span>
-                  <span className="comment-stars redesigned" style={{display: 'flex', alignItems: 'center', gap: 1}}>
-                    {[1,2,3,4,5].map(i => (
-                      <span key={i} className={i <= r.rating ? 'star active' : 'star'} style={{color: i <= r.rating ? '#FFD600' : '#eee', fontSize: 16}}>★</span>
-                    ))}
-                  </span>
-                  <span className="comment-time redesigned" style={{fontSize: 13, color: '#888', marginLeft: 8}}>{timeAgo(r.time)}</span>
+          ) : (
+            <form onSubmit={handleSubmitReview} className="review-form">
+              <div className="form-header">
+                <p>Đánh giá của bạn</p>
+                <div className="rating-input-stars">
+                {[1,2,3,4,5].map(i => (
+                  <FontAwesomeIcon
+                    key={i}
+                    icon={faStarSolid}
+                    className={`star-selector ${i <= reviewRating ? 'selected' : ''}`}
+                    onClick={()=> setReviewRating(i)}
+                  />
+                ))}
                 </div>
-                <div className="comment-content redesigned" style={{fontSize: 15, color: '#333', lineHeight: 1.6, marginBottom: 8, whiteSpace: 'pre-line'}}>{r.text}</div>
-                <div className="comment-actions redesigned" style={{display: 'flex', gap: 16}}>
-                  <button className="like-btn redesigned" style={{background: 'none', border: 'none', color: '#ff9800', cursor: 'pointer', fontSize: 15, display: 'flex', alignItems: 'center', gap: 4}} title="Thích"><span role="img" aria-label="like">👍</span> Thích</button>
-                  <button className="reply-btn redesigned" style={{background: 'none', border: 'none', color: '#1976d2', cursor: 'pointer', fontSize: 15, display: 'flex', alignItems: 'center', gap: 4}} title="Trả lời"><span role="img" aria-label="reply">💬</span> Trả lời</button>
+              </div>
+              <textarea
+                className="comment-textarea"
+                placeholder={`Bạn nghĩ sao về sản phẩm ${product.name}?`}
+                maxLength={3000}
+                value={reviewText}
+                onChange={e => { setReviewText(e.target.value); setCharCount(e.target.value.length); }}
+                required
+                rows={4}
+              />
+              <div className="form-footer">
+                <span className="char-counter">{charCount}/3000</span>
+                <button type="submit" className="submit-review-btn" disabled={!reviewText.trim() || reviewRating===0}>
+                  Gửi đánh giá
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
+        <div className="comments-list">
+          {reviews.length === 0 && <div className="no-reviews-message">Chưa có đánh giá nào. Hãy là người đầu tiên đánh giá sản phẩm này!</div>}
+          {reviews.filter(r => filterStar===0 || r.rating===filterStar).map((r, idx) => (
+            <div className="comment-card" key={idx}>
+              <div className="comment-avatar">{r.name.charAt(0).toUpperCase()}</div>
+              <div className="comment-main">
+                <div className="comment-header">
+                  <div className="comment-author-info">
+                    <span className="comment-author">{r.name}</span>
+                    <span className="comment-time">{timeAgo(r.time)}</span>
+                  </div>
+                  <div className="comment-rating">
+                    {[1,2,3,4,5].map(i => (
+                      <FontAwesomeIcon key={i} icon={faStarSolid} className={`star-icon ${i <= r.rating ? 'active' : ''}`} />
+                    ))}
+                  </div>
+                </div>
+                <div className="comment-content">{r.text}</div>
+                <div className="comment-actions">
+                  <button className="action-btn"><span role="img" aria-label="like">👍</span> Thích</button>
+                  <button className="action-btn"><span role="img" aria-label="reply">💬</span> Trả lời</button>
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
-      {/* Sản phẩm gợi ý - Slider */}
       <div className="suggested-products-section">
         <h2 className="suggested-title">Sản phẩm tương tự</h2>
         {suggestedProducts.length > 0 ? (
-          <Swiper
-            modules={[Navigation]}
-            spaceBetween={24}
-            slidesPerView={5}
-            navigation
-            breakpoints={{
-              320: { slidesPerView: 2, spaceBetween: 12 },
-              640: { slidesPerView: 3, spaceBetween: 16 },
-              1024: { slidesPerView: 4, spaceBetween: 20 },
-              1280: { slidesPerView: 5, spaceBetween: 24 },
-            }}
-            className="suggested-products-slider"
-          >
-            {suggestedProducts.map(p => (
-              <SwiperSlide key={p.id}>
-                <Link to={`/product/${p.id}`} className="suggested-product-card-new">
-                  <div className="suggested-product-img-wrapper">
-                    <img src={p.image} alt={p.name} className="suggested-product-img" />
-                  </div>
-                  <h3 className="suggested-product-name">{p.name}</h3>
-                  <div className="suggested-product-price-block">
-                    <span className="suggested-product-price">{p.price.toLocaleString()}đ</span>
-                    {p.originalPrice && (
-                      <span className="suggested-product-old-price">{p.originalPrice.toLocaleString()}đ</span>
-                    )}
-                  </div>
-                </Link>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          <div className="slider-container">
+            <Swiper
+              modules={[Navigation]}
+              spaceBetween={24}
+              slidesPerView={5}
+              navigation={{
+                nextEl: '.swiper-button-next-custom',
+                prevEl: '.swiper-button-prev-custom',
+              }}
+              breakpoints={{
+                320: { slidesPerView: 2, spaceBetween: 12 },
+                640: { slidesPerView: 3, spaceBetween: 16 },
+                1024: { slidesPerView: 4, spaceBetween: 20 },
+                1280: { slidesPerView: 5, spaceBetween: 24 },
+              }}
+              className="suggested-products-slider"
+            >
+              {suggestedProducts.map(p => (
+                <SwiperSlide key={p.id}>
+                  <Link to={`/product/${p.id}`} className="suggested-product-card-new">
+                    <div className="suggested-product-img-wrapper">
+                      <img src={p.image} alt={p.name} className="suggested-product-img" />
+                    </div>
+                    <h3 className="suggested-product-name">{p.name}</h3>
+                    <div className="suggested-product-price-block">
+                      <span className="suggested-product-price">{p.price.toLocaleString()}đ</span>
+                      {p.originalPrice && (
+                        <span className="suggested-product-old-price">{p.originalPrice.toLocaleString()}đ</span>
+                      )}
+                    </div>
+                  </Link>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <div className="swiper-button-prev-custom"></div>
+            <div className="swiper-button-next-custom"></div>
+          </div>
         ) : (
           <div style={{color:'#888', padding:'16px 0', textAlign: 'center'}}>Không có sản phẩm gợi ý nào.</div>
         )}
@@ -507,4 +522,3 @@ export default function ProductDetailPage() {
     </div>
   );
 }
-

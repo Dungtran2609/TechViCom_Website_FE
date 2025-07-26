@@ -300,3 +300,41 @@
     padding-right: 8px;
   }
 } 
+/* Thêm vào cuối file CartSidebar.css */
+.login-prompt-sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 20px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.login-prompt-sidebar .login-prompt-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.login-prompt-sidebar p {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.login-prompt-sidebar button {
+  background-color: #ff6c2f;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.login-prompt-sidebar button:hover {
+  background-color: #e85a1a;
+}

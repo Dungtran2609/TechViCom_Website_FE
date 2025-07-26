@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Footer.css';
-import { FaComments } from 'react-icons/fa';
+import { FaComments, FaFacebookF, FaYoutube, FaTiktok, FaInstagram, FaComment } from 'react-icons/fa';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -17,7 +17,7 @@ const Footer = () => {
 
   const handleNewsletterSubmit = (e) => {
     e.preventDefault();
-    if (email.trim()) {
+    if (email.trim() && /\S+@\S+\.\S+/.test(email)) {
       alert('Cảm ơn bạn đã đăng ký nhận thông tin!');
       setEmail('');
     } else {
@@ -31,9 +31,8 @@ const Footer = () => {
 
   return (
     <footer className="footer-best">
-      {/* Newsletter - simple version */}
       <div className="footer-best-newsletter">
-        <div className="footer-best-newsletter-inner" style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px'}}>
+        <div className="footer-best-newsletter-inner">
           <h3>Nhận ưu đãi & tin mới</h3>
           <form className="footer-best-newsletter-form" onSubmit={handleNewsletterSubmit}>
             <input
@@ -51,24 +50,23 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Main Footer */}
       <div className="footer-best-main">
         <div className="footer-best-main-grid">
-          {/* Logo & Slogan */}
+          {/* Cột 1: Logo */}
           <div className="footer-best-col logo-col">
             <img src="/src/image/logo.png" alt="Techvicom" className="footer-best-logo" />
             <div className="footer-best-brand">Techvicom</div>
             <div className="footer-best-slogan">Công nghệ cho mọi nhà - Giá tốt mỗi ngày</div>
             <div className="footer-best-socials">
-              <a href="#" className="footer-best-social facebook" title="Facebook" aria-label="Facebook"><i className="fab fa-facebook-f"></i></a>
-              <a href="#" className="footer-best-social youtube" title="YouTube" aria-label="YouTube"><i className="fab fa-youtube"></i></a>
-              <a href="#" className="footer-best-social tiktok" title="TikTok" aria-label="TikTok"><i className="fab fa-tiktok"></i></a>
-              <a href="#" className="footer-best-social instagram" title="Instagram" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
-              <a href="#" className="footer-best-social zalo" title="Zalo" aria-label="Zalo"><i className="fas fa-comment"></i></a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="footer-best-social facebook" title="Facebook" aria-label="Facebook"><FaFacebookF /></a>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="footer-best-social youtube" title="YouTube" aria-label="YouTube"><FaYoutube /></a>
+              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="footer-best-social tiktok" title="TikTok" aria-label="TikTok"><FaTiktok /></a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="footer-best-social instagram" title="Instagram" aria-label="Instagram"><FaInstagram /></a>
+              <a href="https://zalo.me" target="_blank" rel="noopener noreferrer" className="footer-best-social zalo" title="Zalo" aria-label="Zalo"><FaComment /></a>
             </div>
           </div>
 
-          {/* Dịch vụ khách hàng */}
+          {/* Cột 2: Dịch vụ khách hàng */}
           <div className="footer-best-col">
             <h4>Dịch vụ khách hàng</h4>
             <ul>
@@ -82,7 +80,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Về chúng tôi */}
+          {/* Cột 3: Về Techvicom */}
           <div className="footer-best-col">
             <h4>Về Techvicom</h4>
             <ul>
@@ -96,27 +94,32 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Hỗ trợ & Chính sách */}
+          {/* Cột 4: Bản đồ */}
           <div className="footer-best-col">
-            <h4>Hỗ trợ & Chính sách</h4>
-            <ul>
-              <li><a href="#">Tư vấn: <b>1800.6601 (1)</b></a></li>
-              <li><a href="#">Kỹ thuật: <b>1800.6601 (2)</b></a></li>
-              <li><a href="#">Góp ý: <b>1800.6616</b> (8h-22h)</a></li>
-              <li><a href="#">Điều khoản sử dụng</a></li>
-              <li><a href="#">Chính sách bảo mật</a></li>
-              <li><a href="#">Sitemap</a></li>
-            </ul>
+            <h4>Vị trí của chúng tôi</h4>
+            <div className="footer-map-wrapper">
+              <iframe
+                title="Bản đồ vị trí Techvicom"
+                // ĐẢM BẢO ĐƯỜNG DẪN SRC NÀY LÀ CHÍNH XÁC
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.863806021138!2d105.74468151118364!3d21.03813478737505!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313455e940879933%3A0xcf10b34e9f1a03df!2zVHLGsOG7nW5nIENhbyDEkeG6s25nIEZQVCBQb2x5dGVjaG5pYw!5e0!3m2!1svi!2s!4v1753537277135!5m2!1svi!2s"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="footer-map-iframe"
+              ></iframe>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Copyright & Back to Top */}
+      {/* Phần dưới cùng và các nút */}
       <div className="footer-best-bottom">
         <div className="footer-best-bottom-inner">
-          <span>&copy; 2024 Techvicom. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} Techvicom. All rights reserved.</span>
         </div>
       </div>
+      
       <button
         className={`footer-best-backtotop${showBackToTop ? ' show' : ''}`}
         onClick={scrollToTop}
@@ -124,25 +127,27 @@ const Footer = () => {
       >
         <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 19V5M12 5l-7 7m7-7l7 7" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
       </button>
-      {/* Chat Box Floating Button */}
+      
       <button
         className="footer-chatbox-btn"
-        style={{position:'fixed',right:32,bottom:96,zIndex:101,background:'linear-gradient(135deg,#ff6c2f,#ffb86c)',color:'#fff',border:'none',borderRadius:'50%',width:54,height:54,display:'flex',alignItems:'center',justifyContent:'center',boxShadow:'0 4px 16px rgba(255,108,47,0.18)',cursor:'pointer'}}
         onClick={()=>setShowChat(v=>!v)}
         aria-label="Chat hỗ trợ"
       >
-        <FaComments style={{fontSize:28}} />
+        <FaComments />
       </button>
+
       {showChat && (
-        <div style={{position:'fixed',right:32,bottom:160,zIndex:102,width:340,maxWidth:'95vw',background:'#fff',borderRadius:16,boxShadow:'0 8px 32px rgba(0,0,0,0.18)',padding:0,overflow:'hidden',display:'flex',flexDirection:'column'}}>
-          <div style={{background:'linear-gradient(90deg,#ffb86c,#ff6c2f)',color:'#fff',padding:'14px 18px',fontWeight:700,fontSize:18,display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+        <div className="footer-chatbox-window">
+          <div className="chatbox-header">
             <span>Hỗ trợ trực tuyến</span>
-            <button onClick={()=>setShowChat(false)} style={{background:'none',border:'none',color:'#fff',fontSize:22,cursor:'pointer'}}>&times;</button>
+            <button onClick={()=>setShowChat(false)}>×</button>
           </div>
-          <div style={{padding:18,minHeight:120,maxHeight:320,overflowY:'auto',fontSize:15,color:'#222'}}>Xin chào! Bạn cần hỗ trợ gì? (Demo chat box)</div>
-          <div style={{padding:12,borderTop:'1px solid #eee',display:'flex',gap:8}}>
-            <input type="text" placeholder="Nhập tin nhắn..." style={{flex:1,padding:'8px 12px',borderRadius:8,border:'1px solid #eee',fontSize:15}} />
-            <button style={{background:'#ff6c2f',color:'#fff',border:'none',borderRadius:8,padding:'8px 18px',fontWeight:600,cursor:'pointer'}}>Gửi</button>
+          <div className="chatbox-body">
+            Xin chào! Bạn cần Techvicom hỗ trợ gì ạ?
+          </div>
+          <div className="chatbox-input-area">
+            <input type="text" placeholder="Nhập tin nhắn..." />
+            <button>Gửi</button>
           </div>
         </div>
       )}
@@ -150,4 +155,4 @@ const Footer = () => {
   );
 };
 
-export default Footer; 
+export default Footer;

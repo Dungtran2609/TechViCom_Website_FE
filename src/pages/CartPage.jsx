@@ -5,54 +5,63 @@ function getCurrentUser() {
   return JSON.parse(localStorage.getItem('user'));
 }
 
-function getCartProducts() {
-  const user = getCurrentUser();
-  return user && user.cart ? user.cart : [];
-}
-
 export default function CartPage() {
-  const [cart, setCart] = useState(getCartProducts());
-  const [products, setProducts] = useState([]);
   const navigate = useNavigate();
-
+  const [currentUser, setCurrentUser] = useState(getCurrentUser());
+  const [cart, setCart] = useState([]);
+  const [products, setProducts] = useState([]);
+  
+  // ==========================================================
+  // SỬA LỖI Ở ĐÂY: Chặn truy cập nếu chưa đăng nhập
+  // ==========================================================
   useEffect(() => {
-    setCart(getCartProducts());
-  }, []);
-
-  useEffect(() => {
-    // Fetch all products from API
-    fetch('http://localhost:3001/products')
-      .then(res => res.json())
-      .then(data => setProducts(data));
-  }, []);
-
-  // Helper để cập nhật cart vào user (db.json và localStorage)
-  const updateUserCart = async (newCart) => {
     const user = getCurrentUser();
-    if (!user) return;
-    await fetch(`http://localhost:3001/users/${user.id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ cart: newCart })
-    });
-    const updatedUser = { ...user, cart: newCart };
-    localStorage.setItem('user', JSON.stringify(updatedUser));
-    setCart(newCart);
+    if (!user) {
+      // Nếu không có user, chuyển hướng về trang đăng nhập
+      // Có thể lưu lại trang hiện tại để quay lại sau khi đăng nhập thành công
+      navigate('/login', { state: { from: '/cart' } });
+    } else {
+      setCurrentUser(user);
+      setCart(user.cart || []);
+    }
+  }, [navigate]);
+
+  useEffect(() => {
+    // Chỉ fetch products nếu đã đăng nhập
+    if (currentUser) {
+      fetch('http://localhost:3001/products')
+        .then(res => res.json())
+        .then(data => setProducts(data));
+    }
+  }, [currentUser]);
+
+  const updateUserCart = async (newCart) => {
+    if (!currentUser) return;
+    try {
+      const response = await fetch(`http://localhost:3001/users/${currentUser.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cart: newCart })
+      });
+      const updatedUser = await response.json();
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      setCart(newCart);
+      setCurrentUser(updatedUser);
+    } catch (error) {
+      console.error("Lỗi cập nhật giỏ hàng:", error);
+    }
   };
 
-  // Tìm thông tin sản phẩm từ products API
   const cartDetails = cart.map(item => {
     const product = products.find(p => p.id === item.id);
-    const variant = product && product.variants ? product.variants.find(v => v.storage === item.variant?.storage) : null;
+    const variant = product?.variants?.find(v => v.storage === item.variant?.storage);
     return { ...item, product, variant };
-  });
+  }).filter(item => item.product);
 
-  // Tính tổng tiền
-  const total = cartDetails.reduce((sum, item) => sum + (item.variant ? item.variant.price : (item.product ? item.product.price : 0)) * item.quantity, 0);
-  const totalOriginal = cartDetails.reduce((sum, item) => sum + (item.product ? item.product.originalPrice : 0) * item.quantity, 0);
+  const total = cartDetails.reduce((sum, item) => sum + (item.variant?.price || item.product?.price || 0) * item.quantity, 0);
+  const totalOriginal = cartDetails.reduce((sum, item) => sum + (item.product?.originalPrice || item.product?.price || 0) * item.quantity, 0);
   const totalSave = totalOriginal - total;
 
-  // Xử lý tăng/giảm/xóa
   const updateQuantity = async (id, variant, delta) => {
     const newCart = cart.map(item => {
       if (item.id === id && item.variant?.storage === variant?.storage) {
@@ -62,10 +71,20 @@ export default function CartPage() {
     });
     await updateUserCart(newCart);
   };
+
   const removeItem = async (id, variant) => {
     const newCart = cart.filter(item => !(item.id === id && item.variant?.storage === variant?.storage));
     await updateUserCart(newCart);
   };
+  
+  // Nếu chưa có user, hiển thị màn hình loading để tránh flash nội dung
+  if (!currentUser) {
+    return (
+      <div className="bg-gray-50 min-h-screen pt-24 pb-10 px-2 flex items-center justify-center">
+        Đang chuyển hướng đến trang đăng nhập...
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-50 min-h-screen pt-24 pb-10 px-2">
@@ -78,7 +97,6 @@ export default function CartPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Danh sách sản phẩm */}
             <div className="md:col-span-2 space-y-4">
               {cartDetails.map((item, idx) => (
                 <div key={idx} className="flex items-center bg-white rounded-xl shadow p-4 gap-4 relative group hover:shadow-2xl transition-shadow">
@@ -110,7 +128,6 @@ export default function CartPage() {
                 </div>
               ))}
             </div>
-            {/* Tổng tiền và thanh toán */}
             <div className="bg-white rounded-xl shadow p-6 h-fit sticky top-28">
               <h2 className="font-semibold text-gray-800 text-lg mb-4">Thông tin đơn hàng</h2>
               <div className="flex justify-between text-sm mb-2">
@@ -135,4 +152,4 @@ export default function CartPage() {
       </div>
     </div>
   );
-} 
+}
