@@ -1,0 +1,130 @@
+/* Chat Box Button */
+.chat-box-button {
+  position: fixed;
+  bottom: 96px;
+  right: 32px;
+  z-index: 1000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.chat-box-button:hover {
+  transform: scale(1.1);
+}
+
+.chat-box-content {
+  width: 54px;
+  height: 54px;
+  background: #ff6c2f;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  transition: all 0.2s ease;
+  color: white;
+}
+
+.chat-box-content:hover {
+  background: #e85a1a;
+  transform: translateY(-4px) scale(1.05);
+}
+
+/* Chat Window */
+.chat-box-window {
+  position: fixed;
+  right: 32px;
+  bottom: 160px;
+  z-index: 1001;
+  width: 340px;
+  max-width: 95vw;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-box-header {
+  background: #ff6c2f;
+  color: #fff;
+  padding: 14px 18px;
+  font-weight: 700;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat-box-header button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.chat-box-body {
+  padding: 18px;
+  min-height: 120px;
+  max-height: 320px;
+  overflow-y: auto;
+  font-size: 15px;
+  color: #222;
+}
+
+.chat-box-input-area {
+  padding: 12px;
+  border-top: 1px solid #eee;
+  display: flex;
+  gap: 8px;
+  background-color: #f9f9f9;
+}
+
+.chat-box-input-area input {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 15px;
+}
+
+.chat-box-input-area input:focus {
+  outline: none;
+  border-color: #ff6c2f;
+}
+
+.chat-box-input-area button {
+  background: #ff6c2f;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.chat-box-input-area button:hover {
+  background: #e85a1a;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .chat-box-button {
+    bottom: 96px;
+    right: 32px;
+  }
+  
+  .chat-box-content {
+    width: 54px;
+    height: 54px;
+  }
+  
+  .chat-box-window {
+    right: 32px;
+    bottom: 160px;
+  }
+} 

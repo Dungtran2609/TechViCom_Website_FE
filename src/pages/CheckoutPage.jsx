@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { FaUser, FaMapMarkerAlt, FaTruck, FaStore, FaCreditCard } from 'react-icons/fa';
+import VoucherInput from '../components/VoucherInput';
+import { updateVoucherUsage } from '../api/vouchers';
 
 function useQuery() {
   const { search } = useLocation();
@@ -20,6 +22,7 @@ const CheckoutPage = () => {
     note: '', delivery: 'Giao hàng tận nơi', payment: '',
     invoice: false, confirmCall: true,
   });
+  const [appliedVoucher, setAppliedVoucher] = useState(null);
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -72,9 +75,18 @@ const CheckoutPage = () => {
     }
   }, [success, navigate]);
 
-  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const totalOriginal = cartItems.reduce((sum, item) => sum + (item.originalPrice || item.price) * item.quantity, 0);
-  const totalSave = totalOriginal - total;
+  const totalSave = totalOriginal - subtotal;
+  
+  // Tính phí vận chuyển
+  const shippingFee = form.delivery === 'Giao hàng tận nơi' ? 30000 : 0;
+  
+  // Tính giảm giá từ voucher
+  const voucherDiscount = appliedVoucher ? appliedVoucher.discountAmount : 0;
+  
+  // Tính tổng tiền cuối cùng
+  const total = subtotal + shippingFee - voucherDiscount;
 
   const validate = () => {
     const newErrors = {};
@@ -85,6 +97,14 @@ const CheckoutPage = () => {
     if (form.delivery === 'Giao hàng tận nơi' && !form.addressDetail.trim()) newErrors.addressDetail = 'Vui lòng nhập địa chỉ chi tiết';
     if (!form.payment) newErrors.payment = 'Vui lòng chọn phương thức thanh toán';
     return newErrors;
+  };
+
+  const handleVoucherApplied = (voucher) => {
+    setAppliedVoucher(voucher);
+  };
+
+  const handleVoucherRemoved = () => {
+    setAppliedVoucher(null);
   };
 
   const handleOrder = async () => {
@@ -100,10 +120,20 @@ const CheckoutPage = () => {
         setLoading(false);
         return;
       }
+
+      // Cập nhật số lượt sử dụng voucher nếu có
+      if (appliedVoucher) {
+        await updateVoucherUsage(appliedVoucher.id);
+      }
+
       const newOrder = {
         orderId: 'DH' + Math.floor(10000 + Math.random() * 90000),
         date: new Date().toLocaleDateString('vi-VN'),
+        subtotal,
+        shippingFee,
+        voucherDiscount,
         total,
+        voucherCode: appliedVoucher?.code || null,
         status: 'Đang xử lý',
         products: cartItems.map(item => ({ name: item.name, quantity: item.quantity, price: item.price }))
       };
@@ -201,6 +231,15 @@ const CheckoutPage = () => {
 
           {/* Cột phải - Đơn hàng */}
           <div className="w-full lg:w-96">
+            {/* Voucher Input */}
+            <VoucherInput
+              cartItems={cartItems}
+              totalAmount={subtotal}
+              onVoucherApplied={handleVoucherApplied}
+              appliedVoucher={appliedVoucher}
+              onVoucherRemoved={handleVoucherRemoved}
+            />
+            
             <div className="bg-white rounded-xl shadow-md p-6 sticky top-24">
               <h2 className="text-lg font-semibold text-gray-800 mb-4 border-b pb-3">Đơn hàng của bạn ({cartItems.length})</h2>
               <div className="space-y-4 max-h-64 overflow-y-auto pr-2 mb-4">
@@ -219,9 +258,24 @@ const CheckoutPage = () => {
                 ))}
               </div>
               <div className="border-t pt-4 space-y-2 text-sm">
-                <div className="flex justify-between"><span>Tạm tính</span><span>{totalOriginal.toLocaleString()}₫</span></div>
+                <div className="flex justify-between"><span>Tạm tính</span><span>{subtotal.toLocaleString()}₫</span></div>
                 <div className="flex justify-between"><span>Tiết kiệm</span><span className="text-green-600">{totalSave > 0 ? `-${totalSave.toLocaleString()}` : 0}₫</span></div>
-                <div className="flex justify-between text-lg font-bold mt-2 pt-2 border-t"><span>Tổng cộng</span><span className="text-red-600">{total.toLocaleString()}₫</span></div>
+                {form.delivery === 'Giao hàng tận nơi' && (
+                  <div className="flex justify-between">
+                    <span>Phí vận chuyển</span>
+                    <span>{shippingFee.toLocaleString()}₫</span>
+                  </div>
+                )}
+                {voucherDiscount > 0 && (
+                  <div className="flex justify-between">
+                    <span>Giảm giá voucher</span>
+                    <span className="text-green-600">-{voucherDiscount.toLocaleString()}₫</span>
+                  </div>
+                )}
+                <div className="flex justify-between text-lg font-bold mt-2 pt-2 border-t">
+                  <span>Tổng cộng</span>
+                  <span className="text-red-600">{total.toLocaleString()}₫</span>
+                </div>
                 <p className="text-xs text-gray-500 text-right">Đã bao gồm VAT (nếu có)</p>
               </div>
               <button className="w-full mt-6 bg-red-500 hover:bg-red-600 text-white font-bold py-3 rounded-lg text-lg shadow-md hover:shadow-lg transition-all disabled:opacity-50" onClick={handleOrder} disabled={loading || cartItems.length === 0 || success}>

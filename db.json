@@ -6,6 +6,13 @@
       "price": 31990000,
       "originalPrice": 34990000,
       "image": "/images/products/iphone-15-pro.jpg",
+      "images": [
+        "/images/products/iphone-15-pro.jpg",
+        "/images/products/iphone-15-pro-2.jpg",
+        "/images/products/iphone-15-pro-3.jpg",
+        "/images/products/iphone-15-pro-4.jpg",
+        "/images/products/iphone-15-pro-5.jpg"
+      ],
       "installment": "Trả góp 0%",
       "storage": [
         "256 GB",
@@ -53,6 +60,13 @@
       "price": 29990000,
       "originalPrice": 31990000,
       "image": "/images/products/samsung-s24.jpg",
+      "images": [
+        "/images/products/samsung-s24.jpg",
+        "/images/products/samsung-s24-2.jpg",
+        "/images/products/samsung-s24-3.jpg",
+        "/images/products/samsung-s24-4.jpg",
+        "/images/products/samsung-s24-5.jpg"
+      ],
       "installment": "Trả góp 0%",
       "storage": [
         "256 GB",
@@ -97,6 +111,12 @@
       "price": 25990000,
       "originalPrice": 27990000,
       "image": "/images/products/oppo-find-x7.jpg",
+      "images": [
+        "/images/products/oppo-find-x7.jpg",
+        "/images/products/oppo-find-x7-2.jpg",
+        "/images/products/oppo-find-x7-3.jpg",
+        "/images/products/oppo-find-x7-4.jpg"
+      ],
       "installment": "Trả góp 0%",
       "storage": [
         "256 GB"
@@ -135,6 +155,12 @@
       "price": 23990000,
       "originalPrice": 24990000,
       "image": "/images/products/xiaomi-14-pro.jpg",
+      "images": [
+        "/images/products/xiaomi-14-pro.jpg",
+        "/images/products/xiaomi-14-pro-2.jpg",
+        "/images/products/xiaomi-14-pro-3.jpg",
+        "/images/products/xiaomi-14-pro-4.jpg"
+      ],
       "installment": "Trả góp 0%",
       "storage": [
         "256 GB",
@@ -178,6 +204,11 @@
       "price": 8990000,
       "originalPrice": 9990000,
       "image": "/images/products/vivo-v29e.jpg",
+      "images": [
+        "/images/products/vivo-v29e.jpg",
+        "/images/products/vivo-v29e-2.jpg",
+        "/images/products/vivo-v29e-3.jpg"
+      ],
       "installment": "Trả góp 0%",
       "storage": [
         "256 GB"
@@ -215,6 +246,7 @@
       "name": "Quạt tháp Fujihome TF-121HM",
       "price": 899000,
       "originalPrice": 3000000,
+      "discount": 70,
       "image": "/images/products/quat-thap.jpg",
       "promotion": "Flash Sale",
       "description": "Quạt tháp tiết kiệm điện, thiết kế hiện đại.",
@@ -226,6 +258,7 @@
       "name": "Tai nghe Bluetooth nhét tai Defunc TRUE GO Slim",
       "price": 490000,
       "originalPrice": 1490000,
+      "discount": 67,
       "image": "/images/products/tai-nghe.jpg",
       "promotion": "Flash Sale",
       "description": "Tai nghe Bluetooth nhỏ gọn, pin lâu.",
@@ -237,6 +270,7 @@
       "name": "Quạt điều hòa Hoa Phát HPCF1-022 86W",
       "price": 1690000,
       "originalPrice": 2500000,
+      "discount": 32,
       "image": "/images/products/quat-dieu-hoa.jpg",
       "promotion": "Flash Sale",
       "description": "Quạt điều hòa công suất lớn, làm mát nhanh.",
@@ -248,6 +282,7 @@
       "name": "Nồi chiên không dầu Unie 6.5 lít UE-600",
       "price": 1190000,
       "originalPrice": 2390000,
+      "discount": 50,
       "image": "/images/products/noi-chien.jpg",
       "promotion": "Flash Sale",
       "description": "Nồi chiên không dầu dung tích lớn, dễ vệ sinh.",
@@ -259,7 +294,13 @@
       "name": "MacBook Air M2",
       "price": 24990000,
       "originalPrice": 26990000,
-      "image": "/images/products/macbook-air.jpg",
+      "image": "/images/products/mac.jpg",
+      "images": [
+        "/images/products/mac.jpg",
+        "/images/products/macbook-air-2.jpg",
+        "/images/products/macbook-air-3.jpg",
+        "/images/products/macbook-air-4.jpg"
+      ],
       "storage": [
         "256 GB",
         "512 GB"
@@ -302,6 +343,11 @@
       "price": 28990000,
       "originalPrice": 30990000,
       "image": "/images/products/dell-xps.jpg",
+      "images": [
+        "/images/products/dell-xps.jpg",
+        "/images/products/dell-xps-2.jpg",
+        "/images/products/dell-xps-3.jpg"
+      ],
       "storage": [
         "512 GB"
       ],
@@ -338,6 +384,11 @@
       "price": 18990000,
       "originalPrice": 20990000,
       "image": "/images/products/samsung-fridge.jpg",
+      "images": [
+        "/images/products/samsung-fridge.jpg",
+        "/images/products/samsung-fridge-2.jpg",
+        "/images/products/samsung-fridge-3.jpg"
+      ],
       "promotion": "Tặng phiếu mua hàng 1 triệu",
       "description": "Tủ lạnh Samsung Side by Side dung tích lớn, tiết kiệm điện.",
       "specs": [
@@ -398,6 +449,11 @@
       "price": 12990000,
       "originalPrice": 14990000,
       "image": "/images/products/daikin-ac.jpg",
+      "images": [
+        "/images/products/daikin-ac.jpg",
+        "/images/products/daikin-ac-2.jpg",
+        "/images/products/daikin-ac-3.jpg"
+      ],
       "promotion": "Lắp đặt miễn phí",
       "description": "Điều hòa Daikin Inverter tiết kiệm điện, làm lạnh nhanh.",
       "specs": [
@@ -428,6 +484,11 @@
       "price": 15990000,
       "originalPrice": 17990000,
       "image": "/images/products/panasonic-ac.jpg",
+      "images": [
+        "/images/products/panasonic-ac.jpg",
+        "/images/products/panasonic-ac-2.jpg",
+        "/images/products/panasonic-ac-3.jpg"
+      ],
       "promotion": "Tặng phiếu mua hàng 500k",
       "description": "Điều hòa Panasonic 2HP làm lạnh nhanh, vận hành êm ái.",
       "specs": [
@@ -1469,91 +1530,146 @@
       "avatar": "/images/avatar-default.png",
       "birthday": "19-11-2000",
       "gender": "Nữ",
-      "cart": [
-        {
-          "id": "1",
-          "variant": {
-            "storage": "256 GB",
-            "price": 31990000
-          },
-          "quantity": 2,
-          "name": "iPhone 15 Pro Max 256GB",
-          "image": "/images/products/iphone-15-pro.jpg",
-          "price": 31990000,
-          "storage": "256 GB"
-        },
-        {
-          "id": "2",
-          "variant": {
-            "storage": "256 GB",
-            "price": 29990000
-          },
-          "quantity": 2,
-          "name": "Samsung Galaxy S24 Ultra 5G",
-          "image": "/images/products/samsung-s24.jpg",
-          "price": 29990000,
-          "storage": "256 GB"
-        },
-        {
-          "id": "8",
-          "variant": null,
-          "quantity": 2,
-          "name": "Quạt điều hòa Hoa Phát HPCF1-022 86W",
-          "image": "/images/products/quat-dieu-hoa.jpg",
-          "price": 1690000,
-          "storage": ""
-        },
-        {
-          "id": "9",
-          "variant": null,
-          "quantity": 2,
-          "name": "Nồi chiên không dầu Unie 6.5 lít UE-600",
-          "image": "/images/products/noi-chien.jpg",
-          "price": 1190000,
-          "storage": ""
-        }
-      ]
+      "cart": []
     }
   ],
   "banners": [
     {
       "id": "1",
-      "image": "/images/banners/banner1.jpg",
-      "title": "TẬN BỪNG ĐỈNH - AI SMART",
-      "subtitle": "Laptop chỉ từ 8.990.000Đ",
+      "title": "LAPTOP SIÊU HOT ",
+      "subtitle": "Giảm đến 3.000.000đ",
       "features": [
+        "CPU: Apple M2",
         "Trả góp 0%",
-        "Giảm thêm 5%",
-        "Tặng SIM Techvicom 60GB/tháng"
+        "Tặng Gaming Gear"
       ],
-      "buttonText": "Khám phá ngay",
-      "link": "/khuyen-mai"
+      "buttonText": "Mua ngay",
+      "link": "/product/11",
+      "productId": "11",
+      "productName": "MacBook Air M2",
+      "productPrice": "24.990.000đ"
     },
     {
       "id": "2",
-      "image": "/images/banners/banner2.jpg",
-      "title": "Đón đầu 5G - HONOR X9c",
-      "subtitle": "Giảm ngay 700K",
+      "title": "SMARTPHONE FLAGSHIP",
+      "subtitle": "Giảm ngay 2.000.000đ",
       "features": [
-        "Pin 6.000 mAh",
-        "Dùng thoải mái trả sau",
+        "Camera 108MP",
+        "Sạc nhanh 120W",
         "Bảo hành 2 năm"
       ],
-      "buttonText": "Mua ngay",
-      "link": "/honor-x9c"
+      "buttonText": "Khám phá",
+      "link": "/product/5",
+      "productId": "5",
+      "productName": "Vivo V29e 5G",
+      "productPrice": "8.990.000đ"
     },
     {
       "id": "3",
-      "image": "/images/banners/banner3.jpg",
-      "title": "DEEBOT mini",
-      "subtitle": "Giá bão bán 7.990.000Đ",
+      "title": "THIẾT BỊ THÔNG MINH",
+      "subtitle": "Giá sốc chỉ 1.990.000đ",
       "features": [
-        "Small in Size Powerful in Style",
-        "Công nghệ AI thông minh",
-        "Thiết kế nhỏ gọn"
+        "Công nghệ AI",
+        "Điều khiển giọng nói",
+        "Thiết kế hiện đại"
       ],
-      "buttonText": "Tìm hiểu thêm",
-      "link": "/deebot-mini"
+      "buttonText": "Xem chi tiết",
+      "link": "/product/9",
+      "productId": "9",
+      "productName": "Nồi chiên không dầu Unie 6.5 lít UE-600",
+      "productPrice": "1.190.000đ"
+    }
+  ],
+  "vouchers": [
+    {
+      "id": "VOUCHER001",
+      "code": "WELCOME10",
+      "name": "Giảm 10% cho khách hàng mới",
+      "description": "Giảm 10% cho đơn hàng từ 500.000đ",
+      "discountType": "percentage",
+      "discountValue": 10,
+      "minOrderValue": 500000,
+      "maxDiscount": 1000000,
+      "startDate": "2025-01-01",
+      "endDate": "2025-12-31",
+      "usageLimit": 1000,
+      "usedCount": 0,
+      "isActive": true,
+      "applicableCategories": [
+        "all"
+      ]
+    },
+    {
+      "id": "VOUCHER002",
+      "code": "FLASH50K",
+      "name": "Giảm 50.000đ cho đơn hàng từ 1.000.000đ",
+      "description": "Giảm cố định 50.000đ cho đơn hàng từ 1 triệu đồng",
+      "discountType": "fixed",
+      "discountValue": 50000,
+      "minOrderValue": 1000000,
+      "maxDiscount": 50000,
+      "startDate": "2025-01-01",
+      "endDate": "2025-12-31",
+      "usageLimit": 500,
+      "usedCount": 0,
+      "isActive": true,
+      "applicableCategories": [
+        "all"
+      ]
+    },
+    {
+      "id": "VOUCHER003",
+      "code": "PHONE20",
+      "name": "Giảm 20% cho điện thoại",
+      "description": "Giảm 20% cho tất cả điện thoại",
+      "discountType": "percentage",
+      "discountValue": 20,
+      "minOrderValue": 1000000,
+      "maxDiscount": 2000000,
+      "startDate": "2025-01-01",
+      "endDate": "2025-12-31",
+      "usageLimit": 200,
+      "usedCount": 0,
+      "isActive": true,
+      "applicableCategories": [
+        "dien-thoai"
+      ]
+    },
+    {
+      "id": "VOUCHER004",
+      "code": "LAPTOP15",
+      "name": "Giảm 15% cho laptop",
+      "description": "Giảm 15% cho tất cả laptop",
+      "discountType": "percentage",
+      "discountValue": 15,
+      "minOrderValue": 2000000,
+      "maxDiscount": 1500000,
+      "startDate": "2025-01-01",
+      "endDate": "2025-12-31",
+      "usageLimit": 100,
+      "usedCount": 0,
+      "isActive": true,
+      "applicableCategories": [
+        "laptop"
+      ]
+    },
+    {
+      "id": "VOUCHER005",
+      "code": "FREESHIP",
+      "name": "Miễn phí vận chuyển",
+      "description": "Miễn phí vận chuyển cho đơn hàng từ 500.000đ",
+      "discountType": "shipping",
+      "discountValue": 30000,
+      "minOrderValue": 500000,
+      "maxDiscount": 30000,
+      "startDate": "2025-01-01",
+      "endDate": "2025-12-31",
+      "usageLimit": 1000,
+      "usedCount": 0,
+      "isActive": true,
+      "applicableCategories": [
+        "all"
+      ]
     }
   ]
 }

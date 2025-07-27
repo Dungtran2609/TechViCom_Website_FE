@@ -2,28 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import { FaMobileAlt, FaLaptop, FaTabletAlt, FaHeadphones } from 'react-icons/fa';
-import { MdAir, MdKitchen } from 'react-icons/md';
-import { IoPhonePortrait } from 'react-icons/io5';
-import { BsFan, BsLightning } from 'react-icons/bs';
-import { GiWashingMachine } from 'react-icons/gi';
+import { BsLightning } from 'react-icons/bs';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import './HomePage.css';
 import Toast from '../components/Toast';
-// Categories cho HomePage (đơn giản hơn so với Header)
-const categories = [
-  { id: 1, name: 'Điện thoại', icon: <FaMobileAlt size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/dien-thoai' },
-  { id: 2, name: 'Laptop', icon: <FaLaptop size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/laptop' },
-  { id: 3, name: 'Điều hòa', icon: <MdAir size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/may-lanh' },
-  { id: 4, name: 'Tủ lạnh', icon: <MdKitchen size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/tu-lanh' },
-  { id: 5, name: 'Điện gia dụng', icon: <GiWashingMachine size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/dien-gia-dung' },
-  { id: 6, name: 'Máy tính bảng', icon: <FaTabletAlt size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/may-tinh-bang' },
-  { id: 7, name: 'Phụ kiện', icon: <FaHeadphones size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/phu-kien' },
-  { id: 8, name: 'SIM Techvicom', icon: <IoPhonePortrait size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/sim-techvicom' },
-  { id: 9, name: 'Quạt điều hòa', icon: <BsFan size={50} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />, path: '/quat-dieu-hoa' }
-];
+import VoucherDisplay from '../components/VoucherDisplay';
+import CategoriesGrid from '../components/CategoriesGrid';
+
+import { useHomeCategories } from '../hooks/useCategories';
 
 // Thêm đoạn này ở đầu file để lấy dữ liệu bài viết nổi bật
 const featuredNews = [
@@ -52,10 +40,12 @@ const featuredNews = [
 
 const HomePage = () => {
   const [timeLeft, setTimeLeft] = useState({
-    hours: 14,
-    minutes: 22,
-    seconds: 2
+    hours: 23,
+    minutes: 59,
+    seconds: 59
   });
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
+  const { categories, loading: loadingCategories, error: categoriesError } = useHomeCategories();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -80,12 +70,29 @@ const HomePage = () => {
     return () => clearInterval(timer);
   }, []);
 
+  // Scroll to top functionality
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      setShowScrollToTop(scrollTop > 300);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   // Fetch banners
   const [banners, setBanners] = useState([]);
   useEffect(() => {
     fetch('http://localhost:3001/banners')
       .then(res => res.json())
-      .then(setBanners);
+      .then(data => {
+        console.log('Banners loaded:', data);
+        setBanners(data);
+      })
+      .catch(error => {
+        console.error('Error loading banners:', error);
+      });
   }, []);
   // Xóa các fetch productsFeatured, flashSaleProducts, chỉ giữ fetch products
   const [products, setProducts] = useState([]);
@@ -105,6 +112,8 @@ const HomePage = () => {
   const flashSaleProducts = products.filter(p => p.isFlashSale);
 
   const [successMessage, setSuccessMessage] = useState('');
+  const [bannerLoaded, setBannerLoaded] = useState(false);
+  const [swiperKey, setSwiperKey] = useState(0);
   useEffect(() => {
     const msg = localStorage.getItem('success');
     if (msg) {
@@ -123,6 +132,38 @@ const HomePage = () => {
   }, []);
   const featuredNews = news.slice(0, 3); // 3 bài mới nhất
 
+  // Force banner autoplay when component mounts
+  useEffect(() => {
+    if (bannerLoaded && banners.length > 0) {
+      const timer = setTimeout(() => {
+        const swiperElement = document.querySelector('.banner-slider');
+        if (swiperElement && swiperElement.swiper) {
+          swiperElement.swiper.autoplay.start();
+          console.log('Banner autoplay started with', banners.length, 'banners');
+        }
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }
+  }, [bannerLoaded, banners.length]);
+
+  // Force autoplay when banners data changes
+  useEffect(() => {
+    if (banners.length > 0) {
+      setBannerLoaded(false);
+      setSwiperKey(prev => prev + 1);
+      const timer = setTimeout(() => {
+        const swiperElement = document.querySelector('.banner-slider');
+        if (swiperElement && swiperElement.swiper) {
+          swiperElement.swiper.autoplay.start();
+          console.log('Forcing autoplay after banners loaded');
+        }
+      }, 500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [banners.length]);
+
   return (
     <div className="home-page">
       {successMessage && (
@@ -132,59 +173,88 @@ const HomePage = () => {
       <div className="banner-wrapper">
         <section className="banner-section">
           <Swiper
+            key={`banner-swiper-${swiperKey}`}
             modules={[Navigation, Pagination, Autoplay]}
             spaceBetween={0}
             slidesPerView={1}
-            pagination={{
-              clickable: true,
-              renderBullet: function (index, className) {
-                return `<span class="${className}"></span>`;
-              },
-            }}
+            pagination={false}
             autoplay={{
-              delay: 5000,
+              delay: 3000,
               disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+              stopOnLastSlide: false,
+              enabled: true,
             }}
             loop={true}
             className="banner-slider"
+            onSwiper={(swiper) => {
+              console.log('Swiper initialized with', banners.length, 'banners');
+              console.log('Banners data:', banners);
+              setBannerLoaded(true);
+              // Force autoplay to start
+              setTimeout(() => {
+                swiper.autoplay.start();
+                console.log('Autoplay started');
+              }, 100);
+            }}
+            onSlideChange={(swiper) => {
+              console.log('Slide changed to', swiper.realIndex);
+            }}
           >
-            {banners.map((banner) => (
-              <SwiperSlide key={banner.id}>
-                <div className="banner-content">
-                  <div className="banner-text">
-                    <h1>{banner.title}</h1>
-                    <p className="subtitle">{banner.subtitle}</p>
-                    <ul className="features">
-                      {banner.features.map((feature, index) => (
-                        <li key={index}>{feature}</li>
-                      ))}
-                    </ul>
-                    <Link to={banner.link} className="banner-button highlight-btn">
-                      {banner.buttonText}
-                    </Link>
+            {banners.map((banner) => {
+              // Tìm sản phẩm tương ứng từ danh sách products
+              const product = products.find(p => p.id === banner.productId);
+              
+              return (
+                <SwiperSlide key={banner.id}>
+                  <div className="banner-content">
+                    <div className="banner-text">
+                      <h1>{banner.title}</h1>
+                      <p className="subtitle">{banner.subtitle}</p>
+                      <ul className="features">
+                        {banner.features.map((feature, index) => (
+                          <li key={index}>{feature}</li>
+                        ))}
+                      </ul>
+                      {product && (
+                        <div className="product-info-banner">
+                          <div className="product-name-banner">{product.name}</div>
+                        </div>
+                      )}
+                      <Link to={banner.link} className="banner-button highlight-btn">
+                        {banner.buttonText}
+                      </Link>
+                    </div>
+                    <div className="banner-image">
+                      <img src={product ? product.image : banner.image} alt={product ? product.name : banner.title} />
+                      {product && (
+                        <div className="product-overlay">
+                          <div className="product-details">
+                            <h3>{product.name}</h3>
+                            <p className="price">{product.price.toLocaleString()}đ</p>
+                            <Link to={banner.link} className="view-product-btn">
+                              Xem chi tiết
+                            </Link>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
                   </div>
-                  <div className="banner-image">
-                    <img src={banner.image} alt={banner.title} />
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         </section>
       </div>
 
       {/* Categories Grid */}
       <section className="categories-section center-section">
-        <div className="categories-grid">
-          {categories.map((category) => (
-            <Link to={category.path} key={category.id} className="category-card">
-              <div className="category-icon">
-                {category.icon}
-              </div>
-              <h3 className="category-name">{category.name}</h3>
-            </Link>
-          ))}
-        </div>
+        <CategoriesGrid 
+          categories={categories} 
+          loading={loadingCategories}
+          error={categoriesError}
+        />
       </section>
 
       {/* Flash Sale Section */}
@@ -196,9 +266,9 @@ const HomePage = () => {
           </div>
           <div className="flash-sale-timer-modern">
             <div className="sale-date-modern">
-              <button className="date-btn-modern active">Sắp diễn ra • 06/06</button>
-              <button className="date-btn-modern">07/06</button>
-              <button className="date-btn-modern">08/06</button>
+              <button className="date-btn-modern active">Sắp diễn ra • 08/08</button>
+              <button className="date-btn-modern">09/08</button>
+              <button className="date-btn-modern">10/08</button>
             </div>
             <div className="countdown-modern">
               <span className="time-block-modern">{String(timeLeft.hours).padStart(2, '0')}</span>
@@ -235,6 +305,11 @@ const HomePage = () => {
             </Link>
           ))}
         </div>
+      </section>
+
+      {/* Voucher Section */}
+      <section className="center-section">
+        <VoucherDisplay limit={5} />
       </section>
 
       {/* Products Section */}
@@ -370,71 +445,53 @@ const HomePage = () => {
       <section className="cooling-products-section">
         <h2 className="section-title">Tận hưởng hệ mát lạnh và an toàn</h2>
         <div className="products-grid">
-          {[
-            {
-              id: 1,
-              name: 'Máy lọc không khí Philips AC0820/20 20W',
-              price: 2990000,
-              originalPrice: 4000000,
-              discount: 25,
-              image: '/images/products/philips-ac0820.jpg'
-            },
-            {
-              id: 2,
-              name: 'Máy lạnh Samsung Inverter 1.5 HP AR13CYHZAWKNSV',
-              price: 9400000,
-              originalPrice: 11000000,
-              discount: 15,
-              image: '/images/products/samsung-ar13.jpg'
-            },
-            {
-              id: 3,
-              name: 'Tủ lạnh Casper Inverter 430 lít RM-430PB',
-              price: 10900000,
-              originalPrice: 13000000,
-              discount: 17,
-              image: '/images/products/casper-rm430.jpg'
-            },
-            {
-              id: 4,
-              name: 'Máy lọc không khí Lumina Buma Compact 25W',
-              price: 1900000,
-              originalPrice: 2500000,
-              discount: 24,
-              image: '/images/products/lumina-buma.jpg'
-            },
-            {
-              id: 5,
-              name: 'Quạt điều hòa Kangaroo KG50F54 30W',
-              price: 3100000,
-              originalPrice: 4000000,
-              discount: 28,
-              image: '/images/products/kangaroo-kg50f54.jpg'
-            }
-          ].map((product) => (
-            <Link to={`/product/${product.id}`} key={product.id} className="product-card">
-              <div className="product-image">
-                <img src={product.image} alt={product.name} />
-                <span className="discount-badge">-{product.discount}%</span>
-              </div>
-              <div className="product-info">
-                <h3 className="product-name">{product.name}</h3>
-                <div className="product-price">
-                  <span className="current-price">
-                    {product.price.toLocaleString()}đ
-                  </span>
-                  <span className="original-price">
-                    {product.originalPrice.toLocaleString()}đ
-                  </span>
+          {loadingProducts ? (
+            <div style={{padding: 40, textAlign: 'center', width: '100%'}}>Đang tải sản phẩm...</div>
+          ) : products.length === 0 ? (
+            <div style={{padding: 40, textAlign: 'center', width: '100%'}}>Không có sản phẩm nào.</div>
+          ) : (
+            products.slice(0, 5).map((product) => (
+              <Link to={`/product/${product.id}`} key={product.id} className="product-card">
+                <div className="product-image">
+                  <img src={product.image} alt={product.name} />
+                  {product.originalPrice && product.originalPrice !== product.price && (
+                    <span className="discount-badge">
+                      -{Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
+                    </span>
+                  )}
                 </div>
-                <div style={{marginTop: '12px', textAlign: 'center'}}>
-                  <button className="cooling-buy-btn">Xem chi tiết</button>
+                <div className="product-info">
+                  <h3 className="product-name">{product.name}</h3>
+                  <div className="product-price">
+                    <span className="current-price">
+                      {product.price.toLocaleString()}đ
+                    </span>
+                    {product.originalPrice && product.originalPrice !== product.price && (
+                      <span className="original-price">
+                        {product.originalPrice.toLocaleString()}đ
+                      </span>
+                    )}
+                  </div>
+                  <div style={{marginTop: '12px', textAlign: 'center'}}>
+                    <button className="cooling-buy-btn">Xem chi tiết</button>
+                  </div>
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            ))
+          )}
         </div>
       </section>      
+      
+
+
+      {/* Scroll To Top Icon */}
+      <div className={`scroll-to-top-icon ${showScrollToTop ? 'show' : ''}`} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+        <div className="scroll-to-top-content">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 4L4 12H9V20H15V12H20L12 4Z" fill="white"/>
+          </svg>
+        </div>
+      </div>
     </div>
   );
 };
