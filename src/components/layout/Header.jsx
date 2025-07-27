@@ -1,22 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { FaBars, FaUser, FaShoppingCart, FaMobileAlt, FaLaptop, FaHeadphones, FaSignInAlt, FaUserPlus, FaChevronRight, FaSearch, FaFire, FaSignOutAlt, FaUserCircle, FaClipboardList, FaFilter, FaTimesCircle, FaExclamationCircle } from 'react-icons/fa';
-import { MdAir, MdKitchen } from 'react-icons/md';
-import { BsFan } from 'react-icons/bs';
-import { IoPhonePortrait } from 'react-icons/io5';
-import { GiWashingMachine } from 'react-icons/gi';
-import { FaTabletAlt } from 'react-icons/fa';
+import { FaBars, FaUser, FaShoppingCart, FaSignInAlt, FaUserPlus, FaChevronRight, FaSearch, FaFire, FaSignOutAlt, FaUserCircle, FaClipboardList, FaFilter, FaTimesCircle, FaExclamationCircle } from 'react-icons/fa';
 import './Header.css';
 import logo from '../../image/logo.png';
 import CartSidebar from './CartSidebar';
 import { motion } from 'framer-motion';
 import removeAccents from 'remove-accents';
-
-// Tạo iconMap để ánh xạ tên icon sang component
-const iconMap = {
-  FaMobileAlt, FaLaptop, FaHeadphones, MdAir, MdKitchen,
-  BsFan, IoPhonePortrait, GiWashingMachine, FaTabletAlt,
-};
+import { getHeaderCategories, iconMap } from '../../data/categories';
+import { useHeaderCategories } from '../../hooks/useCategories';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,15 +24,23 @@ const Header = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')));
   const [isLoggedIn, setIsLoggedIn] = useState(!!user);
-  const [categories, setCategories] = useState([]);
+  const { categories, loading: categoriesLoading, error: categoriesError } = useHeaderCategories();
   const [products, setProducts] = useState([]);
   const [filter, setFilter] = useState({
     category: '', color: '', storage: '', priceMin: '', priceMax: ''
   });
 
   useEffect(() => {
-    fetch('http://localhost:3001/categories').then(res => res.json()).then(setCategories);
-    fetch('http://localhost:3001/products').then(res => res.json()).then(setProducts);
+    const fetchProducts = async () => {
+      try {
+        const productsData = await fetch('http://localhost:3001/products').then(res => res.json());
+        setProducts(productsData);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchProducts();
   }, []);
 
   const filteredCategories = categories.filter(category =>
@@ -164,7 +163,17 @@ const Header = () => {
                       </div>
                       <div className="all-categories">
                         <div className="all-categories-header"><span>Tất cả danh mục</span></div>
-                        {filteredCategories.length > 0 ? (
+                        {categoriesLoading ? (
+                          <div className="no-category-found">
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-orange-500 mx-auto mb-2"></div>
+                            <span>Đang tải danh mục...</span>
+                          </div>
+                        ) : categoriesError ? (
+                          <div className="no-category-found">
+                            <FaExclamationCircle />
+                            <span>Lỗi tải danh mục</span>
+                          </div>
+                        ) : filteredCategories.length > 0 ? (
                           filteredCategories.map((category) => (
                             <div key={category.id} className={`category-item ${category.isHot ? 'hot-category' : ''}`} onMouseEnter={() => setHoveredCategory(category.id)}>
                               <Link to={`/products${category.path}`} className="category-link" onClick={() => setIsMenuOpen(false)}>

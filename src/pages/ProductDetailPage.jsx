@@ -6,7 +6,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import './ProductDetailPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShieldAlt, faTruck, faHeadset, faStar as faStarSolid, faSignInAlt } from '@fortawesome/free-solid-svg-icons'; // Thêm icon
+import { faShieldAlt, faTruck, faHeadset, faStar as faStarSolid, faSignInAlt, faHdd, faMobileAlt, faLaptop, faTabletAlt } from '@fortawesome/free-solid-svg-icons'; // Thêm icon
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { getProductById, getProducts } from '../api';
 
@@ -227,21 +227,21 @@ export default function ProductDetailPage() {
       <div className="product-detail-main">
         <div className="product-gallery-tgdd">
           <div className="gallery-slider-bg">
-            <img className="gallery-main-img" src={product.images ? product.images[mainImgIdx] : product.image} alt="main" />
+            <img className="gallery-main-img" src={product.images && product.images.length > 0 ? product.images[mainImgIdx] : product.image} alt="main" />
             <div className="gallery-slider-nav">
-              <span>{product.images ? `${mainImgIdx+1}/${product.images.length}` : '1/1'}</span>
+              <span>{product.images && product.images.length > 0 ? `${mainImgIdx+1}/${product.images.length}` : '1/1'}</span>
             </div>
           </div>
           {product.images && product.images.length > 1 && (
-            <div className="gallery-thumbnails">
+            <div className="gallery-thumbs-tgdd">
               {product.images.map((img, idx) => (
-                <img
+                <div
                   key={img}
-                  src={img}
-                  alt={`thumb-${idx}`}
-                  className={`gallery-thumb${mainImgIdx === idx ? ' active' : ''}`}
+                  className={`gallery-thumb-tgdd${mainImgIdx === idx ? ' active' : ''}`}
                   onClick={() => setMainImgIdx(idx)}
-                />
+                >
+                  <img src={img} alt={`thumb-${idx}`} />
+                </div>
               ))}
             </div>
           )}
@@ -280,7 +280,8 @@ export default function ProductDetailPage() {
         <div className="product-info-tgdd">
           <h1 className="product-title-tgdd">{product.name}</h1>
           {variants.length > 0 && (
-            <div style={{margin:'8px 0',fontWeight:500,fontSize:15,color:'#ff6c2f'}}>
+            <div style={{margin:'8px 0',fontWeight:500,fontSize:15,color:'#ff6c2f',display:'flex',alignItems:'center',gap:'8px'}}>
+              <FontAwesomeIcon icon={faHdd} style={{fontSize:16}} />
               Dung lượng khả dụng: {variants.map(v => v.storage).join(', ')}
             </div>
           )}
@@ -291,7 +292,10 @@ export default function ProductDetailPage() {
           <div className="product-description-tgdd">{product.description}</div>
           <div className="product-warranty-tgdd">{product.warranty}</div>
           <div className="product-options-tgdd">
-            <div className="option-label">Dung lượng</div>
+            <div className="option-label storage-label">
+              <FontAwesomeIcon icon={faHdd} style={{marginRight:'8px',fontSize:14}} />
+              Dung lượng
+            </div>
             <div className="option-group">
               {variants.map((v) => (
                 <button
@@ -299,6 +303,7 @@ export default function ProductDetailPage() {
                   className={`option-btn${selectedStorage === v.storage ? ' active' : ''}`}
                   onClick={() => setSelectedStorage(v.storage)}
                 >
+                  <FontAwesomeIcon icon={faHdd} style={{marginRight:'6px',fontSize:12}} />
                   {v.storage}
                 </button>
               ))}

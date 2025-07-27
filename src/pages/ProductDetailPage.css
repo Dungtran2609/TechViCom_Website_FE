@@ -171,6 +171,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
 }
 .option-btn.active, .option-btn:hover {
   border: 2.5px solid #e83a45;
@@ -509,24 +510,114 @@
   margin-left: 4px;
 }
 .color-dot-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 2px solid #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  border: 3px solid #f3f4f6;
   cursor: pointer;
   outline: none;
-  display: inline-block;
-  margin-right: 10px;
-  transition: box-shadow 0.2s, border 0.2s, background-color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  margin-bottom: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  background: linear-gradient(135deg, var(--color) 0%, var(--color) 100%);
 }
+
+.color-dot-btn::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 14px;
+  background: linear-gradient(45deg, #ff6c2f, #ff8c42);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.color-dot-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  border-color: #ff6c2f;
+}
+
+.color-dot-btn:hover::before {
+  opacity: 1;
+}
+
 .color-dot-btn.active {
-  box-shadow: 0 0 0 3px #e83a45;
+  border: 3px solid #ff6c2f;
+  box-shadow: 0 0 0 3px rgba(255, 108, 47, 0.2), 0 8px 20px rgba(0,0,0,0.15);
+  transform: translateY(-2px) scale(1.05);
 }
+
+.color-dot-btn.active::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  background: #ff6c2f;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(255, 108, 47, 0.4);
+}
+
 .color-dot-btn[style*="background: white"] {
-  border-color: #ccc !important;
+  border-color: #e5e7eb !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
+
 .color-dot-btn[style*="background: black"] {
-  border-color: #555 !important;
+  border-color: #e5e7eb !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Color options container */
+.option-group-color {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 16px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+}
+
+/* Color label styling */
+.option-label {
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 8px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.option-label::before {
+  content: '';
+}
+
+.storage-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 .toast-notification {
   position: fixed; 
@@ -1096,6 +1187,34 @@
   .review-form .form-header { flex-direction: column; align-items: flex-start; gap: 8px; }
   .comment-card { padding: 16px; }
   .suggested-products-section { display: none; }
+  
+  /* Color options responsive */
+  .color-dot-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    margin-right: 10px;
+    margin-bottom: 6px;
+  }
+  
+  .color-dot-btn.active::after {
+    font-size: 12px;
+    width: 18px;
+    height: 18px;
+  }
+  
+  .option-group-color {
+    padding: 12px;
+    gap: 6px;
+  }
+  
+  .option-label {
+    font-size: 15px;
+  }
+  
+  .option-label::before {
+    font-size: 16px;
+  }
 }/* ========================================================== */
 /* CSS CHO POPUP YÊU CẦU ĐĂNG NHẬP */
 /* ========================================================== */
