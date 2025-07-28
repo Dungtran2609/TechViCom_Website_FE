@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { FaRegThumbsUp, FaRegCommentDots } from 'react-icons/fa';
+import { api } from '../api';
 
 const getCurrentUser = () => {
   const user = localStorage.getItem('user');
@@ -20,11 +21,7 @@ const NewsDetailPage = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:3001/news/${id}`)
-      .then(res => {
-        if (!res.ok) throw new Error('Network response was not ok');
-        return res.json();
-      })
+    api.news.getById(id)
       .then(data => {
         setNews(data);
         setComments(data.comments || []);
@@ -64,15 +61,8 @@ const NewsDetailPage = () => {
     setNewComment('');
 
     try {
-      const response = await fetch(`http://localhost:3001/news/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ comments: updatedComments })
-      });
-      
-      if (!response.ok) throw new Error('Không thể gửi bình luận.');
-      
-      setNews(prevNews => ({ ...prevNews, comments: updatedComments }));
+      const updatedNews = await api.news.update(id, { comments: updatedComments });
+      setNews(updatedNews);
       
     } catch (error) {
       console.error("Lỗi khi gửi bình luận:", error);

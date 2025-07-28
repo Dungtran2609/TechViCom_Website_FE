@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams, useLocation } from 'react-router-dom';
+import { api } from '../api';
 
 export default function ProductListPage() {
   const { category } = useParams(); // slug, ví dụ: 'laptop', 'dien-thoai', ...
@@ -13,9 +14,7 @@ export default function ProductListPage() {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch('http://localhost:3001/products');
-        if (!res.ok) throw new Error('Lỗi khi lấy dữ liệu sản phẩm');
-        const data = await res.json();
+        const data = await api.product.getProducts();
         setProducts(data);
       } catch (err) {
         setError(err.message);

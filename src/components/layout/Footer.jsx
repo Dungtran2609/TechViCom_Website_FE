@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
 import { FaComments, FaFacebookF, FaYoutube, FaTiktok, FaInstagram, FaComment } from 'react-icons/fa';
 
@@ -71,9 +72,9 @@ const Footer = () => {
             <h4>Dịch vụ khách hàng</h4>
             <ul>
               <li><a href="#">Hướng dẫn mua hàng</a></li>
-              <li><a href="#">Chính sách bảo hành</a></li>
-              <li><a href="#">Chính sách đổi trả</a></li>
-              <li><a href="#">Chính sách vận chuyển</a></li>
+              <li><Link to="/policy">Chính sách bảo hành</Link></li>
+              <li><Link to="/policy">Chính sách đổi trả</Link></li>
+              <li><Link to="/policy">Chính sách vận chuyển</Link></li>
               <li><a href="#">Chính sách trả góp</a></li>
               <li><a href="#">Tra cứu bảo hành</a></li>
               <li><a href="#">Tra cứu hóa đơn</a></li>
@@ -84,8 +85,8 @@ const Footer = () => {
           <div className="footer-best-col">
             <h4>Về Techvicom</h4>
             <ul>
-              <li><a href="#">Giới thiệu công ty</a></li>
-              <li><a href="#">Tin tức & sự kiện</a></li>
+              <li><Link to="/about">Giới thiệu công ty</Link></li>
+              <li><Link to="/news">Tin tức & sự kiện</Link></li>
               <li><a href="#">Tuyển dụng</a></li>
               <li><a href="#">Liên hệ</a></li>
               <li><a href="#">Hệ thống cửa hàng</a></li>
