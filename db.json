@@ -1,6 +1,53 @@
 {
   "brands": [
-    "Apple", "Samsung", "Xiaomi", "Google", "OnePlus", "OPPO", "Defunc", "Hoa Phat", "Unie", "Dell", "Lenovo", "HP"
+    {
+      "id": "1",
+      "name": "Apple"
+    },
+    {
+      "id": "2",
+      "name": "Samsung"
+    },
+    {
+      "id": "3",
+      "name": "Xiaomi"
+    },
+    {
+      "id": "4",
+      "name": "Google"
+    },
+    {
+      "id": "5",
+      "name": "OnePlus"
+    },
+    {
+      "id": "6",
+      "name": "OPPO"
+    },
+    {
+      "id": "7",
+      "name": "Defunc"
+    },
+    {
+      "id": "8",
+      "name": "Hoa Phat"
+    },
+    {
+      "id": "9",
+      "name": "Unie"
+    },
+    {
+      "id": "10",
+      "name": "Dell"
+    },
+    {
+      "id": "11",
+      "name": "Lenovo"
+    },
+    {
+      "id": "12",
+      "name": "HP"
+    }
   ],
   "products": [
     {
@@ -4066,6 +4113,42 @@
       "birthday": "19/07/2025",
       "gender": "Nữ",
       "cart": []
+    },
+    {
+      "id": "8d79",
+      "name": "MAI HOANG ANH",
+      "phone": "0339820488",
+      "password": "1234567890",
+      "email": "babowa1841@modirosa.com",
+      "addresses": [
+        {
+          "address": "123456",
+          "isDefault": true
+        }
+      ],
+      "orders": [
+        {
+          "orderId": "DH71582",
+          "date": "28/7/2025",
+          "subtotal": 31990000,
+          "shippingFee": 30000,
+          "voucherDiscount": 1000000,
+          "total": 31020000,
+          "voucherCode": "WELCOME10",
+          "status": "Đang xử lý",
+          "products": [
+            {
+              "name": "iPhone 15 Pro Max 256GB",
+              "quantity": 1,
+              "price": 31990000
+            }
+          ]
+        }
+      ],
+      "avatar": "/images/avatar-default.png",
+      "birthday": "19-11-2002",
+      "gender": "Nam",
+      "cart": []
     }
   ],
   "banners": [
@@ -4128,7 +4211,7 @@
       "startDate": "2025-01-01",
       "endDate": "2025-12-31",
       "usageLimit": 1000,
-      "usedCount": 2,
+      "usedCount": 3,
       "isActive": true,
       "applicableCategories": [
         "all"

@@ -8,7 +8,7 @@ import removeAccents from 'remove-accents';
 import { getHeaderCategories, iconMap } from '../../data/categories';
 import { useHeaderCategories } from '../../hooks/useCategories';
 import { useNotifications } from '../NotificationSystem';
-import api from '../../api';
+import { api } from '../../api';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
