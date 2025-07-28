@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import removeAccents from 'remove-accents';
 import { getHeaderCategories, iconMap } from '../../data/categories';
 import { useHeaderCategories } from '../../hooks/useCategories';
+import { useNotifications } from '../NotificationSystem';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,6 +26,7 @@ const Header = () => {
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')));
   const [isLoggedIn, setIsLoggedIn] = useState(!!user);
   const { categories, loading: categoriesLoading, error: categoriesError } = useHeaderCategories();
+  const { success, info } = useNotifications();
   const [products, setProducts] = useState([]);
   const [filter, setFilter] = useState({
     category: '', color: '', storage: '', priceMin: '', priceMax: ''
@@ -118,9 +120,14 @@ const Header = () => {
   };
 
   const handleLogout = () => {
+    const userName = user?.name || user?.phone || 'Người dùng';
     localStorage.removeItem('user');
     window.dispatchEvent(new Event('userChanged'));
     setIsUserMenuOpen(false);
+    
+    // Hiển thị thông báo đăng xuất
+    success(`Đã đăng xuất thành công! Tạm biệt ${userName}.`, 'Đăng xuất thành công');
+    
     navigate('/');
   };
 
@@ -204,26 +211,33 @@ const Header = () => {
                               </Link>
                             ))}
                           </div>
-                          {currentCategory.featuredProducts && (
-                            <div className="featured-products">
-                              <h4>Sản phẩm nổi bật</h4>
-                              <div className="featured-products-grid">
-                                {currentCategory.featuredProducts.map((featuredProduct, index) => {
-                                  const realProduct = products.find(p => p.name.includes(featuredProduct.name));
-                                  if (!realProduct) return null; 
-                                  return (
-                                    <Link key={index} to={`/product/${realProduct.id}`} className="featured-product-item" onClick={() => setIsMenuOpen(false)}>
-                                      <img src={featuredProduct.image} alt={featuredProduct.name} />
-                                      <div className="product-info">
-                                        <span className="product-name">{featuredProduct.name}</span>
-                                        <span className="product-price">{featuredProduct.price}</span>
-                                      </div>
-                                    </Link>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          )}
+                          {(() => {
+                            // Lấy sản phẩm nổi bật tự động từ products theo category
+                            const categorySlug = currentCategory.path.replace('/', '');
+                            const featuredProducts = products
+                              .filter(p => p.category === categorySlug && p.isFeatured)
+                              .slice(0, 2); // Chỉ lấy 2 sản phẩm nổi bật
+                            
+                            if (featuredProducts.length > 0) {
+                              return (
+                                <div className="featured-products">
+                                  <h4>Sản phẩm nổi bật</h4>
+                                  <div className="featured-products-grid">
+                                    {featuredProducts.map((product, index) => (
+                                      <Link key={product.id} to={`/product/${product.id}`} className="featured-product-item" onClick={() => setIsMenuOpen(false)}>
+                                        <img src={product.image} alt={product.name} />
+                                        <div className="product-info">
+                                          <span className="product-name">{product.name}</span>
+                                          <span className="product-price">{product.price.toLocaleString()}đ</span>
+                                        </div>
+                                      </Link>
+                                    ))}
+                                  </div>
+                                </div>
+                              );
+                            }
+                            return null;
+                          })()}
                         </div>
                       </div>
                     )}

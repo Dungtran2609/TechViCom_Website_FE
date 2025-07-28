@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from '../api';
+import { useNotifications } from '../components/NotificationSystem';
 import Toast from '../components/Toast';
 
 const mergeCarts = (userCart = [], guestCart = []) => {
@@ -20,9 +21,12 @@ const mergeCarts = (userCart = [], guestCart = []) => {
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { success, error: showError } = useNotifications();
   const [form, setForm] = useState({ phone: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+
 
   // Thêm CSS cho hiệu ứng ảnh chuyển động
   const styles = `
@@ -51,6 +55,7 @@ const LoginPage = () => {
     setError('');
     if (!form.phone.trim() || !form.password.trim()) {
       setError('Vui lòng nhập đầy đủ thông tin!');
+      showError('Vui lòng nhập đầy đủ thông tin!', 'Thông tin không đầy đủ');
       return;
     }
     setLoading(true);
@@ -73,8 +78,11 @@ const LoginPage = () => {
 
         localStorage.setItem('user', JSON.stringify(finalUserData));
         localStorage.removeItem('cart');
-        localStorage.setItem('success', 'Đăng nhập thành công!');
         window.dispatchEvent(new Event('userChanged'));
+
+        // Show success notification with user name
+        const userName = finalUserData.name || finalUserData.phone || 'Người dùng';
+        success(`Chào mừng bạn trở lại, ${userName}! Đăng nhập thành công.`, 'Đăng nhập thành công');
 
         if (localStorage.getItem('firstLogin') === 'true') {
           localStorage.removeItem('firstLogin');
@@ -84,9 +92,11 @@ const LoginPage = () => {
         }
       } else {
         setError('Sai tài khoản hoặc mật khẩu!');
+        showError('Sai tài khoản hoặc mật khẩu! Vui lòng kiểm tra lại.', 'Đăng nhập thất bại');
       }
     } catch (err) {
       setError('Lỗi kết nối tới server!');
+      showError('Không thể kết nối đến máy chủ. Vui lòng thử lại sau.', 'Lỗi kết nối');
     } finally {
       setLoading(false);
     }

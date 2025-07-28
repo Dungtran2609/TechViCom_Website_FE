@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { api } from '../api';
 
 const NewsPage = () => {
   const [newsList, setNewsList] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:3001/news')
-      .then(res => res.json())
+    api.news.getAll()
       .then(data => setNewsList(data));
   }, []);
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { getUser, updateUser } from "../api";
 import { FaUser, FaMapMarkerAlt, FaHistory, FaLock, FaCamera, FaSpinner, FaEye, FaEyeSlash, FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
+import { useNotifications } from "../components/NotificationSystem";
 
 // ----- CÁC HÀM LOGIC CỦA BẠN ĐƯỢC GIỮ NGUYÊN -----
 const getCurrentUserId = () => {
@@ -21,6 +22,7 @@ const AccountPage = () => {
   const [showAvatarPopup, setShowAvatarPopup] = useState(false);
   const [pendingAvatar, setPendingAvatar] = useState(null);
   const fileInputRef = useRef();
+  const { success, error: showError } = useNotifications();
   
   // State được chuyển vào các component con để quản lý riêng
   const [profileForm, setProfileForm] = useState(null);
@@ -42,6 +44,7 @@ const AccountPage = () => {
       })
       .catch(() => {
         setError("Không thể tải thông tin người dùng. Vui lòng thử lại sau.");
+        showError("Không thể tải thông tin người dùng. Vui lòng thử lại sau.", "Lỗi tải dữ liệu");
         setLoading(false);
       });
   }, [USER_ID]);
@@ -54,8 +57,13 @@ const AccountPage = () => {
       setUser(updated);
       localStorage.setItem('user', JSON.stringify(updated));
       window.dispatchEvent(new Event('userChanged'));
+      
+      // Hiển thị thông báo cập nhật thành công
+      success(`Hồ sơ của ${profileForm.name} đã được cập nhật thành công!`, 'Cập nhật hồ sơ thành công');
+      
       return true; // Báo hiệu thành công để component con xử lý
     } catch {
+      showError("Không thể cập nhật hồ sơ. Vui lòng thử lại sau.", "Cập nhật thất bại");
       return false; // Báo hiệu thất bại
     } finally {
       setSaving(false);
@@ -83,9 +91,14 @@ const AccountPage = () => {
       // Cập nhật lại state user local sau khi đổi pass thành công
       setUser(prev => ({...prev, password: passwordForm.new}));
       setPasswordMessage({ type: 'success', text: 'Đổi mật khẩu thành công!' });
+      
+      // Hiển thị thông báo đổi mật khẩu thành công
+      success('Mật khẩu đã được thay đổi thành công!', 'Đổi mật khẩu thành công');
+      
       setPasswordForm({ old: "", new: "", confirm: "" });
     } catch (err) {
       setPasswordMessage({ type: 'error', text: 'Đã xảy ra lỗi. Vui lòng thử lại.' });
+      showError("Không thể thay đổi mật khẩu. Vui lòng thử lại sau.", "Đổi mật khẩu thất bại");
     } finally {
       setSaving(false);
     }
@@ -96,6 +109,11 @@ const AccountPage = () => {
     try {
       const updated = await updateUser(USER_ID, { addresses: newAddresses });
       setUser(updated);
+      
+      // Hiển thị thông báo cập nhật địa chỉ thành công
+      success('Danh sách địa chỉ đã được cập nhật thành công!', 'Cập nhật địa chỉ thành công');
+    } catch {
+      showError("Không thể cập nhật địa chỉ. Vui lòng thử lại sau.", "Cập nhật địa chỉ thất bại");
     } finally {
       setSaving(false);
     }
@@ -109,6 +127,11 @@ const AccountPage = () => {
       localStorage.setItem('user', JSON.stringify(updated));
       window.dispatchEvent(new Event('userChanged'));
       setShowAvatarPopup(false);
+      
+      // Hiển thị thông báo cập nhật avatar thành công
+      success('Ảnh đại diện đã được cập nhật thành công!', 'Cập nhật avatar thành công');
+    } catch {
+      showError("Không thể cập nhật ảnh đại diện. Vui lòng thử lại sau.", "Cập nhật avatar thất bại");
     } finally {
       setSaving(false);
     }

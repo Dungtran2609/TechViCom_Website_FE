@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaTicketAlt, FaGift, FaClock, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { getVouchers } from '../api/vouchers';
-import './VoucherDisplay.css';
 
 const VoucherDisplay = ({ limit = 5 }) => {
   const [vouchers, setVouchers] = useState([]);
@@ -12,6 +11,35 @@ const VoucherDisplay = ({ limit = 5 }) => {
   useEffect(() => {
     fetchActiveVouchers();
   }, []);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!showNavigation) return;
+      
+      switch (e.key) {
+        case 'ArrowLeft':
+          e.preventDefault();
+          prevSlide();
+          break;
+        case 'ArrowRight':
+          e.preventDefault();
+          nextSlide();
+          break;
+        case 'Home':
+          e.preventDefault();
+          goToFirst();
+          break;
+        case 'End':
+          e.preventDefault();
+          goToLast();
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showNavigation]);
 
   const fetchActiveVouchers = async () => {
     try {
@@ -82,6 +110,15 @@ const VoucherDisplay = ({ limit = 5 }) => {
     setCurrentIndex((prev) => Math.max(prev - 1, 0));
   };
 
+  const goToFirst = () => {
+    setCurrentIndex(0);
+  };
+
+  const goToLast = () => {
+    const maxIndex = Math.max(0, vouchers.length - 3);
+    setCurrentIndex(maxIndex);
+  };
+
   if (loading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -101,22 +138,51 @@ const VoucherDisplay = ({ limit = 5 }) => {
   }
 
   return (
-    <div className="mb-8 voucher-container">
+    <div className="mb-8 relative overflow-hidden">
       <div className="flex items-center gap-2 mb-4">
         <FaGift className="text-orange-500 text-xl" />
         <h2 className="text-xl font-semibold text-gray-800">Mã giảm giá hôm nay</h2>
       </div>
       
-      <div className="relative voucher-slider">
+      <div className="relative px-5">
         <div 
-          className="flex gap-4 transition-transform duration-500 ease-in-out"
+          className="flex gap-4 transition-transform duration-500 ease-in-out cursor-grab active:cursor-grabbing"
           style={{ transform: `translateX(-${currentIndex * (100 / 3)}%)` }}
+          onTouchStart={(e) => {
+            const touch = e.touches[0];
+            const startX = touch.clientX;
+            const handleTouchMove = (e) => {
+              const touch = e.touches[0];
+              const deltaX = startX - touch.clientX;
+              if (Math.abs(deltaX) > 50) {
+                if (deltaX > 0) {
+                  nextSlide();
+                } else {
+                  prevSlide();
+                }
+                document.removeEventListener('touchend', handleTouchEnd);
+                document.removeEventListener('touchmove', handleTouchMove);
+              }
+            };
+            const handleTouchEnd = () => {
+              document.removeEventListener('touchend', handleTouchEnd);
+              document.removeEventListener('touchmove', handleTouchMove);
+            };
+            document.addEventListener('touchmove', handleTouchMove);
+            document.addEventListener('touchend', handleTouchEnd);
+          }}
         >
           {vouchers.map((voucher) => (
-            <div key={voucher.id} className="bg-gradient-to-r from-orange-500 to-red-500 rounded-lg p-4 text-white relative overflow-hidden voucher-card hover:scale-105 transition-transform duration-300 min-w-[300px]">
+            <div 
+              key={voucher.id} 
+              className="bg-gradient-to-r from-orange-500 to-red-500 rounded-xl p-4 text-white relative overflow-hidden min-w-[300px] hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl group"
+            >
               {/* Background pattern */}
               <div className="absolute top-0 right-0 w-20 h-20 bg-white bg-opacity-10 rounded-full -mr-10 -mt-10"></div>
               <div className="absolute bottom-0 left-0 w-16 h-16 bg-white bg-opacity-10 rounded-full -ml-8 -mb-8"></div>
+              
+              {/* Shimmer effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-600"></div>
               
               <div className="relative z-10">
                 <div className="flex items-center justify-between mb-3">
@@ -156,20 +222,40 @@ const VoucherDisplay = ({ limit = 5 }) => {
             <button 
               onClick={prevSlide}
               disabled={currentIndex === 0}
-              className={`absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-white bg-opacity-90 hover:bg-opacity-100 text-gray-800 rounded-full p-2 shadow-lg transition-all duration-300 hover:scale-110 z-10 ${currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-110'}`}
+              className={`absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-2 md:-translate-x-4 bg-white bg-opacity-95 hover:bg-opacity-100 text-gray-800 rounded-full p-2 md:p-3 shadow-lg transition-all duration-300 hover:scale-110 z-10 ${currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-xl'}`}
+              title="Cuộn sang trái"
             >
-              <FaChevronLeft className="text-lg" />
+              <FaChevronLeft className="text-sm md:text-lg" />
             </button>
             <button 
               onClick={nextSlide}
               disabled={currentIndex >= vouchers.length - 3}
-              className={`absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-white bg-opacity-90 hover:bg-opacity-100 text-gray-800 rounded-full p-2 shadow-lg transition-all duration-300 hover:scale-110 z-10 ${currentIndex >= vouchers.length - 3 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-110'}`}
+              className={`absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-2 md:translate-x-4 bg-white bg-opacity-95 hover:bg-opacity-100 text-gray-800 rounded-full p-2 md:p-3 shadow-lg transition-all duration-300 hover:scale-110 z-10 ${currentIndex >= vouchers.length - 3 ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-xl'}`}
+              title="Cuộn sang phải"
             >
-              <FaChevronRight className="text-lg" />
+              <FaChevronRight className="text-sm md:text-lg" />
             </button>
           </>
         )}
       </div>
+      
+      {/* Dots indicator */}
+      {showNavigation && vouchers.length > 3 && (
+        <div className="flex justify-center items-center gap-2 mt-4">
+          {Array.from({ length: Math.ceil(vouchers.length / 3) }, (_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index * 3)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                Math.floor(currentIndex / 3) === index
+                  ? 'bg-orange-500 scale-125'
+                  : 'bg-gray-300 hover:bg-gray-400'
+              }`}
+              title={`Trang ${index + 1}`}
+            />
+          ))}
+        </div>
+      )}
       
       <div className="text-center mt-4">
         <p className="text-sm text-gray-600">

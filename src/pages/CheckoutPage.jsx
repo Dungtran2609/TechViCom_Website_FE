@@ -3,6 +3,7 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { FaUser, FaMapMarkerAlt, FaTruck, FaStore, FaCreditCard } from 'react-icons/fa';
 import VoucherInput from '../components/VoucherInput';
 import { updateVoucherUsage } from '../api/vouchers';
+import { useNotifications } from '../components/NotificationSystem';
 
 function useQuery() {
   const { search } = useLocation();
@@ -28,6 +29,7 @@ const CheckoutPage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const query = useQuery();
+  const { success: showSuccess, error: showError } = useNotifications();
 
   useEffect(() => {
     fetch('http://localhost:3001/products')
@@ -101,10 +103,12 @@ const CheckoutPage = () => {
 
   const handleVoucherApplied = (voucher) => {
     setAppliedVoucher(voucher);
+    showSuccess(`Đã áp dụng voucher ${voucher.code}! Giảm ${voucher.discountAmount.toLocaleString()}đ`, 'Áp dụng voucher thành công');
   };
 
   const handleVoucherRemoved = () => {
     setAppliedVoucher(null);
+    showSuccess('Đã hủy áp dụng voucher!', 'Hủy voucher thành công');
   };
 
   const handleOrder = async () => {
@@ -116,14 +120,14 @@ const CheckoutPage = () => {
     try {
       const user = getCurrentUser();
       if (!user?.id) {
-        alert('Bạn cần đăng nhập để đặt hàng!');
+        showError('Bạn cần đăng nhập để đặt hàng!', 'Đặt hàng thất bại');
         setLoading(false);
         return;
       }
 
       // Cập nhật số lượt sử dụng voucher nếu có
       if (appliedVoucher) {
-        await updateVoucherUsage(appliedVoucher.id);
+        await updateVoucherUsage(appliedVoucher.id, appliedVoucher.usedCount);
       }
 
       const newOrder = {
@@ -148,9 +152,13 @@ const CheckoutPage = () => {
       localStorage.setItem('user', JSON.stringify(updatedUser));
       localStorage.removeItem('cart');
       window.dispatchEvent(new Event('storage'));
+      
+      // Hiển thị thông báo đặt hàng thành công
+      showSuccess(`Đặt hàng thành công! Mã đơn hàng: ${newOrder.orderId}`, 'Đặt hàng thành công');
+      
       setSuccess(true);
     } catch (err) {
-      alert('Có lỗi xảy ra khi đặt hàng. Vui lòng thử lại!');
+      showError('Có lỗi xảy ra khi đặt hàng. Vui lòng thử lại!', 'Đặt hàng thất bại');
       console.error('Order error:', err);
     } finally {
       setLoading(false);

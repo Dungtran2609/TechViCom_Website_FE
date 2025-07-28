@@ -12,31 +12,7 @@ import VoucherDisplay from '../components/VoucherDisplay';
 import CategoriesGrid from '../components/CategoriesGrid';
 
 import { useHomeCategories } from '../hooks/useCategories';
-
-// Thêm đoạn này ở đầu file để lấy dữ liệu bài viết nổi bật
-const featuredNews = [
-  {
-    id: 1,
-    title: 'iPhone 16 lộ diện: Thiết kế mới, camera nâng cấp vượt trội',
-    image: '/images/news/iphone16.jpg',
-    description: 'Apple chuẩn bị ra mắt iPhone 16 với nhiều cải tiến về thiết kế và camera, hứa hẹn tạo nên cơn sốt mới trên thị trường smartphone.',
-    link: '/news',
-  },
-  {
-    id: 2,
-    title: 'Samsung trình làng Galaxy Z Fold6 với công nghệ màn hình gập tiên tiến',
-    image: '/images/news/galaxy-zfold6.jpg',
-    description: 'Galaxy Z Fold6 mang đến trải nghiệm gập mở mượt mà, cấu hình mạnh mẽ và nhiều tính năng thông minh cho người dùng hiện đại.',
-    link: '/news',
-  },
-  {
-    id: 3,
-    title: 'Top 5 laptop mỏng nhẹ đáng mua nhất năm 2024',
-    image: '/images/news/laptop2024.jpg',
-    description: 'Danh sách những mẫu laptop mỏng nhẹ, hiệu năng cao, phù hợp cho học sinh, sinh viên và dân văn phòng.',
-    link: '/news',
-  },
-];
+import { api } from '../api';
 
 const HomePage = () => {
   const [timeLeft, setTimeLeft] = useState({
@@ -84,8 +60,7 @@ const HomePage = () => {
   // Fetch banners
   const [banners, setBanners] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:3001/banners')
-      .then(res => res.json())
+    api.banner.getAll()
       .then(data => {
         console.log('Banners loaded:', data);
         setBanners(data);
@@ -94,12 +69,12 @@ const HomePage = () => {
         console.error('Error loading banners:', error);
       });
   }, []);
-  // Xóa các fetch productsFeatured, flashSaleProducts, chỉ giữ fetch products
+
+  // Fetch products
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
   useEffect(() => {
-    fetch('http://localhost:3001/products')
-      .then(res => res.json())
+    api.product.getProducts()
       .then(data => {
         setProducts(data);
         setLoadingProducts(false);
@@ -108,8 +83,8 @@ const HomePage = () => {
   }, []);
 
   // Ví dụ filter sản phẩm nổi bật, flash sale từ products nếu có flag
-  const featuredProducts = products.filter(p => p.isFeatured);
-  const flashSaleProducts = products.filter(p => p.isFlashSale);
+  const featuredProducts = products.filter(p => p.isFeatured && p.category === 'dien-thoai').slice(0, 5); // Chỉ hiển thị 5 sản phẩm điện thoại nổi bật
+  const flashSaleProducts = products.filter(p => p.isFlashSale).slice(0, 8); // Chỉ hiển thị 8 sản phẩm flash sale
 
   const [successMessage, setSuccessMessage] = useState('');
   const [bannerLoaded, setBannerLoaded] = useState(false);
@@ -126,18 +101,17 @@ const HomePage = () => {
   // Fetch bài viết nổi bật từ API
   const [news, setNews] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:3001/news')
-      .then(res => res.json())
+    api.news.getFeatured(3)
       .then(data => setNews(data));
   }, []);
-  const featuredNews = news.slice(0, 3); // 3 bài mới nhất
+  const featuredNews = news; // Đã lấy 3 bài nổi bật từ API
 
   // Force banner autoplay when component mounts
   useEffect(() => {
     if (bannerLoaded && banners.length > 0) {
       const timer = setTimeout(() => {
         const swiperElement = document.querySelector('.banner-slider');
-        if (swiperElement && swiperElement.swiper) {
+        if (swiperElement && swiperElement.swiper && swiperElement.swiper.autoplay) {
           swiperElement.swiper.autoplay.start();
           console.log('Banner autoplay started with', banners.length, 'banners');
         }
@@ -154,7 +128,7 @@ const HomePage = () => {
       setSwiperKey(prev => prev + 1);
       const timer = setTimeout(() => {
         const swiperElement = document.querySelector('.banner-slider');
-        if (swiperElement && swiperElement.swiper) {
+        if (swiperElement && swiperElement.swiper && swiperElement.swiper.autoplay) {
           swiperElement.swiper.autoplay.start();
           console.log('Forcing autoplay after banners loaded');
         }
@@ -172,7 +146,7 @@ const HomePage = () => {
       {/* Banner Section */}
       <div className="banner-wrapper">
         <section className="banner-section">
-          <Swiper
+                              <Swiper
             key={`banner-swiper-${swiperKey}`}
             modules={[Navigation, Pagination, Autoplay]}
             spaceBetween={0}
@@ -193,8 +167,10 @@ const HomePage = () => {
               setBannerLoaded(true);
               // Force autoplay to start
               setTimeout(() => {
-                swiper.autoplay.start();
-                console.log('Autoplay started');
+                if (swiper.autoplay) {
+                  swiper.autoplay.start();
+                  console.log('Autoplay started');
+                }
               }, 100);
             }}
             onSlideChange={(swiper) => {
@@ -321,26 +297,37 @@ const HomePage = () => {
           ) : products.length === 0 ? (
             <div style={{padding: 40, textAlign: 'center', width: '100%'}}>Không có sản phẩm nào.</div>
           ) : (
-            products.map((product) => (
-              <Link to={`/product/${product.id}`} key={product.id} className="product-card-modern">
-                <div className="product-image-modern">
-                  <img src={product.image} alt={product.name} />
-                </div>
-                <div className="product-info-modern">
-                  <h3 className="product-name-modern">{product.name}</h3>
-                  <div className="product-price-modern">
-                    <span className="current-price-modern">{product.price.toLocaleString()}đ</span>
-                    {product.originalPrice && product.originalPrice !== product.price && (
-                      <span className="original-price-modern">{product.originalPrice.toLocaleString()}đ</span>
-                    )}
+            // Hiển thị sản phẩm theo danh mục, mỗi danh mục 2 sản phẩm
+            (() => {
+              const categories = ['dien-thoai', 'laptop', 'may-lanh', 'tu-lanh', 'dien-gia-dung', 'may-tinh-bang', 'phu-kien', 'sim-techvicom', 'quat-dieu-hoa'];
+              const suggestedProducts = [];
+              
+              categories.forEach(category => {
+                const categoryProducts = products.filter(p => p.category === category).slice(0, 2); // Lấy chính xác 2 sản phẩm mỗi danh mục
+                suggestedProducts.push(...categoryProducts);
+              });
+              
+              return suggestedProducts.map((product) => (
+                <Link to={`/product/${product.id}`} key={product.id} className="product-card-modern">
+                  <div className="product-image-modern">
+                    <img src={product.image} alt={product.name} />
                   </div>
-                  {product.promotion && (
-                    <div className="promotion-text-modern">{product.promotion}</div>
-                  )}
-                  <button className="buy-btn-modern">Mua ngay</button>
-                </div>
-              </Link>
-            ))
+                  <div className="product-info-modern">
+                    <h3 className="product-name-modern">{product.name}</h3>
+                    <div className="product-price-modern">
+                      <span className="current-price-modern">{product.price.toLocaleString()}đ</span>
+                      {product.originalPrice && product.originalPrice !== product.price && (
+                        <span className="original-price-modern">{product.originalPrice.toLocaleString()}đ</span>
+                      )}
+                    </div>
+                    {product.promotion && (
+                      <div className="promotion-text-modern">{product.promotion}</div>
+                    )}
+                    <button className="buy-btn-modern">Mua ngay</button>
+                  </div>
+                </Link>
+              ));
+            })()
           )}
         </div>
       </section>
@@ -450,34 +437,41 @@ const HomePage = () => {
           ) : products.length === 0 ? (
             <div style={{padding: 40, textAlign: 'center', width: '100%'}}>Không có sản phẩm nào.</div>
           ) : (
-            products.slice(0, 5).map((product) => (
-              <Link to={`/product/${product.id}`} key={product.id} className="product-card">
-                <div className="product-image">
-                  <img src={product.image} alt={product.name} />
-                  {product.originalPrice && product.originalPrice !== product.price && (
-                    <span className="discount-badge">
-                      -{Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
-                    </span>
-                  )}
-                </div>
-                <div className="product-info">
-                  <h3 className="product-name">{product.name}</h3>
-                  <div className="product-price">
-                    <span className="current-price">
-                      {product.price.toLocaleString()}đ
-                    </span>
+            (() => {
+              // Lấy 5 sản phẩm điều hòa và 5 sản phẩm quạt điều hòa
+              const airConditioners = products.filter(p => p.category === 'may-lanh').slice(0, 5);
+              const coolingFans = products.filter(p => p.category === 'quat-dieu-hoa').slice(0, 5);
+              const coolingProducts = [...airConditioners, ...coolingFans];
+              
+              return coolingProducts.map((product) => (
+                <Link to={`/product/${product.id}`} key={product.id} className="product-card">
+                  <div className="product-image">
+                    <img src={product.image} alt={product.name} />
                     {product.originalPrice && product.originalPrice !== product.price && (
-                      <span className="original-price">
-                        {product.originalPrice.toLocaleString()}đ
+                      <span className="discount-badge">
+                        -{Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
                       </span>
                     )}
                   </div>
-                  <div style={{marginTop: '12px', textAlign: 'center'}}>
-                    <button className="cooling-buy-btn">Xem chi tiết</button>
+                  <div className="product-info">
+                    <h3 className="product-name">{product.name}</h3>
+                    <div className="product-price">
+                      <span className="current-price">
+                        {product.price.toLocaleString()}đ
+                      </span>
+                      {product.originalPrice && product.originalPrice !== product.price && (
+                        <span className="original-price">
+                          {product.originalPrice.toLocaleString()}đ
+                        </span>
+                      )}
+                    </div>
+                    <div style={{marginTop: '12px', textAlign: 'center'}}>
+                      <button className="cooling-buy-btn">Xem chi tiết</button>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))
+                </Link>
+              ));
+            })()
           )}
         </div>
       </section>      

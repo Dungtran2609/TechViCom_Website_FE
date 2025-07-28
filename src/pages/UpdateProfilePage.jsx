@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getUser, updateUser } from "../api";
 import { useNavigate } from "react-router-dom";
+import { useNotifications } from "../components/NotificationSystem";
 
 // Lấy user hiện tại từ localStorage
 const getCurrentUser = () => {
@@ -27,6 +28,7 @@ export default function UpdateProfilePage() {
   const [error, setError] = useState("");
   const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
+  const { success, error: showError } = useNotifications();
 
   // Lấy user id từ localStorage
   useEffect(() => {
@@ -50,6 +52,7 @@ export default function UpdateProfilePage() {
       })
       .catch(() => {
         setError("Không lấy được thông tin người dùng");
+        showError("Không thể tải thông tin người dùng. Vui lòng thử lại.", "Lỗi tải dữ liệu");
         setLoading(false);
       });
   }, [navigate]);
@@ -78,9 +81,14 @@ export default function UpdateProfilePage() {
       localStorage.setItem('user', JSON.stringify(updatedUser));
       // Xóa flag firstLogin nếu có
       localStorage.removeItem('firstLogin');
+      
+      // Hiển thị thông báo cập nhật thành công
+      success(`Hồ sơ của ${form.name} đã được cập nhật thành công!`, 'Cập nhật hồ sơ thành công');
+      
       navigate("/account");
     } catch {
       setError("Cập nhật thất bại");
+      showError("Không thể cập nhật hồ sơ. Vui lòng thử lại sau.", "Cập nhật thất bại");
       setSaving(false);
     }
   };

@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../api';
 import Toast from '../components/Toast';
+import { useNotifications } from '../components/NotificationSystem';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
+  const { success, error: showError } = useNotifications();
   const [form, setForm] = useState({ name: '', phone: '', password: '', confirmPassword: '', email: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -48,6 +50,7 @@ const RegisterPage = () => {
       const existed = await checkRes.json();
       if (Array.isArray(existed) && existed.length > 0) {
         setError('Số điện thoại đã được đăng ký!');
+        showError('Số điện thoại đã được đăng ký! Vui lòng sử dụng số khác.', 'Đăng ký thất bại');
         setLoading(false);
         return;
       }
@@ -55,10 +58,15 @@ const RegisterPage = () => {
       localStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('success', 'Đăng ký thành công!');
       localStorage.setItem('firstLogin', 'true');
+      
+      // Hiển thị thông báo đăng ký thành công
+      success(`Chào mừng ${form.name}! Tài khoản đã được tạo thành công.`, 'Đăng ký thành công');
+      
       setLoading(false);
       navigate('/login');
     } catch (err) {
       setError('Lỗi kết nối tới server!');
+      showError('Không thể kết nối đến máy chủ. Vui lòng thử lại sau.', 'Lỗi kết nối');
       setLoading(false);
     }
   };
