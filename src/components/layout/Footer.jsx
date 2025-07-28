@@ -55,7 +55,7 @@ const Footer = () => {
         <div className="footer-best-main-grid">
           {/* Cột 1: Logo */}
           <div className="footer-best-col logo-col">
-            <img src="/src/image/logo.png" alt="Techvicom" className="footer-best-logo" />
+            <img src="/images/logo/logon.jpg" alt="Techvicom" className="footer-best-logo" />
             <div className="footer-best-brand">Techvicom</div>
             <div className="footer-best-slogan">Công nghệ cho mọi nhà - Giá tốt mỗi ngày</div>
             <div className="footer-best-socials">

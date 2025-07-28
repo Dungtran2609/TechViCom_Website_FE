@@ -1,4 +1,7 @@
 {
+  "brands": [
+    "Apple", "Samsung", "Xiaomi", "Google", "OnePlus", "OPPO", "Defunc", "Hoa Phat", "Unie", "Dell", "Lenovo", "HP"
+  ],
   "products": [
     {
       "id": "1",
@@ -43,6 +46,7 @@
       "isFeatured": true,
       "isFlashSale": false,
       "category": "dien-thoai",
+      "brand": "Apple",
       "variants": [
         {
           "storage": "256 GB",
@@ -94,6 +98,7 @@
       "isFeatured": true,
       "isFlashSale": false,
       "category": "dien-thoai",
+      "brand": "Samsung",
       "variants": [
         {
           "storage": "256 GB",
@@ -107,59 +112,14 @@
     },
     {
       "id": "3",
-      "name": "OPPO Find X7 Ultra",
-      "price": 25990000,
-      "originalPrice": 27990000,
-      "image": "/images/products/oppo-find-x7.jpg",
-      "images": [
-        "/images/products/oppo-find-x7.jpg",
-        "/images/products/oppo-find-x7-2.jpg",
-        "/images/products/oppo-find-x7-3.jpg",
-        "/images/products/oppo-find-x7-4.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "256 GB"
-      ],
-      "colors": [
-        "black",
-        "blue"
-      ],
-      "promotion": "Tặng tai nghe Enco Air3 Pro trị giá 2 triệu",
-      "description": "OPPO Find X7 Ultra với camera siêu zoom, thiết kế sang trọng.",
-      "specs": [
-        {
-          "label": "Màn hình",
-          "value": "6.82 inch AMOLED"
-        },
-        {
-          "label": "Camera",
-          "value": "50MP + 50MP + 50MP + 50MP"
-        }
-      ],
-      "intro": "OPPO Find X7 Ultra là flagship mới nhất với cụm 4 camera 50MP siêu zoom, cảm biến lớn cho ảnh chụp đêm xuất sắc. Máy sở hữu màn hình AMOLED 6.82 inch, chip Snapdragon 8 Gen 2, pin dung lượng lớn, sạc siêu nhanh. Thiết kế cao cấp, mặt lưng kính sang trọng, nhiều tính năng chụp ảnh AI, bảo mật vân tay dưới màn hình.",
-      "introImage": "/images/products/oppo-find-x7-intro.jpg",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "category": "dien-thoai",
-      "variants": [
-        {
-          "storage": "256 GB",
-          "price": 25990000
-        }
-      ]
-    },
-    {
-      "id": "4",
       "name": "Xiaomi 14 Pro",
-      "price": 23990000,
-      "originalPrice": 24990000,
+      "price": 19990000,
+      "originalPrice": 21990000,
       "image": "/images/products/xiaomi-14-pro.jpg",
       "images": [
         "/images/products/xiaomi-14-pro.jpg",
         "/images/products/xiaomi-14-pro-2.jpg",
-        "/images/products/xiaomi-14-pro-3.jpg",
-        "/images/products/xiaomi-14-pro-4.jpg"
+        "/images/products/xiaomi-14-pro-3.jpg"
       ],
       "installment": "Trả góp 0%",
       "storage": [
@@ -170,8 +130,8 @@
         "black",
         "white"
       ],
-      "promotion": "Giảm 2.000.000đ khi thanh toán online",
-      "description": "Xiaomi 14 Pro với chip Snapdragon 8 Gen 3, camera Leica.",
+      "promotion": "Tặng kèm tai nghe Xiaomi Buds 4 Pro",
+      "description": "Xiaomi 14 Pro với camera Leica, màn hình AMOLED, chip Snapdragon 8 Gen 3.",
       "specs": [
         {
           "label": "Màn hình",
@@ -182,43 +142,143 @@
           "value": "50MP + 50MP + 50MP"
         }
       ],
-      "intro": "Xiaomi 14 Pro sở hữu màn hình AMOLED 6.73 inch sắc nét, chip Snapdragon 8 Gen 3 mạnh mẽ, camera Leica chuyên nghiệp cho ảnh chụp chân thực. Máy có thiết kế mỏng nhẹ, pin lớn, sạc nhanh 120W, hỗ trợ 5G, cảm biến vân tay dưới màn hình, nhiều tính năng thông minh, phù hợp cho người yêu công nghệ.",
+      "intro": "Xiaomi 14 Pro là flagship mới nhất với camera Leica chuyên nghiệp, màn hình AMOLED 6.73 inch sắc nét, chip Snapdragon 8 Gen 3 mạnh mẽ. Sản phẩm có thiết kế hiện đại, pin 4880mAh, sạc nhanh 120W, camera 50MP chụp ảnh chất lượng cao, nhiều tính năng AI thông minh.",
       "introImage": "/images/products/xiaomi-14-pro-intro.jpg",
       "isFeatured": true,
       "isFlashSale": false,
       "category": "dien-thoai",
+      "brand": "Xiaomi",
       "variants": [
         {
           "storage": "256 GB",
-          "price": 23990000
+          "price": 19990000
         },
         {
           "storage": "512 GB",
+          "price": 21990000
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Google Pixel 8 Pro",
+      "price": 24990000,
+      "originalPrice": 26990000,
+      "image": "/images/products/pixel-8-pro.jpg",
+      "images": [
+        "/images/products/pixel-8-pro.jpg",
+        "/images/products/pixel-8-pro-2.jpg",
+        "/images/products/pixel-8-pro-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "256 GB",
+        "512 GB"
+      ],
+      "colors": [
+        "black",
+        "blue"
+      ],
+      "promotion": "Tặng kèm Google Pixel Buds Pro",
+      "description": "Google Pixel 8 Pro với camera AI, màn hình OLED, chip Google Tensor G3.",
+      "specs": [
+        {
+          "label": "Màn hình",
+          "value": "6.7 inch OLED"
+        },
+        {
+          "label": "Camera",
+          "value": "50MP + 48MP + 48MP"
+        }
+      ],
+      "intro": "Google Pixel 8 Pro nổi bật với camera AI thông minh, màn hình OLED 6.7 inch sắc nét, chip Google Tensor G3 mạnh mẽ. Sản phẩm có thiết kế hiện đại, pin 4950mAh, sạc nhanh, camera 50MP với nhiều tính năng AI, tích hợp Google Assistant, bảo mật cao.",
+      "introImage": "/images/products/pixel-8-pro-intro.jpg",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "category": "dien-thoai",
+      "brand": "Google",
+      "variants": [
+        {
+          "storage": "256 GB",
           "price": 24990000
+        },
+        {
+          "storage": "512 GB",
+          "price": 26990000
         }
       ]
     },
     {
       "id": "5",
-      "name": "Vivo V29e 5G",
-      "price": 8990000,
-      "originalPrice": 9990000,
-      "image": "/images/products/vivo-v29e.jpg",
+      "name": "OnePlus 12",
+      "price": 18990000,
+      "originalPrice": 20990000,
+      "image": "/images/products/oneplus-12.jpg",
       "images": [
-        "/images/products/vivo-v29e.jpg",
-        "/images/products/vivo-v29e-2.jpg",
-        "/images/products/vivo-v29e-3.jpg"
+        "/images/products/oneplus-12.jpg",
+        "/images/products/oneplus-12-2.jpg",
+        "/images/products/oneplus-12-3.jpg"
       ],
       "installment": "Trả góp 0%",
       "storage": [
-        "256 GB"
+        "256 GB",
+        "512 GB"
       ],
       "colors": [
-        "blue",
-        "yellow"
+        "black",
+        "green"
       ],
-      "promotion": "Tặng PMH 500.000đ mua kèm phụ kiện",
-      "description": "Vivo V29e 5G với camera selfie 50MP, pin 5000mAh.",
+      "promotion": "Tặng kèm OnePlus Buds 3",
+      "description": "OnePlus 12 với camera Hasselblad, màn hình AMOLED, chip Snapdragon 8 Gen 3.",
+      "specs": [
+        {
+          "label": "Màn hình",
+          "value": "6.82 inch AMOLED"
+        },
+        {
+          "label": "Camera",
+          "value": "50MP + 48MP + 64MP"
+        }
+      ],
+      "intro": "OnePlus 12 là flagship mới nhất với camera Hasselblad chuyên nghiệp, màn hình AMOLED 6.82 inch sắc nét, chip Snapdragon 8 Gen 3 mạnh mẽ. Sản phẩm có thiết kế hiện đại, pin 5400mAh, sạc nhanh 100W, camera 50MP với nhiều tính năng chuyên nghiệp.",
+      "introImage": "/images/products/oneplus-12-intro.jpg",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "category": "dien-thoai",
+      "brand": "OnePlus",
+      "variants": [
+        {
+          "storage": "256 GB",
+          "price": 18990000
+        },
+        {
+          "storage": "512 GB",
+          "price": 20990000
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "name": "OPPO Find X7",
+      "price": 17990000,
+      "originalPrice": 19990000,
+      "image": "/images/products/oppo-find-x7.jpg",
+      "images": [
+        "/images/products/oppo-find-x7.jpg",
+        "/images/products/oppo-find-x7-2.jpg",
+        "/images/products/oppo-find-x7-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "256 GB",
+        "512 GB"
+      ],
+      "colors": [
+        "black",
+        "white"
+      ],
+      "promotion": "Tặng kèm OPPO Enco X3",
+      "description": "OPPO Find X7 với camera MariSilicon X, màn hình AMOLED, chip MediaTek Dimensity 9300.",
       "specs": [
         {
           "label": "Màn hình",
@@ -226,32 +286,25 @@
         },
         {
           "label": "Camera",
-          "value": "64MP + 8MP"
+          "value": "50MP + 50MP + 50MP"
         }
       ],
-      "intro": "Vivo V29e 5G nổi bật với camera selfie 50MP sắc nét, màn hình AMOLED 6.78 inch sống động, chip Snapdragon 695 5G cho hiệu năng ổn định. Máy có thiết kế trẻ trung, pin 5000mAh, sạc nhanh, nhiều chế độ chụp ảnh AI, bảo mật vân tay dưới màn hình, phù hợp cho giới trẻ năng động.",
-      "introImage": "/images/products/vivo-v29e-intro.jpg",
+      "intro": "OPPO Find X7 nổi bật với camera MariSilicon X chuyên nghiệp, màn hình AMOLED 6.78 inch sắc nét, chip MediaTek Dimensity 9300 mạnh mẽ. Sản phẩm có thiết kế hiện đại, pin 5000mAh, sạc nhanh 100W, camera 50MP với nhiều tính năng AI.",
+      "introImage": "/images/products/oppo-find-x7-intro.jpg",
       "isFeatured": true,
       "isFlashSale": false,
       "category": "dien-thoai",
+      "brand": "OPPO",
       "variants": [
         {
           "storage": "256 GB",
-          "price": 8990000
+          "price": 17990000
+        },
+        {
+          "storage": "512 GB",
+          "price": 19990000
         }
       ]
-    },
-    {
-      "id": "6",
-      "name": "Quạt tháp Fujihome TF-121HM",
-      "price": 899000,
-      "originalPrice": 3000000,
-      "discount": 70,
-      "image": "/images/products/quat-thap.jpg",
-      "promotion": "Flash Sale",
-      "description": "Quạt tháp tiết kiệm điện, thiết kế hiện đại.",
-      "isFeatured": false,
-      "isFlashSale": true
     },
     {
       "id": "7",
@@ -263,7 +316,8 @@
       "promotion": "Flash Sale",
       "description": "Tai nghe Bluetooth nhỏ gọn, pin lâu.",
       "isFeatured": false,
-      "isFlashSale": true
+      "isFlashSale": true,
+      "brand": "Defunc"
     },
     {
       "id": "8",
@@ -275,7 +329,8 @@
       "promotion": "Flash Sale",
       "description": "Quạt điều hòa công suất lớn, làm mát nhanh.",
       "isFeatured": false,
-      "isFlashSale": true
+      "isFlashSale": true,
+      "brand": "Hoa Phat"
     },
     {
       "id": "9",
@@ -287,7 +342,8 @@
       "promotion": "Flash Sale",
       "description": "Nồi chiên không dầu dung tích lớn, dễ vệ sinh.",
       "isFeatured": false,
-      "isFlashSale": true
+      "isFlashSale": true,
+      "brand": "Unie"
     },
     {
       "id": "11",
@@ -324,6 +380,7 @@
       "intro": "MacBook Air M2 là lựa chọn tuyệt vời cho học sinh, sinh viên.",
       "introImage": "/images/products/macbook-air-intro.jpg",
       "category": "laptop",
+      "brand": "Apple",
       "isFeatured": true,
       "isFlashSale": false,
       "variants": [
@@ -369,7 +426,8 @@
       "intro": "Dell XPS 13 là ultrabook cao cấp cho doanh nhân.",
       "introImage": "/images/products/dell-xps-intro.jpg",
       "category": "laptop",
-      "isFeatured": false,
+      "brand": "Dell",
+      "isFeatured": true,
       "isFlashSale": false,
       "variants": [
         {
@@ -380,82 +438,912 @@
     },
     {
       "id": "13",
-      "name": "Samsung Side by Side",
-      "price": 18990000,
-      "originalPrice": 20990000,
-      "image": "/images/products/samsung-fridge.jpg",
+      "name": "Lenovo ThinkPad X1 Carbon",
+      "price": 32990000,
+      "originalPrice": 34990000,
+      "image": "/images/products/lenovo-thinkpad.jpg",
       "images": [
-        "/images/products/samsung-fridge.jpg",
-        "/images/products/samsung-fridge-2.jpg",
-        "/images/products/samsung-fridge-3.jpg"
+        "/images/products/lenovo-thinkpad.jpg",
+        "/images/products/lenovo-thinkpad-2.jpg",
+        "/images/products/lenovo-thinkpad-3.jpg"
       ],
-      "promotion": "Tặng phiếu mua hàng 1 triệu",
-      "description": "Tủ lạnh Samsung Side by Side dung tích lớn, tiết kiệm điện.",
+      "storage": [
+        "512 GB"
+      ],
+      "colors": [
+        "black"
+      ],
+      "promotion": "Tặng kèm Lenovo ThinkPad Backpack",
+      "description": "Lenovo ThinkPad X1 Carbon với thiết kế bền bỉ, bảo mật cao.",
       "specs": [
         {
-          "label": "Dung tích",
-          "value": "650L"
+          "label": "Màn hình",
+          "value": "14 inch 4K"
         },
         {
-          "label": "Công nghệ",
-          "value": "Digital Inverter"
+          "label": "CPU",
+          "value": "Intel Core i7"
         }
       ],
-      "intro": "Tủ lạnh Samsung Side by Side phù hợp cho gia đình đông người.",
-      "introImage": "/images/products/samsung-fridge-intro.jpg",
-      "category": "tu-lanh",
-      "isFeatured": false,
+      "intro": "Lenovo ThinkPad X1 Carbon là laptop doanh nghiệp cao cấp.",
+      "introImage": "/images/products/lenovo-thinkpad-intro.jpg",
+      "category": "laptop",
+      "brand": "Lenovo",
+      "isFeatured": true,
       "isFlashSale": false,
       "variants": [
         {
-          "storage": "650L",
-          "price": 18990000
+          "storage": "512 GB",
+          "price": 32990000
         }
       ]
     },
     {
       "id": "14",
-      "name": "LG Multi Door",
-      "price": 22990000,
-      "originalPrice": 24990000,
-      "image": "/images/products/lg-fridge.jpg",
-      "promotion": "Tặng máy xay sinh tố",
-      "description": "Tủ lạnh LG Multi Door với công nghệ DoorCooling+.",
+      "name": "HP Spectre x360",
+      "price": 26990000,
+      "originalPrice": 28990000,
+      "image": "/images/products/hp-spectre.jpg",
+      "images": [
+        "/images/products/hp-spectre.jpg",
+        "/images/products/hp-spectre-2.jpg",
+        "/images/products/hp-spectre-3.jpg"
+      ],
+      "storage": [
+        "512 GB"
+      ],
+      "colors": [
+        "silver"
+      ],
+      "promotion": "Tặng kèm HP Active Pen",
+      "description": "HP Spectre x360 với thiết kế 2-in-1, màn hình cảm ứng.",
       "specs": [
         {
-          "label": "Dung tích",
-          "value": "601L"
+          "label": "Màn hình",
+          "value": "13.5 inch 4K"
         },
         {
-          "label": "Công nghệ",
-          "value": "DoorCooling+"
+          "label": "CPU",
+          "value": "Intel Core i7"
         }
       ],
-      "intro": "LG Multi Door giúp bảo quản thực phẩm tươi lâu hơn.",
-      "introImage": "/images/products/lg-fridge-intro.jpg",
-      "category": "tu-lanh",
-      "isFeatured": false,
+      "intro": "HP Spectre x360 là laptop 2-in-1 cao cấp.",
+      "introImage": "/images/products/hp-spectre-intro.jpg",
+      "category": "laptop",
+      "brand": "HP",
+      "isFeatured": true,
       "isFlashSale": false,
       "variants": [
         {
-          "storage": "601L",
-          "price": 22990000
+          "storage": "512 GB",
+          "price": 26990000
         }
       ]
     },
     {
       "id": "15",
-      "name": "Daikin 1.5HP Inverter",
+      "name": "ASUS ROG Zephyrus G14",
+      "price": 39990000,
+      "originalPrice": 41990000,
+      "image": "/images/products/asus-rog.jpg",
+      "images": [
+        "/images/products/asus-rog.jpg",
+        "/images/products/asus-rog-2.jpg",
+        "/images/products/asus-rog-3.jpg"
+      ],
+      "storage": [
+        "1 TB"
+      ],
+      "colors": [
+        "black"
+      ],
+      "promotion": "Tặng kèm ROG Gaming Mouse",
+      "description": "ASUS ROG Zephyrus G14 với GPU RTX 4060, thiết kế gaming.",
+      "specs": [
+        {
+          "label": "Màn hình",
+          "value": "14 inch QHD"
+        },
+        {
+          "label": "GPU",
+          "value": "NVIDIA RTX 4060"
+        }
+      ],
+      "intro": "ASUS ROG Zephyrus G14 là laptop gaming mạnh mẽ.",
+      "introImage": "/images/products/asus-rog-intro.jpg",
+      "category": "laptop",
+      "brand": "ASUS",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "1 TB",
+          "price": 39990000
+        }
+      ]
+    },
+    {
+      "id": "16",
+      "name": "MSI GS66 Stealth",
+      "price": 44990000,
+      "originalPrice": 46990000,
+      "image": "/images/products/msi-gs66.jpg",
+      "images": [
+        "/images/products/msi-gs66.jpg",
+        "/images/products/msi-gs66-2.jpg",
+        "/images/products/msi-gs66-3.jpg"
+      ],
+      "storage": [
+        "1 TB"
+      ],
+      "colors": [
+        "black"
+      ],
+      "promotion": "Tặng kèm MSI Gaming Headset",
+      "description": "MSI GS66 Stealth với GPU RTX 4070, thiết kế mỏng nhẹ.",
+      "specs": [
+        {
+          "label": "Màn hình",
+          "value": "15.6 inch FHD"
+        },
+        {
+          "label": "GPU",
+          "value": "NVIDIA RTX 4070"
+        }
+      ],
+      "intro": "MSI GS66 Stealth là laptop gaming cao cấp.",
+      "introImage": "/images/products/msi-gs66-intro.jpg",
+      "category": "laptop",
+      "brand": "MSI",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "1 TB",
+          "price": 44990000
+        }
+      ]
+    },
+    {
+      "id": "17",
+      "name": "Acer Predator Helios 300",
+      "price": 29990000,
+      "originalPrice": 31990000,
+      "image": "/images/products/acer-predator.jpg",
+      "images": [
+        "/images/products/acer-predator.jpg",
+        "/images/products/acer-predator-2.jpg",
+        "/images/products/acer-predator-3.jpg"
+      ],
+      "storage": [
+        "512 GB"
+      ],
+      "colors": [
+        "black"
+      ],
+      "promotion": "Tặng kèm Predator Gaming Mouse",
+      "description": "Acer Predator Helios 300 với GPU RTX 4060, thiết kế gaming.",
+      "specs": [
+        {
+          "label": "Màn hình",
+          "value": "15.6 inch FHD"
+        },
+        {
+          "label": "GPU",
+          "value": "NVIDIA RTX 4060"
+        }
+      ],
+      "intro": "Acer Predator Helios 300 là laptop gaming tầm trung.",
+      "introImage": "/images/products/acer-predator-intro.jpg",
+      "category": "laptop",
+      "brand": "Acer",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "512 GB",
+          "price": 29990000
+        }
+      ]
+    },
+    {
+      "id": "18",
+      "name": "Razer Blade 15",
+      "price": 49990000,
+      "originalPrice": 51990000,
+      "image": "/images/products/razer-blade.jpg",
+      "images": [
+        "/images/products/razer-blade.jpg",
+        "/images/products/razer-blade-2.jpg",
+        "/images/products/razer-blade-3.jpg"
+      ],
+      "storage": [
+        "1 TB"
+      ],
+      "colors": [
+        "black"
+      ],
+      "promotion": "Tặng kèm Razer Gaming Mouse",
+      "description": "Razer Blade 15 với GPU RTX 4080, thiết kế gaming cao cấp.",
+      "specs": [
+        {
+          "label": "Màn hình",
+          "value": "15.6 inch QHD"
+        },
+        {
+          "label": "GPU",
+          "value": "NVIDIA RTX 4080"
+        }
+      ],
+      "intro": "Razer Blade 15 là laptop gaming flagship.",
+      "introImage": "/images/products/razer-blade-intro.jpg",
+      "category": "laptop",
+      "brand": "Razer",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "1 TB",
+          "price": 49990000
+        }
+      ]
+    },
+    {
+      "id": "19",
+      "name": "Gigabyte AORUS 15X",
+      "price": 37990000,
+      "originalPrice": 39990000,
+      "image": "/images/products/gigabyte-aorus.jpg",
+      "images": [
+        "/images/products/gigabyte-aorus.jpg",
+        "/images/products/gigabyte-aorus-2.jpg",
+        "/images/products/gigabyte-aorus-3.jpg"
+      ],
+      "storage": [
+        "1 TB"
+      ],
+      "colors": [
+        "black"
+      ],
+      "promotion": "Tặng kèm AORUS Gaming Mouse",
+      "description": "Gigabyte AORUS 15X với GPU RTX 4070, thiết kế gaming.",
+      "specs": [
+        {
+          "label": "Màn hình",
+          "value": "15.6 inch FHD"
+        },
+        {
+          "label": "GPU",
+          "value": "NVIDIA RTX 4070"
+        }
+      ],
+      "intro": "Gigabyte AORUS 15X là laptop gaming mạnh mẽ.",
+      "introImage": "/images/products/gigabyte-aorus-intro.jpg",
+      "category": "laptop",
+      "brand": "Gigabyte",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "1 TB",
+          "price": 37990000
+        }
+      ]
+    },
+    {
+      "id": "20",
+      "name": "Alienware m16",
+      "price": 54990000,
+      "originalPrice": 56990000,
+      "image": "/images/products/alienware-m16.jpg",
+      "images": [
+        "/images/products/alienware-m16.jpg",
+        "/images/products/alienware-m16-2.jpg",
+        "/images/products/alienware-m16-3.jpg"
+      ],
+      "storage": [
+        "1 TB"
+      ],
+      "colors": [
+        "black"
+      ],
+      "promotion": "Tặng kèm Alienware Gaming Headset",
+      "description": "Alienware m16 với GPU RTX 4090, thiết kế gaming flagship.",
+      "specs": [
+        {
+          "label": "Màn hình",
+          "value": "16 inch QHD"
+        },
+        {
+          "label": "GPU",
+          "value": "NVIDIA RTX 4090"
+        }
+      ],
+      "intro": "Alienware m16 là laptop gaming flagship.",
+      "introImage": "/images/products/alienware-m16-intro.jpg",
+      "category": "laptop",
+      "brand": "Alienware",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "1 TB",
+          "price": 54990000
+        }
+      ]
+    },
+    {
+      "id": "21",
+      "name": "TCL 60R 5G 4GB 128GB",
+      "price": 2990000,
+      "originalPrice": 3990000,
+      "image": "/images/products/tcl-60r.jpg",
+      "images": [
+        "/images/products/tcl-60r.jpg",
+        "/images/products/tcl-60r-2.jpg",
+        "/images/products/tcl-60r-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "128 GB",
+        "256 GB"
+      ],
+      "colors": [
+        "black"
+      ],
+      "promotion": "Cho thẻ Home Credit: Giảm 400.000đ cho hóa đơn từ 8 triệu",
+      "description": "Điện thoại TCL 60R 5G với màn hình lớn, pin khỏe, hỗ trợ 5G, camera sắc nét, giá cực tốt.",
+      "specs": [
+        {
+          "label": "Chip",
+          "value": "MediaTek Dimensity 700"
+        },
+        {
+          "label": "Màn hình",
+          "value": "6.6 inch, 90Hz"
+        },
+        {
+          "label": "Pin",
+          "value": "5000mAh"
+        },
+        {
+          "label": "Camera",
+          "value": "50MP + 2MP + 2MP"
+        }
+      ],
+      "intro": "TCL 60R 5G là lựa chọn tuyệt vời cho người dùng yêu thích công nghệ với màn hình lớn, hiệu năng ổn định và hỗ trợ 5G. Thiết kế hiện đại, pin bền bỉ, phù hợp cho cả công việc và giải trí.",
+      "introImage": "/images/products/tcl-60r-intro.jpg",
+      "category": "dien-thoai",
+      "brand": "TCL",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "128 GB",
+          "price": 2990000
+        },
+        {
+          "storage": "256 GB",
+          "price": 3490000
+        }
+      ]
+    },
+    {
+      "id": "22",
+      "name": "Nubia V70 Design 8GB 128GB",
+      "price": 2790000,
+      "originalPrice": 3990000,
+      "image": "/images/products/nubia-v70.jpg",
+      "images": [
+        "/images/products/nubia-v70.jpg",
+        "/images/products/nubia-v70-2.jpg",
+        "/images/products/nubia-v70-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "128 GB",
+        "256 GB",
+        "512 GB"
+      ],
+      "colors": [
+        "black",
+        "blue",
+        "purple"
+      ],
+      "promotion": "Cho thẻ HD Bank: Giảm 500.000đ đơn từ 5 triệu",
+      "description": "Nubia V70 Design với thiết kế hiện đại, hiệu năng mạnh mẽ, nhiều lựa chọn màu sắc.",
+      "specs": [
+        {
+          "label": "Chip",
+          "value": "Snapdragon 7 Gen 1"
+        },
+        {
+          "label": "Màn hình",
+          "value": "6.67 inch, AMOLED"
+        },
+        {
+          "label": "Pin",
+          "value": "5000mAh"
+        },
+        {
+          "label": "Camera",
+          "value": "64MP + 8MP + 2MP"
+        }
+      ],
+      "intro": "Nubia V70 Design nổi bật với thiết kế trẻ trung, hiệu năng mạnh mẽ và nhiều màu sắc cá tính. Máy phù hợp cho người dùng năng động, yêu thích sự sáng tạo.",
+      "introImage": "/images/products/nubia-v70-intro.jpg",
+      "category": "dien-thoai",
+      "brand": "Nubia",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "128 GB",
+          "price": 2790000
+        },
+        {
+          "storage": "256 GB",
+          "price": 3290000
+        },
+        {
+          "storage": "512 GB",
+          "price": 3990000
+        }
+      ]
+    },
+    {
+      "id": "23",
+      "name": "Xiaomi Poco M7 Pro 5G 8GB 256GB",
+      "price": 5990000,
+      "originalPrice": 6990000,
+      "image": "/images/products/poco-m7.jpg",
+      "images": [
+        "/images/products/poco-m7.jpg",
+        "/images/products/poco-m7-2.jpg",
+        "/images/products/poco-m7-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "128 GB",
+        "256 GB"
+      ],
+      "colors": [
+        "green",
+        "black",
+        "blue"
+      ],
+      "promotion": "Cho thẻ Home Credit: Giảm 400.000đ cho hóa đơn từ 8 triệu",
+      "description": "Xiaomi Poco M7 Pro 5G với hiệu năng mạnh mẽ, pin lớn, camera sắc nét, hỗ trợ 5G.",
+      "specs": [
+        {
+          "label": "Chip",
+          "value": "MediaTek Dimensity 920"
+        },
+        {
+          "label": "Màn hình",
+          "value": "6.67 inch, 120Hz"
+        },
+        {
+          "label": "Pin",
+          "value": "5000mAh"
+        },
+        {
+          "label": "Camera",
+          "value": "64MP + 2MP"
+        }
+      ],
+      "intro": "Poco M7 Pro 5G là lựa chọn tuyệt vời cho người dùng yêu thích hiệu năng và công nghệ mới với mức giá hợp lý.",
+      "introImage": "/images/products/poco-m7-intro.jpg",
+      "category": "dien-thoai",
+      "brand": "Xiaomi",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "128 GB",
+          "price": 5490000
+        },
+        {
+          "storage": "256 GB",
+          "price": 5990000
+        }
+      ]
+    },
+    {
+      "id": "24",
+      "name": "Samsung Galaxy M55 5G 256GB",
+      "price": 7390000,
+      "originalPrice": 8490000,
+      "image": "/images/products/samsung-m55.jpg",
+      "images": [
+        "/images/products/samsung-m55.jpg",
+        "/images/products/samsung-m55-2.jpg",
+        "/images/products/samsung-m55-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "128 GB",
+        "256 GB"
+      ],
+      "colors": [
+        "black"
+      ],
+      "promotion": "Cho thẻ Home Credit: Giảm 400.000đ cho hóa đơn từ 8 triệu",
+      "description": "Samsung Galaxy M55 5G với màn hình lớn, pin khỏe, camera sắc nét, hỗ trợ 5G.",
+      "specs": [
+        {
+          "label": "Chip",
+          "value": "Snapdragon 7 Gen 1"
+        },
+        {
+          "label": "Màn hình",
+          "value": "6.7 inch, Super AMOLED"
+        },
+        {
+          "label": "Pin",
+          "value": "5000mAh"
+        },
+        {
+          "label": "Camera",
+          "value": "64MP + 8MP + 2MP"
+        }
+      ],
+      "intro": "Galaxy M55 5G là lựa chọn tốt cho người dùng cần smartphone pin trâu, màn hình lớn, hiệu năng ổn định.",
+      "introImage": "/images/products/samsung-m55-intro.jpg",
+      "category": "dien-thoai",
+      "brand": "Samsung",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "128 GB",
+          "price": 6990000
+        },
+        {
+          "storage": "256 GB",
+          "price": 7390000
+        }
+      ]
+    },
+    {
+      "id": "25",
+      "name": "Honor X9c 5G 12GB 256GB",
+      "price": 8790000,
+      "originalPrice": 9490000,
+      "image": "/images/products/honor-x9c.jpg",
+      "images": [
+        "/images/products/honor-x9c.jpg",
+        "/images/products/honor-x9c-2.jpg",
+        "/images/products/honor-x9c-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "256 GB",
+        "512 GB"
+      ],
+      "colors": [
+        "pink",
+        "black",
+        "gray"
+      ],
+      "promotion": "Cho thẻ Home Credit: Giảm 400.000đ cho hóa đơn từ 8 triệu",
+      "description": "Honor X9c 5G với thiết kế sang trọng, hiệu năng mạnh mẽ, camera chất lượng.",
+      "specs": [
+        {
+          "label": "Chip",
+          "value": "Snapdragon 6 Gen 1"
+        },
+        {
+          "label": "Màn hình",
+          "value": "6.78 inch, AMOLED"
+        },
+        {
+          "label": "Pin",
+          "value": "5100mAh"
+        },
+        {
+          "label": "Camera",
+          "value": "108MP + 5MP + 2MP"
+        }
+      ],
+      "intro": "Honor X9c 5G là smartphone tầm trung nổi bật với thiết kế đẹp, hiệu năng ổn định và camera chất lượng.",
+      "introImage": "/images/products/honor-x9c-intro.jpg",
+      "category": "dien-thoai",
+      "brand": "Honor",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "256 GB",
+          "price": 8790000
+        },
+        {
+          "storage": "512 GB",
+          "price": 9490000
+        }
+      ]
+    },
+    {
+      "id": "26",
+      "name": "Vivo V29e 5G",
+      "price": 8990000,
+      "originalPrice": 9990000,
+      "image": "/images/products/vivo-v29e.jpg",
+      "images": [
+        "/images/products/vivo-v29e.jpg",
+        "/images/products/vivo-v29e-2.jpg",
+        "/images/products/vivo-v29e-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "256 GB"
+      ],
+      "colors": [
+        "blue",
+        "yellow"
+      ],
+      "promotion": "Tặng PMH 500.000đ mua kèm phụ kiện",
+      "description": "Vivo V29e 5G với thiết kế trẻ trung, camera chất lượng, hiệu năng ổn định.",
+      "specs": [
+        {
+          "label": "Chip",
+          "value": "Snapdragon 695"
+        },
+        {
+          "label": "Màn hình",
+          "value": "6.78 inch, AMOLED"
+        },
+        {
+          "label": "Pin",
+          "value": "5000mAh"
+        },
+        {
+          "label": "Camera",
+          "value": "64MP + 8MP + 2MP"
+        }
+      ],
+      "intro": "Vivo V29e 5G là smartphone tầm trung nổi bật với thiết kế đẹp, hiệu năng ổn định và camera chất lượng.",
+      "introImage": "/images/products/vivo-v29e-intro.jpg",
+      "category": "dien-thoai",
+      "brand": "Vivo",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "256 GB",
+          "price": 8990000
+        }
+      ]
+    },
+    {
+      "id": "27",
+      "name": "Realme GT5 Pro",
+      "price": 16990000,
+      "originalPrice": 18990000,
+      "image": "/images/products/realme-gt5.jpg",
+      "images": [
+        "/images/products/realme-gt5.jpg",
+        "/images/products/realme-gt5-2.jpg",
+        "/images/products/realme-gt5-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "256 GB"
+      ],
+      "colors": [
+        "red",
+        "blue"
+      ],
+      "promotion": "Giảm 1.000.000đ khi thanh toán qua VNPAY",
+      "description": "Realme GT5 Pro với hiệu năng mạnh mẽ, camera chất lượng, giá hợp lý.",
+      "specs": [
+        {
+          "label": "Chip",
+          "value": "Snapdragon 8 Gen 3"
+        },
+        {
+          "label": "Màn hình",
+          "value": "6.78 inch, AMOLED"
+        },
+        {
+          "label": "Pin",
+          "value": "5400mAh"
+        },
+        {
+          "label": "Camera",
+          "value": "50MP + 8MP + 50MP"
+        }
+      ],
+      "intro": "Realme GT5 Pro là smartphone cao cấp với hiệu năng mạnh mẽ, camera chất lượng và giá hợp lý.",
+      "introImage": "/images/products/realme-gt5-intro.jpg",
+      "category": "dien-thoai",
+      "brand": "Realme",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "256 GB",
+          "price": 16990000
+        }
+      ]
+    },
+    {
+      "id": "28",
+      "name": "Nothing Phone (2)",
+      "price": 15990000,
+      "originalPrice": 16990000,
+      "image": "/images/products/nothing-phone-2.jpg",
+      "images": [
+        "/images/products/nothing-phone-2.jpg",
+        "/images/products/nothing-phone-2-2.jpg",
+        "/images/products/nothing-phone-2-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "256 GB"
+      ],
+      "colors": [
+        "white",
+        "black"
+      ],
+      "promotion": "Tặng ốp lưng chính hãng trị giá 790.000đ",
+      "description": "Nothing Phone (2) với thiết kế độc đáo, hiệu năng ổn định, trải nghiệm Android thuần.",
+      "specs": [
+        {
+          "label": "Chip",
+          "value": "Snapdragon 8+ Gen 1"
+        },
+        {
+          "label": "Màn hình",
+          "value": "6.7 inch, OLED"
+        },
+        {
+          "label": "Pin",
+          "value": "4700mAh"
+        },
+        {
+          "label": "Camera",
+          "value": "50MP + 50MP"
+        }
+      ],
+      "intro": "Nothing Phone (2) là smartphone độc đáo với thiết kế trong suốt, hiệu năng ổn định và trải nghiệm Android thuần.",
+      "introImage": "/images/products/nothing-phone-2-intro.jpg",
+      "category": "dien-thoai",
+      "brand": "Nothing",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "256 GB",
+          "price": 15990000
+        }
+      ]
+    },
+    {
+      "id": "29",
+      "name": "Huawei P60 Pro",
+      "price": 24990000,
+      "originalPrice": 26990000,
+      "image": "/images/products/huawei-p60.jpg",
+      "images": [
+        "/images/products/huawei-p60.jpg",
+        "/images/products/huawei-p60-2.jpg",
+        "/images/products/huawei-p60-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "256 GB",
+        "512 GB"
+      ],
+      "colors": [
+        "black",
+        "purple"
+      ],
+      "promotion": "Tặng Watch GT4 trị giá 6.990.000đ",
+      "description": "Huawei P60 Pro với thiết kế sang trọng, camera xuất sắc, hiệu năng mạnh mẽ.",
+      "specs": [
+        {
+          "label": "Chip",
+          "value": "Snapdragon 8+ Gen 1 4G"
+        },
+        {
+          "label": "Màn hình",
+          "value": "6.67 inch, OLED"
+        },
+        {
+          "label": "Pin",
+          "value": "4815mAh"
+        },
+        {
+          "label": "Camera",
+          "value": "48MP + 48MP + 13MP"
+        }
+      ],
+      "intro": "Huawei P60 Pro là flagship mới nhất của Huawei với camera xuất sắc, hiệu năng vượt trội và thiết kế sang trọng.",
+      "introImage": "/images/products/huawei-p60-intro.jpg",
+      "category": "dien-thoai",
+      "brand": "Huawei",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "256 GB",
+          "price": 24990000
+        },
+        {
+          "storage": "512 GB",
+          "price": 26990000
+        }
+      ]
+    },
+    {
+      "id": "31",
+      "name": "Quạt điều hòa Fujihome FT-30L",
+      "price": 899000,
+      "originalPrice": 1299000,
+      "image": "/images/products/quat-thap.jpg",
+      "images": [
+        "/images/products/quat-thap.jpg",
+        "/images/products/quat-thap-2.jpg",
+        "/images/products/quat-thap-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "30L"
+      ],
+      "colors": [
+        "trắng",
+        "đen"
+      ],
+      "promotion": "Flash Sale",
+      "description": "Quạt tháp Fujihome thiết kế hiện đại, tiết kiệm điện, phù hợp cho không gian nhỏ.",
+      "specs": [
+        {
+          "label": "Công suất",
+          "value": "45W"
+        },
+        {
+          "label": "Điều khiển",
+          "value": "Cảm ứng"
+        },
+        {
+          "label": "Chế độ",
+          "value": "3 chế độ gió"
+        }
+      ],
+      "intro": "Quạt tháp Fujihome FT-30L với thiết kế cao cấp, công suất tiết kiệm điện, phù hợp cho văn phòng và gia đình. Điều khiển cảm ứng hiện đại, chế độ gió đa dạng.",
+      "introImage": "/images/products/quat-thap-intro.jpg",
+      "category": "quat-dieu-hoa",
+      "brand": "Fujihome",
+      "isFeatured": true,
+      "isFlashSale": true,
+      "variants": [
+        {
+          "storage": "30L",
+          "price": 899000
+        }
+      ]
+    },
+    {
+      "id": "32",
+      "name": "Điều hòa Daikin 1.5HP Inverter",
       "price": 12990000,
-      "originalPrice": 14990000,
+      "originalPrice": 15990000,
       "image": "/images/products/daikin-ac.jpg",
       "images": [
         "/images/products/daikin-ac.jpg",
         "/images/products/daikin-ac-2.jpg",
         "/images/products/daikin-ac-3.jpg"
       ],
-      "promotion": "Lắp đặt miễn phí",
-      "description": "Điều hòa Daikin Inverter tiết kiệm điện, làm lạnh nhanh.",
+      "installment": "Trả góp 0%",
+      "storage": [
+        "1.5 HP"
+      ],
+      "colors": [
+        "trắng"
+      ],
+      "promotion": "Giảm 3 triệu khi thanh toán online",
+      "description": "Điều hòa Daikin 1.5HP Inverter tiết kiệm điện, làm mát hiệu quả.",
       "specs": [
         {
           "label": "Công suất",
@@ -464,12 +1352,17 @@
         {
           "label": "Công nghệ",
           "value": "Inverter"
+        },
+        {
+          "label": "Tiết kiệm",
+          "value": "Tiết kiệm 40% điện"
         }
       ],
-      "intro": "Daikin 1.5HP Inverter phù hợp cho phòng 20-25m2.",
+      "intro": "Điều hòa Daikin 1.5HP Inverter với công nghệ tiên tiến, tiết kiệm điện tối ưu, phù hợp cho phòng ngủ và phòng khách.",
       "introImage": "/images/products/daikin-ac-intro.jpg",
       "category": "may-lanh",
-      "isFeatured": false,
+      "brand": "Daikin",
+      "isFeatured": true,
       "isFlashSale": false,
       "variants": [
         {
@@ -479,92 +1372,137 @@
       ]
     },
     {
-      "id": "16",
-      "name": "Panasonic 2HP",
-      "price": 15990000,
-      "originalPrice": 17990000,
-      "image": "/images/products/panasonic-ac.jpg",
+      "id": "33",
+      "name": "Tủ lạnh Samsung Side by Side 655L",
+      "price": 18990000,
+      "originalPrice": 22990000,
+      "image": "/images/products/samsung-fridge.jpg",
       "images": [
-        "/images/products/panasonic-ac.jpg",
-        "/images/products/panasonic-ac-2.jpg",
-        "/images/products/panasonic-ac-3.jpg"
+        "/images/products/samsung-fridge.jpg",
+        "/images/products/samsung-fridge-2.jpg",
+        "/images/products/samsung-fridge-3.jpg"
       ],
-      "promotion": "Tặng phiếu mua hàng 500k",
-      "description": "Điều hòa Panasonic 2HP làm lạnh nhanh, vận hành êm ái.",
+      "installment": "Trả góp 0%",
+      "storage": [
+        "655L"
+      ],
+      "colors": [
+        "bạc"
+      ],
+      "promotion": "Tặng máy lọc nước RO",
+      "description": "Tủ lạnh Samsung Side by Side dung tích lớn, thiết kế hiện đại.",
       "specs": [
         {
-          "label": "Công suất",
-          "value": "2 HP"
+          "label": "Dung tích",
+          "value": "655L"
         },
         {
           "label": "Công nghệ",
-          "value": "Inverter"
-        }
-      ],
-      "intro": "Panasonic 2HP phù hợp cho phòng lớn.",
-      "introImage": "/images/products/panasonic-ac-intro.jpg",
-      "category": "may-lanh",
-      "isFeatured": false,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "2 HP",
-          "price": 15990000
-        }
-      ]
-    },
-    {
-      "id": "17",
-      "name": "Máy lọc không khí Philips AC0820/20 20W",
-      "price": 2990000,
-      "originalPrice": 4000000,
-      "image": "/images/products/philips-ac0820.jpg",
-      "promotion": "Giảm 25%",
-      "description": "Máy lọc không khí Philips lọc sạch bụi mịn PM2.5.",
-      "specs": [
-        {
-          "label": "Công suất",
-          "value": "20W"
+          "value": "Digital Inverter"
         },
         {
-          "label": "Diện tích sử dụng",
-          "value": "49m2"
+          "label": "Tiết kiệm",
+          "value": "Tiết kiệm 50% điện"
         }
       ],
-      "intro": "Giải pháp không khí sạch cho gia đình bạn.",
-      "introImage": "/images/products/philips-ac0820-intro.jpg",
-      "category": "dien-gia-dung",
-      "isFeatured": false,
+      "intro": "Tủ lạnh Samsung Side by Side 655L với thiết kế sang trọng, công nghệ Digital Inverter tiết kiệm điện, phù hợp cho gia đình lớn.",
+      "introImage": "/images/products/samsung-fridge-intro.jpg",
+      "category": "tu-lanh",
+      "brand": "Samsung",
+      "isFeatured": true,
       "isFlashSale": false,
       "variants": [
         {
-          "storage": "20W",
-          "price": 2990000
+          "storage": "655L",
+          "price": 18990000
         }
       ]
     },
     {
-      "id": "18",
-      "name": "SIM 5G 60GB/tháng",
+      "id": "34",
+      "name": "Tai nghe AirPods Pro 2",
+      "price": 6990000,
+      "originalPrice": 7990000,
+      "image": "/images/products/airpods-pro.jpg",
+      "images": [
+        "/images/products/airpods-pro.jpg",
+        "/images/products/airpods-pro-2.jpg",
+        "/images/products/airpods-pro-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "Không dây"
+      ],
+      "colors": [
+        "trắng"
+      ],
+      "promotion": "Tặng case sạc không dây",
+      "description": "Tai nghe AirPods Pro 2 với công nghệ chống ồn chủ động.",
+      "specs": [
+        {
+          "label": "Công nghệ",
+          "value": "Active Noise Cancellation"
+        },
+        {
+          "label": "Pin",
+          "value": "6 giờ nghe nhạc"
+        },
+        {
+          "label": "Kết nối",
+          "value": "Bluetooth 5.0"
+        }
+      ],
+      "intro": "AirPods Pro 2 với công nghệ chống ồn chủ động tiên tiến, âm thanh chất lượng cao, phù hợp cho công việc và giải trí.",
+      "introImage": "/images/products/airpods-pro-intro.jpg",
+      "category": "phu-kien",
+      "brand": "Apple",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "Không dây",
+          "price": 6990000
+        }
+      ]
+    },
+    {
+      "id": "35",
+      "name": "SIM 5G TechViCom 60GB/tháng",
       "price": 199000,
       "originalPrice": 299000,
       "image": "/images/products/sim-5g.jpg",
-      "promotion": "Tặng 1 tháng sử dụng miễn phí",
-      "description": "SIM 5G tốc độ cao, dung lượng lớn.",
+      "images": [
+        "/images/products/sim-5g.jpg",
+        "/images/products/sim-5g-2.jpg"
+      ],
+      "installment": "Không trả góp",
+      "storage": [
+        "60GB/tháng"
+      ],
+      "colors": [
+        "xanh"
+      ],
+      "promotion": "Miễn phí 3 tháng đầu",
+      "description": "SIM 5G TechViCom với tốc độ cao, dung lượng lớn.",
       "specs": [
+        {
+          "label": "Tốc độ",
+          "value": "5G"
+        },
         {
           "label": "Dung lượng",
           "value": "60GB/tháng"
         },
         {
-          "label": "Loại",
-          "value": "5G"
+          "label": "Thời hạn",
+          "value": "12 tháng"
         }
       ],
-      "intro": "SIM Techvicom 5G cho trải nghiệm internet mượt mà.",
+      "intro": "SIM 5G TechViCom với tốc độ truy cập internet nhanh, dung lượng data lớn, phù hợp cho nhu cầu sử dụng cao.",
       "introImage": "/images/products/sim-5g-intro.jpg",
       "category": "sim-techvicom",
-      "isFeatured": false,
+      "brand": "TechViCom",
+      "isFeatured": true,
       "isFlashSale": false,
       "variants": [
         {
@@ -574,74 +1512,1607 @@
       ]
     },
     {
-      "id": "19",
-      "name": "iPad Air 5",
-      "price": 16990000,
+      "id": "36",
+      "name": "Điều hòa Panasonic 2HP Inverter",
+      "price": 15990000,
       "originalPrice": 18990000,
-      "image": "/images/products/ipad-air.jpg",
+      "image": "/images/products/panasonic-ac.jpg",
+      "images": [
+        "/images/products/panasonic-ac.jpg",
+        "/images/products/panasonic-ac-2.jpg",
+        "/images/products/panasonic-ac-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
       "storage": [
-        "64 GB",
-        "256 GB"
+        "2 HP"
       ],
       "colors": [
-        "blue",
-        "gray"
+        "trắng"
       ],
-      "promotion": "Tặng bút Apple Pencil",
-      "description": "iPad Air 5 với chip M1, màn hình 10.9 inch.",
+      "promotion": "Giảm 3 triệu khi thanh toán online",
+      "description": "Điều hòa Panasonic 2HP Inverter công suất cao, tiết kiệm điện.",
+      "specs": [
+        {
+          "label": "Công suất",
+          "value": "2 HP"
+        },
+        {
+          "label": "Công nghệ",
+          "value": "Inverter"
+        },
+        {
+          "label": "Tiết kiệm",
+          "value": "Tiết kiệm 50% điện"
+        }
+      ],
+      "intro": "Điều hòa Panasonic 2HP Inverter với công suất mạnh mẽ, phù hợp cho phòng lớn và văn phòng.",
+      "introImage": "/images/products/panasonic-ac-intro.jpg",
+      "category": "may-lanh",
+      "brand": "Panasonic",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "2 HP",
+          "price": 15990000
+        }
+      ]
+    },
+    {
+      "id": "37",
+      "name": "Điều hòa LG 1HP Inverter",
+      "price": 8990000,
+      "originalPrice": 11990000,
+      "image": "/images/products/lg-ac.jpg",
+      "images": [
+        "/images/products/lg-ac.jpg",
+        "/images/products/lg-ac-2.jpg",
+        "/images/products/lg-ac-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "1 HP"
+      ],
+      "colors": [
+        "trắng"
+      ],
+      "promotion": "Tặng quạt hơi nước",
+      "description": "Điều hòa LG 1HP Inverter tiết kiệm điện, phù hợp phòng nhỏ.",
+      "specs": [
+        {
+          "label": "Công suất",
+          "value": "1 HP"
+        },
+        {
+          "label": "Công nghệ",
+          "value": "Inverter"
+        },
+        {
+          "label": "Tiết kiệm",
+          "value": "Tiết kiệm 40% điện"
+        }
+      ],
+      "intro": "Điều hòa LG 1HP Inverter với thiết kế nhỏ gọn, tiết kiệm điện tối ưu cho phòng ngủ.",
+      "introImage": "/images/products/lg-ac-intro.jpg",
+      "category": "may-lanh",
+      "brand": "LG",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "1 HP",
+          "price": 8990000
+        }
+      ]
+    },
+    {
+      "id": "38",
+      "name": "Điều hòa Samsung 1.5HP Inverter",
+      "price": 10990000,
+      "originalPrice": 13990000,
+      "image": "/images/products/samsung-ac.jpg",
+      "images": [
+        "/images/products/samsung-ac.jpg",
+        "/images/products/samsung-ac-2.jpg",
+        "/images/products/samsung-ac-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "1.5 HP"
+      ],
+      "colors": [
+        "trắng"
+      ],
+      "promotion": "Tặng máy lọc không khí",
+      "description": "Điều hòa Samsung 1.5HP Inverter với công nghệ WindFree.",
+      "specs": [
+        {
+          "label": "Công suất",
+          "value": "1.5 HP"
+        },
+        {
+          "label": "Công nghệ",
+          "value": "WindFree"
+        },
+        {
+          "label": "Tiết kiệm",
+          "value": "Tiết kiệm 45% điện"
+        }
+      ],
+      "intro": "Điều hòa Samsung 1.5HP Inverter với công nghệ WindFree giúp gió mát tự nhiên, không gây khô da.",
+      "introImage": "/images/products/samsung-ac-intro.jpg",
+      "category": "may-lanh",
+      "brand": "Samsung",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "1.5 HP",
+          "price": 10990000
+        }
+      ]
+    },
+    {
+      "id": "39",
+      "name": "Tủ lạnh LG Multi Door 655L",
+      "price": 22990000,
+      "originalPrice": 25990000,
+      "image": "/images/products/lg-fridge.jpg",
+      "images": [
+        "/images/products/lg-fridge.jpg",
+        "/images/products/lg-fridge-2.jpg",
+        "/images/products/lg-fridge-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "655L"
+      ],
+      "colors": [
+        "bạc"
+      ],
+      "promotion": "Tặng máy lọc nước RO",
+      "description": "Tủ lạnh LG Multi Door dung tích lớn, thiết kế hiện đại.",
+      "specs": [
+        {
+          "label": "Dung tích",
+          "value": "655L"
+        },
+        {
+          "label": "Công nghệ",
+          "value": "Linear Inverter"
+        },
+        {
+          "label": "Tiết kiệm",
+          "value": "Tiết kiệm 60% điện"
+        }
+      ],
+      "intro": "Tủ lạnh LG Multi Door 655L với thiết kế sang trọng, công nghệ Linear Inverter tiết kiệm điện tối ưu.",
+      "introImage": "/images/products/lg-fridge-intro.jpg",
+      "category": "tu-lanh",
+      "brand": "LG",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "655L",
+          "price": 22990000
+        }
+      ]
+    },
+    {
+      "id": "40",
+      "name": "Tủ lạnh Panasonic 450L",
+      "price": 12990000,
+      "originalPrice": 15990000,
+      "image": "/images/products/panasonic-fridge.jpg",
+      "images": [
+        "/images/products/panasonic-fridge.jpg",
+        "/images/products/panasonic-fridge-2.jpg",
+        "/images/products/panasonic-fridge-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "450L"
+      ],
+      "colors": [
+        "trắng"
+      ],
+      "promotion": "Tặng máy lọc nước",
+      "description": "Tủ lạnh Panasonic 450L ngăn đá dưới, tiết kiệm điện.",
+      "specs": [
+        {
+          "label": "Dung tích",
+          "value": "450L"
+        },
+        {
+          "label": "Công nghệ",
+          "value": "Inverter"
+        },
+        {
+          "label": "Tiết kiệm",
+          "value": "Tiết kiệm 50% điện"
+        }
+      ],
+      "intro": "Tủ lạnh Panasonic 450L với thiết kế ngăn đá dưới tiện lợi, công nghệ Inverter tiết kiệm điện.",
+      "introImage": "/images/products/panasonic-fridge-intro.jpg",
+      "category": "tu-lanh",
+      "brand": "Panasonic",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "450L",
+          "price": 12990000
+        }
+      ]
+    },
+    {
+      "id": "41",
+      "name": "Tủ lạnh Sharp 380L",
+      "price": 8990000,
+      "originalPrice": 11990000,
+      "image": "/images/products/sharp-fridge.jpg",
+      "images": [
+        "/images/products/sharp-fridge.jpg",
+        "/images/products/sharp-fridge-2.jpg",
+        "/images/products/sharp-fridge-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "380L"
+      ],
+      "colors": [
+        "trắng"
+      ],
+      "promotion": "Giảm giá",
+      "description": "Tủ lạnh Sharp 380L ngăn đá trên, phù hợp gia đình nhỏ.",
+      "specs": [
+        {
+          "label": "Dung tích",
+          "value": "380L"
+        },
+        {
+          "label": "Công nghệ",
+          "value": "Inverter"
+        },
+        {
+          "label": "Tiết kiệm",
+          "value": "Tiết kiệm 40% điện"
+        }
+      ],
+      "intro": "Tủ lạnh Sharp 380L với thiết kế ngăn đá trên truyền thống, phù hợp cho gia đình nhỏ.",
+      "introImage": "/images/products/sharp-fridge-intro.jpg",
+      "category": "tu-lanh",
+      "brand": "Sharp",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "380L",
+          "price": 8990000
+        }
+      ]
+    },
+    {
+      "id": "42",
+      "name": "Sạc dự phòng 20.000mAh",
+      "price": 1990000,
+      "originalPrice": 2990000,
+      "image": "/images/products/powerbank.jpg",
+      "images": [
+        "/images/products/powerbank.jpg",
+        "/images/products/powerbank-2.jpg",
+        "/images/products/powerbank-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "20.000mAh"
+      ],
+      "colors": [
+        "đen",
+        "trắng"
+      ],
+      "promotion": "Tặng cáp sạc nhanh",
+      "description": "Sạc dự phòng 20.000mAh dung lượng lớn, sạc nhanh.",
+      "specs": [
+        {
+          "label": "Dung lượng",
+          "value": "20.000mAh"
+        },
+        {
+          "label": "Công nghệ",
+          "value": "Quick Charge 3.0"
+        },
+        {
+          "label": "Đầu ra",
+          "value": "3 cổng USB"
+        }
+      ],
+      "intro": "Sạc dự phòng 20.000mAh với dung lượng lớn, hỗ trợ sạc nhanh cho nhiều thiết bị cùng lúc.",
+      "introImage": "/images/products/powerbank-intro.jpg",
+      "category": "phu-kien",
+      "brand": "Anker",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "20.000mAh",
+          "price": 1990000
+        }
+      ]
+    },
+    {
+      "id": "43",
+      "name": "Cáp sạc nhanh USB-C",
+      "price": 299000,
+      "originalPrice": 499000,
+      "image": "/images/products/usb-cable.jpg",
+      "images": [
+        "/images/products/usb-cable.jpg",
+        "/images/products/usb-cable-2.jpg"
+      ],
+      "installment": "Không trả góp",
+      "storage": [
+        "2m"
+      ],
+      "colors": [
+        "đen",
+        "trắng"
+      ],
+      "promotion": "Flash Sale",
+      "description": "Cáp sạc nhanh USB-C chất lượng cao, tương thích tốt.",
+      "specs": [
+        {
+          "label": "Chiều dài",
+          "value": "2m"
+        },
+        {
+          "label": "Công nghệ",
+          "value": "USB-C"
+        },
+        {
+          "label": "Tốc độ",
+          "value": "Sạc nhanh"
+        }
+      ],
+      "intro": "Cáp sạc nhanh USB-C với chất lượng cao, tương thích với nhiều thiết bị, hỗ trợ sạc nhanh.",
+      "introImage": "/images/products/usb-cable-intro.jpg",
+      "category": "phu-kien",
+      "brand": "Anker",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "2m",
+          "price": 299000
+        }
+      ]
+    },
+    {
+      "id": "44",
+      "name": "Ốp lưng iPhone 15 Pro",
+      "price": 599000,
+      "originalPrice": 899000,
+      "image": "/images/products/iphone-case.jpg",
+      "images": [
+        "/images/products/iphone-case.jpg",
+        "/images/products/iphone-case-2.jpg",
+        "/images/products/iphone-case-3.jpg"
+      ],
+      "installment": "Không trả góp",
+      "storage": [
+        "iPhone 15 Pro"
+      ],
+      "colors": [
+        "trong suốt",
+        "đen",
+        "trắng"
+      ],
+      "promotion": "Tặng film dán màn hình",
+      "description": "Ốp lưng iPhone 15 Pro chất lượng cao, bảo vệ tốt.",
+      "specs": [
+        {
+          "label": "Tương thích",
+          "value": "iPhone 15 Pro"
+        },
+        {
+          "label": "Chất liệu",
+          "value": "Silicone cao cấp"
+        },
+        {
+          "label": "Bảo vệ",
+          "value": "Chống sốc"
+        }
+      ],
+      "intro": "Ốp lưng iPhone 15 Pro với chất liệu silicone cao cấp, thiết kế ôm sát, bảo vệ tối ưu cho điện thoại.",
+      "introImage": "/images/products/iphone-case-intro.jpg",
+      "category": "phu-kien",
+      "brand": "Spigen",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "iPhone 15 Pro",
+          "price": 599000
+        }
+      ]
+    },
+    {
+      "id": "45",
+      "name": "Bàn phím cơ Gaming",
+      "price": 2990000,
+      "originalPrice": 3990000,
+      "image": "/images/products/gaming-keyboard.jpg",
+      "images": [
+        "/images/products/gaming-keyboard.jpg",
+        "/images/products/gaming-keyboard-2.jpg",
+        "/images/products/gaming-keyboard-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "RGB"
+      ],
+      "colors": [
+        "đen"
+      ],
+      "promotion": "Tặng chuột gaming",
+      "description": "Bàn phím cơ Gaming RGB, phù hợp game thủ.",
+      "specs": [
+        {
+          "label": "Switch",
+          "value": "Cherry MX Red"
+        },
+        {
+          "label": "Đèn",
+          "value": "RGB"
+        },
+        {
+          "label": "Kết nối",
+          "value": "USB-C"
+        }
+      ],
+      "intro": "Bàn phím cơ Gaming với switch Cherry MX Red, đèn RGB đẹp mắt, phù hợp cho game thủ chuyên nghiệp.",
+      "introImage": "/images/products/gaming-keyboard-intro.jpg",
+      "category": "phu-kien",
+      "brand": "Corsair",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "RGB",
+          "price": 2990000
+        }
+      ]
+    },
+    {
+      "id": "46",
+      "name": "Chuột Gaming RGB",
+      "price": 899000,
+      "originalPrice": 1299000,
+      "image": "/images/products/gaming-mouse.jpg",
+      "images": [
+        "/images/products/gaming-mouse.jpg",
+        "/images/products/gaming-mouse-2.jpg"
+      ],
+      "installment": "Không trả góp",
+      "storage": [
+        "16.000 DPI"
+      ],
+      "colors": [
+        "đen"
+      ],
+      "promotion": "Flash Sale",
+      "description": "Chuột Gaming RGB độ phân giải cao, phù hợp game thủ.",
+      "specs": [
+        {
+          "label": "DPI",
+          "value": "16.000 DPI"
+        },
+        {
+          "label": "Đèn",
+          "value": "RGB"
+        },
+        {
+          "label": "Kết nối",
+          "value": "USB"
+        }
+      ],
+      "intro": "Chuột Gaming RGB với độ phân giải 16.000 DPI, đèn RGB đẹp mắt, phù hợp cho game thủ.",
+      "introImage": "/images/products/gaming-mouse-intro.jpg",
+      "category": "phu-kien",
+      "brand": "Logitech",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "16.000 DPI",
+          "price": 899000
+        }
+      ]
+    },
+    {
+      "id": "47",
+      "name": "Gói cước 4G TechViCom 30GB/tháng",
+      "price": 99000,
+      "originalPrice": 199000,
+      "image": "/images/products/data-plan.jpg",
+      "images": [
+        "/images/products/data-plan.jpg",
+        "/images/products/data-plan-2.jpg"
+      ],
+      "installment": "Không trả góp",
+      "storage": [
+        "30GB/tháng"
+      ],
+      "colors": [
+        "xanh"
+      ],
+      "promotion": "Miễn phí 2 tháng đầu",
+      "description": "Gói cước 4G TechViCom 30GB/tháng, tốc độ cao.",
+      "specs": [
+        {
+          "label": "Tốc độ",
+          "value": "4G"
+        },
+        {
+          "label": "Dung lượng",
+          "value": "30GB/tháng"
+        },
+        {
+          "label": "Thời hạn",
+          "value": "12 tháng"
+        }
+      ],
+      "intro": "Gói cước 4G TechViCom 30GB/tháng với tốc độ truy cập internet nhanh, phù hợp cho nhu cầu sử dụng vừa phải.",
+      "introImage": "/images/products/data-plan-intro.jpg",
+      "category": "sim-techvicom",
+      "brand": "TechViCom",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "30GB/tháng",
+          "price": 99000
+        }
+      ]
+    },
+    {
+      "id": "48",
+      "name": "Thẻ nạp TechViCom 100.000đ",
+      "price": 100000,
+      "originalPrice": 100000,
+      "image": "/images/products/recharge-card.jpg",
+      "images": [
+        "/images/products/recharge-card.jpg"
+      ],
+      "installment": "Không trả góp",
+      "storage": [
+        "100.000đ"
+      ],
+      "colors": [
+        "xanh"
+      ],
+      "promotion": "Tặng 10% giá trị",
+      "description": "Thẻ nạp TechViCom 100.000đ, nạp tiền nhanh chóng.",
+      "specs": [
+        {
+          "label": "Mệnh giá",
+          "value": "100.000đ"
+        },
+        {
+          "label": "Thời hạn",
+          "value": "12 tháng"
+        },
+        {
+          "label": "Sử dụng",
+          "value": "Nạp tiền"
+        }
+      ],
+      "intro": "Thẻ nạp TechViCom 100.000đ với mệnh giá cố định, nạp tiền nhanh chóng và an toàn.",
+      "introImage": "/images/products/recharge-card-intro.jpg",
+      "category": "sim-techvicom",
+      "brand": "TechViCom",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "100.000đ",
+          "price": 100000
+        }
+      ]
+    },
+    {
+      "id": "49",
+      "name": "SIM 4G TechViCom 20GB/tháng",
+      "price": 149000,
+      "originalPrice": 199000,
+      "image": "/images/products/sim-4g.jpg",
+      "images": [
+        "/images/products/sim-4g.jpg",
+        "/images/products/sim-4g-2.jpg"
+      ],
+      "installment": "Không trả góp",
+      "storage": [
+        "20GB/tháng"
+      ],
+      "colors": [
+        "xanh"
+      ],
+      "promotion": "Miễn phí 1 tháng đầu",
+      "description": "SIM 4G TechViCom 20GB/tháng, tốc độ ổn định.",
+      "specs": [
+        {
+          "label": "Tốc độ",
+          "value": "4G"
+        },
+        {
+          "label": "Dung lượng",
+          "value": "20GB/tháng"
+        },
+        {
+          "label": "Thời hạn",
+          "value": "12 tháng"
+        }
+      ],
+      "intro": "SIM 4G TechViCom 20GB/tháng với tốc độ truy cập internet ổn định, phù hợp cho nhu cầu sử dụng cơ bản.",
+      "introImage": "/images/products/sim-4g-intro.jpg",
+      "category": "sim-techvicom",
+      "brand": "TechViCom",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "20GB/tháng",
+          "price": 149000
+        }
+      ]
+    },
+    {
+      "id": "50",
+      "name": "Quạt điều hòa Fujihome FT-50L",
+      "price": 1299000,
+      "originalPrice": 1899000,
+      "image": "/images/products/quat-dieu-hoa-2.jpg",
+      "images": [
+        "/images/products/quat-dieu-hoa-2.jpg",
+        "/images/products/quat-dieu-hoa-2-2.jpg",
+        "/images/products/quat-dieu-hoa-2-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "50L"
+      ],
+      "colors": [
+        "trắng",
+        "đen"
+      ],
+      "promotion": "Flash Sale",
+      "description": "Quạt điều hòa Fujihome FT-50L công suất cao, phù hợp không gian lớn.",
+      "specs": [
+        {
+          "label": "Công suất",
+          "value": "60W"
+        },
+        {
+          "label": "Điều khiển",
+          "value": "Cảm ứng + Remote"
+        },
+        {
+          "label": "Chế độ",
+          "value": "5 chế độ gió"
+        }
+      ],
+      "intro": "Quạt điều hòa Fujihome FT-50L với công suất cao, phù hợp cho không gian lớn như phòng khách, văn phòng.",
+      "introImage": "/images/products/quat-dieu-hoa-2-intro.jpg",
+      "category": "quat-dieu-hoa",
+      "brand": "Fujihome",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "50L",
+          "price": 1299000
+        }
+      ]
+    },
+    {
+      "id": "51",
+      "name": "Quạt điều hòa Hoa Phát HPCF2-045 120W",
+      "price": 2499000,
+      "originalPrice": 3499000,
+      "image": "/images/products/quat-dieu-hoa-3.jpg",
+      "images": [
+        "/images/products/quat-dieu-hoa-3.jpg",
+        "/images/products/quat-dieu-hoa-3-2.jpg",
+        "/images/products/quat-dieu-hoa-3-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "120W"
+      ],
+      "colors": [
+        "trắng"
+      ],
+      "promotion": "Tặng máy lọc không khí",
+      "description": "Quạt điều hòa Hoa Phát HPCF2-045 120W công suất mạnh, phù hợp nhà xưởng.",
+      "specs": [
+        {
+          "label": "Công suất",
+          "value": "120W"
+        },
+        {
+          "label": "Điều khiển",
+          "value": "Remote + Timer"
+        },
+        {
+          "label": "Chế độ",
+          "value": "6 chế độ gió"
+        }
+      ],
+      "intro": "Quạt điều hòa Hoa Phát HPCF2-045 120W với công suất mạnh mẽ, phù hợp cho nhà xưởng, xưởng sản xuất.",
+      "introImage": "/images/products/quat-dieu-hoa-3-intro.jpg",
+      "category": "quat-dieu-hoa",
+      "brand": "Hoa Phát",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "120W",
+          "price": 2499000
+        }
+      ]
+    },
+    {
+      "id": "52",
+      "name": "Quạt điều hòa Kangaroo KG50F54",
+      "price": 1899000,
+      "originalPrice": 2599000,
+      "image": "/images/products/quat-dieu-hoa-4.jpg",
+      "images": [
+        "/images/products/quat-dieu-hoa-4.jpg",
+        "/images/products/quat-dieu-hoa-4-2.jpg",
+        "/images/products/quat-dieu-hoa-4-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "54W"
+      ],
+      "colors": [
+        "trắng",
+        "xanh"
+      ],
+      "promotion": "Flash Sale",
+      "description": "Quạt điều hòa Kangaroo KG50F54 thiết kế hiện đại, tiết kiệm điện.",
+      "specs": [
+        {
+          "label": "Công suất",
+          "value": "54W"
+        },
+        {
+          "label": "Điều khiển",
+          "value": "Cảm ứng"
+        },
+        {
+          "label": "Chế độ",
+          "value": "4 chế độ gió"
+        }
+      ],
+      "intro": "Quạt điều hòa Kangaroo KG50F54 với thiết kế hiện đại, công suất tiết kiệm điện, phù hợp cho gia đình.",
+      "introImage": "/images/products/quat-dieu-hoa-4-intro.jpg",
+      "category": "quat-dieu-hoa",
+      "brand": "Kangaroo",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "54W",
+          "price": 1899000
+        }
+      ]
+    },
+    {
+      "id": "53",
+      "name": "Quạt điều hòa Lumina Buma",
+      "price": 1599000,
+      "originalPrice": 2299000,
+      "image": "/images/products/quat-dieu-hoa-5.jpg",
+      "images": [
+        "/images/products/quat-dieu-hoa-5.jpg",
+        "/images/products/quat-dieu-hoa-5-2.jpg",
+        "/images/products/quat-dieu-hoa-5-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "45W"
+      ],
+      "colors": [
+        "trắng"
+      ],
+      "promotion": "Tặng quạt tháp mini",
+      "description": "Quạt điều hòa Lumina Buma thiết kế độc đáo, phù hợp trang trí.",
+      "specs": [
+        {
+          "label": "Công suất",
+          "value": "45W"
+        },
+        {
+          "label": "Điều khiển",
+          "value": "Remote"
+        },
+        {
+          "label": "Chế độ",
+          "value": "3 chế độ gió"
+        }
+      ],
+      "intro": "Quạt điều hòa Lumina Buma với thiết kế độc đáo, phù hợp cho việc trang trí và làm mát không gian.",
+      "introImage": "/images/products/quat-dieu-hoa-5-intro.jpg",
+      "category": "quat-dieu-hoa",
+      "brand": "Lumina",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "45W",
+          "price": 1599000
+        }
+      ]
+    },
+    {
+      "id": "54",
+      "name": "Quạt điều hòa Philips AC0820",
+      "price": 1999000,
+      "originalPrice": 2799000,
+      "image": "/images/products/quat-dieu-hoa-6.jpg",
+      "images": [
+        "/images/products/quat-dieu-hoa-6.jpg",
+        "/images/products/quat-dieu-hoa-6-2.jpg",
+        "/images/products/quat-dieu-hoa-6-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "65W"
+      ],
+      "colors": [
+        "trắng",
+        "đen"
+      ],
+      "promotion": "Tặng máy lọc không khí",
+      "description": "Quạt điều hòa Philips AC0820 công nghệ tiên tiến, lọc không khí.",
+      "specs": [
+        {
+          "label": "Công suất",
+          "value": "65W"
+        },
+        {
+          "label": "Công nghệ",
+          "value": "Lọc không khí"
+        },
+        {
+          "label": "Chế độ",
+          "value": "5 chế độ gió"
+        }
+      ],
+      "intro": "Quạt điều hòa Philips AC0820 với công nghệ lọc không khí tiên tiến, vừa làm mát vừa lọc sạch không khí.",
+      "introImage": "/images/products/quat-dieu-hoa-6-intro.jpg",
+      "category": "quat-dieu-hoa",
+      "brand": "Philips",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "65W",
+          "price": 1999000
+        }
+      ]
+    },
+    {
+      "id": "55",
+      "name": "Tủ lạnh Samsung Side by Side 750L",
+      "price": 25990000,
+      "originalPrice": 29990000,
+      "image": "/images/products/samsung-fridge-2.jpg",
+      "images": [
+        "/images/products/samsung-fridge-2.jpg",
+        "/images/products/samsung-fridge-2-2.jpg",
+        "/images/products/samsung-fridge-2-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "750L"
+      ],
+      "colors": [
+        "bạc"
+      ],
+      "promotion": "Tặng máy lọc nước RO + máy rửa bát",
+      "description": "Tủ lạnh Samsung Side by Side 750L dung tích siêu lớn, thiết kế cao cấp.",
+      "specs": [
+        {
+          "label": "Dung tích",
+          "value": "750L"
+        },
+        {
+          "label": "Công nghệ",
+          "value": "Digital Inverter"
+        },
+        {
+          "label": "Tiết kiệm",
+          "value": "Tiết kiệm 60% điện"
+        }
+      ],
+      "intro": "Tủ lạnh Samsung Side by Side 750L với dung tích siêu lớn, thiết kế cao cấp, phù hợp cho gia đình đông người.",
+      "introImage": "/images/products/samsung-fridge-2-intro.jpg",
+      "category": "tu-lanh",
+      "brand": "Samsung",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "750L",
+          "price": 25990000
+        }
+      ]
+    },
+    {
+      "id": "56",
+      "name": "Tủ lạnh LG Multi Door 800L",
+      "price": 28990000,
+      "originalPrice": 32990000,
+      "image": "/images/products/lg-fridge-2.jpg",
+      "images": [
+        "/images/products/lg-fridge-2.jpg",
+        "/images/products/lg-fridge-2-2.jpg",
+        "/images/products/lg-fridge-2-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "800L"
+      ],
+      "colors": [
+        "bạc"
+      ],
+      "promotion": "Tặng máy lọc nước RO + máy rửa bát + máy hút bụi",
+      "description": "Tủ lạnh LG Multi Door 800L dung tích lớn nhất, công nghệ tiên tiến.",
+      "specs": [
+        {
+          "label": "Dung tích",
+          "value": "800L"
+        },
+        {
+          "label": "Công nghệ",
+          "value": "Linear Inverter"
+        },
+        {
+          "label": "Tiết kiệm",
+          "value": "Tiết kiệm 70% điện"
+        }
+      ],
+      "intro": "Tủ lạnh LG Multi Door 800L với dung tích lớn nhất, công nghệ Linear Inverter tiên tiến, phù hợp cho gia đình lớn.",
+      "introImage": "/images/products/lg-fridge-2-intro.jpg",
+      "category": "tu-lanh",
+      "brand": "LG",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "800L",
+          "price": 28990000
+        }
+      ]
+    },
+    {
+      "id": "57",
+      "name": "Điều hòa Daikin 2.5HP Inverter",
+      "price": 18990000,
+      "originalPrice": 22990000,
+      "image": "/images/products/daikin-ac-2.jpg",
+      "images": [
+        "/images/products/daikin-ac-2.jpg",
+        "/images/products/daikin-ac-2-2.jpg",
+        "/images/products/daikin-ac-2-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "2.5 HP"
+      ],
+      "colors": [
+        "trắng"
+      ],
+      "promotion": "Giảm 4 triệu khi thanh toán online",
+      "description": "Điều hòa Daikin 2.5HP Inverter công suất cao, phù hợp phòng lớn.",
+      "specs": [
+        {
+          "label": "Công suất",
+          "value": "2.5 HP"
+        },
+        {
+          "label": "Công nghệ",
+          "value": "Inverter"
+        },
+        {
+          "label": "Tiết kiệm",
+          "value": "Tiết kiệm 55% điện"
+        }
+      ],
+      "intro": "Điều hòa Daikin 2.5HP Inverter với công suất mạnh mẽ, phù hợp cho phòng lớn, văn phòng, showroom.",
+      "introImage": "/images/products/daikin-ac-2-intro.jpg",
+      "category": "may-lanh",
+      "brand": "Daikin",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "2.5 HP",
+          "price": 18990000
+        }
+      ]
+    },
+    {
+      "id": "58",
+      "name": "Điều hòa Panasonic 3HP Inverter",
+      "price": 22990000,
+      "originalPrice": 26990000,
+      "image": "/images/products/panasonic-ac-2.jpg",
+      "images": [
+        "/images/products/panasonic-ac-2.jpg",
+        "/images/products/panasonic-ac-2-2.jpg",
+        "/images/products/panasonic-ac-2-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "3 HP"
+      ],
+      "colors": [
+        "trắng"
+      ],
+      "promotion": "Tặng máy lọc không khí + quạt hơi nước",
+      "description": "Điều hòa Panasonic 3HP Inverter công suất mạnh, phù hợp nhà xưởng.",
+      "specs": [
+        {
+          "label": "Công suất",
+          "value": "3 HP"
+        },
+        {
+          "label": "Công nghệ",
+          "value": "Inverter"
+        },
+        {
+          "label": "Tiết kiệm",
+          "value": "Tiết kiệm 60% điện"
+        }
+      ],
+      "intro": "Điều hòa Panasonic 3HP Inverter với công suất mạnh mẽ, phù hợp cho nhà xưởng, xưởng sản xuất lớn.",
+      "introImage": "/images/products/panasonic-ac-2-intro.jpg",
+      "category": "may-lanh",
+      "brand": "Panasonic",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "3 HP",
+          "price": 22990000
+        }
+      ]
+    },
+    {
+      "id": "59",
+      "name": "iPad Pro 12.9 inch 256GB",
+      "price": 24990000,
+      "originalPrice": 27990000,
+      "image": "/images/products/ipad-pro.jpg",
+      "images": [
+        "/images/products/ipad-pro.jpg",
+        "/images/products/ipad-pro-2.jpg",
+        "/images/products/ipad-pro-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "256 GB",
+        "512 GB"
+      ],
+      "colors": [
+        "xám",
+        "bạc"
+      ],
+      "promotion": "Tặng Apple Pencil 2 + Smart Keyboard",
+      "description": "iPad Pro 12.9 inch với chip M2, màn hình Liquid Retina XDR.",
+      "specs": [
+        {
+          "label": "Màn hình",
+          "value": "12.9 inch Liquid Retina XDR"
+        },
+        {
+          "label": "Chip",
+          "value": "Apple M2"
+        },
+        {
+          "label": "Pin",
+          "value": "10 giờ sử dụng"
+        }
+      ],
+      "intro": "iPad Pro 12.9 inch với chip M2 mạnh mẽ, màn hình Liquid Retina XDR sắc nét, phù hợp cho công việc chuyên nghiệp.",
+      "introImage": "/images/products/ipad-pro-intro.jpg",
+      "category": "may-tinh-bang",
+      "brand": "Apple",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "256 GB",
+          "price": 24990000
+        },
+        {
+          "storage": "512 GB",
+          "price": 27990000
+        }
+      ]
+    },
+    {
+      "id": "60",
+      "name": "Samsung Galaxy Tab S9 Ultra",
+      "price": 22990000,
+      "originalPrice": 25990000,
+      "image": "/images/products/galaxy-tab-s9.jpg",
+      "images": [
+        "/images/products/galaxy-tab-s9.jpg",
+        "/images/products/galaxy-tab-s9-2.jpg",
+        "/images/products/galaxy-tab-s9-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "256 GB",
+        "512 GB"
+      ],
+      "colors": [
+        "đen",
+        "bạc"
+      ],
+      "promotion": "Tặng S Pen + Book Cover Keyboard",
+      "description": "Samsung Galaxy Tab S9 Ultra 14.6 inch, chip Snapdragon 8 Gen 2.",
+      "specs": [
+        {
+          "label": "Màn hình",
+          "value": "14.6 inch AMOLED"
+        },
+        {
+          "label": "Chip",
+          "value": "Snapdragon 8 Gen 2"
+        },
+        {
+          "label": "Pin",
+          "value": "11.200mAh"
+        }
+      ],
+      "intro": "Samsung Galaxy Tab S9 Ultra với màn hình 14.6 inch AMOLED, chip Snapdragon 8 Gen 2 mạnh mẽ, phù hợp cho giải trí và công việc.",
+      "introImage": "/images/products/galaxy-tab-s9-intro.jpg",
+      "category": "may-tinh-bang",
+      "brand": "Samsung",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "256 GB",
+          "price": 22990000
+        },
+        {
+          "storage": "512 GB",
+          "price": 25990000
+        }
+      ]
+    },
+    {
+      "id": "61",
+      "name": "iPad Air 10.9 inch 256GB",
+      "price": 18990000,
+      "originalPrice": 21990000,
+      "image": "/images/products/ipad-air.jpg",
+      "images": [
+        "/images/products/ipad-air.jpg",
+        "/images/products/ipad-air-2.jpg",
+        "/images/products/ipad-air-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "256 GB",
+        "512 GB"
+      ],
+      "colors": [
+        "xanh",
+        "hồng",
+        "xám"
+      ],
+      "promotion": "Tặng Apple Pencil 2",
+      "description": "iPad Air 10.9 inch với chip M1, thiết kế mỏng nhẹ.",
       "specs": [
         {
           "label": "Màn hình",
           "value": "10.9 inch Liquid Retina"
         },
         {
-          "label": "CPU",
+          "label": "Chip",
           "value": "Apple M1"
+        },
+        {
+          "label": "Pin",
+          "value": "10 giờ sử dụng"
         }
       ],
-      "intro": "iPad Air 5 phù hợp cho học tập, giải trí.",
+      "intro": "iPad Air 10.9 inch với chip M1 mạnh mẽ, thiết kế mỏng nhẹ, phù hợp cho học tập và công việc.",
       "introImage": "/images/products/ipad-air-intro.jpg",
       "category": "may-tinh-bang",
+      "brand": "Apple",
       "isFeatured": false,
       "isFlashSale": false,
       "variants": [
         {
-          "storage": "64 GB",
-          "price": 16990000
-        },
-        {
           "storage": "256 GB",
           "price": 18990000
+        },
+        {
+          "storage": "512 GB",
+          "price": 21990000
         }
       ]
     },
     {
-      "id": "20",
-      "name": "AirPods Pro 2",
-      "price": 6990000,
-      "originalPrice": 7990000,
-      "image": "/images/products/airpods-pro.jpg",
-      "promotion": "Giảm 1 triệu khi mua kèm iPhone",
-      "description": "Tai nghe AirPods Pro 2 chống ồn chủ động.",
+      "id": "62",
+      "name": "Máy giặt Samsung 10kg Inverter",
+      "price": 8990000,
+      "originalPrice": 11990000,
+      "image": "/images/products/samsung-washing.jpg",
+      "images": [
+        "/images/products/samsung-washing.jpg",
+        "/images/products/samsung-washing-2.jpg",
+        "/images/products/samsung-washing-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "10kg"
+      ],
+      "colors": [
+        "trắng"
+      ],
+      "promotion": "Tặng máy sấy quần áo",
+      "description": "Máy giặt Samsung 10kg Inverter tiết kiệm điện, giặt sạch.",
       "specs": [
         {
-          "label": "Loại",
-          "value": "Tai nghe không dây"
+          "label": "Tải trọng",
+          "value": "10kg"
         },
         {
-          "label": "Chống ồn",
-          "value": "Có"
+          "label": "Công nghệ",
+          "value": "Digital Inverter"
+        },
+        {
+          "label": "Tiết kiệm",
+          "value": "Tiết kiệm 50% điện"
         }
       ],
-      "intro": "AirPods Pro 2 cho trải nghiệm âm thanh tuyệt vời.",
-      "introImage": "/images/products/airpods-pro-intro.jpg",
-      "category": "phu-kien",
+      "intro": "Máy giặt Samsung 10kg Inverter với công nghệ Digital Inverter tiết kiệm điện, giặt sạch hiệu quả cho gia đình.",
+      "introImage": "/images/products/samsung-washing-intro.jpg",
+      "category": "dien-gia-dung",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "10kg",
+          "price": 8990000
+        }
+      ]
+    },
+    {
+      "id": "63",
+      "name": "Máy giặt LG 12kg Inverter",
+      "price": 10990000,
+      "originalPrice": 13990000,
+      "image": "/images/products/lg-washing.jpg",
+      "images": [
+        "/images/products/lg-washing.jpg",
+        "/images/products/lg-washing-2.jpg",
+        "/images/products/lg-washing-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "12kg"
+      ],
+      "colors": [
+        "trắng"
+      ],
+      "promotion": "Tặng máy sấy quần áo + bột giặt",
+      "description": "Máy giặt LG 12kg Inverter dung tích lớn, công nghệ tiên tiến.",
+      "specs": [
+        {
+          "label": "Tải trọng",
+          "value": "12kg"
+        },
+        {
+          "label": "Công nghệ",
+          "value": "Direct Drive"
+        },
+        {
+          "label": "Tiết kiệm",
+          "value": "Tiết kiệm 60% điện"
+        }
+      ],
+      "intro": "Máy giặt LG 12kg Inverter với công nghệ Direct Drive, dung tích lớn phù hợp cho gia đình đông người.",
+      "introImage": "/images/products/lg-washing-intro.jpg",
+      "category": "dien-gia-dung",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "12kg",
+          "price": 10990000
+        }
+      ]
+    },
+    {
+      "id": "64",
+      "name": "Máy sấy quần áo Samsung 9kg",
+      "price": 7990000,
+      "originalPrice": 9990000,
+      "image": "/images/products/samsung-dryer.jpg",
+      "images": [
+        "/images/products/samsung-dryer.jpg",
+        "/images/products/samsung-dryer-2.jpg",
+        "/images/products/samsung-dryer-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "9kg"
+      ],
+      "colors": [
+        "trắng"
+      ],
+      "promotion": "Flash Sale",
+      "description": "Máy sấy quần áo Samsung 9kg tiết kiệm điện, sấy nhanh.",
+      "specs": [
+        {
+          "label": "Tải trọng",
+          "value": "9kg"
+        },
+        {
+          "label": "Công nghệ",
+          "value": "Heat Pump"
+        },
+        {
+          "label": "Tiết kiệm",
+          "value": "Tiết kiệm 40% điện"
+        }
+      ],
+      "intro": "Máy sấy quần áo Samsung 9kg với công nghệ Heat Pump tiết kiệm điện, sấy nhanh và an toàn cho mọi loại vải.",
+      "introImage": "/images/products/samsung-dryer-intro.jpg",
+      "category": "dien-gia-dung",
       "isFeatured": false,
       "isFlashSale": false,
       "variants": [
         {
-          "storage": "Tai nghe không dây",
-          "price": 6990000
+          "storage": "9kg",
+          "price": 7990000
+        }
+      ]
+    },
+    {
+      "id": "65",
+      "name": "Lò vi sóng Samsung 25L",
+      "price": 2990000,
+      "originalPrice": 3990000,
+      "image": "/images/products/samsung-microwave.jpg",
+      "images": [
+        "/images/products/samsung-microwave.jpg",
+        "/images/products/samsung-microwave-2.jpg"
+      ],
+      "installment": "Không trả góp",
+      "storage": [
+        "25L"
+      ],
+      "colors": [
+        "đen"
+      ],
+      "promotion": "Tặng bộ nồi nấu ăn",
+      "description": "Lò vi sóng Samsung 25L dung tích vừa phải, dễ sử dụng.",
+      "specs": [
+        {
+          "label": "Dung tích",
+          "value": "25L"
+        },
+        {
+          "label": "Công suất",
+          "value": "900W"
+        },
+        {
+          "label": "Chức năng",
+          "value": "Nướng + Hâm nóng"
+        }
+      ],
+      "intro": "Lò vi sóng Samsung 25L với dung tích vừa phải, dễ sử dụng, phù hợp cho gia đình nhỏ.",
+      "introImage": "/images/products/samsung-microwave-intro.jpg",
+      "category": "dien-gia-dung",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "25L",
+          "price": 2990000
+        }
+      ]
+    },
+    {
+      "id": "66",
+      "name": "Máy rửa bát Bosch 12 bộ",
+      "price": 15990000,
+      "originalPrice": 18990000,
+      "image": "/images/products/bosch-dishwasher.jpg",
+      "images": [
+        "/images/products/bosch-dishwasher.jpg",
+        "/images/products/bosch-dishwasher-2.jpg",
+        "/images/products/bosch-dishwasher-3.jpg"
+      ],
+      "installment": "Trả góp 0%",
+      "storage": [
+        "12 bộ"
+      ],
+      "colors": [
+        "trắng"
+      ],
+      "promotion": "Tặng bột rửa bát 1 năm",
+      "description": "Máy rửa bát Bosch 12 bộ tiết kiệm nước, rửa sạch.",
+      "specs": [
+        {
+          "label": "Dung tích",
+          "value": "12 bộ"
+        },
+        {
+          "label": "Công nghệ",
+          "value": "EcoSilence"
+        },
+        {
+          "label": "Tiết kiệm",
+          "value": "Tiết kiệm 70% nước"
+        }
+      ],
+      "intro": "Máy rửa bát Bosch 12 bộ với công nghệ EcoSilence, tiết kiệm nước và điện, rửa sạch hiệu quả.",
+      "introImage": "/images/products/bosch-dishwasher-intro.jpg",
+      "category": "dien-gia-dung",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "12 bộ",
+          "price": 15990000
+        }
+      ]
+    },
+    {
+      "id": "67",
+      "name": "SIM 5G TechViCom 100GB/tháng",
+      "price": 299000,
+      "originalPrice": 399000,
+      "image": "/images/products/sim-5g-2.jpg",
+      "images": [
+        "/images/products/sim-5g-2.jpg",
+        "/images/products/sim-5g-2-2.jpg"
+      ],
+      "installment": "Không trả góp",
+      "storage": [
+        "100GB/tháng"
+      ],
+      "colors": [
+        "xanh"
+      ],
+      "promotion": "Miễn phí 6 tháng đầu",
+      "description": "SIM 5G TechViCom 100GB/tháng dung lượng lớn, tốc độ cao.",
+      "specs": [
+        {
+          "label": "Tốc độ",
+          "value": "5G"
+        },
+        {
+          "label": "Dung lượng",
+          "value": "100GB/tháng"
+        },
+        {
+          "label": "Thời hạn",
+          "value": "12 tháng"
+        }
+      ],
+      "intro": "SIM 5G TechViCom 100GB/tháng với dung lượng lớn, tốc độ truy cập internet nhanh, phù hợp cho nhu cầu sử dụng cao.",
+      "introImage": "/images/products/sim-5g-2-intro.jpg",
+      "category": "sim-techvicom",
+      "isFeatured": true,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "100GB/tháng",
+          "price": 299000
+        }
+      ]
+    },
+    {
+      "id": "68",
+      "name": "Gói cước 5G TechViCom 50GB/tháng",
+      "price": 199000,
+      "originalPrice": 299000,
+      "image": "/images/products/data-plan-5g.jpg",
+      "images": [
+        "/images/products/data-plan-5g.jpg",
+        "/images/products/data-plan-5g-2.jpg"
+      ],
+      "installment": "Không trả góp",
+      "storage": [
+        "50GB/tháng"
+      ],
+      "colors": [
+        "xanh"
+      ],
+      "promotion": "Miễn phí 3 tháng đầu",
+      "description": "Gói cước 5G TechViCom 50GB/tháng tốc độ cao, ổn định.",
+      "specs": [
+        {
+          "label": "Tốc độ",
+          "value": "5G"
+        },
+        {
+          "label": "Dung lượng",
+          "value": "50GB/tháng"
+        },
+        {
+          "label": "Thời hạn",
+          "value": "12 tháng"
+        }
+      ],
+      "intro": "Gói cước 5G TechViCom 50GB/tháng với tốc độ truy cập internet nhanh, ổn định, phù hợp cho nhu cầu sử dụng trung bình.",
+      "introImage": "/images/products/data-plan-5g-intro.jpg",
+      "category": "sim-techvicom",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "50GB/tháng",
+          "price": 199000
+        }
+      ]
+    },
+    {
+      "id": "69",
+      "name": "Thẻ nạp TechViCom 200.000đ",
+      "price": 200000,
+      "originalPrice": 200000,
+      "image": "/images/products/recharge-card-2.jpg",
+      "images": [
+        "/images/products/recharge-card-2.jpg"
+      ],
+      "installment": "Không trả góp",
+      "storage": [
+        "200.000đ"
+      ],
+      "colors": [
+        "xanh"
+      ],
+      "promotion": "Tặng 15% giá trị",
+      "description": "Thẻ nạp TechViCom 200.000đ mệnh giá cao, nạp tiền nhanh.",
+      "specs": [
+        {
+          "label": "Mệnh giá",
+          "value": "200.000đ"
+        },
+        {
+          "label": "Thời hạn",
+          "value": "12 tháng"
+        },
+        {
+          "label": "Sử dụng",
+          "value": "Nạp tiền"
+        }
+      ],
+      "intro": "Thẻ nạp TechViCom 200.000đ với mệnh giá cao, nạp tiền nhanh chóng và an toàn cho khách hàng.",
+      "introImage": "/images/products/recharge-card-2-intro.jpg",
+      "category": "sim-techvicom",
+      "isFeatured": false,
+      "isFlashSale": false,
+      "variants": [
+        {
+          "storage": "200.000đ",
+          "price": 200000
         }
       ]
     }
@@ -1572,18 +4043,29 @@
               "price": 23990000
             }
           ]
+        },
+        {
+          "orderId": "DH52951",
+          "date": "28/7/2025",
+          "subtotal": 31990000,
+          "shippingFee": 30000,
+          "voucherDiscount": 1000000,
+          "total": 31020000,
+          "voucherCode": "WELCOME10",
+          "status": "Đang xử lý",
+          "products": [
+            {
+              "name": "iPhone 15 Pro Max 256GB",
+              "quantity": 1,
+              "price": 31990000
+            }
+          ]
         }
       ],
       "avatar": "/images/avatar-default.png",
       "birthday": "19/07/2025",
       "gender": "Nữ",
-      "cart": [
-        {
-          "id": "7",
-          "variant": null,
-          "quantity": 1
-        }
-      ]
+      "cart": []
     }
   ],
   "banners": [
@@ -1633,3062 +4115,6 @@
       "productPrice": "1.190.000đ"
     }
   ],
-  "products": [
-    {
-      "id": "1",
-      "name": "iPhone 15 Pro Max 256GB",
-      "price": 31990000,
-      "originalPrice": 34990000,
-      "image": "/images/products/iphone-15-pro.jpg",
-      "images": [
-        "/images/products/iphone-15-pro.jpg",
-        "/images/products/iphone-15-pro-2.jpg",
-        "/images/products/iphone-15-pro-3.jpg",
-        "/images/products/iphone-15-pro-4.jpg",
-        "/images/products/iphone-15-pro-5.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "256 GB",
-        "512 GB"
-      ],
-      "colors": [
-        "black",
-        "blue"
-      ],
-      "promotion": "Giảm thêm 3.000.000đ khi thanh toán qua VNPay",
-      "description": "iPhone 15 Pro Max với chip A17 Pro, camera nâng cấp, thiết kế titan siêu nhẹ.",
-      "specs": [
-        {
-          "label": "Màn hình",
-          "value": "6.7 inch OLED"
-        },
-        {
-          "label": "Chip",
-          "value": "A17 Pro"
-        },
-        {
-          "label": "Camera",
-          "value": "48MP + 12MP + 12MP"
-        }
-      ],
-      "intro": "iPhone 15 Pro Max là siêu phẩm mới nhất của Apple, sở hữu thiết kế titan siêu nhẹ, màn hình Super Retina XDR 6.7 inch sắc nét, chip A17 Pro mạnh mẽ cho hiệu năng vượt trội. Camera 48MP nâng cấp cho khả năng chụp ảnh chuyên nghiệp, pin bền bỉ, hỗ trợ sạc nhanh MagSafe. Sản phẩm tích hợp Face ID, kết nối 5G, bảo mật cao và nhiều tính năng thông minh, đáp ứng mọi nhu cầu công việc lẫn giải trí của bạn.",
-      "introImage": "/images/products/iphone-15-pro-intro.jpg",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "category": "dien-thoai",
-      "variants": [
-        {
-          "storage": "256 GB",
-          "price": 31990000
-        },
-        {
-          "storage": "512 GB",
-          "price": 34990000
-        }
-      ]
-    },
-    {
-      "id": "2",
-      "name": "Samsung Galaxy S24 Ultra 5G",
-      "price": 29990000,
-      "originalPrice": 31990000,
-      "image": "/images/products/samsung-s24.jpg",
-      "images": [
-        "/images/products/samsung-s24.jpg",
-        "/images/products/samsung-s24-2.jpg",
-        "/images/products/samsung-s24-3.jpg",
-        "/images/products/samsung-s24-4.jpg",
-        "/images/products/samsung-s24-5.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "256 GB",
-        "512 GB"
-      ],
-      "colors": [
-        "black",
-        "gray",
-        "purple"
-      ],
-      "promotion": "Thu cũ đổi mới trợ giá đến 5 triệu",
-      "description": "Samsung S24 Ultra với màn hình Dynamic AMOLED 2X, camera 200MP, pin 5000mAh.",
-      "specs": [
-        {
-          "label": "Màn hình",
-          "value": "6.8 inch Dynamic AMOLED 2X"
-        },
-        {
-          "label": "Camera",
-          "value": "200MP + 12MP + 10MP + 10MP"
-        }
-      ],
-      "intro": "Samsung Galaxy S24 Ultra 5G nổi bật với màn hình Dynamic AMOLED 2X 6.8 inch siêu mượt, camera 200MP chụp ảnh sắc nét, zoom xa ấn tượng. Máy trang bị chip Snapdragon 8 Gen 3, pin 5000mAh, hỗ trợ sạc nhanh, bút S Pen tiện lợi, kết nối 5G tốc độ cao. Thiết kế sang trọng, bảo mật vân tay siêu âm, nhiều tính năng AI thông minh cho trải nghiệm đỉnh cao.",
-      "introImage": "/images/products/samsung-s24-intro.jpg",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "category": "dien-thoai",
-      "variants": [
-        {
-          "storage": "256 GB",
-          "price": 29990000
-        },
-        {
-          "storage": "512 GB",
-          "price": 31990000
-        }
-      ]
-    },
-    {
-      "id": "3",
-      "name": "Xiaomi 14 Pro",
-      "price": 19990000,
-      "originalPrice": 21990000,
-      "image": "/images/products/xiaomi-14-pro.jpg",
-      "images": [
-        "/images/products/xiaomi-14-pro.jpg",
-        "/images/products/xiaomi-14-pro-2.jpg",
-        "/images/products/xiaomi-14-pro-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "256 GB",
-        "512 GB"
-      ],
-      "colors": [
-        "black",
-        "white"
-      ],
-      "promotion": "Tặng kèm tai nghe Xiaomi Buds 4 Pro",
-      "description": "Xiaomi 14 Pro với camera Leica, màn hình AMOLED, chip Snapdragon 8 Gen 3.",
-      "specs": [
-        {
-          "label": "Màn hình",
-          "value": "6.73 inch AMOLED"
-        },
-        {
-          "label": "Camera",
-          "value": "50MP + 50MP + 50MP"
-        }
-      ],
-      "intro": "Xiaomi 14 Pro là flagship mới nhất với camera Leica chuyên nghiệp, màn hình AMOLED 6.73 inch sắc nét, chip Snapdragon 8 Gen 3 mạnh mẽ. Sản phẩm có thiết kế hiện đại, pin 4880mAh, sạc nhanh 120W, camera 50MP chụp ảnh chất lượng cao, nhiều tính năng AI thông minh.",
-      "introImage": "/images/products/xiaomi-14-pro-intro.jpg",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "category": "dien-thoai",
-      "variants": [
-        {
-          "storage": "256 GB",
-          "price": 19990000
-        },
-        {
-          "storage": "512 GB",
-          "price": 21990000
-        }
-      ]
-    },
-    {
-      "id": "4",
-      "name": "Google Pixel 8 Pro",
-      "price": 24990000,
-      "originalPrice": 26990000,
-      "image": "/images/products/pixel-8-pro.jpg",
-      "images": [
-        "/images/products/pixel-8-pro.jpg",
-        "/images/products/pixel-8-pro-2.jpg",
-        "/images/products/pixel-8-pro-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "256 GB",
-        "512 GB"
-      ],
-      "colors": [
-        "black",
-        "blue"
-      ],
-      "promotion": "Tặng kèm Google Pixel Buds Pro",
-      "description": "Google Pixel 8 Pro với camera AI, màn hình OLED, chip Google Tensor G3.",
-      "specs": [
-        {
-          "label": "Màn hình",
-          "value": "6.7 inch OLED"
-        },
-        {
-          "label": "Camera",
-          "value": "50MP + 48MP + 48MP"
-        }
-      ],
-      "intro": "Google Pixel 8 Pro nổi bật với camera AI thông minh, màn hình OLED 6.7 inch sắc nét, chip Google Tensor G3 mạnh mẽ. Sản phẩm có thiết kế hiện đại, pin 4950mAh, sạc nhanh, camera 50MP với nhiều tính năng AI, tích hợp Google Assistant, bảo mật cao.",
-      "introImage": "/images/products/pixel-8-pro-intro.jpg",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "category": "dien-thoai",
-      "variants": [
-        {
-          "storage": "256 GB",
-          "price": 24990000
-        },
-        {
-          "storage": "512 GB",
-          "price": 26990000
-        }
-      ]
-    },
-    {
-      "id": "5",
-      "name": "OnePlus 12",
-      "price": 18990000,
-      "originalPrice": 20990000,
-      "image": "/images/products/oneplus-12.jpg",
-      "images": [
-        "/images/products/oneplus-12.jpg",
-        "/images/products/oneplus-12-2.jpg",
-        "/images/products/oneplus-12-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "256 GB",
-        "512 GB"
-      ],
-      "colors": [
-        "black",
-        "green"
-      ],
-      "promotion": "Tặng kèm OnePlus Buds 3",
-      "description": "OnePlus 12 với camera Hasselblad, màn hình AMOLED, chip Snapdragon 8 Gen 3.",
-      "specs": [
-        {
-          "label": "Màn hình",
-          "value": "6.82 inch AMOLED"
-        },
-        {
-          "label": "Camera",
-          "value": "50MP + 48MP + 64MP"
-        }
-      ],
-      "intro": "OnePlus 12 là flagship mới nhất với camera Hasselblad chuyên nghiệp, màn hình AMOLED 6.82 inch sắc nét, chip Snapdragon 8 Gen 3 mạnh mẽ. Sản phẩm có thiết kế hiện đại, pin 5400mAh, sạc nhanh 100W, camera 50MP với nhiều tính năng chuyên nghiệp.",
-      "introImage": "/images/products/oneplus-12-intro.jpg",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "category": "dien-thoai",
-      "variants": [
-        {
-          "storage": "256 GB",
-          "price": 18990000
-        },
-        {
-          "storage": "512 GB",
-          "price": 20990000
-        }
-      ]
-    },
-    {
-      "id": "6",
-      "name": "OPPO Find X7",
-      "price": 17990000,
-      "originalPrice": 19990000,
-      "image": "/images/products/oppo-find-x7.jpg",
-      "images": [
-        "/images/products/oppo-find-x7.jpg",
-        "/images/products/oppo-find-x7-2.jpg",
-        "/images/products/oppo-find-x7-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "256 GB",
-        "512 GB"
-      ],
-      "colors": [
-        "black",
-        "white"
-      ],
-      "promotion": "Tặng kèm OPPO Enco X3",
-      "description": "OPPO Find X7 với camera MariSilicon X, màn hình AMOLED, chip MediaTek Dimensity 9300.",
-      "specs": [
-        {
-          "label": "Màn hình",
-          "value": "6.78 inch AMOLED"
-        },
-        {
-          "label": "Camera",
-          "value": "50MP + 50MP + 50MP"
-        }
-      ],
-      "intro": "OPPO Find X7 nổi bật với camera MariSilicon X chuyên nghiệp, màn hình AMOLED 6.78 inch sắc nét, chip MediaTek Dimensity 9300 mạnh mẽ. Sản phẩm có thiết kế hiện đại, pin 5000mAh, sạc nhanh 100W, camera 50MP với nhiều tính năng AI.",
-      "introImage": "/images/products/oppo-find-x7-intro.jpg",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "category": "dien-thoai",
-      "variants": [
-        {
-          "storage": "256 GB",
-          "price": 17990000
-        },
-        {
-          "storage": "512 GB",
-          "price": 19990000
-        }
-      ]
-    },
-    {
-      "id": "7",
-      "name": "Tai nghe Bluetooth nhét tai Defunc TRUE GO Slim",
-      "price": 490000,
-      "originalPrice": 1490000,
-      "discount": 67,
-      "image": "/images/products/tai-nghe.jpg",
-      "promotion": "Flash Sale",
-      "description": "Tai nghe Bluetooth nhỏ gọn, pin lâu.",
-      "isFeatured": false,
-      "isFlashSale": true
-    },
-    {
-      "id": "8",
-      "name": "Quạt điều hòa Hoa Phát HPCF1-022 86W",
-      "price": 1690000,
-      "originalPrice": 2500000,
-      "discount": 32,
-      "image": "/images/products/quat-dieu-hoa.jpg",
-      "promotion": "Flash Sale",
-      "description": "Quạt điều hòa công suất lớn, làm mát nhanh.",
-      "isFeatured": false,
-      "isFlashSale": true
-    },
-    {
-      "id": "9",
-      "name": "Nồi chiên không dầu Unie 6.5 lít UE-600",
-      "price": 1190000,
-      "originalPrice": 2390000,
-      "discount": 50,
-      "image": "/images/products/noi-chien.jpg",
-      "promotion": "Flash Sale",
-      "description": "Nồi chiên không dầu dung tích lớn, dễ vệ sinh.",
-      "isFeatured": false,
-      "isFlashSale": true
-    },
-    {
-      "id": "11",
-      "name": "MacBook Air M2",
-      "price": 24990000,
-      "originalPrice": 26990000,
-      "image": "/images/products/mac.jpg",
-      "images": [
-        "/images/products/mac.jpg",
-        "/images/products/macbook-air-2.jpg",
-        "/images/products/macbook-air-3.jpg",
-        "/images/products/macbook-air-4.jpg"
-      ],
-      "storage": [
-        "256 GB",
-        "512 GB"
-      ],
-      "colors": [
-        "gray",
-        "silver"
-      ],
-      "promotion": "Giảm 2 triệu khi thanh toán online",
-      "description": "MacBook Air M2 với chip Apple M2, thiết kế mỏng nhẹ.",
-      "specs": [
-        {
-          "label": "Màn hình",
-          "value": "13.6 inch Liquid Retina"
-        },
-        {
-          "label": "CPU",
-          "value": "Apple M2"
-        }
-      ],
-      "intro": "MacBook Air M2 là lựa chọn tuyệt vời cho học sinh, sinh viên.",
-      "introImage": "/images/products/macbook-air-intro.jpg",
-      "category": "laptop",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "256 GB",
-          "price": 24990000
-        },
-        {
-          "storage": "512 GB",
-          "price": 26990000
-        }
-      ]
-    },
-    {
-      "id": "12",
-      "name": "Dell XPS 13",
-      "price": 28990000,
-      "originalPrice": 30990000,
-      "image": "/images/products/dell-xps.jpg",
-      "images": [
-        "/images/products/dell-xps.jpg",
-        "/images/products/dell-xps-2.jpg",
-        "/images/products/dell-xps-3.jpg"
-      ],
-      "storage": [
-        "512 GB"
-      ],
-      "colors": [
-        "silver"
-      ],
-      "promotion": "Tặng balo Dell chính hãng",
-      "description": "Dell XPS 13 với màn hình InfinityEdge, thiết kế siêu mỏng.",
-      "specs": [
-        {
-          "label": "Màn hình",
-          "value": "13.4 inch FHD+"
-        },
-        {
-          "label": "CPU",
-          "value": "Intel Core i7"
-        }
-      ],
-      "intro": "Dell XPS 13 là ultrabook cao cấp cho doanh nhân.",
-      "introImage": "/images/products/dell-xps-intro.jpg",
-      "category": "laptop",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "512 GB",
-          "price": 28990000
-        }
-      ]
-    },
-    {
-      "id": "13",
-      "name": "Lenovo ThinkPad X1 Carbon",
-      "price": 32990000,
-      "originalPrice": 34990000,
-      "image": "/images/products/lenovo-thinkpad.jpg",
-      "images": [
-        "/images/products/lenovo-thinkpad.jpg",
-        "/images/products/lenovo-thinkpad-2.jpg",
-        "/images/products/lenovo-thinkpad-3.jpg"
-      ],
-      "storage": [
-        "512 GB"
-      ],
-      "colors": [
-        "black"
-      ],
-      "promotion": "Tặng kèm Lenovo ThinkPad Backpack",
-      "description": "Lenovo ThinkPad X1 Carbon với thiết kế bền bỉ, bảo mật cao.",
-      "specs": [
-        {
-          "label": "Màn hình",
-          "value": "14 inch 4K"
-        },
-        {
-          "label": "CPU",
-          "value": "Intel Core i7"
-        }
-      ],
-      "intro": "Lenovo ThinkPad X1 Carbon là laptop doanh nghiệp cao cấp.",
-      "introImage": "/images/products/lenovo-thinkpad-intro.jpg",
-      "category": "laptop",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "512 GB",
-          "price": 32990000
-        }
-      ]
-    },
-    {
-      "id": "14",
-      "name": "HP Spectre x360",
-      "price": 26990000,
-      "originalPrice": 28990000,
-      "image": "/images/products/hp-spectre.jpg",
-      "images": [
-        "/images/products/hp-spectre.jpg",
-        "/images/products/hp-spectre-2.jpg",
-        "/images/products/hp-spectre-3.jpg"
-      ],
-      "storage": [
-        "512 GB"
-      ],
-      "colors": [
-        "silver"
-      ],
-      "promotion": "Tặng kèm HP Active Pen",
-      "description": "HP Spectre x360 với thiết kế 2-in-1, màn hình cảm ứng.",
-      "specs": [
-        {
-          "label": "Màn hình",
-          "value": "13.5 inch 4K"
-        },
-        {
-          "label": "CPU",
-          "value": "Intel Core i7"
-        }
-      ],
-      "intro": "HP Spectre x360 là laptop 2-in-1 cao cấp.",
-      "introImage": "/images/products/hp-spectre-intro.jpg",
-      "category": "laptop",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "512 GB",
-          "price": 26990000
-        }
-      ]
-    },
-    {
-      "id": "15",
-      "name": "ASUS ROG Zephyrus G14",
-      "price": 39990000,
-      "originalPrice": 41990000,
-      "image": "/images/products/asus-rog.jpg",
-      "images": [
-        "/images/products/asus-rog.jpg",
-        "/images/products/asus-rog-2.jpg",
-        "/images/products/asus-rog-3.jpg"
-      ],
-      "storage": [
-        "1 TB"
-      ],
-      "colors": [
-        "black"
-      ],
-      "promotion": "Tặng kèm ROG Gaming Mouse",
-      "description": "ASUS ROG Zephyrus G14 với GPU RTX 4060, thiết kế gaming.",
-      "specs": [
-        {
-          "label": "Màn hình",
-          "value": "14 inch QHD"
-        },
-        {
-          "label": "GPU",
-          "value": "NVIDIA RTX 4060"
-        }
-      ],
-      "intro": "ASUS ROG Zephyrus G14 là laptop gaming mạnh mẽ.",
-      "introImage": "/images/products/asus-rog-intro.jpg",
-      "category": "laptop",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "1 TB",
-          "price": 39990000
-        }
-      ]
-    },
-    {
-      "id": "16",
-      "name": "MSI GS66 Stealth",
-      "price": 44990000,
-      "originalPrice": 46990000,
-      "image": "/images/products/msi-gs66.jpg",
-      "images": [
-        "/images/products/msi-gs66.jpg",
-        "/images/products/msi-gs66-2.jpg",
-        "/images/products/msi-gs66-3.jpg"
-      ],
-      "storage": [
-        "1 TB"
-      ],
-      "colors": [
-        "black"
-      ],
-      "promotion": "Tặng kèm MSI Gaming Headset",
-      "description": "MSI GS66 Stealth với GPU RTX 4070, thiết kế mỏng nhẹ.",
-      "specs": [
-        {
-          "label": "Màn hình",
-          "value": "15.6 inch FHD"
-        },
-        {
-          "label": "GPU",
-          "value": "NVIDIA RTX 4070"
-        }
-      ],
-      "intro": "MSI GS66 Stealth là laptop gaming cao cấp.",
-      "introImage": "/images/products/msi-gs66-intro.jpg",
-      "category": "laptop",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "1 TB",
-          "price": 44990000
-        }
-      ]
-    },
-    {
-      "id": "17",
-      "name": "Acer Predator Helios 300",
-      "price": 29990000,
-      "originalPrice": 31990000,
-      "image": "/images/products/acer-predator.jpg",
-      "images": [
-        "/images/products/acer-predator.jpg",
-        "/images/products/acer-predator-2.jpg",
-        "/images/products/acer-predator-3.jpg"
-      ],
-      "storage": [
-        "512 GB"
-      ],
-      "colors": [
-        "black"
-      ],
-      "promotion": "Tặng kèm Predator Gaming Mouse",
-      "description": "Acer Predator Helios 300 với GPU RTX 4060, thiết kế gaming.",
-      "specs": [
-        {
-          "label": "Màn hình",
-          "value": "15.6 inch FHD"
-        },
-        {
-          "label": "GPU",
-          "value": "NVIDIA RTX 4060"
-        }
-      ],
-      "intro": "Acer Predator Helios 300 là laptop gaming tầm trung.",
-      "introImage": "/images/products/acer-predator-intro.jpg",
-      "category": "laptop",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "512 GB",
-          "price": 29990000
-        }
-      ]
-    },
-    {
-      "id": "18",
-      "name": "Razer Blade 15",
-      "price": 49990000,
-      "originalPrice": 51990000,
-      "image": "/images/products/razer-blade.jpg",
-      "images": [
-        "/images/products/razer-blade.jpg",
-        "/images/products/razer-blade-2.jpg",
-        "/images/products/razer-blade-3.jpg"
-      ],
-      "storage": [
-        "1 TB"
-      ],
-      "colors": [
-        "black"
-      ],
-      "promotion": "Tặng kèm Razer Gaming Mouse",
-      "description": "Razer Blade 15 với GPU RTX 4080, thiết kế gaming cao cấp.",
-      "specs": [
-        {
-          "label": "Màn hình",
-          "value": "15.6 inch QHD"
-        },
-        {
-          "label": "GPU",
-          "value": "NVIDIA RTX 4080"
-        }
-      ],
-      "intro": "Razer Blade 15 là laptop gaming flagship.",
-      "introImage": "/images/products/razer-blade-intro.jpg",
-      "category": "laptop",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "1 TB",
-          "price": 49990000
-        }
-      ]
-    },
-    {
-      "id": "19",
-      "name": "Gigabyte AORUS 15X",
-      "price": 37990000,
-      "originalPrice": 39990000,
-      "image": "/images/products/gigabyte-aorus.jpg",
-      "images": [
-        "/images/products/gigabyte-aorus.jpg",
-        "/images/products/gigabyte-aorus-2.jpg",
-        "/images/products/gigabyte-aorus-3.jpg"
-      ],
-      "storage": [
-        "1 TB"
-      ],
-      "colors": [
-        "black"
-      ],
-      "promotion": "Tặng kèm AORUS Gaming Mouse",
-      "description": "Gigabyte AORUS 15X với GPU RTX 4070, thiết kế gaming.",
-      "specs": [
-        {
-          "label": "Màn hình",
-          "value": "15.6 inch FHD"
-        },
-        {
-          "label": "GPU",
-          "value": "NVIDIA RTX 4070"
-        }
-      ],
-      "intro": "Gigabyte AORUS 15X là laptop gaming mạnh mẽ.",
-      "introImage": "/images/products/gigabyte-aorus-intro.jpg",
-      "category": "laptop",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "1 TB",
-          "price": 37990000
-        }
-      ]
-    },
-    {
-      "id": "20",
-      "name": "Alienware m16",
-      "price": 54990000,
-      "originalPrice": 56990000,
-      "image": "/images/products/alienware-m16.jpg",
-      "images": [
-        "/images/products/alienware-m16.jpg",
-        "/images/products/alienware-m16-2.jpg",
-        "/images/products/alienware-m16-3.jpg"
-      ],
-      "storage": [
-        "1 TB"
-      ],
-      "colors": [
-        "black"
-      ],
-      "promotion": "Tặng kèm Alienware Gaming Headset",
-      "description": "Alienware m16 với GPU RTX 4090, thiết kế gaming flagship.",
-      "specs": [
-        {
-          "label": "Màn hình",
-          "value": "16 inch QHD"
-        },
-        {
-          "label": "GPU",
-          "value": "NVIDIA RTX 4090"
-        }
-      ],
-      "intro": "Alienware m16 là laptop gaming flagship.",
-      "introImage": "/images/products/alienware-m16-intro.jpg",
-      "category": "laptop",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "1 TB",
-          "price": 54990000
-        }
-      ]
-    },
-    {
-      "id": "21",
-      "name": "TCL 60R 5G 4GB 128GB",
-      "price": 2990000,
-      "originalPrice": 3990000,
-      "image": "/images/products/tcl-60r.jpg",
-      "images": [
-        "/images/products/tcl-60r.jpg",
-        "/images/products/tcl-60r-2.jpg",
-        "/images/products/tcl-60r-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "128 GB",
-        "256 GB"
-      ],
-      "colors": [
-        "black"
-      ],
-      "promotion": "Cho thẻ Home Credit: Giảm 400.000đ cho hóa đơn từ 8 triệu",
-      "description": "Điện thoại TCL 60R 5G với màn hình lớn, pin khỏe, hỗ trợ 5G, camera sắc nét, giá cực tốt.",
-      "specs": [
-        {
-          "label": "Chip",
-          "value": "MediaTek Dimensity 700"
-        },
-        {
-          "label": "Màn hình",
-          "value": "6.6 inch, 90Hz"
-        },
-        {
-          "label": "Pin",
-          "value": "5000mAh"
-        },
-        {
-          "label": "Camera",
-          "value": "50MP + 2MP + 2MP"
-        }
-      ],
-      "intro": "TCL 60R 5G là lựa chọn tuyệt vời cho người dùng yêu thích công nghệ với màn hình lớn, hiệu năng ổn định và hỗ trợ 5G. Thiết kế hiện đại, pin bền bỉ, phù hợp cho cả công việc và giải trí.",
-      "introImage": "/images/products/tcl-60r-intro.jpg",
-      "category": "dien-thoai",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "128 GB",
-          "price": 2990000
-        },
-        {
-          "storage": "256 GB",
-          "price": 3490000
-        }
-      ]
-    },
-    {
-      "id": "22",
-      "name": "Nubia V70 Design 8GB 128GB",
-      "price": 2790000,
-      "originalPrice": 3990000,
-      "image": "/images/products/nubia-v70.jpg",
-      "images": [
-        "/images/products/nubia-v70.jpg",
-        "/images/products/nubia-v70-2.jpg",
-        "/images/products/nubia-v70-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "128 GB",
-        "256 GB",
-        "512 GB"
-      ],
-      "colors": [
-        "black",
-        "blue",
-        "purple"
-      ],
-      "promotion": "Cho thẻ HD Bank: Giảm 500.000đ đơn từ 5 triệu",
-      "description": "Nubia V70 Design với thiết kế hiện đại, hiệu năng mạnh mẽ, nhiều lựa chọn màu sắc.",
-      "specs": [
-        {
-          "label": "Chip",
-          "value": "Snapdragon 7 Gen 1"
-        },
-        {
-          "label": "Màn hình",
-          "value": "6.67 inch, AMOLED"
-        },
-        {
-          "label": "Pin",
-          "value": "5000mAh"
-        },
-        {
-          "label": "Camera",
-          "value": "64MP + 8MP + 2MP"
-        }
-      ],
-      "intro": "Nubia V70 Design nổi bật với thiết kế trẻ trung, hiệu năng mạnh mẽ và nhiều màu sắc cá tính. Máy phù hợp cho người dùng năng động, yêu thích sự sáng tạo.",
-      "introImage": "/images/products/nubia-v70-intro.jpg",
-      "category": "dien-thoai",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "128 GB",
-          "price": 2790000
-        },
-        {
-          "storage": "256 GB",
-          "price": 3290000
-        },
-        {
-          "storage": "512 GB",
-          "price": 3990000
-        }
-      ]
-    },
-    {
-      "id": "23",
-      "name": "Xiaomi Poco M7 Pro 5G 8GB 256GB",
-      "price": 5990000,
-      "originalPrice": 6990000,
-      "image": "/images/products/poco-m7.jpg",
-      "images": [
-        "/images/products/poco-m7.jpg",
-        "/images/products/poco-m7-2.jpg",
-        "/images/products/poco-m7-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "128 GB",
-        "256 GB"
-      ],
-      "colors": [
-        "green",
-        "black",
-        "blue"
-      ],
-      "promotion": "Cho thẻ Home Credit: Giảm 400.000đ cho hóa đơn từ 8 triệu",
-      "description": "Xiaomi Poco M7 Pro 5G với hiệu năng mạnh mẽ, pin lớn, camera sắc nét, hỗ trợ 5G.",
-      "specs": [
-        {
-          "label": "Chip",
-          "value": "MediaTek Dimensity 920"
-        },
-        {
-          "label": "Màn hình",
-          "value": "6.67 inch, 120Hz"
-        },
-        {
-          "label": "Pin",
-          "value": "5000mAh"
-        },
-        {
-          "label": "Camera",
-          "value": "64MP + 2MP"
-        }
-      ],
-      "intro": "Poco M7 Pro 5G là lựa chọn tuyệt vời cho người dùng yêu thích hiệu năng và công nghệ mới với mức giá hợp lý.",
-      "introImage": "/images/products/poco-m7-intro.jpg",
-      "category": "dien-thoai",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "128 GB",
-          "price": 5490000
-        },
-        {
-          "storage": "256 GB",
-          "price": 5990000
-        }
-      ]
-    },
-    {
-      "id": "24",
-      "name": "Samsung Galaxy M55 5G 256GB",
-      "price": 7390000,
-      "originalPrice": 8490000,
-      "image": "/images/products/samsung-m55.jpg",
-      "images": [
-        "/images/products/samsung-m55.jpg",
-        "/images/products/samsung-m55-2.jpg",
-        "/images/products/samsung-m55-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "128 GB",
-        "256 GB"
-      ],
-      "colors": [
-        "black"
-      ],
-      "promotion": "Cho thẻ Home Credit: Giảm 400.000đ cho hóa đơn từ 8 triệu",
-      "description": "Samsung Galaxy M55 5G với màn hình lớn, pin khỏe, camera sắc nét, hỗ trợ 5G.",
-      "specs": [
-        {
-          "label": "Chip",
-          "value": "Snapdragon 7 Gen 1"
-        },
-        {
-          "label": "Màn hình",
-          "value": "6.7 inch, Super AMOLED"
-        },
-        {
-          "label": "Pin",
-          "value": "5000mAh"
-        },
-        {
-          "label": "Camera",
-          "value": "64MP + 8MP + 2MP"
-        }
-      ],
-      "intro": "Galaxy M55 5G là lựa chọn tốt cho người dùng cần smartphone pin trâu, màn hình lớn, hiệu năng ổn định.",
-      "introImage": "/images/products/samsung-m55-intro.jpg",
-      "category": "dien-thoai",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "128 GB",
-          "price": 6990000
-        },
-        {
-          "storage": "256 GB",
-          "price": 7390000
-        }
-      ]
-    },
-    {
-      "id": "25",
-      "name": "Honor X9c 5G 12GB 256GB",
-      "price": 8790000,
-      "originalPrice": 9490000,
-      "image": "/images/products/honor-x9c.jpg",
-      "images": [
-        "/images/products/honor-x9c.jpg",
-        "/images/products/honor-x9c-2.jpg",
-        "/images/products/honor-x9c-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "256 GB",
-        "512 GB"
-      ],
-      "colors": [
-        "pink",
-        "black",
-        "gray"
-      ],
-      "promotion": "Cho thẻ Home Credit: Giảm 400.000đ cho hóa đơn từ 8 triệu",
-      "description": "Honor X9c 5G với thiết kế sang trọng, hiệu năng mạnh mẽ, camera chất lượng.",
-      "specs": [
-        {
-          "label": "Chip",
-          "value": "Snapdragon 6 Gen 1"
-        },
-        {
-          "label": "Màn hình",
-          "value": "6.78 inch, AMOLED"
-        },
-        {
-          "label": "Pin",
-          "value": "5100mAh"
-        },
-        {
-          "label": "Camera",
-          "value": "108MP + 5MP + 2MP"
-        }
-      ],
-      "intro": "Honor X9c 5G là smartphone tầm trung nổi bật với thiết kế đẹp, hiệu năng ổn định và camera chất lượng.",
-      "introImage": "/images/products/honor-x9c-intro.jpg",
-      "category": "dien-thoai",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "256 GB",
-          "price": 8790000
-        },
-        {
-          "storage": "512 GB",
-          "price": 9490000
-        }
-      ]
-    },
-    {
-      "id": "26",
-      "name": "Vivo V29e 5G",
-      "price": 8990000,
-      "originalPrice": 9990000,
-      "image": "/images/products/vivo-v29e.jpg",
-      "images": [
-        "/images/products/vivo-v29e.jpg",
-        "/images/products/vivo-v29e-2.jpg",
-        "/images/products/vivo-v29e-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "256 GB"
-      ],
-      "colors": [
-        "blue",
-        "yellow"
-      ],
-      "promotion": "Tặng PMH 500.000đ mua kèm phụ kiện",
-      "description": "Vivo V29e 5G với thiết kế trẻ trung, camera chất lượng, hiệu năng ổn định.",
-      "specs": [
-        {
-          "label": "Chip",
-          "value": "Snapdragon 695"
-        },
-        {
-          "label": "Màn hình",
-          "value": "6.78 inch, AMOLED"
-        },
-        {
-          "label": "Pin",
-          "value": "5000mAh"
-        },
-        {
-          "label": "Camera",
-          "value": "64MP + 8MP + 2MP"
-        }
-      ],
-      "intro": "Vivo V29e 5G là smartphone tầm trung nổi bật với thiết kế đẹp, hiệu năng ổn định và camera chất lượng.",
-      "introImage": "/images/products/vivo-v29e-intro.jpg",
-      "category": "dien-thoai",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "256 GB",
-          "price": 8990000
-        }
-      ]
-    },
-    {
-      "id": "27",
-      "name": "Realme GT5 Pro",
-      "price": 16990000,
-      "originalPrice": 18990000,
-      "image": "/images/products/realme-gt5.jpg",
-      "images": [
-        "/images/products/realme-gt5.jpg",
-        "/images/products/realme-gt5-2.jpg",
-        "/images/products/realme-gt5-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "256 GB"
-      ],
-      "colors": [
-        "red",
-        "blue"
-      ],
-      "promotion": "Giảm 1.000.000đ khi thanh toán qua VNPAY",
-      "description": "Realme GT5 Pro với hiệu năng mạnh mẽ, camera chất lượng, giá hợp lý.",
-      "specs": [
-        {
-          "label": "Chip",
-          "value": "Snapdragon 8 Gen 3"
-        },
-        {
-          "label": "Màn hình",
-          "value": "6.78 inch, AMOLED"
-        },
-        {
-          "label": "Pin",
-          "value": "5400mAh"
-        },
-        {
-          "label": "Camera",
-          "value": "50MP + 8MP + 50MP"
-        }
-      ],
-      "intro": "Realme GT5 Pro là smartphone cao cấp với hiệu năng mạnh mẽ, camera chất lượng và giá hợp lý.",
-      "introImage": "/images/products/realme-gt5-intro.jpg",
-      "category": "dien-thoai",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "256 GB",
-          "price": 16990000
-        }
-      ]
-    },
-    {
-      "id": "28",
-      "name": "Nothing Phone (2)",
-      "price": 15990000,
-      "originalPrice": 16990000,
-      "image": "/images/products/nothing-phone-2.jpg",
-      "images": [
-        "/images/products/nothing-phone-2.jpg",
-        "/images/products/nothing-phone-2-2.jpg",
-        "/images/products/nothing-phone-2-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "256 GB"
-      ],
-      "colors": [
-        "white",
-        "black"
-      ],
-      "promotion": "Tặng ốp lưng chính hãng trị giá 790.000đ",
-      "description": "Nothing Phone (2) với thiết kế độc đáo, hiệu năng ổn định, trải nghiệm Android thuần.",
-      "specs": [
-        {
-          "label": "Chip",
-          "value": "Snapdragon 8+ Gen 1"
-        },
-        {
-          "label": "Màn hình",
-          "value": "6.7 inch, OLED"
-        },
-        {
-          "label": "Pin",
-          "value": "4700mAh"
-        },
-        {
-          "label": "Camera",
-          "value": "50MP + 50MP"
-        }
-      ],
-      "intro": "Nothing Phone (2) là smartphone độc đáo với thiết kế trong suốt, hiệu năng ổn định và trải nghiệm Android thuần.",
-      "introImage": "/images/products/nothing-phone-2-intro.jpg",
-      "category": "dien-thoai",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "256 GB",
-          "price": 15990000
-        }
-      ]
-    },
-    {
-      "id": "29",
-      "name": "Huawei P60 Pro",
-      "price": 24990000,
-      "originalPrice": 26990000,
-      "image": "/images/products/huawei-p60.jpg",
-      "images": [
-        "/images/products/huawei-p60.jpg",
-        "/images/products/huawei-p60-2.jpg",
-        "/images/products/huawei-p60-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "256 GB",
-        "512 GB"
-      ],
-      "colors": [
-        "black",
-        "purple"
-      ],
-      "promotion": "Tặng Watch GT4 trị giá 6.990.000đ",
-      "description": "Huawei P60 Pro với thiết kế sang trọng, camera xuất sắc, hiệu năng mạnh mẽ.",
-      "specs": [
-        {
-          "label": "Chip",
-          "value": "Snapdragon 8+ Gen 1 4G"
-        },
-        {
-          "label": "Màn hình",
-          "value": "6.67 inch, OLED"
-        },
-        {
-          "label": "Pin",
-          "value": "4815mAh"
-        },
-        {
-          "label": "Camera",
-          "value": "48MP + 48MP + 13MP"
-        }
-      ],
-      "intro": "Huawei P60 Pro là flagship mới nhất của Huawei với camera xuất sắc, hiệu năng vượt trội và thiết kế sang trọng.",
-      "introImage": "/images/products/huawei-p60-intro.jpg",
-      "category": "dien-thoai",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "256 GB",
-          "price": 24990000
-        },
-        {
-          "storage": "512 GB",
-          "price": 26990000
-        }
-      ]
-    },
-    {
-      "id": "31",
-      "name": "Quạt điều hòa Fujihome FT-30L",
-      "price": 899000,
-      "originalPrice": 1299000,
-      "image": "/images/products/quat-thap.jpg",
-      "images": [
-        "/images/products/quat-thap.jpg",
-        "/images/products/quat-thap-2.jpg",
-        "/images/products/quat-thap-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "30L"
-      ],
-      "colors": [
-        "trắng",
-        "đen"
-      ],
-      "promotion": "Flash Sale",
-      "description": "Quạt tháp Fujihome thiết kế hiện đại, tiết kiệm điện, phù hợp cho không gian nhỏ.",
-      "specs": [
-        {
-          "label": "Công suất",
-          "value": "45W"
-        },
-        {
-          "label": "Điều khiển",
-          "value": "Cảm ứng"
-        },
-        {
-          "label": "Chế độ",
-          "value": "3 chế độ gió"
-        }
-      ],
-      "intro": "Quạt tháp Fujihome FT-30L với thiết kế cao cấp, công suất tiết kiệm điện, phù hợp cho văn phòng và gia đình. Điều khiển cảm ứng hiện đại, chế độ gió đa dạng.",
-      "introImage": "/images/products/quat-thap-intro.jpg",
-      "category": "quat-dieu-hoa",
-      "isFeatured": true,
-      "isFlashSale": true,
-      "variants": [
-        {
-          "storage": "30L",
-          "price": 899000
-        }
-      ]
-    },
-    {
-      "id": "32",
-      "name": "Điều hòa Daikin 1.5HP Inverter",
-      "price": 12990000,
-      "originalPrice": 15990000,
-      "image": "/images/products/daikin-ac.jpg",
-      "images": [
-        "/images/products/daikin-ac.jpg",
-        "/images/products/daikin-ac-2.jpg",
-        "/images/products/daikin-ac-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "1.5 HP"
-      ],
-      "colors": [
-        "trắng"
-      ],
-      "promotion": "Giảm 3 triệu khi thanh toán online",
-      "description": "Điều hòa Daikin 1.5HP Inverter tiết kiệm điện, làm mát hiệu quả.",
-      "specs": [
-        {
-          "label": "Công suất",
-          "value": "1.5 HP"
-        },
-        {
-          "label": "Công nghệ",
-          "value": "Inverter"
-        },
-        {
-          "label": "Tiết kiệm",
-          "value": "Tiết kiệm 40% điện"
-        }
-      ],
-      "intro": "Điều hòa Daikin 1.5HP Inverter với công nghệ tiên tiến, tiết kiệm điện tối ưu, phù hợp cho phòng ngủ và phòng khách.",
-      "introImage": "/images/products/daikin-ac-intro.jpg",
-      "category": "may-lanh",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "1.5 HP",
-          "price": 12990000
-        }
-      ]
-    },
-    {
-      "id": "33",
-      "name": "Tủ lạnh Samsung Side by Side 655L",
-      "price": 18990000,
-      "originalPrice": 22990000,
-      "image": "/images/products/samsung-fridge.jpg",
-      "images": [
-        "/images/products/samsung-fridge.jpg",
-        "/images/products/samsung-fridge-2.jpg",
-        "/images/products/samsung-fridge-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "655L"
-      ],
-      "colors": [
-        "bạc"
-      ],
-      "promotion": "Tặng máy lọc nước RO",
-      "description": "Tủ lạnh Samsung Side by Side dung tích lớn, thiết kế hiện đại.",
-      "specs": [
-        {
-          "label": "Dung tích",
-          "value": "655L"
-        },
-        {
-          "label": "Công nghệ",
-          "value": "Digital Inverter"
-        },
-        {
-          "label": "Tiết kiệm",
-          "value": "Tiết kiệm 50% điện"
-        }
-      ],
-      "intro": "Tủ lạnh Samsung Side by Side 655L với thiết kế sang trọng, công nghệ Digital Inverter tiết kiệm điện, phù hợp cho gia đình lớn.",
-      "introImage": "/images/products/samsung-fridge-intro.jpg",
-      "category": "tu-lanh",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "655L",
-          "price": 18990000
-        }
-      ]
-    },
-    {
-      "id": "34",
-      "name": "Tai nghe AirPods Pro 2",
-      "price": 6990000,
-      "originalPrice": 7990000,
-      "image": "/images/products/airpods-pro.jpg",
-      "images": [
-        "/images/products/airpods-pro.jpg",
-        "/images/products/airpods-pro-2.jpg",
-        "/images/products/airpods-pro-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "Không dây"
-      ],
-      "colors": [
-        "trắng"
-      ],
-      "promotion": "Tặng case sạc không dây",
-      "description": "Tai nghe AirPods Pro 2 với công nghệ chống ồn chủ động.",
-      "specs": [
-        {
-          "label": "Công nghệ",
-          "value": "Active Noise Cancellation"
-        },
-        {
-          "label": "Pin",
-          "value": "6 giờ nghe nhạc"
-        },
-        {
-          "label": "Kết nối",
-          "value": "Bluetooth 5.0"
-        }
-      ],
-      "intro": "AirPods Pro 2 với công nghệ chống ồn chủ động tiên tiến, âm thanh chất lượng cao, phù hợp cho công việc và giải trí.",
-      "introImage": "/images/products/airpods-pro-intro.jpg",
-      "category": "phu-kien",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "Không dây",
-          "price": 6990000
-        }
-      ]
-    },
-    {
-      "id": "35",
-      "name": "SIM 5G TechViCom 60GB/tháng",
-      "price": 199000,
-      "originalPrice": 299000,
-      "image": "/images/products/sim-5g.jpg",
-      "images": [
-        "/images/products/sim-5g.jpg",
-        "/images/products/sim-5g-2.jpg"
-      ],
-      "installment": "Không trả góp",
-      "storage": [
-        "60GB/tháng"
-      ],
-      "colors": [
-        "xanh"
-      ],
-      "promotion": "Miễn phí 3 tháng đầu",
-      "description": "SIM 5G TechViCom với tốc độ cao, dung lượng lớn.",
-      "specs": [
-        {
-          "label": "Tốc độ",
-          "value": "5G"
-        },
-        {
-          "label": "Dung lượng",
-          "value": "60GB/tháng"
-        },
-        {
-          "label": "Thời hạn",
-          "value": "12 tháng"
-        }
-      ],
-      "intro": "SIM 5G TechViCom với tốc độ truy cập internet nhanh, dung lượng data lớn, phù hợp cho nhu cầu sử dụng cao.",
-      "introImage": "/images/products/sim-5g-intro.jpg",
-      "category": "sim-techvicom",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "60GB/tháng",
-          "price": 199000
-        }
-      ]
-    },
-    {
-      "id": "36",
-      "name": "Điều hòa Panasonic 2HP Inverter",
-      "price": 15990000,
-      "originalPrice": 18990000,
-      "image": "/images/products/panasonic-ac.jpg",
-      "images": [
-        "/images/products/panasonic-ac.jpg",
-        "/images/products/panasonic-ac-2.jpg",
-        "/images/products/panasonic-ac-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "2 HP"
-      ],
-      "colors": [
-        "trắng"
-      ],
-      "promotion": "Giảm 3 triệu khi thanh toán online",
-      "description": "Điều hòa Panasonic 2HP Inverter công suất cao, tiết kiệm điện.",
-      "specs": [
-        {
-          "label": "Công suất",
-          "value": "2 HP"
-        },
-        {
-          "label": "Công nghệ",
-          "value": "Inverter"
-        },
-        {
-          "label": "Tiết kiệm",
-          "value": "Tiết kiệm 50% điện"
-        }
-      ],
-      "intro": "Điều hòa Panasonic 2HP Inverter với công suất mạnh mẽ, phù hợp cho phòng lớn và văn phòng.",
-      "introImage": "/images/products/panasonic-ac-intro.jpg",
-      "category": "may-lanh",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "2 HP",
-          "price": 15990000
-        }
-      ]
-    },
-    {
-      "id": "37",
-      "name": "Điều hòa LG 1HP Inverter",
-      "price": 8990000,
-      "originalPrice": 11990000,
-      "image": "/images/products/lg-ac.jpg",
-      "images": [
-        "/images/products/lg-ac.jpg",
-        "/images/products/lg-ac-2.jpg",
-        "/images/products/lg-ac-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "1 HP"
-      ],
-      "colors": [
-        "trắng"
-      ],
-      "promotion": "Tặng quạt hơi nước",
-      "description": "Điều hòa LG 1HP Inverter tiết kiệm điện, phù hợp phòng nhỏ.",
-      "specs": [
-        {
-          "label": "Công suất",
-          "value": "1 HP"
-        },
-        {
-          "label": "Công nghệ",
-          "value": "Inverter"
-        },
-        {
-          "label": "Tiết kiệm",
-          "value": "Tiết kiệm 40% điện"
-        }
-      ],
-      "intro": "Điều hòa LG 1HP Inverter với thiết kế nhỏ gọn, tiết kiệm điện tối ưu cho phòng ngủ.",
-      "introImage": "/images/products/lg-ac-intro.jpg",
-      "category": "may-lanh",
-      "isFeatured": false,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "1 HP",
-          "price": 8990000
-        }
-      ]
-    },
-    {
-      "id": "38",
-      "name": "Điều hòa Samsung 1.5HP Inverter",
-      "price": 10990000,
-      "originalPrice": 13990000,
-      "image": "/images/products/samsung-ac.jpg",
-      "images": [
-        "/images/products/samsung-ac.jpg",
-        "/images/products/samsung-ac-2.jpg",
-        "/images/products/samsung-ac-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "1.5 HP"
-      ],
-      "colors": [
-        "trắng"
-      ],
-      "promotion": "Tặng máy lọc không khí",
-      "description": "Điều hòa Samsung 1.5HP Inverter với công nghệ WindFree.",
-      "specs": [
-        {
-          "label": "Công suất",
-          "value": "1.5 HP"
-        },
-        {
-          "label": "Công nghệ",
-          "value": "WindFree"
-        },
-        {
-          "label": "Tiết kiệm",
-          "value": "Tiết kiệm 45% điện"
-        }
-      ],
-      "intro": "Điều hòa Samsung 1.5HP Inverter với công nghệ WindFree giúp gió mát tự nhiên, không gây khô da.",
-      "introImage": "/images/products/samsung-ac-intro.jpg",
-      "category": "may-lanh",
-      "isFeatured": false,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "1.5 HP",
-          "price": 10990000
-        }
-      ]
-    },
-    {
-      "id": "39",
-      "name": "Tủ lạnh LG Multi Door 655L",
-      "price": 22990000,
-      "originalPrice": 25990000,
-      "image": "/images/products/lg-fridge.jpg",
-      "images": [
-        "/images/products/lg-fridge.jpg",
-        "/images/products/lg-fridge-2.jpg",
-        "/images/products/lg-fridge-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "655L"
-      ],
-      "colors": [
-        "bạc"
-      ],
-      "promotion": "Tặng máy lọc nước RO",
-      "description": "Tủ lạnh LG Multi Door dung tích lớn, thiết kế hiện đại.",
-      "specs": [
-        {
-          "label": "Dung tích",
-          "value": "655L"
-        },
-        {
-          "label": "Công nghệ",
-          "value": "Linear Inverter"
-        },
-        {
-          "label": "Tiết kiệm",
-          "value": "Tiết kiệm 60% điện"
-        }
-      ],
-      "intro": "Tủ lạnh LG Multi Door 655L với thiết kế sang trọng, công nghệ Linear Inverter tiết kiệm điện tối ưu.",
-      "introImage": "/images/products/lg-fridge-intro.jpg",
-      "category": "tu-lanh",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "655L",
-          "price": 22990000
-        }
-      ]
-    },
-    {
-      "id": "40",
-      "name": "Tủ lạnh Panasonic 450L",
-      "price": 12990000,
-      "originalPrice": 15990000,
-      "image": "/images/products/panasonic-fridge.jpg",
-      "images": [
-        "/images/products/panasonic-fridge.jpg",
-        "/images/products/panasonic-fridge-2.jpg",
-        "/images/products/panasonic-fridge-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "450L"
-      ],
-      "colors": [
-        "trắng"
-      ],
-      "promotion": "Tặng máy lọc nước",
-      "description": "Tủ lạnh Panasonic 450L ngăn đá dưới, tiết kiệm điện.",
-      "specs": [
-        {
-          "label": "Dung tích",
-          "value": "450L"
-        },
-        {
-          "label": "Công nghệ",
-          "value": "Inverter"
-        },
-        {
-          "label": "Tiết kiệm",
-          "value": "Tiết kiệm 50% điện"
-        }
-      ],
-      "intro": "Tủ lạnh Panasonic 450L với thiết kế ngăn đá dưới tiện lợi, công nghệ Inverter tiết kiệm điện.",
-      "introImage": "/images/products/panasonic-fridge-intro.jpg",
-      "category": "tu-lanh",
-      "isFeatured": false,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "450L",
-          "price": 12990000
-        }
-      ]
-    },
-    {
-      "id": "41",
-      "name": "Tủ lạnh Sharp 380L",
-      "price": 8990000,
-      "originalPrice": 11990000,
-      "image": "/images/products/sharp-fridge.jpg",
-      "images": [
-        "/images/products/sharp-fridge.jpg",
-        "/images/products/sharp-fridge-2.jpg",
-        "/images/products/sharp-fridge-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "380L"
-      ],
-      "colors": [
-        "trắng"
-      ],
-      "promotion": "Giảm giá",
-      "description": "Tủ lạnh Sharp 380L ngăn đá trên, phù hợp gia đình nhỏ.",
-      "specs": [
-        {
-          "label": "Dung tích",
-          "value": "380L"
-        },
-        {
-          "label": "Công nghệ",
-          "value": "Inverter"
-        },
-        {
-          "label": "Tiết kiệm",
-          "value": "Tiết kiệm 40% điện"
-        }
-      ],
-      "intro": "Tủ lạnh Sharp 380L với thiết kế ngăn đá trên truyền thống, phù hợp cho gia đình nhỏ.",
-      "introImage": "/images/products/sharp-fridge-intro.jpg",
-      "category": "tu-lanh",
-      "isFeatured": false,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "380L",
-          "price": 8990000
-        }
-      ]
-    },
-    {
-      "id": "42",
-      "name": "Sạc dự phòng 20.000mAh",
-      "price": 1990000,
-      "originalPrice": 2990000,
-      "image": "/images/products/powerbank.jpg",
-      "images": [
-        "/images/products/powerbank.jpg",
-        "/images/products/powerbank-2.jpg",
-        "/images/products/powerbank-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "20.000mAh"
-      ],
-      "colors": [
-        "đen",
-        "trắng"
-      ],
-      "promotion": "Tặng cáp sạc nhanh",
-      "description": "Sạc dự phòng 20.000mAh dung lượng lớn, sạc nhanh.",
-      "specs": [
-        {
-          "label": "Dung lượng",
-          "value": "20.000mAh"
-        },
-        {
-          "label": "Công nghệ",
-          "value": "Quick Charge 3.0"
-        },
-        {
-          "label": "Đầu ra",
-          "value": "3 cổng USB"
-        }
-      ],
-      "intro": "Sạc dự phòng 20.000mAh với dung lượng lớn, hỗ trợ sạc nhanh cho nhiều thiết bị cùng lúc.",
-      "introImage": "/images/products/powerbank-intro.jpg",
-      "category": "phu-kien",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "20.000mAh",
-          "price": 1990000
-        }
-      ]
-    },
-    {
-      "id": "43",
-      "name": "Cáp sạc nhanh USB-C",
-      "price": 299000,
-      "originalPrice": 499000,
-      "image": "/images/products/usb-cable.jpg",
-      "images": [
-        "/images/products/usb-cable.jpg",
-        "/images/products/usb-cable-2.jpg"
-      ],
-      "installment": "Không trả góp",
-      "storage": [
-        "2m"
-      ],
-      "colors": [
-        "đen",
-        "trắng"
-      ],
-      "promotion": "Flash Sale",
-      "description": "Cáp sạc nhanh USB-C chất lượng cao, tương thích tốt.",
-      "specs": [
-        {
-          "label": "Chiều dài",
-          "value": "2m"
-        },
-        {
-          "label": "Công nghệ",
-          "value": "USB-C"
-        },
-        {
-          "label": "Tốc độ",
-          "value": "Sạc nhanh"
-        }
-      ],
-      "intro": "Cáp sạc nhanh USB-C với chất lượng cao, tương thích với nhiều thiết bị, hỗ trợ sạc nhanh.",
-      "introImage": "/images/products/usb-cable-intro.jpg",
-      "category": "phu-kien",
-      "isFeatured": false,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "2m",
-          "price": 299000
-        }
-      ]
-    },
-    {
-      "id": "44",
-      "name": "Ốp lưng iPhone 15 Pro",
-      "price": 599000,
-      "originalPrice": 899000,
-      "image": "/images/products/iphone-case.jpg",
-      "images": [
-        "/images/products/iphone-case.jpg",
-        "/images/products/iphone-case-2.jpg",
-        "/images/products/iphone-case-3.jpg"
-      ],
-      "installment": "Không trả góp",
-      "storage": [
-        "iPhone 15 Pro"
-      ],
-      "colors": [
-        "trong suốt",
-        "đen",
-        "trắng"
-      ],
-      "promotion": "Tặng film dán màn hình",
-      "description": "Ốp lưng iPhone 15 Pro chất lượng cao, bảo vệ tốt.",
-      "specs": [
-        {
-          "label": "Tương thích",
-          "value": "iPhone 15 Pro"
-        },
-        {
-          "label": "Chất liệu",
-          "value": "Silicone cao cấp"
-        },
-        {
-          "label": "Bảo vệ",
-          "value": "Chống sốc"
-        }
-      ],
-      "intro": "Ốp lưng iPhone 15 Pro với chất liệu silicone cao cấp, thiết kế ôm sát, bảo vệ tối ưu cho điện thoại.",
-      "introImage": "/images/products/iphone-case-intro.jpg",
-      "category": "phu-kien",
-      "isFeatured": false,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "iPhone 15 Pro",
-          "price": 599000
-        }
-      ]
-    },
-    {
-      "id": "45",
-      "name": "Bàn phím cơ Gaming",
-      "price": 2990000,
-      "originalPrice": 3990000,
-      "image": "/images/products/gaming-keyboard.jpg",
-      "images": [
-        "/images/products/gaming-keyboard.jpg",
-        "/images/products/gaming-keyboard-2.jpg",
-        "/images/products/gaming-keyboard-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "RGB"
-      ],
-      "colors": [
-        "đen"
-      ],
-      "promotion": "Tặng chuột gaming",
-      "description": "Bàn phím cơ Gaming RGB, phù hợp game thủ.",
-      "specs": [
-        {
-          "label": "Switch",
-          "value": "Cherry MX Red"
-        },
-        {
-          "label": "Đèn",
-          "value": "RGB"
-        },
-        {
-          "label": "Kết nối",
-          "value": "USB-C"
-        }
-      ],
-      "intro": "Bàn phím cơ Gaming với switch Cherry MX Red, đèn RGB đẹp mắt, phù hợp cho game thủ chuyên nghiệp.",
-      "introImage": "/images/products/gaming-keyboard-intro.jpg",
-      "category": "phu-kien",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "RGB",
-          "price": 2990000
-        }
-      ]
-    },
-    {
-      "id": "46",
-      "name": "Chuột Gaming RGB",
-      "price": 899000,
-      "originalPrice": 1299000,
-      "image": "/images/products/gaming-mouse.jpg",
-      "images": [
-        "/images/products/gaming-mouse.jpg",
-        "/images/products/gaming-mouse-2.jpg"
-      ],
-      "installment": "Không trả góp",
-      "storage": [
-        "16.000 DPI"
-      ],
-      "colors": [
-        "đen"
-      ],
-      "promotion": "Flash Sale",
-      "description": "Chuột Gaming RGB độ phân giải cao, phù hợp game thủ.",
-      "specs": [
-        {
-          "label": "DPI",
-          "value": "16.000 DPI"
-        },
-        {
-          "label": "Đèn",
-          "value": "RGB"
-        },
-        {
-          "label": "Kết nối",
-          "value": "USB"
-        }
-      ],
-      "intro": "Chuột Gaming RGB với độ phân giải 16.000 DPI, đèn RGB đẹp mắt, phù hợp cho game thủ.",
-      "introImage": "/images/products/gaming-mouse-intro.jpg",
-      "category": "phu-kien",
-      "isFeatured": false,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "16.000 DPI",
-          "price": 899000
-        }
-      ]
-    },
-    {
-      "id": "47",
-      "name": "Gói cước 4G TechViCom 30GB/tháng",
-      "price": 99000,
-      "originalPrice": 199000,
-      "image": "/images/products/data-plan.jpg",
-      "images": [
-        "/images/products/data-plan.jpg",
-        "/images/products/data-plan-2.jpg"
-      ],
-      "installment": "Không trả góp",
-      "storage": [
-        "30GB/tháng"
-      ],
-      "colors": [
-        "xanh"
-      ],
-      "promotion": "Miễn phí 2 tháng đầu",
-      "description": "Gói cước 4G TechViCom 30GB/tháng, tốc độ cao.",
-      "specs": [
-        {
-          "label": "Tốc độ",
-          "value": "4G"
-        },
-        {
-          "label": "Dung lượng",
-          "value": "30GB/tháng"
-        },
-        {
-          "label": "Thời hạn",
-          "value": "12 tháng"
-        }
-      ],
-      "intro": "Gói cước 4G TechViCom 30GB/tháng với tốc độ truy cập internet nhanh, phù hợp cho nhu cầu sử dụng vừa phải.",
-      "introImage": "/images/products/data-plan-intro.jpg",
-      "category": "sim-techvicom",
-      "isFeatured": false,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "30GB/tháng",
-          "price": 99000
-        }
-      ]
-    },
-    {
-      "id": "48",
-      "name": "Thẻ nạp TechViCom 100.000đ",
-      "price": 100000,
-      "originalPrice": 100000,
-      "image": "/images/products/recharge-card.jpg",
-      "images": [
-        "/images/products/recharge-card.jpg"
-      ],
-      "installment": "Không trả góp",
-      "storage": [
-        "100.000đ"
-      ],
-      "colors": [
-        "xanh"
-      ],
-      "promotion": "Tặng 10% giá trị",
-      "description": "Thẻ nạp TechViCom 100.000đ, nạp tiền nhanh chóng.",
-      "specs": [
-        {
-          "label": "Mệnh giá",
-          "value": "100.000đ"
-        },
-        {
-          "label": "Thời hạn",
-          "value": "12 tháng"
-        },
-        {
-          "label": "Sử dụng",
-          "value": "Nạp tiền"
-        }
-      ],
-      "intro": "Thẻ nạp TechViCom 100.000đ với mệnh giá cố định, nạp tiền nhanh chóng và an toàn.",
-      "introImage": "/images/products/recharge-card-intro.jpg",
-      "category": "sim-techvicom",
-      "isFeatured": false,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "100.000đ",
-          "price": 100000
-        }
-      ]
-    },
-    {
-      "id": "49",
-      "name": "SIM 4G TechViCom 20GB/tháng",
-      "price": 149000,
-      "originalPrice": 199000,
-      "image": "/images/products/sim-4g.jpg",
-      "images": [
-        "/images/products/sim-4g.jpg",
-        "/images/products/sim-4g-2.jpg"
-      ],
-      "installment": "Không trả góp",
-      "storage": [
-        "20GB/tháng"
-      ],
-      "colors": [
-        "xanh"
-      ],
-      "promotion": "Miễn phí 1 tháng đầu",
-      "description": "SIM 4G TechViCom 20GB/tháng, tốc độ ổn định.",
-      "specs": [
-        {
-          "label": "Tốc độ",
-          "value": "4G"
-        },
-        {
-          "label": "Dung lượng",
-          "value": "20GB/tháng"
-        },
-        {
-          "label": "Thời hạn",
-          "value": "12 tháng"
-        }
-      ],
-      "intro": "SIM 4G TechViCom 20GB/tháng với tốc độ truy cập internet ổn định, phù hợp cho nhu cầu sử dụng cơ bản.",
-      "introImage": "/images/products/sim-4g-intro.jpg",
-      "category": "sim-techvicom",
-      "isFeatured": false,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "20GB/tháng",
-          "price": 149000
-        }
-      ]
-    },
-    {
-      "id": "50",
-      "name": "Quạt điều hòa Fujihome FT-50L",
-      "price": 1299000,
-      "originalPrice": 1899000,
-      "image": "/images/products/quat-dieu-hoa-2.jpg",
-      "images": [
-        "/images/products/quat-dieu-hoa-2.jpg",
-        "/images/products/quat-dieu-hoa-2-2.jpg",
-        "/images/products/quat-dieu-hoa-2-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "50L"
-      ],
-      "colors": [
-        "trắng",
-        "đen"
-      ],
-      "promotion": "Flash Sale",
-      "description": "Quạt điều hòa Fujihome FT-50L công suất cao, phù hợp không gian lớn.",
-      "specs": [
-        {
-          "label": "Công suất",
-          "value": "60W"
-        },
-        {
-          "label": "Điều khiển",
-          "value": "Cảm ứng + Remote"
-        },
-        {
-          "label": "Chế độ",
-          "value": "5 chế độ gió"
-        }
-      ],
-      "intro": "Quạt điều hòa Fujihome FT-50L với công suất cao, phù hợp cho không gian lớn như phòng khách, văn phòng.",
-      "introImage": "/images/products/quat-dieu-hoa-2-intro.jpg",
-      "category": "quat-dieu-hoa",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "50L",
-          "price": 1299000
-        }
-      ]
-    },
-    {
-      "id": "51",
-      "name": "Quạt điều hòa Hoa Phát HPCF2-045 120W",
-      "price": 2499000,
-      "originalPrice": 3499000,
-      "image": "/images/products/quat-dieu-hoa-3.jpg",
-      "images": [
-        "/images/products/quat-dieu-hoa-3.jpg",
-        "/images/products/quat-dieu-hoa-3-2.jpg",
-        "/images/products/quat-dieu-hoa-3-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "120W"
-      ],
-      "colors": [
-        "trắng"
-      ],
-      "promotion": "Tặng máy lọc không khí",
-      "description": "Quạt điều hòa Hoa Phát HPCF2-045 120W công suất mạnh, phù hợp nhà xưởng.",
-      "specs": [
-        {
-          "label": "Công suất",
-          "value": "120W"
-        },
-        {
-          "label": "Điều khiển",
-          "value": "Remote + Timer"
-        },
-        {
-          "label": "Chế độ",
-          "value": "6 chế độ gió"
-        }
-      ],
-      "intro": "Quạt điều hòa Hoa Phát HPCF2-045 120W với công suất mạnh mẽ, phù hợp cho nhà xưởng, xưởng sản xuất.",
-      "introImage": "/images/products/quat-dieu-hoa-3-intro.jpg",
-      "category": "quat-dieu-hoa",
-      "isFeatured": false,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "120W",
-          "price": 2499000
-        }
-      ]
-    },
-    {
-      "id": "52",
-      "name": "Quạt điều hòa Kangaroo KG50F54",
-      "price": 1899000,
-      "originalPrice": 2599000,
-      "image": "/images/products/quat-dieu-hoa-4.jpg",
-      "images": [
-        "/images/products/quat-dieu-hoa-4.jpg",
-        "/images/products/quat-dieu-hoa-4-2.jpg",
-        "/images/products/quat-dieu-hoa-4-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "54W"
-      ],
-      "colors": [
-        "trắng",
-        "xanh"
-      ],
-      "promotion": "Flash Sale",
-      "description": "Quạt điều hòa Kangaroo KG50F54 thiết kế hiện đại, tiết kiệm điện.",
-      "specs": [
-        {
-          "label": "Công suất",
-          "value": "54W"
-        },
-        {
-          "label": "Điều khiển",
-          "value": "Cảm ứng"
-        },
-        {
-          "label": "Chế độ",
-          "value": "4 chế độ gió"
-        }
-      ],
-      "intro": "Quạt điều hòa Kangaroo KG50F54 với thiết kế hiện đại, công suất tiết kiệm điện, phù hợp cho gia đình.",
-      "introImage": "/images/products/quat-dieu-hoa-4-intro.jpg",
-      "category": "quat-dieu-hoa",
-      "isFeatured": false,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "54W",
-          "price": 1899000
-        }
-      ]
-    },
-    {
-      "id": "53",
-      "name": "Quạt điều hòa Lumina Buma",
-      "price": 1599000,
-      "originalPrice": 2299000,
-      "image": "/images/products/quat-dieu-hoa-5.jpg",
-      "images": [
-        "/images/products/quat-dieu-hoa-5.jpg",
-        "/images/products/quat-dieu-hoa-5-2.jpg",
-        "/images/products/quat-dieu-hoa-5-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "45W"
-      ],
-      "colors": [
-        "trắng"
-      ],
-      "promotion": "Tặng quạt tháp mini",
-      "description": "Quạt điều hòa Lumina Buma thiết kế độc đáo, phù hợp trang trí.",
-      "specs": [
-        {
-          "label": "Công suất",
-          "value": "45W"
-        },
-        {
-          "label": "Điều khiển",
-          "value": "Remote"
-        },
-        {
-          "label": "Chế độ",
-          "value": "3 chế độ gió"
-        }
-      ],
-      "intro": "Quạt điều hòa Lumina Buma với thiết kế độc đáo, phù hợp cho việc trang trí và làm mát không gian.",
-      "introImage": "/images/products/quat-dieu-hoa-5-intro.jpg",
-      "category": "quat-dieu-hoa",
-      "isFeatured": false,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "45W",
-          "price": 1599000
-        }
-      ]
-    },
-    {
-      "id": "54",
-      "name": "Quạt điều hòa Philips AC0820",
-      "price": 1999000,
-      "originalPrice": 2799000,
-      "image": "/images/products/quat-dieu-hoa-6.jpg",
-      "images": [
-        "/images/products/quat-dieu-hoa-6.jpg",
-        "/images/products/quat-dieu-hoa-6-2.jpg",
-        "/images/products/quat-dieu-hoa-6-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "65W"
-      ],
-      "colors": [
-        "trắng",
-        "đen"
-      ],
-      "promotion": "Tặng máy lọc không khí",
-      "description": "Quạt điều hòa Philips AC0820 công nghệ tiên tiến, lọc không khí.",
-      "specs": [
-        {
-          "label": "Công suất",
-          "value": "65W"
-        },
-        {
-          "label": "Công nghệ",
-          "value": "Lọc không khí"
-        },
-        {
-          "label": "Chế độ",
-          "value": "5 chế độ gió"
-        }
-      ],
-      "intro": "Quạt điều hòa Philips AC0820 với công nghệ lọc không khí tiên tiến, vừa làm mát vừa lọc sạch không khí.",
-      "introImage": "/images/products/quat-dieu-hoa-6-intro.jpg",
-      "category": "quat-dieu-hoa",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "65W",
-          "price": 1999000
-        }
-      ]
-    },
-    {
-      "id": "55",
-      "name": "Tủ lạnh Samsung Side by Side 750L",
-      "price": 25990000,
-      "originalPrice": 29990000,
-      "image": "/images/products/samsung-fridge-2.jpg",
-      "images": [
-        "/images/products/samsung-fridge-2.jpg",
-        "/images/products/samsung-fridge-2-2.jpg",
-        "/images/products/samsung-fridge-2-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "750L"
-      ],
-      "colors": [
-        "bạc"
-      ],
-      "promotion": "Tặng máy lọc nước RO + máy rửa bát",
-      "description": "Tủ lạnh Samsung Side by Side 750L dung tích siêu lớn, thiết kế cao cấp.",
-      "specs": [
-        {
-          "label": "Dung tích",
-          "value": "750L"
-        },
-        {
-          "label": "Công nghệ",
-          "value": "Digital Inverter"
-        },
-        {
-          "label": "Tiết kiệm",
-          "value": "Tiết kiệm 60% điện"
-        }
-      ],
-      "intro": "Tủ lạnh Samsung Side by Side 750L với dung tích siêu lớn, thiết kế cao cấp, phù hợp cho gia đình đông người.",
-      "introImage": "/images/products/samsung-fridge-2-intro.jpg",
-      "category": "tu-lanh",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "750L",
-          "price": 25990000
-        }
-      ]
-    },
-    {
-      "id": "56",
-      "name": "Tủ lạnh LG Multi Door 800L",
-      "price": 28990000,
-      "originalPrice": 32990000,
-      "image": "/images/products/lg-fridge-2.jpg",
-      "images": [
-        "/images/products/lg-fridge-2.jpg",
-        "/images/products/lg-fridge-2-2.jpg",
-        "/images/products/lg-fridge-2-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "800L"
-      ],
-      "colors": [
-        "bạc"
-      ],
-      "promotion": "Tặng máy lọc nước RO + máy rửa bát + máy hút bụi",
-      "description": "Tủ lạnh LG Multi Door 800L dung tích lớn nhất, công nghệ tiên tiến.",
-      "specs": [
-        {
-          "label": "Dung tích",
-          "value": "800L"
-        },
-        {
-          "label": "Công nghệ",
-          "value": "Linear Inverter"
-        },
-        {
-          "label": "Tiết kiệm",
-          "value": "Tiết kiệm 70% điện"
-        }
-      ],
-      "intro": "Tủ lạnh LG Multi Door 800L với dung tích lớn nhất, công nghệ Linear Inverter tiên tiến, phù hợp cho gia đình lớn.",
-      "introImage": "/images/products/lg-fridge-2-intro.jpg",
-      "category": "tu-lanh",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "800L",
-          "price": 28990000
-        }
-      ]
-    },
-    {
-      "id": "57",
-      "name": "Điều hòa Daikin 2.5HP Inverter",
-      "price": 18990000,
-      "originalPrice": 22990000,
-      "image": "/images/products/daikin-ac-2.jpg",
-      "images": [
-        "/images/products/daikin-ac-2.jpg",
-        "/images/products/daikin-ac-2-2.jpg",
-        "/images/products/daikin-ac-2-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "2.5 HP"
-      ],
-      "colors": [
-        "trắng"
-      ],
-      "promotion": "Giảm 4 triệu khi thanh toán online",
-      "description": "Điều hòa Daikin 2.5HP Inverter công suất cao, phù hợp phòng lớn.",
-      "specs": [
-        {
-          "label": "Công suất",
-          "value": "2.5 HP"
-        },
-        {
-          "label": "Công nghệ",
-          "value": "Inverter"
-        },
-        {
-          "label": "Tiết kiệm",
-          "value": "Tiết kiệm 55% điện"
-        }
-      ],
-      "intro": "Điều hòa Daikin 2.5HP Inverter với công suất mạnh mẽ, phù hợp cho phòng lớn, văn phòng, showroom.",
-      "introImage": "/images/products/daikin-ac-2-intro.jpg",
-      "category": "may-lanh",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "2.5 HP",
-          "price": 18990000
-        }
-      ]
-    },
-    {
-      "id": "58",
-      "name": "Điều hòa Panasonic 3HP Inverter",
-      "price": 22990000,
-      "originalPrice": 26990000,
-      "image": "/images/products/panasonic-ac-2.jpg",
-      "images": [
-        "/images/products/panasonic-ac-2.jpg",
-        "/images/products/panasonic-ac-2-2.jpg",
-        "/images/products/panasonic-ac-2-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "3 HP"
-      ],
-      "colors": [
-        "trắng"
-      ],
-      "promotion": "Tặng máy lọc không khí + quạt hơi nước",
-      "description": "Điều hòa Panasonic 3HP Inverter công suất mạnh, phù hợp nhà xưởng.",
-      "specs": [
-        {
-          "label": "Công suất",
-          "value": "3 HP"
-        },
-        {
-          "label": "Công nghệ",
-          "value": "Inverter"
-        },
-        {
-          "label": "Tiết kiệm",
-          "value": "Tiết kiệm 60% điện"
-        }
-      ],
-      "intro": "Điều hòa Panasonic 3HP Inverter với công suất mạnh mẽ, phù hợp cho nhà xưởng, xưởng sản xuất lớn.",
-      "introImage": "/images/products/panasonic-ac-2-intro.jpg",
-      "category": "may-lanh",
-      "isFeatured": false,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "3 HP",
-          "price": 22990000
-        }
-      ]
-    },
-    {
-      "id": "59",
-      "name": "iPad Pro 12.9 inch 256GB",
-      "price": 24990000,
-      "originalPrice": 27990000,
-      "image": "/images/products/ipad-pro.jpg",
-      "images": [
-        "/images/products/ipad-pro.jpg",
-        "/images/products/ipad-pro-2.jpg",
-        "/images/products/ipad-pro-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "256 GB",
-        "512 GB"
-      ],
-      "colors": [
-        "xám",
-        "bạc"
-      ],
-      "promotion": "Tặng Apple Pencil 2 + Smart Keyboard",
-      "description": "iPad Pro 12.9 inch với chip M2, màn hình Liquid Retina XDR.",
-      "specs": [
-        {
-          "label": "Màn hình",
-          "value": "12.9 inch Liquid Retina XDR"
-        },
-        {
-          "label": "Chip",
-          "value": "Apple M2"
-        },
-        {
-          "label": "Pin",
-          "value": "10 giờ sử dụng"
-        }
-      ],
-      "intro": "iPad Pro 12.9 inch với chip M2 mạnh mẽ, màn hình Liquid Retina XDR sắc nét, phù hợp cho công việc chuyên nghiệp.",
-      "introImage": "/images/products/ipad-pro-intro.jpg",
-      "category": "may-tinh-bang",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "256 GB",
-          "price": 24990000
-        },
-        {
-          "storage": "512 GB",
-          "price": 27990000
-        }
-      ]
-    },
-    {
-      "id": "60",
-      "name": "Samsung Galaxy Tab S9 Ultra",
-      "price": 22990000,
-      "originalPrice": 25990000,
-      "image": "/images/products/galaxy-tab-s9.jpg",
-      "images": [
-        "/images/products/galaxy-tab-s9.jpg",
-        "/images/products/galaxy-tab-s9-2.jpg",
-        "/images/products/galaxy-tab-s9-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "256 GB",
-        "512 GB"
-      ],
-      "colors": [
-        "đen",
-        "bạc"
-      ],
-      "promotion": "Tặng S Pen + Book Cover Keyboard",
-      "description": "Samsung Galaxy Tab S9 Ultra 14.6 inch, chip Snapdragon 8 Gen 2.",
-      "specs": [
-        {
-          "label": "Màn hình",
-          "value": "14.6 inch AMOLED"
-        },
-        {
-          "label": "Chip",
-          "value": "Snapdragon 8 Gen 2"
-        },
-        {
-          "label": "Pin",
-          "value": "11.200mAh"
-        }
-      ],
-      "intro": "Samsung Galaxy Tab S9 Ultra với màn hình 14.6 inch AMOLED, chip Snapdragon 8 Gen 2 mạnh mẽ, phù hợp cho giải trí và công việc.",
-      "introImage": "/images/products/galaxy-tab-s9-intro.jpg",
-      "category": "may-tinh-bang",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "256 GB",
-          "price": 22990000
-        },
-        {
-          "storage": "512 GB",
-          "price": 25990000
-        }
-      ]
-    },
-    {
-      "id": "61",
-      "name": "iPad Air 10.9 inch 256GB",
-      "price": 18990000,
-      "originalPrice": 21990000,
-      "image": "/images/products/ipad-air.jpg",
-      "images": [
-        "/images/products/ipad-air.jpg",
-        "/images/products/ipad-air-2.jpg",
-        "/images/products/ipad-air-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "256 GB",
-        "512 GB"
-      ],
-      "colors": [
-        "xanh",
-        "hồng",
-        "xám"
-      ],
-      "promotion": "Tặng Apple Pencil 2",
-      "description": "iPad Air 10.9 inch với chip M1, thiết kế mỏng nhẹ.",
-      "specs": [
-        {
-          "label": "Màn hình",
-          "value": "10.9 inch Liquid Retina"
-        },
-        {
-          "label": "Chip",
-          "value": "Apple M1"
-        },
-        {
-          "label": "Pin",
-          "value": "10 giờ sử dụng"
-        }
-      ],
-      "intro": "iPad Air 10.9 inch với chip M1 mạnh mẽ, thiết kế mỏng nhẹ, phù hợp cho học tập và công việc.",
-      "introImage": "/images/products/ipad-air-intro.jpg",
-      "category": "may-tinh-bang",
-      "isFeatured": false,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "256 GB",
-          "price": 18990000
-        },
-        {
-          "storage": "512 GB",
-          "price": 21990000
-        }
-      ]
-    },
-    {
-      "id": "62",
-      "name": "Máy giặt Samsung 10kg Inverter",
-      "price": 8990000,
-      "originalPrice": 11990000,
-      "image": "/images/products/samsung-washing.jpg",
-      "images": [
-        "/images/products/samsung-washing.jpg",
-        "/images/products/samsung-washing-2.jpg",
-        "/images/products/samsung-washing-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "10kg"
-      ],
-      "colors": [
-        "trắng"
-      ],
-      "promotion": "Tặng máy sấy quần áo",
-      "description": "Máy giặt Samsung 10kg Inverter tiết kiệm điện, giặt sạch.",
-      "specs": [
-        {
-          "label": "Tải trọng",
-          "value": "10kg"
-        },
-        {
-          "label": "Công nghệ",
-          "value": "Digital Inverter"
-        },
-        {
-          "label": "Tiết kiệm",
-          "value": "Tiết kiệm 50% điện"
-        }
-      ],
-      "intro": "Máy giặt Samsung 10kg Inverter với công nghệ Digital Inverter tiết kiệm điện, giặt sạch hiệu quả cho gia đình.",
-      "introImage": "/images/products/samsung-washing-intro.jpg",
-      "category": "dien-gia-dung",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "10kg",
-          "price": 8990000
-        }
-      ]
-    },
-    {
-      "id": "63",
-      "name": "Máy giặt LG 12kg Inverter",
-      "price": 10990000,
-      "originalPrice": 13990000,
-      "image": "/images/products/lg-washing.jpg",
-      "images": [
-        "/images/products/lg-washing.jpg",
-        "/images/products/lg-washing-2.jpg",
-        "/images/products/lg-washing-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "12kg"
-      ],
-      "colors": [
-        "trắng"
-      ],
-      "promotion": "Tặng máy sấy quần áo + bột giặt",
-      "description": "Máy giặt LG 12kg Inverter dung tích lớn, công nghệ tiên tiến.",
-      "specs": [
-        {
-          "label": "Tải trọng",
-          "value": "12kg"
-        },
-        {
-          "label": "Công nghệ",
-          "value": "Direct Drive"
-        },
-        {
-          "label": "Tiết kiệm",
-          "value": "Tiết kiệm 60% điện"
-        }
-      ],
-      "intro": "Máy giặt LG 12kg Inverter với công nghệ Direct Drive, dung tích lớn phù hợp cho gia đình đông người.",
-      "introImage": "/images/products/lg-washing-intro.jpg",
-      "category": "dien-gia-dung",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "12kg",
-          "price": 10990000
-        }
-      ]
-    },
-    {
-      "id": "64",
-      "name": "Máy sấy quần áo Samsung 9kg",
-      "price": 7990000,
-      "originalPrice": 9990000,
-      "image": "/images/products/samsung-dryer.jpg",
-      "images": [
-        "/images/products/samsung-dryer.jpg",
-        "/images/products/samsung-dryer-2.jpg",
-        "/images/products/samsung-dryer-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "9kg"
-      ],
-      "colors": [
-        "trắng"
-      ],
-      "promotion": "Flash Sale",
-      "description": "Máy sấy quần áo Samsung 9kg tiết kiệm điện, sấy nhanh.",
-      "specs": [
-        {
-          "label": "Tải trọng",
-          "value": "9kg"
-        },
-        {
-          "label": "Công nghệ",
-          "value": "Heat Pump"
-        },
-        {
-          "label": "Tiết kiệm",
-          "value": "Tiết kiệm 40% điện"
-        }
-      ],
-      "intro": "Máy sấy quần áo Samsung 9kg với công nghệ Heat Pump tiết kiệm điện, sấy nhanh và an toàn cho mọi loại vải.",
-      "introImage": "/images/products/samsung-dryer-intro.jpg",
-      "category": "dien-gia-dung",
-      "isFeatured": false,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "9kg",
-          "price": 7990000
-        }
-      ]
-    },
-    {
-      "id": "65",
-      "name": "Lò vi sóng Samsung 25L",
-      "price": 2990000,
-      "originalPrice": 3990000,
-      "image": "/images/products/samsung-microwave.jpg",
-      "images": [
-        "/images/products/samsung-microwave.jpg",
-        "/images/products/samsung-microwave-2.jpg"
-      ],
-      "installment": "Không trả góp",
-      "storage": [
-        "25L"
-      ],
-      "colors": [
-        "đen"
-      ],
-      "promotion": "Tặng bộ nồi nấu ăn",
-      "description": "Lò vi sóng Samsung 25L dung tích vừa phải, dễ sử dụng.",
-      "specs": [
-        {
-          "label": "Dung tích",
-          "value": "25L"
-        },
-        {
-          "label": "Công suất",
-          "value": "900W"
-        },
-        {
-          "label": "Chức năng",
-          "value": "Nướng + Hâm nóng"
-        }
-      ],
-      "intro": "Lò vi sóng Samsung 25L với dung tích vừa phải, dễ sử dụng, phù hợp cho gia đình nhỏ.",
-      "introImage": "/images/products/samsung-microwave-intro.jpg",
-      "category": "dien-gia-dung",
-      "isFeatured": false,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "25L",
-          "price": 2990000
-        }
-      ]
-    },
-    {
-      "id": "66",
-      "name": "Máy rửa bát Bosch 12 bộ",
-      "price": 15990000,
-      "originalPrice": 18990000,
-      "image": "/images/products/bosch-dishwasher.jpg",
-      "images": [
-        "/images/products/bosch-dishwasher.jpg",
-        "/images/products/bosch-dishwasher-2.jpg",
-        "/images/products/bosch-dishwasher-3.jpg"
-      ],
-      "installment": "Trả góp 0%",
-      "storage": [
-        "12 bộ"
-      ],
-      "colors": [
-        "trắng"
-      ],
-      "promotion": "Tặng bột rửa bát 1 năm",
-      "description": "Máy rửa bát Bosch 12 bộ tiết kiệm nước, rửa sạch.",
-      "specs": [
-        {
-          "label": "Dung tích",
-          "value": "12 bộ"
-        },
-        {
-          "label": "Công nghệ",
-          "value": "EcoSilence"
-        },
-        {
-          "label": "Tiết kiệm",
-          "value": "Tiết kiệm 70% nước"
-        }
-      ],
-      "intro": "Máy rửa bát Bosch 12 bộ với công nghệ EcoSilence, tiết kiệm nước và điện, rửa sạch hiệu quả.",
-      "introImage": "/images/products/bosch-dishwasher-intro.jpg",
-      "category": "dien-gia-dung",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "12 bộ",
-          "price": 15990000
-        }
-      ]
-    },
-    {
-      "id": "67",
-      "name": "SIM 5G TechViCom 100GB/tháng",
-      "price": 299000,
-      "originalPrice": 399000,
-      "image": "/images/products/sim-5g-2.jpg",
-      "images": [
-        "/images/products/sim-5g-2.jpg",
-        "/images/products/sim-5g-2-2.jpg"
-      ],
-      "installment": "Không trả góp",
-      "storage": [
-        "100GB/tháng"
-      ],
-      "colors": [
-        "xanh"
-      ],
-      "promotion": "Miễn phí 6 tháng đầu",
-      "description": "SIM 5G TechViCom 100GB/tháng dung lượng lớn, tốc độ cao.",
-      "specs": [
-        {
-          "label": "Tốc độ",
-          "value": "5G"
-        },
-        {
-          "label": "Dung lượng",
-          "value": "100GB/tháng"
-        },
-        {
-          "label": "Thời hạn",
-          "value": "12 tháng"
-        }
-      ],
-      "intro": "SIM 5G TechViCom 100GB/tháng với dung lượng lớn, tốc độ truy cập internet nhanh, phù hợp cho nhu cầu sử dụng cao.",
-      "introImage": "/images/products/sim-5g-2-intro.jpg",
-      "category": "sim-techvicom",
-      "isFeatured": true,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "100GB/tháng",
-          "price": 299000
-        }
-      ]
-    },
-    {
-      "id": "68",
-      "name": "Gói cước 5G TechViCom 50GB/tháng",
-      "price": 199000,
-      "originalPrice": 299000,
-      "image": "/images/products/data-plan-5g.jpg",
-      "images": [
-        "/images/products/data-plan-5g.jpg",
-        "/images/products/data-plan-5g-2.jpg"
-      ],
-      "installment": "Không trả góp",
-      "storage": [
-        "50GB/tháng"
-      ],
-      "colors": [
-        "xanh"
-      ],
-      "promotion": "Miễn phí 3 tháng đầu",
-      "description": "Gói cước 5G TechViCom 50GB/tháng tốc độ cao, ổn định.",
-      "specs": [
-        {
-          "label": "Tốc độ",
-          "value": "5G"
-        },
-        {
-          "label": "Dung lượng",
-          "value": "50GB/tháng"
-        },
-        {
-          "label": "Thời hạn",
-          "value": "12 tháng"
-        }
-      ],
-      "intro": "Gói cước 5G TechViCom 50GB/tháng với tốc độ truy cập internet nhanh, ổn định, phù hợp cho nhu cầu sử dụng trung bình.",
-      "introImage": "/images/products/data-plan-5g-intro.jpg",
-      "category": "sim-techvicom",
-      "isFeatured": false,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "50GB/tháng",
-          "price": 199000
-        }
-      ]
-    },
-    {
-      "id": "69",
-      "name": "Thẻ nạp TechViCom 200.000đ",
-      "price": 200000,
-      "originalPrice": 200000,
-      "image": "/images/products/recharge-card-2.jpg",
-      "images": [
-        "/images/products/recharge-card-2.jpg"
-      ],
-      "installment": "Không trả góp",
-      "storage": [
-        "200.000đ"
-      ],
-      "colors": [
-        "xanh"
-      ],
-      "promotion": "Tặng 15% giá trị",
-      "description": "Thẻ nạp TechViCom 200.000đ mệnh giá cao, nạp tiền nhanh.",
-      "specs": [
-        {
-          "label": "Mệnh giá",
-          "value": "200.000đ"
-        },
-        {
-          "label": "Thời hạn",
-          "value": "12 tháng"
-        },
-        {
-          "label": "Sử dụng",
-          "value": "Nạp tiền"
-        }
-      ],
-      "intro": "Thẻ nạp TechViCom 200.000đ với mệnh giá cao, nạp tiền nhanh chóng và an toàn cho khách hàng.",
-      "introImage": "/images/products/recharge-card-2-intro.jpg",
-      "category": "sim-techvicom",
-      "isFeatured": false,
-      "isFlashSale": false,
-      "variants": [
-        {
-          "storage": "200.000đ",
-          "price": 200000
-        }
-      ]
-    }
-  ],
   "vouchers": [
     {
       "id": "VOUCHER001",
@@ -4702,7 +4128,7 @@
       "startDate": "2025-01-01",
       "endDate": "2025-12-31",
       "usageLimit": 1000,
-      "usedCount": 1,
+      "usedCount": 2,
       "isActive": true,
       "applicableCategories": [
         "all"
