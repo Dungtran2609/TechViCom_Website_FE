@@ -105,9 +105,9 @@ const RegisterPage = () => {
             <div className="w-full max-w-sm">
                 <div className="flex flex-col items-center mb-6">
                     <div className="flex items-center gap-2 mb-2">
-                        <img src="/images/logo/logo.png" alt="Techvicom ID" className="h-8" />
+                        <img src="/images/logo/logon.jpg" alt="Techvicom ID" className="h-8" />
                         <span className="text-2xl font-bold text-gray-400">⇆</span>
-                        <img src="/images/logo/logo.png" alt="Techvicom Play" className="h-8" />
+                        <img src="/images/logo/logon.jpg" alt="Techvicom Play" className="h-8" />
                     </div>
                     <h2 className="text-2xl font-bold text-gray-800">Tạo tài khoản Techvicom</h2>
                     <p className="text-gray-500 text-sm mt-1">Trải nghiệm hệ sinh thái của chúng tôi</p>

@@ -1,14 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { FaBars, FaUser, FaShoppingCart, FaSignInAlt, FaUserPlus, FaChevronRight, FaSearch, FaFire, FaSignOutAlt, FaUserCircle, FaClipboardList, FaFilter, FaTimesCircle, FaExclamationCircle } from 'react-icons/fa';
+import { FaBars, FaUser, FaShoppingCart, FaSignInAlt, FaUserPlus, FaChevronRight, FaSearch, FaFire, FaSignOutAlt, FaUserCircle, FaClipboardList, FaFilter, FaTimesCircle, FaExclamationCircle, FaTag } from 'react-icons/fa';
 import './Header.css';
-import logo from '../../image/logo.png';
 import CartSidebar from './CartSidebar';
 import { motion } from 'framer-motion';
 import removeAccents from 'remove-accents';
 import { getHeaderCategories, iconMap } from '../../data/categories';
 import { useHeaderCategories } from '../../hooks/useCategories';
 import { useNotifications } from '../NotificationSystem';
+import api from '../../api';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,24 +25,60 @@ const Header = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')));
   const [isLoggedIn, setIsLoggedIn] = useState(!!user);
-  const { categories, loading: categoriesLoading, error: categoriesError } = useHeaderCategories();
-  const { success, info } = useNotifications();
+  const [categories, setCategories] = useState([]);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
+  const [categoriesError, setCategoriesError] = useState(null);
+  const [brands, setBrands] = useState([]);
   const [products, setProducts] = useState([]);
   const [filter, setFilter] = useState({
     category: '', color: '', storage: '', priceMin: '', priceMax: ''
   });
 
+  // Fetch products
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const productsData = await fetch('http://localhost:3001/products').then(res => res.json());
-        setProducts(productsData);
+        const data = await api.product.getProducts();
+        setProducts(data);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
     };
-
     fetchProducts();
+  }, []);
+
+  // Fetch brands
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        const response = await fetch('/db.json');
+        const data = await response.json();
+        setBrands(data.brands || []);
+      } catch (error) {
+        console.error('Error fetching brands:', error);
+        // Fallback to brands from products if API fails
+        const productBrands = Array.from(new Set(products.map(p => p.brand).filter(Boolean)));
+        setBrands(productBrands);
+      }
+    };
+    fetchBrands();
+  }, [products]);
+
+  // Fetch categories
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setCategoriesLoading(true);
+      setCategoriesError(null);
+      try {
+        const data = await api.category.getCategories();
+        setCategories(data);
+      } catch (err) {
+        setCategoriesError(err.message);
+      } finally {
+        setCategoriesLoading(false);
+      }
+    };
+    fetchCategories();
   }, []);
 
   const filteredCategories = categories.filter(category =>
@@ -55,6 +91,12 @@ const Header = () => {
   const allColors = Array.from(new Set(products.flatMap(p => p.colors || [])));
   const allStorages = Array.from(new Set(products.flatMap(p => p.variants?.map(v => v.storage) || [])));
   const allCategories = Array.from(new Set(products.map(p => p.category)));
+  const allBrands = Array.from(new Set(products.map(p => p.brand).filter(Boolean)));
+  // Danh sách brand cố định để hiển thị
+  const allowedBrands = [
+    "Apple", "Samsung", "Xiaomi", "Google", "OnePlus", "OPPO", "Defunc", "Hoa Phat", "Unie", "Dell", "Lenovo", "HP"
+  ];
+  const displayBrands = allBrands.filter(brand => allowedBrands.includes(brand));
 
   const normalize = (str) => removeAccents((str || '').toLowerCase().trim());
 
@@ -137,7 +179,7 @@ const Header = () => {
         <div className="container">
           <div className="left-section">
             <Link to="/" className="logo">
-              <img src={logo} alt="Logo" className="logo-image" />
+              <img src="/images/logo/logon.jpg" alt="Logo" className="logo-image" />
             </Link>
             <div className="menu-container" ref={menuRef}>
               <button className="menu-button" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -147,6 +189,26 @@ const Header = () => {
               {isMenuOpen && (
                 <div className="categories-menu">
                   <div className="categories-container" onMouseLeave={() => setHoveredCategory(null)}>
+                    {/* Cột mới: Thương hiệu (bên trái) */}
+                    <div className="brand-filter-column">
+                      <div className="brand-filter-title">
+                        <FaTag className="brand-icon" />
+                        Thương hiệu
+                      </div>
+                      <div className="brand-filter-list">
+                       {brands.map(brand => (
+                          <Link
+                            key={brand}
+                            to={`/products?brand=${encodeURIComponent(brand)}`}
+                            className="brand-filter-item"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            <FaTag style={{ fontSize: 14, marginRight: 6, opacity: 0.7 }} />
+                            {brand}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
                     <div className="main-categories">
                       <div className="category-search">
                         <div className="search-input-wrapper">
