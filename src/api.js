@@ -40,3 +40,6 @@ export async function getProductById(id) {
 
 // Export API system để sử dụng mới
 export { api, userService, productService, orderService, voucherService };
+
+// Export default để tương thích với code cũ
+export default api;
