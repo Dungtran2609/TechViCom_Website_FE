@@ -1,4 +1,3 @@
-
 {
   "brands": [
     {
@@ -3785,6 +3784,672 @@
       "comments": []
     }
   ],
+  "addressData": {
+    "provinces": [
+      {
+        "id": "01",
+        "name": "Thành phố Hà Nội",
+        "districts": [
+          {
+            "id": "001",
+            "name": "Quận Ba Đình",
+            "wards": [
+              {
+                "id": "00001",
+                "name": "Phường Phúc Xá"
+              },
+              {
+                "id": "00004",
+                "name": "Phường Trúc Bạch"
+              },
+              {
+                "id": "00006",
+                "name": "Phường Vĩnh Phúc"
+              },
+              {
+                "id": "00007",
+                "name": "Phường Cống Vị"
+              },
+              {
+                "id": "00008",
+                "name": "Phường Liễu Giai"
+              },
+              {
+                "id": "00010",
+                "name": "Phường Nguyễn Trung Trực"
+              },
+              {
+                "id": "00013",
+                "name": "Phường Quán Thánh"
+              },
+              {
+                "id": "00016",
+                "name": "Phường Ngọc Hà"
+              },
+              {
+                "id": "00019",
+                "name": "Phường Điện Biên"
+              },
+              {
+                "id": "00022",
+                "name": "Phường Đội Cấn"
+              },
+              {
+                "id": "00025",
+                "name": "Phường Ngọc Khánh"
+              },
+              {
+                "id": "00028",
+                "name": "Phường Kim Mã"
+              },
+              {
+                "id": "00031",
+                "name": "Phường Giảng Võ"
+              },
+              {
+                "id": "00034",
+                "name": "Phường Thành Công"
+              }
+            ]
+          },
+          {
+            "id": "002",
+            "name": "Quận Hoàn Kiếm",
+            "wards": [
+              {
+                "id": "00037",
+                "name": "Phường Phúc Tân"
+              },
+              {
+                "id": "00040",
+                "name": "Phường Đồng Xuân"
+              },
+              {
+                "id": "00043",
+                "name": "Phường Hàng Mã"
+              },
+              {
+                "id": "00046",
+                "name": "Phường Hàng Buồm"
+              },
+              {
+                "id": "00049",
+                "name": "Phường Hàng Đào"
+              },
+              {
+                "id": "00052",
+                "name": "Phường Hàng Bồ"
+              },
+              {
+                "id": "00055",
+                "name": "Phường Cửa Đông"
+              },
+              {
+                "id": "00058",
+                "name": "Phường Lý Thái Tổ"
+              },
+              {
+                "id": "00061",
+                "name": "Phường Hàng Bạc"
+              },
+              {
+                "id": "00064",
+                "name": "Phường Hàng Gai"
+              },
+              {
+                "id": "00067",
+                "name": "Phường Chương Dương"
+              },
+              {
+                "id": "00070",
+                "name": "Phường Hàng Trống"
+              },
+              {
+                "id": "00073",
+                "name": "Phường Cửa Nam"
+              },
+              {
+                "id": "00076",
+                "name": "Phường Hàng Bông"
+              },
+              {
+                "id": "00079",
+                "name": "Phường Tràng Tiền"
+              },
+              {
+                "id": "00082",
+                "name": "Phường Trần Hưng Đạo"
+              },
+              {
+                "id": "00085",
+                "name": "Phường Phan Chu Trinh"
+              },
+              {
+                "id": "00088",
+                "name": "Phường Hàng Bài"
+              }
+            ]
+          },
+          {
+            "id": "003",
+            "name": "Quận Tây Hồ",
+            "wards": [
+              {
+                "id": "00091",
+                "name": "Phường Phú Thượng"
+              },
+              {
+                "id": "00094",
+                "name": "Phường Nhật Tân"
+              },
+              {
+                "id": "00097",
+                "name": "Phường Tứ Liên"
+              },
+              {
+                "id": "00100",
+                "name": "Phường Quảng An"
+              },
+              {
+                "id": "00103",
+                "name": "Phường Xuân La"
+              },
+              {
+                "id": "00106",
+                "name": "Phường Yên Phụ"
+              },
+              {
+                "id": "00109",
+                "name": "Phường Bưởi"
+              },
+              {
+                "id": "00112",
+                "name": "Phường Thụy Khuê"
+              }
+            ]
+          },
+          {
+            "id": "004",
+            "name": "Quận Long Biên",
+            "wards": [
+              {
+                "id": "00115",
+                "name": "Phường Thượng Thanh"
+              },
+              {
+                "id": "00118",
+                "name": "Phường Ngọc Thụy"
+              },
+              {
+                "id": "00121",
+                "name": "Phường Giang Biên"
+              },
+              {
+                "id": "00124",
+                "name": "Phường Đức Giang"
+              },
+              {
+                "id": "00127",
+                "name": "Phường Việt Hưng"
+              },
+              {
+                "id": "00130",
+                "name": "Phường Gia Thụy"
+              },
+              {
+                "id": "00133",
+                "name": "Phường Ngọc Lâm"
+              },
+              {
+                "id": "00136",
+                "name": "Phường Phúc Lợi"
+              },
+              {
+                "id": "00139",
+                "name": "Phường Bồ Đề"
+              },
+              {
+                "id": "00142",
+                "name": "Phường Sài Đồng"
+              },
+              {
+                "id": "00145",
+                "name": "Phường Long Biên"
+              },
+              {
+                "id": "00148",
+                "name": "Phường Thạch Bàn"
+              },
+              {
+                "id": "00151",
+                "name": "Phường Phúc Đồng"
+              },
+              {
+                "id": "00154",
+                "name": "Phường Cự Khối"
+              }
+            ]
+          },
+          {
+            "id": "005",
+            "name": "Quận Cầu Giấy",
+            "wards": [
+              {
+                "id": "00157",
+                "name": "Phường Nghĩa Đô"
+              },
+              {
+                "id": "00160",
+                "name": "Phường Nghĩa Tân"
+              },
+              {
+                "id": "00163",
+                "name": "Phường Mai Dịch"
+              },
+              {
+                "id": "00166",
+                "name": "Phường Dịch Vọng"
+              },
+              {
+                "id": "00167",
+                "name": "Phường Dịch Vọng Hậu"
+              },
+              {
+                "id": "00169",
+                "name": "Phường Quan Hoa"
+              },
+              {
+                "id": "00172",
+                "name": "Phường Yên Hòa"
+              },
+              {
+                "id": "00175",
+                "name": "Phường Trung Hòa"
+              }
+            ]
+          },
+          {
+            "id": "006",
+            "name": "Quận Đống Đa",
+            "wards": [
+              {
+                "id": "00178",
+                "name": "Phường Cát Linh"
+              },
+              {
+                "id": "00181",
+                "name": "Phường Văn Miếu"
+              },
+              {
+                "id": "00184",
+                "name": "Phường Quốc Tử Giám"
+              },
+              {
+                "id": "00187",
+                "name": "Phường Láng Thượng"
+              },
+              {
+                "id": "00190",
+                "name": "Phường Ô Chợ Dừa"
+              },
+              {
+                "id": "00193",
+                "name": "Phường Văn Chương"
+              },
+              {
+                "id": "00196",
+                "name": "Phường Hàng Bột"
+              },
+              {
+                "id": "00199",
+                "name": "Phường Láng Hạ"
+              },
+              {
+                "id": "00202",
+                "name": "Phường Khâm Thiên"
+              },
+              {
+                "id": "00205",
+                "name": "Phường Thổ Quan"
+              },
+              {
+                "id": "00208",
+                "name": "Phường Nam Đồng"
+              },
+              {
+                "id": "00211",
+                "name": "Phường Trung Phụng"
+              },
+              {
+                "id": "00214",
+                "name": "Phường Quang Trung"
+              },
+              {
+                "id": "00217",
+                "name": "Phường Trung Liệt"
+              },
+              {
+                "id": "00220",
+                "name": "Phường Phương Liên"
+              },
+              {
+                "id": "00223",
+                "name": "Phường Thịnh Quang"
+              },
+              {
+                "id": "00226",
+                "name": "Phường Trung Tự"
+              },
+              {
+                "id": "00229",
+                "name": "Phường Kim Liên"
+              },
+              {
+                "id": "00232",
+                "name": "Phường Phương Mai"
+              },
+              {
+                "id": "00235",
+                "name": "Phường Ngã Tư Sở"
+              },
+              {
+                "id": "00238",
+                "name": "Phường Khương Thượng"
+              }
+            ]
+          },
+          {
+            "id": "007",
+            "name": "Quận Hai Bà Trưng",
+            "wards": [
+              {
+                "id": "00241",
+                "name": "Phường Nguyễn Du"
+              },
+              {
+                "id": "00244",
+                "name": "Phường Bạch Đằng"
+              },
+              {
+                "id": "00247",
+                "name": "Phường Phạm Đình Hổ"
+              },
+              {
+                "id": "00256",
+                "name": "Phường Lê Đại Hành"
+              },
+              {
+                "id": "00259",
+                "name": "Phường Đồng Nhân"
+              },
+              {
+                "id": "00262",
+                "name": "Phường Phố Huế"
+              },
+              {
+                "id": "00265",
+                "name": "Phường Đống Mác"
+              },
+              {
+                "id": "00268",
+                "name": "Phường Thanh Lương"
+              },
+              {
+                "id": "00271",
+                "name": "Phường Thanh Nhàn"
+              },
+              {
+                "id": "00274",
+                "name": "Phường Cầu Dền"
+              },
+              {
+                "id": "00277",
+                "name": "Phường Bách Khoa"
+              },
+              {
+                "id": "00280",
+                "name": "Phường Đồng Tâm"
+              },
+              {
+                "id": "00283",
+                "name": "Phường Vĩnh Tuy"
+              },
+              {
+                "id": "00286",
+                "name": "Phường Bạch Mai"
+              },
+              {
+                "id": "00289",
+                "name": "Phường Quỳnh Mai"
+              },
+              {
+                "id": "00292",
+                "name": "Phường Quỳnh Lôi"
+              },
+              {
+                "id": "00295",
+                "name": "Phường Minh Khai"
+              },
+              {
+                "id": "00298",
+                "name": "Phường Trương Định"
+              }
+            ]
+          },
+          {
+            "id": "008",
+            "name": "Quận Hoàng Mai",
+            "wards": [
+              {
+                "id": "00301",
+                "name": "Phường Thanh Trì"
+              },
+              {
+                "id": "00304",
+                "name": "Phường Vĩnh Hưng"
+              },
+              {
+                "id": "00307",
+                "name": "Phường Định Công"
+              },
+              {
+                "id": "00310",
+                "name": "Phường Mai Động"
+              },
+              {
+                "id": "00313",
+                "name": "Phường Tương Mai"
+              },
+              {
+                "id": "00316",
+                "name": "Phường Đại Kim"
+              },
+              {
+                "id": "00319",
+                "name": "Phường Tân Mai"
+              },
+              {
+                "id": "00322",
+                "name": "Phường Hoàng Văn Thụ"
+              },
+              {
+                "id": "00325",
+                "name": "Phường Giáp Bát"
+              },
+              {
+                "id": "00328",
+                "name": "Phường Lĩnh Nam"
+              },
+              {
+                "id": "00331",
+                "name": "Phường Thịnh Liệt"
+              },
+              {
+                "id": "00334",
+                "name": "Phường Trần Phú"
+              },
+              {
+                "id": "00337",
+                "name": "Phường Hoàng Liệt"
+              },
+              {
+                "id": "00340",
+                "name": "Phường Yên Sở"
+              }
+            ]
+          },
+          {
+            "id": "009",
+            "name": "Quận Thanh Xuân",
+            "wards": [
+              {
+                "id": "00343",
+                "name": "Phường Thanh Xuân Bắc"
+              },
+              {
+                "id": "00346",
+                "name": "Phường Thanh Xuân Nam"
+              },
+              {
+                "id": "00349",
+                "name": "Phường Thanh Xuân Trung"
+              },
+              {
+                "id": "00352",
+                "name": "Phường Kim Giang"
+              },
+              {
+                "id": "00355",
+                "name": "Phường Sơn Lộc"
+              },
+              {
+                "id": "00358",
+                "name": "Phường Xuân Đỉnh"
+              },
+              {
+                "id": "00361",
+                "name": "Phường Xuân Tảo"
+              },
+              {
+                "id": "00364",
+                "name": "Phường Xuân La"
+              },
+              {
+                "id": "00367",
+                "name": "Phường Xuân Thủy"
+              },
+              {
+                "id": "00370",
+                "name": "Phường Xuân Phương"
+              },
+              {
+                "id": "00373",
+                "name": "Phường Xuân Đỉnh"
+              }
+            ]
+          },
+          {
+            "id": "010",
+            "name": "Quận Nam Từ Liêm",
+            "wards": [
+              {
+                "id": "00376",
+                "name": "Phường Mỹ Đình 1"
+              },
+              {
+                "id": "00379",
+                "name": "Phường Mỹ Đình 2"
+              },
+              {
+                "id": "00382",
+                "name": "Phường Mễ Trì"
+              },
+              {
+                "id": "00385",
+                "name": "Phường Mỹ Đình"
+              },
+              {
+                "id": "00388",
+                "name": "Phường Phú Đô"
+              },
+              {
+                "id": "00391",
+                "name": "Phường Đại Mỗ"
+              },
+              {
+                "id": "00394",
+                "name": "Phường Trung Văn"
+              },
+              {
+                "id": "00397",
+                "name": "Phường Tây Mỗ"
+              },
+              {
+                "id": "00400",
+                "name": "Phường Xuân Phương"
+              },
+              {
+                "id": "00403",
+                "name": "Phường Phương Canh"
+              },
+              {
+                "id": "00406",
+                "name": "Phường Cầu Diễn"
+              },
+              {
+                "id": "00409",
+                "name": "Phường Xuân Tảo"
+              },
+              {
+                "id": "00412",
+                "name": "Phường Thượng Cát"
+              },
+              {
+                "id": "00415",
+                "name": "Phường Liên Mạc"
+              },
+              {
+                "id": "00418",
+                "name": "Phường Đông Ngạc"
+              },
+              {
+                "id": "00421",
+                "name": "Phường Thụy Phương"
+              },
+              {
+                "id": "00424",
+                "name": "Phường Tây Tựu"
+              },
+              {
+                "id": "00427",
+                "name": "Phường Xuân Đỉnh"
+              },
+              {
+                "id": "00430",
+                "name": "Phường Minh Khai"
+              },
+              {
+                "id": "00433",
+                "name": "Phường Cổ Nhuế 1"
+              },
+              {
+                "id": "00436",
+                "name": "Phường Cổ Nhuế 2"
+              },
+              {
+                "id": "00439",
+                "name": "Phường Phú Diễn"
+              },
+              {
+                "id": "00442",
+                "name": "Phường Phúc Diễn"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "users": [
     {
       "id": "bf09",
@@ -3859,7 +4524,7 @@
       "email": "hoanganhm2005@gmail.com",
       "addresses": [
         {
-          "address": "Khử đô thị vân canh",
+          "address": "543, Phường Phương Liên, Quận Đống Đa, Thành phố Hà Nội",
           "isDefault": true
         }
       ],
@@ -4008,6 +4673,149 @@
               "name": "Nồi chiên không dầu Unie 6.5 lít UE-600",
               "quantity": 1,
               "price": 1190000
+            }
+          ]
+        },
+        {
+          "orderId": "DH51372",
+          "date": "31/7/2025",
+          "subtotal": 28990000,
+          "shippingFee": 30000,
+          "voucherDiscount": 0,
+          "total": 29020000,
+          "voucherCode": null,
+          "status": "Đang xử lý",
+          "products": [
+            {
+              "name": "Dell XPS 13",
+              "quantity": 1,
+              "price": 28990000
+            }
+          ]
+        },
+        {
+          "orderId": "DH96368",
+          "date": "31/7/2025",
+          "subtotal": 22990000,
+          "shippingFee": 30000,
+          "voucherDiscount": 0,
+          "total": 23020000,
+          "voucherCode": null,
+          "status": "Đang xử lý",
+          "products": [
+            {
+              "name": "Samsung Galaxy Tab S9 Ultra",
+              "quantity": 1,
+              "price": 22990000
+            }
+          ]
+        },
+        {
+          "orderId": "DH84807",
+          "date": "31/7/2025",
+          "subtotal": 27170000,
+          "shippingFee": 30000,
+          "voucherDiscount": 0,
+          "total": 27200000,
+          "voucherCode": null,
+          "status": "Đang xử lý",
+          "products": [
+            {
+              "name": "MacBook Air M2",
+              "quantity": 1,
+              "price": 24990000
+            },
+            {
+              "name": "Tai nghe Bluetooth nhét tai Defunc TRUE GO Slim",
+              "quantity": 1,
+              "price": 490000
+            },
+            {
+              "name": "Quạt điều hòa Hoa Phát HPCF1-022 86W",
+              "quantity": 1,
+              "price": 1690000
+            }
+          ]
+        },
+        {
+          "orderId": "DH28269",
+          "date": "31/7/2025",
+          "subtotal": 1690000,
+          "shippingFee": 30000,
+          "voucherDiscount": 0,
+          "total": 1720000,
+          "voucherCode": null,
+          "status": "Đang xử lý",
+          "products": [
+            {
+              "name": "Quạt điều hòa Hoa Phát HPCF1-022 86W",
+              "quantity": 1,
+              "price": 1690000
+            }
+          ]
+        },
+        {
+          "orderId": "DH99499",
+          "date": "31/7/2025",
+          "subtotal": 490000,
+          "shippingFee": 30000,
+          "voucherDiscount": 0,
+          "total": 520000,
+          "voucherCode": null,
+          "status": "Đang xử lý",
+          "deliveryAddress": "1234,  Phường Phương Liên, Quận Đống Đa, Thành phố Hà Nội",
+          "recipientName": "MAI HOANG ANH",
+          "recipientPhone": "0339820485",
+          "recipientEmail": "hoanganhm2005@gmail.com",
+          "paymentMethod": "Thanh toán qua VNPAY-QR",
+          "note": "",
+          "deliveryMethod": "Giao hàng tận nơi",
+          "products": [
+            {
+              "name": "Tai nghe Bluetooth nhét tai Defunc TRUE GO Slim",
+              "quantity": 1,
+              "price": 490000,
+              "image": "/images/products/tai-nghe.jpg"
+            }
+          ]
+        },
+        {
+          "orderId": "DH56852",
+          "date": "31/7/2025",
+          "subtotal": 86970000,
+          "shippingFee": 30000,
+          "voucherDiscount": 1000000,
+          "total": 86000000,
+          "voucherCode": "WELCOME10",
+          "status": "Đang xử lý",
+          "deliveryAddress": "ngõ 99, 123 Phường Phương Liên, Quận Đống Đa, Thành phố Hà Nội",
+          "recipientName": "MAI HOANG TÙNG",
+          "recipientPhone": "0987654321",
+          "recipientEmail": "hoanga05@gmail.com",
+          "paymentMethod": "Chuyển khoản ngân hàng",
+          "note": "",
+          "deliveryMethod": "Giao hàng tận nơi",
+          "products": [
+            {
+              "name": "iPhone 15 Pro Max 256GB",
+              "quantity": 1,
+              "price": 31990000,
+              "image": "/images/products/iphone-15-pro.jpg",
+              "category": "dien-thoai"
+            },
+            {
+              "name": "Samsung Galaxy S24 Ultra 5G",
+              "quantity": 1,
+              "price": 29990000,
+              "image": "/images/products/samsung-s24.jpg",
+              "category": "dien-thoai"
+            },
+            {
+              "name": "MacBook Air M2",
+              "quantity": 1,
+              "price": 24990000,
+              "image": "/images/products/mac.jpg",
+              "category": "laptop"
             }
           ]
         }
