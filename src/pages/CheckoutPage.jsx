@@ -2,8 +2,8 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { FaUser, FaMapMarkerAlt, FaTruck, FaStore, FaCreditCard } from 'react-icons/fa';
 import VoucherInput from '../components/VoucherInput';
-import { updateVoucherUsage } from '../api/vouchers';
-import { useNotifications } from '../components/NotificationSystem';
+import { voucherAPI, productAPI, userAPI } from '../api/api.js';
+import { useNotificationActions } from '../components/notificationHooks';
 
 function useQuery() {
   const { search } = useLocation();
@@ -29,12 +29,14 @@ const CheckoutPage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const query = useQuery();
-  const { success: showSuccess, error: showError } = useNotifications();
+  const { success: showSuccess, error: showError } = useNotificationActions();
 
   useEffect(() => {
-    fetch('http://localhost:3001/products')
-      .then(res => res.json())
-      .then(data => setProducts(data));
+    productAPI.getProducts()
+      .then(data => setProducts(data))
+      .catch(error => {
+        console.error('Error fetching products:', error);
+      });
   }, []);
 
   useEffect(() => {
@@ -52,6 +54,7 @@ const CheckoutPage = () => {
 
   useEffect(() => {
     if (!products.length) return;
+    
     const buyNowId = query.get('buyNow');
     const buyNowStorage = query.get('storage');
     if (buyNowId) {
@@ -127,7 +130,8 @@ const CheckoutPage = () => {
 
       // Cập nhật số lượt sử dụng voucher nếu có
       if (appliedVoucher) {
-        await updateVoucherUsage(appliedVoucher.id, appliedVoucher.usedCount);
+        // Note: updateVoucherUsage method not available in new API
+        // await voucherAPI.updateVoucherUsage(appliedVoucher.id, appliedVoucher.usedCount);
       }
 
       const newOrder = {
@@ -142,13 +146,7 @@ const CheckoutPage = () => {
         products: cartItems.map(item => ({ name: item.name, quantity: item.quantity, price: item.price }))
       };
       const updatedOrders = [...(user.orders || []), newOrder];
-      const updatedUser = { ...user, orders: updatedOrders, cart: [] };
-      const res = await fetch(`http://localhost:3001/users/${user.id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ orders: updatedOrders, cart: [] })
-      });
-      if (!res.ok) throw new Error('Lỗi khi lưu đơn hàng');
+      const updatedUser = await userAPI.updateUser(user.id, { orders: updatedOrders, cart: [] });
       localStorage.setItem('user', JSON.stringify(updatedUser));
       localStorage.removeItem('cart');
       window.dispatchEvent(new Event('storage'));

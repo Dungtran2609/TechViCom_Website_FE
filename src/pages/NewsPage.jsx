@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { api } from '../api';
+import { newsAPI } from '../api/api.js';
+
 
 const NewsPage = () => {
   const [newsList, setNewsList] = useState([]);
   useEffect(() => {
-    api.news.getAll()
-      .then(data => setNewsList(data));
+    const loadNews = async () => {
+      try {
+        const data = await newsAPI.getNews();
+        setNewsList(data);
+      } catch (error) {
+        console.error('Error fetching news:', error);
+      }
+    };
+    loadNews();
   }, []);
 
   return (

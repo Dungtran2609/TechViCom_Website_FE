@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginUser } from '../api';
-import { useNotifications } from '../components/NotificationSystem';
+import { userAPI } from '../api/api.js';
+import { useNotificationActions } from '../components/notificationHooks';
 import Toast from '../components/Toast';
 
 const mergeCarts = (userCart = [], guestCart = []) => {
@@ -21,7 +21,7 @@ const mergeCarts = (userCart = [], guestCart = []) => {
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const { success, error: showError } = useNotifications();
+  const { success, error: showError } = useNotificationActions();
   const [form, setForm] = useState({ phone: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -60,41 +60,30 @@ const LoginPage = () => {
     }
     setLoading(true);
     try {
-      const users = await loginUser(form.phone, form.password);
-      if (users.length > 0) {
-        const userData = users[0];
-        const guestCart = JSON.parse(localStorage.getItem('cart') || '[]');
-        let finalUserData = userData;
+      const userData = await userAPI.login(form.phone, form.password);
+      const guestCart = JSON.parse(localStorage.getItem('cart') || '[]');
+      let finalUserData = userData;
 
-        if (guestCart.length > 0) {
-          const mergedCart = mergeCarts(userData.cart, guestCart);
-          const response = await fetch(`http://localhost:3001/users/${userData.id}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ cart: mergedCart }),
-          });
-          finalUserData = await response.json();
-        }
-
-        localStorage.setItem('user', JSON.stringify(finalUserData));
-        localStorage.removeItem('cart');
-        window.dispatchEvent(new Event('userChanged'));
-
-        // Show success notification with user name
-        const userName = finalUserData.name || finalUserData.phone || 'Người dùng';
-        success(`Chào mừng bạn trở lại, ${userName}! Đăng nhập thành công.`, 'Đăng nhập thành công');
-
-        if (localStorage.getItem('firstLogin') === 'true') {
-          localStorage.removeItem('firstLogin');
-          navigate('/update-profile');
-        } else {
-          navigate('/');
-        }
-      } else {
-        setError('Sai tài khoản hoặc mật khẩu!');
-        showError('Sai tài khoản hoặc mật khẩu! Vui lòng kiểm tra lại.', 'Đăng nhập thất bại');
+      if (guestCart.length > 0) {
+        const mergedCart = mergeCarts(userData.cart, guestCart);
+        finalUserData = await userAPI.updateUser(userData.id, { cart: mergedCart });
       }
-    } catch (err) {
+
+      localStorage.setItem('user', JSON.stringify(finalUserData));
+      localStorage.removeItem('cart');
+      window.dispatchEvent(new Event('userChanged'));
+
+      // Show success notification with user name
+      const userName = finalUserData.name || finalUserData.phone || 'Người dùng';
+      success(`Chào mừng bạn trở lại, ${userName}! Đăng nhập thành công.`, 'Đăng nhập thành công');
+
+      if (localStorage.getItem('firstLogin') === 'true') {
+        localStorage.removeItem('firstLogin');
+        navigate('/update-profile');
+      } else {
+        navigate('/');
+      }
+    } catch {
       setError('Lỗi kết nối tới server!');
       showError('Không thể kết nối đến máy chủ. Vui lòng thử lại sau.', 'Lỗi kết nối');
     } finally {

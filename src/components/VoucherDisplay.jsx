@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FaTicketAlt, FaGift, FaClock, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { getVouchers } from '../api/vouchers';
+import { voucherAPI } from '../api/api.js';
 
 const VoucherDisplay = ({ limit = 5 }) => {
   const [vouchers, setVouchers] = useState([]);
@@ -8,7 +8,32 @@ const VoucherDisplay = ({ limit = 5 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showNavigation, setShowNavigation] = useState(false);
 
+  // Đưa các hàm lên trước useEffect và bọc useCallback
+  const nextSlide = useCallback(() => {
+    const maxIndex = Math.max(0, vouchers.length - 3);
+    setCurrentIndex((prev) => Math.min(prev + 1, maxIndex));
+  }, [vouchers.length]);
+
+  const prevSlide = useCallback(() => {
+    setCurrentIndex((prev) => Math.max(prev - 1, 0));
+  }, []);
+
+  const goToFirst = useCallback(() => {
+    setCurrentIndex(0);
+  }, []);
+
+  const goToLast = useCallback(() => {
+    const maxIndex = Math.max(0, vouchers.length - 3);
+    setCurrentIndex(maxIndex);
+  }, [vouchers.length]);
+
   useEffect(() => {
+    // Reset state khi component mount lại
+    setVouchers([]);
+    setCurrentIndex(0);
+    setShowNavigation(false);
+    setLoading(true);
+    
     fetchActiveVouchers();
   }, []);
 
@@ -39,16 +64,15 @@ const VoucherDisplay = ({ limit = 5 }) => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [showNavigation]);
+  }, [showNavigation, prevSlide, nextSlide, goToFirst, goToLast]);
 
   const fetchActiveVouchers = async () => {
     try {
-      const allVouchers = await getVouchers();
-      const currentDate = new Date();
+              const allVouchers = await voucherAPI.getAllVouchers();
       
       // Lọc voucher đang hoạt động
       const activeVouchers = allVouchers.filter(voucher => {
-        console.log('Checking voucher:', voucher.code, 'isActive:', voucher.isActive);
+
         if (!voucher.isActive) {
           console.log('Voucher', voucher.code, 'is not active');
           return false;
@@ -99,24 +123,6 @@ const VoucherDisplay = ({ limit = 5 }) => {
     if (days > 0) return `${days} ngày`;
     if (hours > 0) return `${hours} giờ`;
     return 'Sắp hết hạn';
-  };
-
-  const nextSlide = () => {
-    const maxIndex = Math.max(0, vouchers.length - 3);
-    setCurrentIndex((prev) => Math.min(prev + 1, maxIndex));
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => Math.max(prev - 1, 0));
-  };
-
-  const goToFirst = () => {
-    setCurrentIndex(0);
-  };
-
-  const goToLast = () => {
-    const maxIndex = Math.max(0, vouchers.length - 3);
-    setCurrentIndex(maxIndex);
   };
 
   if (loading) {

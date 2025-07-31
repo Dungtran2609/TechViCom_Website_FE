@@ -5,6 +5,7 @@ import { MdAir, MdKitchen } from 'react-icons/md';
 import { IoPhonePortrait } from 'react-icons/io5';
 import { BsFan } from 'react-icons/bs';
 import { GiWashingMachine } from 'react-icons/gi';
+import { CategoryGridSkeleton } from './LoadingSkeletons';
 
 // Icon mapping
 const iconMap = {
@@ -24,14 +25,7 @@ const createIconComponent = (iconName, size = 50) => {
 
 const CategoriesGrid = ({ categories, loading, error, className = "categories-grid" }) => {
   if (loading) {
-    return (
-      <div className={className}>
-        <div style={{padding: 40, textAlign: 'center', width: '100%'}}>
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500 mx-auto mb-2"></div>
-          Đang tải danh mục...
-        </div>
-      </div>
-    );
+    return <CategoryGridSkeleton count={8} />;
   }
 
   if (error) {

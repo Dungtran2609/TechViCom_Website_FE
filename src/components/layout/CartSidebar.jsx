@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { FaTimes, FaTrash, FaShoppingCart, FaChevronRight, FaSignInAlt } from 'react-icons/fa'; // Thêm icon FaSignInAlt
 import './CartSidebar.css';
+import { productAPI, userAPI } from '../../api/api.js';
 import { Link, useNavigate } from 'react-router-dom';
+
 
 const getCurrentUser = () => {
   const user = localStorage.getItem('user');
@@ -30,9 +32,11 @@ const CartSidebar = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     if (isOpen) {
-      fetch('http://localhost:3001/products')
-        .then(res => res.json())
-        .then(data => setProducts(data));
+          productAPI.getProducts()
+      .then(data => setProducts(data))
+      .catch(error => {
+        console.error('Error fetching products:', error);
+      });
     }
   }, [isOpen]);
 
@@ -65,12 +69,7 @@ const CartSidebar = ({ isOpen, onClose }) => {
   const updateCart = async (newCart) => {
     if (!currentUser) return; // Chỉ cho phép cập nhật nếu đã đăng nhập
     try {
-      const response = await fetch(`http://localhost:3001/users/${currentUser.id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cart: newCart }),
-      });
-      const updatedUser = await response.json();
+      const updatedUser = await userAPI.updateUser(currentUser.id, { cart: newCart });
       localStorage.setItem('user', JSON.stringify(updatedUser));
       setCurrentUser(updatedUser); // Cập nhật state currentUser để re-render
     } catch (error) {

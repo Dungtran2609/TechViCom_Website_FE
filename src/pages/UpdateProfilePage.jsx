@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { getUser, updateUser } from "../api";
+import React, { useEffect, useState, useCallback, useRef } from "react";
+import { userAPI } from "../api/api.js";
 import { useNavigate } from "react-router-dom";
-import { useNotifications } from "../components/NotificationSystem";
+import { useNotificationActions } from "../components/notificationHooks";
 
 // Lấy user hiện tại từ localStorage
 const getCurrentUser = () => {
@@ -26,36 +26,69 @@ export default function UpdateProfilePage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
-  const [uploading, setUploading] = useState(false);
+
   const navigate = useNavigate();
-  const { success, error: showError } = useNotifications();
+  const { success, error: showError } = useNotificationActions();
+  const showErrorRef = useRef(showError);
+  const navigateRef = useRef(navigate);
+
+  // Cập nhật refs khi dependencies thay đổi
+  useEffect(() => {
+    showErrorRef.current = showError;
+  }, [showError]);
+
+  useEffect(() => {
+    navigateRef.current = navigate;
+  }, [navigate]);
 
   // Lấy user id từ localStorage
-  useEffect(() => {
+  const fetchUser = useCallback(async () => {
+    // Reset state khi user thay đổi
+    setUser(null);
+    setForm({
+      name: "",
+      birthday: "",
+      gender: "Nam",
+      avatar: "/src/image/avatar-default.png",
+      addresses: [{ address: "", isDefault: true }]
+    });
+    setError(null);
+    setLoading(true);
+    
     const currentUser = getCurrentUser();
     if (!currentUser || !currentUser.id) {
-      navigate('/login');
+      navigateRef.current('/login');
       return;
     }
     const USER_ID = currentUser.id;
-    getUser(USER_ID)
-      .then(u => {
-        setUser(u);
-        setForm({
-          name: u.name || "",
-          birthday: u.birthday || "",
-          gender: u.gender || "Nam",
-          avatar: u.avatar || "/src/image/avatar-default.png",
-          addresses: u.addresses && u.addresses.length > 0 ? u.addresses : [{ address: "", isDefault: true }]
-        });
-        setLoading(false);
-      })
-      .catch(() => {
-        setError("Không lấy được thông tin người dùng");
-        showError("Không thể tải thông tin người dùng. Vui lòng thử lại.", "Lỗi tải dữ liệu");
-        setLoading(false);
+    try {
+      const u = await userAPI.getUser(USER_ID);
+      setUser(u);
+      setForm({
+        name: u.name || "",
+        birthday: u.birthday || "",
+        gender: u.gender || "Nam",
+        avatar: u.avatar || "/src/image/avatar-default.png",
+        addresses: u.addresses && u.addresses.length > 0 ? u.addresses : [{ address: "", isDefault: true }]
       });
-  }, [navigate]);
+    } catch {
+      setError("Không lấy được thông tin người dùng");
+      // Chỉ set error state, không gọi showError trong callback
+    } finally {
+      setLoading(false);
+    }
+  }, []); // Đảm bảo dependency array cố định
+
+  useEffect(() => {
+    fetchUser();
+  }, []); // Không truyền fetchUser vào dependency array
+
+  // Xử lý error riêng biệt
+  useEffect(() => {
+    if (error) {
+      showErrorRef.current("Không thể tải thông tin người dùng. Vui lòng thử lại.", "Lỗi tải dữ liệu");
+    }
+  }, [error]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -74,7 +107,7 @@ export default function UpdateProfilePage() {
     }
     const USER_ID = currentUser.id;
     try {
-      await updateUser(USER_ID, form);
+      await userAPI.updateUser(USER_ID, form);
       setSaving(false);
       // Cập nhật lại localStorage user
       const updatedUser = { ...currentUser, ...form };
@@ -104,17 +137,21 @@ export default function UpdateProfilePage() {
     reader.readAsDataURL(file);
   };
 
-  useEffect(() => {
+  const checkAndNavigate = useCallback(() => {
     if (!loading && !error && user) {
       const missing = REQUIRED_FIELDS.filter(f => {
         if (f.name === "addresses") return !user.addresses || user.addresses.length === 0 || !user.addresses[0].address;
         return !user[f.name];
       });
       if (missing.length === 0) {
-        navigate("/account");
+        navigateRef.current("/account");
       }
     }
-  }, [loading, error, user, navigate]);
+  }, [loading, error, user]);
+
+  useEffect(() => {
+    checkAndNavigate();
+  }, [checkAndNavigate]);
   if (!user) return null;
   // Xác định trường còn thiếu
   const missingFields = REQUIRED_FIELDS.filter(f => {
@@ -143,10 +180,9 @@ export default function UpdateProfilePage() {
             return (
               <div key={f.name} style={{ marginBottom: 18 }}>
                 <label style={{ fontWeight: 600 }}>Ảnh đại diện</label>
-                <input type="file" accept="image/*" style={{ marginTop: 8 }} onChange={handleAvatarUpload} disabled={uploading} />
+                <input type="file" accept="image/*" style={{ marginTop: 8 }} onChange={handleAvatarUpload} />
                 <div style={{ marginTop: 8 }}>
                   <img src={form.avatar || '/images/avatar-default.png'} alt="avatar" style={{ width: 80, height: 80, borderRadius: '50%', border: '2px solid #ff9800', marginTop: 8 }} />
-                  {uploading && <div>Đang upload...</div>}
                 </div>
               </div>
             );

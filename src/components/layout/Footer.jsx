@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Footer.css';
-import { FaComments, FaFacebookF, FaYoutube, FaTiktok, FaInstagram, FaComment } from 'react-icons/fa';
+import { FaFacebookF, FaYoutube, FaTiktok, FaInstagram, FaComment } from 'react-icons/fa';
+import { useNotificationActions } from '../notificationHooks';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [showChat, setShowChat] = useState(false);
+  const { success: showSuccess, error: showError } = useNotificationActions();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,10 +20,10 @@ const Footer = () => {
   const handleNewsletterSubmit = (e) => {
     e.preventDefault();
     if (email.trim() && /\S+@\S+\.\S+/.test(email)) {
-      alert('Cảm ơn bạn đã đăng ký nhận thông tin!');
+      showSuccess('Cảm ơn bạn đã đăng ký nhận thông tin!', 'Đăng ký thành công');
       setEmail('');
     } else {
-      alert('Vui lòng nhập email hợp lệ!');
+      showError('Vui lòng nhập email hợp lệ!', 'Email không hợp lệ');
     }
   };
 
@@ -128,30 +129,6 @@ const Footer = () => {
       >
         <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 19V5M12 5l-7 7m7-7l7 7" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
       </button>
-      
-      <button
-        className="footer-chatbox-btn"
-        onClick={()=>setShowChat(v=>!v)}
-        aria-label="Chat hỗ trợ"
-      >
-        <FaComments />
-      </button>
-
-      {showChat && (
-        <div className="footer-chatbox-window">
-          <div className="chatbox-header">
-            <span>Hỗ trợ trực tuyến</span>
-            <button onClick={()=>setShowChat(false)}>×</button>
-          </div>
-          <div className="chatbox-body">
-            Xin chào! Bạn cần Techvicom hỗ trợ gì ạ?
-          </div>
-          <div className="chatbox-input-area">
-            <input type="text" placeholder="Nhập tin nhắn..." />
-            <button>Gửi</button>
-          </div>
-        </div>
-      )}
     </footer>
   );
 };

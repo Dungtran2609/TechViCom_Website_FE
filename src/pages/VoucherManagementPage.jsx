@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaTicketAlt, FaEdit, FaTrash, FaPlus, FaEye, FaTimes } from 'react-icons/fa';
-import { getVouchers } from '../api/vouchers';
+import { voucherAPI } from '../api/api.js';
 
 const VoucherManagementPage = () => {
   const [vouchers, setVouchers] = useState([]);
@@ -9,12 +9,18 @@ const VoucherManagementPage = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
+    // Reset state khi component mount lại
+    setVouchers([]);
+    setSelectedVoucher(null);
+    setShowModal(false);
+    setLoading(true);
+    
     fetchVouchers();
   }, []);
 
   const fetchVouchers = async () => {
     try {
-      const data = await getVouchers();
+              const data = await voucherAPI.getAllVouchers();
       setVouchers(data);
     } catch (error) {
       console.error('Error fetching vouchers:', error);
