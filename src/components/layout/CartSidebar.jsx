@@ -1,26 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { FaTimes, FaTrash, FaShoppingCart, FaChevronRight, FaSignInAlt } from 'react-icons/fa'; // Thêm icon FaSignInAlt
+import {
+  FaTimes, FaTrash, FaShoppingCart, FaChevronRight, FaSignInAlt
+} from 'react-icons/fa';
 import './CartSidebar.css';
 import { Link, useNavigate } from 'react-router-dom';
 
+// ✅ Hàm an toàn để đọc user từ localStorage
 const getCurrentUser = () => {
-  const user = localStorage.getItem('user');
-  return user ? JSON.parse(user) : null;
+  try {
+    const userStr = localStorage.getItem('user');
+    if (userStr && userStr !== 'undefined') {
+      return JSON.parse(userStr);
+    }
+  } catch (err) {
+    console.error("Lỗi khi parse user:", err);
+    localStorage.removeItem('user');
+  }
+  return null;
 };
 
 const CartSidebar = ({ isOpen, onClose }) => {
   const [cartItems, setCartItems] = useState([]);
   const [products, setProducts] = useState([]);
-  const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(getCurrentUser());
+  const navigate = useNavigate();
 
-  // Lắng nghe sự kiện đăng nhập/đăng xuất để cập nhật lại currentUser
+  // Theo dõi thay đổi user
   useEffect(() => {
-    const updateUserStatus = () => {
-      setCurrentUser(getCurrentUser());
-    };
+    const updateUserStatus = () => setCurrentUser(getCurrentUser());
     window.addEventListener('userChanged', updateUserStatus);
-    // Thêm listener cho sự kiện storage để cập nhật giỏ hàng khi có sản phẩm mới
     window.addEventListener('storage', updateUserStatus);
     return () => {
       window.removeEventListener('userChanged', updateUserStatus);
@@ -28,24 +36,25 @@ const CartSidebar = ({ isOpen, onClose }) => {
     };
   }, []);
 
+  // Fetch sản phẩm khi mở giỏ hàng
   useEffect(() => {
     if (isOpen) {
       fetch('http://localhost:3001/products')
         .then(res => res.json())
-        .then(data => setProducts(data));
+        .then(data => setProducts(data))
+        .catch(err => console.error("Lỗi khi fetch sản phẩm:", err));
     }
   }, [isOpen]);
 
+  // Xử lý mapping giỏ hàng từ user
   useEffect(() => {
-    if (!isOpen || products.length === 0 || !currentUser) {
-      // Nếu chưa đăng nhập, set giỏ hàng là mảng rỗng
+    if (!isOpen || !products.length || !currentUser) {
       setCartItems([]);
       return;
     }
-    
-    // Nếu đã đăng nhập, lấy giỏ hàng của user
+
     const cart = currentUser.cart || [];
-    
+
     const mapped = cart.map(item => {
       const product = products.find(p => p.id === item.id);
       const variant = product?.variants?.find(v => v.storage === item.variant?.storage);
@@ -56,41 +65,40 @@ const CartSidebar = ({ isOpen, onClose }) => {
         price: variant?.price || product?.price || 0,
         storage: variant?.storage || item.variant?.storage || '',
       };
-    }).filter(item => item.name !== 'Sản phẩm không tồn tại');
+    }).filter(i => i.name !== 'Sản phẩm không tồn tại');
 
     setCartItems(mapped);
   }, [isOpen, products, currentUser]);
 
-
   const updateCart = async (newCart) => {
-    if (!currentUser) return; // Chỉ cho phép cập nhật nếu đã đăng nhập
+    if (!currentUser) return;
     try {
-      const response = await fetch(`http://localhost:3001/users/${currentUser.id}`, {
+      const res = await fetch(`http://localhost:3001/users/${currentUser.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ cart: newCart }),
       });
-      const updatedUser = await response.json();
+      const updatedUser = await res.json();
       localStorage.setItem('user', JSON.stringify(updatedUser));
-      setCurrentUser(updatedUser); // Cập nhật state currentUser để re-render
-    } catch (error) {
-      console.error("Lỗi cập nhật giỏ hàng của người dùng:", error);
+      setCurrentUser(updatedUser);
+    } catch (err) {
+      console.error("Lỗi khi cập nhật giỏ hàng:", err);
     }
   };
 
   const updateQuantity = (id, storage, delta) => {
-    const newCart = cartItems.map(item => {
+    const updated = cartItems.map(item => {
       if (item.id === id && item.storage === storage) {
         return { ...item, quantity: Math.max(1, item.quantity + delta) };
       }
       return item;
     });
-    updateCart(newCart);
+    updateCart(updated);
   };
 
   const removeItem = (id, storage) => {
-    const newCart = cartItems.filter(item => !(item.id === id && item.storage === storage));
-    updateCart(newCart);
+    const updated = cartItems.filter(item => !(item.id === id && item.storage === storage));
+    updateCart(updated);
   };
 
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -106,14 +114,12 @@ const CartSidebar = ({ isOpen, onClose }) => {
             <FaShoppingCart className="cart-header-icon" />
             <h3>Giỏ hàng của bạn</h3>
           </div>
-          <button className="close-button-modern" onClick={onClose} aria-label="Đóng giỏ hàng">
+          <button className="close-button-modern" onClick={onClose}>
             <FaTimes />
           </button>
         </div>
 
-        {/* ========================================================== */}
-        {/* SỬA LỖI Ở ĐÂY: Hiển thị thông báo nếu chưa đăng nhập */}
-        {/* ========================================================== */}
+        {/* Nếu chưa đăng nhập */}
         {!currentUser ? (
           <div className="login-prompt-sidebar">
             <FaSignInAlt className="login-prompt-icon" />
@@ -145,7 +151,7 @@ const CartSidebar = ({ isOpen, onClose }) => {
                           <span>{item.quantity}</span>
                           <button onClick={() => updateQuantity(item.id, item.storage, 1)}>+</button>
                         </div>
-                        <button className="remove-button-modern" onClick={() => removeItem(item.id, item.storage)} aria-label="Xóa sản phẩm">
+                        <button className="remove-button-modern" onClick={() => removeItem(item.id, item.storage)}>
                           <FaTrash />
                         </button>
                       </div>
@@ -159,15 +165,15 @@ const CartSidebar = ({ isOpen, onClose }) => {
                 <span>Tổng tiền:</span>
                 <span className="total-amount-modern">{total.toLocaleString()}đ</span>
               </div>
-              <button className="checkout-button-modern" disabled={cartItems.length === 0} onClick={() => { onClose(); navigate('/checkout'); }}>
-                <span>Thanh toán</span>
-                <FaChevronRight style={{marginLeft: 8, fontSize: 16}} />
-              </button>
-              <Link
-                to="/cart"
-                className="view-cart-modern"
-                onClick={onClose}
+              <button
+                className="checkout-button-modern"
+                disabled={cartItems.length === 0}
+                onClick={() => { onClose(); navigate('/checkout'); }}
               >
+                <span>Thanh toán</span>
+                <FaChevronRight style={{ marginLeft: 8, fontSize: 16 }} />
+              </button>
+              <Link to="/cart" className="view-cart-modern" onClick={onClose}>
                 Xem tất cả sản phẩm trong giỏ hàng
               </Link>
             </div>
