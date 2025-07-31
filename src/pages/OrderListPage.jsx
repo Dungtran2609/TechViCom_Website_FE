@@ -6,6 +6,9 @@ export default function OrderListPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Reset state khi user thay đổi
+    setOrders([]);
+    
     const user = JSON.parse(localStorage.getItem('user'));
     setOrders(user && user.orders ? [...user.orders].reverse() : []);
   }, []);

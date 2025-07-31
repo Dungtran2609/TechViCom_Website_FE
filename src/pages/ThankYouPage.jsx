@@ -14,6 +14,10 @@ const ThankYouPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Reset state khi user thay đổi
+    setLatestOrder(null);
+    setLoading(true);
+    
     const user = getCurrentUser();
     // Lấy đơn hàng cuối cùng trong danh sách đơn hàng của người dùng
     if (user && user.orders && user.orders.length > 0) {

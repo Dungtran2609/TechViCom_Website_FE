@@ -6,9 +6,9 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import './ProductDetailPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShieldAlt, faTruck, faHeadset, faStar as faStarSolid, faSignInAlt, faHdd, faMobileAlt, faLaptop, faTabletAlt } from '@fortawesome/free-solid-svg-icons'; // Thêm icon
+import { faShieldAlt, faTruck, faHeadset, faStar as faStarSolid, faSignInAlt, faHdd } from '@fortawesome/free-solid-svg-icons'; // Thêm icon
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
-import { getProductById, getProducts } from '../api';
+import { productAPI, userAPI } from '../api/api.js';
 
 const getCurrentUser = () => {
     const user = localStorage.getItem('user');
@@ -42,18 +42,19 @@ export default function ProductDetailPage() {
   useEffect(() => {
     const fetchProductData = async () => {
       setLoading(true);
+      
       try {
-        const productData = await getProductById(id);
+        const productData = await productAPI.getProductById(id);
         setProduct(productData);
 
         let suggestions = [];
         if (productData?.category) {
-          const sameCategoryProducts = await getProducts({ category: productData.category });
+          const sameCategoryProducts = await productAPI.getProducts({ category: productData.category });
           suggestions = sameCategoryProducts.filter(p => p.id !== productData.id);
         }
 
         if (suggestions.length < 10) {
-          const allProducts = await getProducts();
+          const allProducts = await productAPI.getProducts();
           const otherProducts = allProducts.filter(p => 
             p.id !== productData.id && !suggestions.find(s => s.id === p.id)
           );
@@ -85,7 +86,9 @@ export default function ProductDetailPage() {
   useEffect(() => {
     if (!product) return;
     const saved = localStorage.getItem(`reviews_${product.id}`);
-    if (saved) setReviews(JSON.parse(saved));
+    if (saved) {
+      setReviews(JSON.parse(saved));
+    }
   }, [product]);
 
   if (loading) {
@@ -96,7 +99,6 @@ export default function ProductDetailPage() {
   }
 
   const variants = Array.isArray(product.variants) ? product.variants : [];
-  const storages = Array.isArray(product.storage) ? product.storage : [];
   const colors = Array.isArray(product.colors) ? product.colors : [];
   const currentVariant = variants.find(v => v.storage === selectedStorage) || variants[0] || null;
 
@@ -149,12 +151,7 @@ export default function ProductDetailPage() {
     }
 
     try {
-      const response = await fetch(`http://localhost:3001/users/${currentUser.id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cart: currentCart }),
-      });
-      const updatedUser = await response.json();
+      const updatedUser = await userAPI.updateUser(currentUser.id, { cart: currentCart });
       localStorage.setItem('user', JSON.stringify(updatedUser));
     } catch (error) {
       console.error("Lỗi khi cập nhật giỏ hàng:", error);

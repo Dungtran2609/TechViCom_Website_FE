@@ -1,12 +1,26 @@
 import React, { useState } from 'react';
 import { FaTicketAlt, FaCheck, FaTimes, FaInfoCircle } from 'react-icons/fa';
-import { validateVoucher, calculateDiscount } from '../api/vouchers';
+import { voucherAPI } from '../api/api.js';
+import { useNotificationActions } from './notificationHooks';
+
+// Helper function to calculate discount
+const calculateDiscount = (voucher, totalAmount) => {
+  switch (voucher.discountType) {
+    case 'percentage':
+      return Math.min((totalAmount * voucher.discountValue) / 100, voucher.maxDiscount || Infinity);
+    case 'fixed':
+      return Math.min(voucher.discountValue, totalAmount);
+    case 'shipping':
+      return voucher.shippingCost || 0;
+    default:
+      return 0;
+  }
+};
 
 const VoucherInput = ({ cartItems, totalAmount, onVoucherApplied, appliedVoucher, onVoucherRemoved }) => {
   const [voucherCode, setVoucherCode] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const { success: showSuccess, error: showError } = useNotificationActions();
 
   const handleApplyVoucher = async () => {
     if (!voucherCode.trim()) {
@@ -15,25 +29,23 @@ const VoucherInput = ({ cartItems, totalAmount, onVoucherApplied, appliedVoucher
     }
 
     setIsLoading(true);
-    setError('');
-    setSuccess('');
 
     try {
-      const result = await validateVoucher(voucherCode, cartItems, totalAmount);
+              const result = await voucherAPI.validateVoucher(voucherCode, totalAmount);
       
       if (result.valid) {
         const discountAmount = calculateDiscount(result.voucher, totalAmount);
-        setSuccess(`Áp dụng thành công! Giảm ${discountAmount.toLocaleString()}đ`);
+        showSuccess(`Áp dụng thành công! Giảm ${discountAmount.toLocaleString()}đ`, 'Áp dụng voucher thành công');
         onVoucherApplied({
           ...result.voucher,
           discountAmount
         });
         setVoucherCode('');
       } else {
-        setError(result.message);
+        showError(result.message, 'Voucher không hợp lệ');
       }
-    } catch (error) {
-      setError('Có lỗi xảy ra khi kiểm tra voucher');
+    } catch {
+      showError('Có lỗi xảy ra khi kiểm tra voucher', 'Lỗi hệ thống');
     } finally {
       setIsLoading(false);
     }
@@ -41,8 +53,6 @@ const VoucherInput = ({ cartItems, totalAmount, onVoucherApplied, appliedVoucher
 
   const handleRemoveVoucher = () => {
     onVoucherRemoved();
-    setError('');
-    setSuccess('');
   };
 
   const getDiscountText = (voucher) => {
@@ -104,19 +114,7 @@ const VoucherInput = ({ cartItems, totalAmount, onVoucherApplied, appliedVoucher
             </button>
           </div>
           
-          {error && (
-            <div className="flex items-center gap-2 text-red-600 text-sm">
-              <FaTimes />
-              {error}
-            </div>
-          )}
-          
-          {success && (
-            <div className="flex items-center gap-2 text-green-600 text-sm">
-              <FaCheck />
-              {success}
-            </div>
-          )}
+
           
           <div className="flex items-start gap-2 text-xs text-gray-500">
             <FaInfoCircle className="mt-0.5 flex-shrink-0" />

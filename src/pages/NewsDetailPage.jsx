@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { FaRegThumbsUp, FaRegCommentDots } from 'react-icons/fa';
-import { api } from '../api';
+import { newsAPI } from '../api/api.js';
+import { useNotificationActions } from '../components/notificationHooks';
+
 
 const getCurrentUser = () => {
   const user = localStorage.getItem('user');
@@ -18,27 +20,36 @@ const NewsDetailPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   
   const currentUser = getCurrentUser();
+  const { error: showError } = useNotificationActions();
 
   useEffect(() => {
     setLoading(true);
-    api.news.getById(id)
-      .then(data => {
+    // Reset state khi chuyển bài viết mới
+    setNews(null);
+    setComments([]);
+    setNewComment('');
+    setIsSubmitting(false);
+    
+    const loadNews = async () => {
+      try {
+        const data = await newsAPI.getNewsById(id);
         setNews(data);
         setComments(data.comments || []);
-        setLoading(false);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Fetch error:", error);
         setNews(null);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+    loadNews();
   }, [id]);
   
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
     if (!newComment.trim() || !currentUser) {
       if (!currentUser) {
-          alert("Vui lòng đăng nhập để bình luận.");
+          showError("Vui lòng đăng nhập để bình luận.", "Yêu cầu đăng nhập");
           navigate('/login');
       }
       return;
@@ -61,12 +72,12 @@ const NewsDetailPage = () => {
     setNewComment('');
 
     try {
-      const updatedNews = await api.news.update(id, { comments: updatedComments });
+      const updatedNews = await newsAPI.updateNews(id, { comments: updatedComments });
       setNews(updatedNews);
       
     } catch (error) {
       console.error("Lỗi khi gửi bình luận:", error);
-      alert("Đã xảy ra lỗi khi gửi bình luận của bạn. Vui lòng thử lại.");
+      showError("Đã xảy ra lỗi khi gửi bình luận của bạn. Vui lòng thử lại.", "Lỗi bình luận");
       setComments(previousComments);
     } finally {
       setIsSubmitting(false);

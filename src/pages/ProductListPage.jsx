@@ -1,23 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams, useLocation, useSearchParams } from 'react-router-dom';
-import { api } from '../api';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { productAPI } from '../api/api.js';
+
 
 export default function ProductListPage() {
   const { category } = useParams(); // slug, ví dụ: 'laptop', 'dien-thoai', ...
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const location = useLocation();
+
   const [searchParams, setSearchParams] = useSearchParams();
   const brandFromUrl = searchParams.get('brand');
   const [selectedBrand, setSelectedBrand] = useState(brandFromUrl || '');
+  
+
 
   useEffect(() => {
     async function fetchProducts() {
       setLoading(true);
       setError(null);
+      
       try {
-        const data = await api.product.getProducts();
+        const data = await productAPI.getProducts();
         setProducts(data);
       } catch (err) {
         setError(err.message);
@@ -26,7 +30,7 @@ export default function ProductListPage() {
       }
     }
     fetchProducts();
-  }, []);
+  }, [category]);
 
   // Cập nhật selectedBrand khi URL thay đổi
   useEffect(() => {

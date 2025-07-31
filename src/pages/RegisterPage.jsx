@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { registerUser } from '../api';
+import { userAPI } from '../api/api.js';
 import Toast from '../components/Toast';
-import { useNotifications } from '../components/NotificationSystem';
+import { useNotificationActions } from '../components/notificationHooks';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
-  const { success, error: showError } = useNotifications();
+  const { success, error: showError } = useNotificationActions();
   const [form, setForm] = useState({ name: '', phone: '', password: '', confirmPassword: '', email: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -35,6 +35,8 @@ const RegisterPage = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     setError('');
+    console.log('Starting registration with form:', form);
+    
     if (!form.name.trim() || !form.phone.trim() || !form.password.trim() || !form.confirmPassword.trim()) {
       setError('Vui lòng nhập đầy đủ thông tin!');
       return;
@@ -46,15 +48,36 @@ const RegisterPage = () => {
     setLoading(true);
     try {
       const API_URL = 'http://localhost:3001';
-      const checkRes = await fetch(`${API_URL}/users?phone=${encodeURIComponent(form.phone)}`);
-      const existed = await checkRes.json();
-      if (Array.isArray(existed) && existed.length > 0) {
+      console.log('Checking existing user with phone:', form.phone);
+
+      const allUsers = await userAPI.getAllUsers();
+      console.log('All users:', allUsers);
+      
+      // Kiểm tra xem số điện thoại đã tồn tại chưa
+      const existed = allUsers.filter(user => user.phone === form.phone);
+      console.log('Existing users with phone:', form.phone, ':', existed);
+      
+      if (existed.length > 0) {
         setError('Số điện thoại đã được đăng ký!');
         showError('Số điện thoại đã được đăng ký! Vui lòng sử dụng số khác.', 'Đăng ký thất bại');
         setLoading(false);
         return;
       }
-      const user = await registerUser({ name: form.name, phone: form.phone, password: form.password, email: form.email, addresses: [], orders: [], avatar: '/images/avatar-default.png' });
+      
+      const userData = { 
+        name: form.name, 
+        phone: form.phone, 
+        password: form.password, 
+        email: form.email, 
+        addresses: [], 
+        orders: [], 
+        avatar: '/images/avatar-default.png' 
+      };
+      console.log('Calling registerUser with data:', userData);
+      
+      const user = await userAPI.register(userData);
+      console.log('Registration successful, user:', user);
+      
       localStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('success', 'Đăng ký thành công!');
       localStorage.setItem('firstLogin', 'true');
@@ -65,6 +88,7 @@ const RegisterPage = () => {
       setLoading(false);
       navigate('/login');
     } catch (err) {
+      console.error('Registration error:', err);
       setError('Lỗi kết nối tới server!');
       showError('Không thể kết nối đến máy chủ. Vui lòng thử lại sau.', 'Lỗi kết nối');
       setLoading(false);

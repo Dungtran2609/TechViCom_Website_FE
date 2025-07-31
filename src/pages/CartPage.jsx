@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { userAPI, productAPI } from '../api/api.js';
 
 function getCurrentUser() {
   return JSON.parse(localStorage.getItem('user'));
@@ -24,26 +25,23 @@ export default function CartPage() {
       setCurrentUser(user);
       setCart(user.cart || []);
     }
-  }, [navigate]);
+  }, []); // Loại bỏ navigate khỏi dependency array
 
   useEffect(() => {
     // Chỉ fetch products nếu đã đăng nhập
     if (currentUser) {
-      fetch('http://localhost:3001/products')
-        .then(res => res.json())
-        .then(data => setProducts(data));
+      productAPI.getProducts()
+        .then(data => setProducts(data))
+        .catch(error => {
+          console.error('Error fetching products:', error);
+        });
     }
   }, [currentUser]);
 
   const updateUserCart = async (newCart) => {
     if (!currentUser) return;
     try {
-      const response = await fetch(`http://localhost:3001/users/${currentUser.id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cart: newCart })
-      });
-      const updatedUser = await response.json();
+      const updatedUser = await userAPI.updateUser(currentUser.id, { cart: newCart });
       localStorage.setItem('user', JSON.stringify(updatedUser));
       setCart(newCart);
       setCurrentUser(updatedUser);

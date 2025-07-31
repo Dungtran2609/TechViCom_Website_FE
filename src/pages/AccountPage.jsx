@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { getUser, updateUser } from "../api";
+import { userAPI } from "../api/api.js";
 import { FaUser, FaMapMarkerAlt, FaHistory, FaLock, FaCamera, FaSpinner, FaEye, FaEyeSlash, FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
-import { useNotifications } from "../components/NotificationSystem";
+import { useNotificationActions } from "../components/notificationHooks";
 
 // ----- CÁC HÀM LOGIC CỦA BẠN ĐƯỢC GIỮ NGUYÊN -----
 const getCurrentUserId = () => {
@@ -22,7 +22,7 @@ const AccountPage = () => {
   const [showAvatarPopup, setShowAvatarPopup] = useState(false);
   const [pendingAvatar, setPendingAvatar] = useState(null);
   const fileInputRef = useRef();
-  const { success, error: showError } = useNotifications();
+  const { success, error: showError } = useNotificationActions();
   
   // State được chuyển vào các component con để quản lý riêng
   const [profileForm, setProfileForm] = useState(null);
@@ -30,30 +30,40 @@ const AccountPage = () => {
   const [passwordMessage, setPasswordMessage] = useState({ type: '', text: '' });
 
   useEffect(() => {
+    // Reset state khi USER_ID thay đổi
+    setUser(null);
+    setProfileForm(null);
+    setPasswordForm({ old: "", new: "", confirm: "" });
+    setPasswordMessage({ type: '', text: '' });
+    setError(null);
+    
     if (!USER_ID) {
       setError("Không tìm thấy thông tin người dùng. Vui lòng đăng nhập lại.");
       setLoading(false);
       return;
     }
     setLoading(true);
-    getUser(USER_ID)
-      .then(u => {
+    const fetchUser = async () => {
+      try {
+        const u = await userAPI.getUser(USER_ID);
         setUser(u);
         setProfileForm({ ...u });
-        setLoading(false);
-      })
-      .catch(() => {
+      } catch {
         setError("Không thể tải thông tin người dùng. Vui lòng thử lại sau.");
+        // showError KHÔNG được truyền vào dependency array, chỉ gọi khi cần
         showError("Không thể tải thông tin người dùng. Vui lòng thử lại sau.", "Lỗi tải dữ liệu");
+      } finally {
         setLoading(false);
-      });
-  }, [USER_ID]);
+      }
+    };
+    fetchUser();
+  }, [USER_ID]); // Chỉ truyền USER_ID
   
   const handleProfileSave = async (e) => {
     e.preventDefault();
     setSaving(true);
     try {
-      const updated = await updateUser(USER_ID, { ...profileForm });
+              const updated = await userAPI.updateUser(USER_ID, { ...profileForm });
       setUser(updated);
       localStorage.setItem('user', JSON.stringify(updated));
       window.dispatchEvent(new Event('userChanged'));
@@ -87,7 +97,7 @@ const AccountPage = () => {
     }
     setSaving(true);
     try {
-      await updateUser(USER_ID, { password: passwordForm.new });
+              await userAPI.updateUser(USER_ID, { password: passwordForm.new });
       // Cập nhật lại state user local sau khi đổi pass thành công
       setUser(prev => ({...prev, password: passwordForm.new}));
       setPasswordMessage({ type: 'success', text: 'Đổi mật khẩu thành công!' });
@@ -96,7 +106,7 @@ const AccountPage = () => {
       success('Mật khẩu đã được thay đổi thành công!', 'Đổi mật khẩu thành công');
       
       setPasswordForm({ old: "", new: "", confirm: "" });
-    } catch (err) {
+    } catch {
       setPasswordMessage({ type: 'error', text: 'Đã xảy ra lỗi. Vui lòng thử lại.' });
       showError("Không thể thay đổi mật khẩu. Vui lòng thử lại sau.", "Đổi mật khẩu thất bại");
     } finally {
@@ -107,7 +117,7 @@ const AccountPage = () => {
   const handleAddressUpdate = async (newAddresses) => {
     setSaving(true);
     try {
-      const updated = await updateUser(USER_ID, { addresses: newAddresses });
+              const updated = await userAPI.updateUser(USER_ID, { addresses: newAddresses });
       setUser(updated);
       
       // Hiển thị thông báo cập nhật địa chỉ thành công
@@ -122,7 +132,7 @@ const AccountPage = () => {
   const handleAvatarSave = async () => {
     setSaving(true);
     try {
-      const updated = await updateUser(USER_ID, { avatar: pendingAvatar });
+              const updated = await userAPI.updateUser(USER_ID, { avatar: pendingAvatar });
       setUser(updated);
       localStorage.setItem('user', JSON.stringify(updated));
       window.dispatchEvent(new Event('userChanged'));
@@ -395,10 +405,32 @@ const PasswordTab = ({ passwordForm, setPasswordForm, handlePasswordSubmit, pass
 // --- CÁC COMPONENT HELPER MỚI CHO PHẦN MẬT KHẨU ---
 const PasswordInput = ({ name, value, onChange, placeholder }) => {
     const [show, setShow] = useState(false);
+    
+    // Xác định autocomplete value dựa trên name
+    const getAutocompleteValue = () => {
+        switch (name) {
+            case 'old':
+                return 'current-password';
+            case 'new':
+            case 'confirm':
+                return 'new-password';
+            default:
+                return 'off';
+        }
+    };
+    
     return (
         <div className="relative">
             <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400"> <FaLock /> </span>
-            <input type={show ? "text" : "password"} name={name} value={value} onChange={onChange} placeholder={placeholder} className={`${formInputClasses} pl-12`} />
+            <input 
+                type={show ? "text" : "password"} 
+                name={name} 
+                value={value} 
+                onChange={onChange} 
+                placeholder={placeholder} 
+                className={`${formInputClasses} pl-12`}
+                autoComplete={getAutocompleteValue()}
+            />
             <button type="button" onClick={() => setShow(!show)} className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 hover:text-slate-600">
                 {show ? <FaEyeSlash /> : <FaEye />}
             </button>

@@ -3655,6 +3655,13 @@
           "avatar": "/images/avatar-default.png",
           "text": "sccsegv",
           "timestamp": "2025-07-26T09:52:44.627Z"
+        },
+        {
+          "id": 1753906293296,
+          "author": "MAI HOANG ANH",
+          "avatar": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/",
+          "text": "123432",
+          "timestamp": "2025-07-30T20:11:33.296Z"
         }
       ]
     },
@@ -4009,12 +4016,50 @@
               "price": 1190000
             }
           ]
+        },
+        {
+          "orderId": "DH18907",
+          "date": "31/7/2025",
+          "subtotal": 67440000,
+          "shippingFee": 30000,
+          "voucherDiscount": 1000000,
+          "total": 66470000,
+          "voucherCode": "WELCOME10",
+          "status": "Đang xử lý",
+          "products": [
+            {
+              "name": "MacBook Air M2",
+              "quantity": 1,
+              "price": 24990000
+            },
+            {
+              "name": "iPhone 15 Pro Max 256GB",
+              "quantity": 1,
+              "price": 31990000
+            },
+            {
+              "name": "Máy giặt Samsung 10kg Inverter",
+              "quantity": 1,
+              "price": 8990000
+            },
+            {
+              "name": "Tai nghe Bluetooth nhét tai Defunc TRUE GO Slim",
+              "quantity": 3,
+              "price": 490000
+            }
+          ]
         }
       ],
       "avatar": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/",
       "birthday": "19-11-2005",
       "gender": "Nữ",
-      "cart": []
+      "cart": [
+        {
+          "id": "9",
+          "variant": null,
+          "quantity": 1
+        }
+      ]
     },
     {
       "id": "b96e",
@@ -4149,6 +4194,96 @@
       "birthday": "19-11-2002",
       "gender": "Nam",
       "cart": []
+    },
+    {
+      "id": "7ad1",
+      "user_name": "MAI HOÀNG TÙNG",
+      "user_email": "TUNG@mail.thitcholuoc.edu.vn",
+      "user_phone": "0339820480",
+      "user_password": "0987654321",
+      "user_avatar": "/images/avatar-default.png",
+      "user_addresses": [],
+      "user_orders": []
+    },
+    {
+      "id": "1b13",
+      "name": "MAI HOANG ANH",
+      "phone": "0339820400",
+      "password": "0987654321",
+      "email": "hoanganhm@gmail.com",
+      "addresses": [
+        {
+          "address": "cvb",
+          "isDefault": true
+        }
+      ],
+      "orders": [
+        {
+          "orderId": "DH69431",
+          "date": "31/7/2025",
+          "subtotal": 3680000,
+          "shippingFee": 30000,
+          "voucherDiscount": 368000,
+          "total": 3342000,
+          "voucherCode": "WELCOME10",
+          "status": "Đang xử lý",
+          "products": [
+            {
+              "name": "Sạc dự phòng 20.000mAh",
+              "quantity": 1,
+              "price": 1990000
+            },
+            {
+              "name": "Quạt điều hòa Hoa Phát HPCF1-022 86W",
+              "quantity": 1,
+              "price": 1690000
+            }
+          ]
+        }
+      ],
+      "avatar": "/images/avatar-default.png",
+      "birthday": "27-07-2009",
+      "gender": "Nam",
+      "cart": [
+        {
+          "id": "5",
+          "variant": {
+            "storage": "256 GB",
+            "price": 18990000
+          },
+          "quantity": 1
+        },
+        {
+          "id": "9",
+          "variant": null,
+          "quantity": 1
+        },
+        {
+          "id": "1",
+          "variant": {
+            "storage": "256 GB",
+            "price": 31990000
+          },
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "e8b4",
+      "name": "Mai Hoàng Tùng",
+      "phone": "0339820500",
+      "password": "0987654321",
+      "email": "babowa1841hdw@gmail.com",
+      "addresses": [
+        {
+          "address": "dcc v",
+          "isDefault": true
+        }
+      ],
+      "orders": [],
+      "avatar": "/images/avatar-default.png",
+      "birthday": "27-07-2010",
+      "gender": "Nam"
     }
   ],
   "banners": [
@@ -4211,7 +4346,7 @@
       "startDate": "2025-01-01",
       "endDate": "2025-12-31",
       "usageLimit": 1000,
-      "usedCount": 3,
+      "usedCount": 4,
       "isActive": true,
       "applicableCategories": [
         "all"

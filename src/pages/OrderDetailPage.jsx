@@ -6,6 +6,9 @@ export default function OrderDetailPage() {
   const [order, setOrder] = useState(null);
 
   useEffect(() => {
+    // Reset state khi chuyển đơn hàng khác
+    setOrder(null);
+    
     const orders = JSON.parse(localStorage.getItem('orders') || '[]');
     const found = orders.find(o => o.createdAt === id);
     setOrder(found);

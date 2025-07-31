@@ -1,23 +1,26 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { FaBars, FaUser, FaShoppingCart, FaSignInAlt, FaUserPlus, FaChevronRight, FaSearch, FaFire, FaSignOutAlt, FaUserCircle, FaClipboardList, FaFilter, FaTimesCircle, FaExclamationCircle, FaTag } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaBars, FaUser, FaShoppingCart, FaSignInAlt, FaUserPlus, FaChevronRight, FaSearch, FaFire, FaSignOutAlt, FaUserCircle, FaClipboardList, FaFilter, FaTimesCircle, FaExclamationCircle, FaTag, FaTimes } from 'react-icons/fa';
+import { ThemeToggle } from '../../contexts/ThemeContext';
 import './Header.css';
 import CartSidebar from './CartSidebar';
-import { motion } from 'framer-motion';
 import removeAccents from 'remove-accents';
-import { getHeaderCategories, iconMap } from '../../data/categories';
-import { useHeaderCategories } from '../../hooks/useCategories';
-import { useNotifications } from '../NotificationSystem';
-import { api } from '../../api';
+import { useNotificationActions } from '../notificationHooks';
+import { productAPI, categoryAPI } from '../../api/api.js';
+
 
 const Header = () => {
+  const { success } = useNotificationActions();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [mobileSearchTerm, setMobileSearchTerm] = useState('');
   const userMenuRef = useRef(null);
   const menuRef = useRef(null);
+  const mobileSearchRef = useRef(null);
   const navigate = useNavigate();
   const [productSearch, setProductSearch] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -28,7 +31,7 @@ const Header = () => {
   const [categories, setCategories] = useState([]);
   const [categoriesLoading, setCategoriesLoading] = useState(true);
   const [categoriesError, setCategoriesError] = useState(null);
-  const [brands, setBrands] = useState([]);
+
   const [products, setProducts] = useState([]);
   const [filter, setFilter] = useState({
     category: '', color: '', storage: '', priceMin: '', priceMax: ''
@@ -38,7 +41,7 @@ const Header = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const data = await api.product.getProducts();
+        const data = await productAPI.getProducts();
         setProducts(data);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -47,22 +50,7 @@ const Header = () => {
     fetchProducts();
   }, []);
 
-  // Fetch brands
-  useEffect(() => {
-    const fetchBrands = async () => {
-      try {
-        const response = await fetch('/db.json');
-        const data = await response.json();
-        setBrands(data.brands || []);
-      } catch (error) {
-        console.error('Error fetching brands:', error);
-        // Fallback to brands from products if API fails
-        const productBrands = Array.from(new Set(products.map(p => p.brand).filter(Boolean)));
-        setBrands(productBrands);
-      }
-    };
-    fetchBrands();
-  }, [products]);
+
 
   // Fetch categories
   useEffect(() => {
@@ -70,7 +58,7 @@ const Header = () => {
       setCategoriesLoading(true);
       setCategoriesError(null);
       try {
-        const data = await api.category.getCategories();
+        const data = await categoryAPI.getCategories();
         setCategories(data);
       } catch (err) {
         setCategoriesError(err.message);
@@ -92,7 +80,7 @@ const Header = () => {
   const allStorages = Array.from(new Set(products.flatMap(p => p.variants?.map(v => v.storage) || [])));
   const allCategories = Array.from(new Set(products.map(p => p.category)));
   const allBrands = Array.from(new Set(products.map(p => p.brand).filter(Boolean)));
-  // Danh sách brand cố định để hiển thị
+  // Danh sách brand cố định để hiển thị - chỉ đến HP
   const allowedBrands = [
     "Apple", "Samsung", "Xiaomi", "Google", "OnePlus", "OPPO", "Defunc", "Hoa Phat", "Unie", "Dell", "Lenovo", "HP"
   ];
@@ -130,6 +118,14 @@ const Header = () => {
         const u = localStorage.getItem('user');
         setUser(u ? JSON.parse(u) : null);
         setIsLoggedIn(!!u);
+        
+        // Reset search state khi user thay đổi
+        setProductSearch('');
+        setShowSuggestions(false);
+        setSearchTerm('');
+        setHoveredCategory(null);
+        setIsMenuOpen(false);
+        setIsUserMenuOpen(false);
     };
 
     window.addEventListener('userChanged', handleUserChange);
@@ -155,6 +151,28 @@ const Header = () => {
       }, 300);
     }
   };
+
+  const handleMobileSearch = (e) => {
+    e.preventDefault();
+    if (mobileSearchTerm.trim()) {
+      setIsSearching(true);
+      setTimeout(() => {
+        navigate(`/products?q=${encodeURIComponent(mobileSearchTerm.trim())}`);
+        setMobileSearchTerm('');
+        setIsMobileSearchOpen(false);
+        setIsSearching(false);
+      }, 300);
+    }
+  };
+
+  const handleMobileInputChange = (e) => {
+    setMobileSearchTerm(e.target.value);
+  };
+
+  // Debug: Log mobile search state
+  useEffect(() => {
+    console.log('Mobile search state:', { isMobileSearchOpen, mobileSearchTerm });
+  }, [isMobileSearchOpen, mobileSearchTerm]);
 
   const handleInputChange = (e) => {
     setProductSearch(e.target.value);
@@ -196,7 +214,7 @@ const Header = () => {
                         Thương hiệu
                       </div>
                       <div className="brand-filter-list">
-                       {brands.map(brand => (
+                       {displayBrands.map(brand => (
                           <Link
                             key={brand}
                             to={`/products?brand=${encodeURIComponent(brand)}`}
@@ -224,7 +242,9 @@ const Header = () => {
                         <div className="hot-categories-grid">
                           {categories.filter(cat => cat.isHot).slice(0, 4).map((category) => (
                             <Link key={category.id} to={`/products${category.path}`} className="hot-category-item" onClick={() => setIsMenuOpen(false)}>
-                              <div className="hot-category-icon">{React.createElement(iconMap[category.icon], { size: 20, style: { color: '#ff6c2f' } })}</div>
+                              <div className="hot-category-icon">
+                                <FaTag size={20} style={{ color: '#ff6c2f' }} />
+                              </div>
                               <span>{category.name}</span>
                             </Link>
                           ))}
@@ -246,7 +266,9 @@ const Header = () => {
                           filteredCategories.map((category) => (
                             <div key={category.id} className={`category-item ${category.isHot ? 'hot-category' : ''}`} onMouseEnter={() => setHoveredCategory(category.id)}>
                               <Link to={`/products${category.path}`} className="category-link" onClick={() => setIsMenuOpen(false)}>
-                                <div className="category-icon">{React.createElement(iconMap[category.icon], { size: 24, style: { color: '#ff6c2f' } })}</div>
+                                <div className="category-icon">
+                                  <FaTag size={24} style={{ color: '#ff6c2f' }} />
+                                </div>
                                 <span className="category-name">{category.name}</span>
                                 {category.isHot && <FaFire className="hot-indicator" />}
                                 <FaChevronRight className="chevron-icon" />
@@ -266,8 +288,8 @@ const Header = () => {
                         </div>
                         <div className="subcategories-content">
                           <div className="subcategories-list">
-                            {currentCategory.subcategories.slice(0, 4).map((sub, index) => (
-                              <Link key={index} to={sub.path} className={`subcategory-item ${sub.isPopular ? 'popular' : ''}`} onClick={() => setIsMenuOpen(false)}>
+                            {currentCategory.subcategories.slice(0, 4).map((sub) => (
+                              <Link key={sub.path} to={sub.path} className={`subcategory-item ${sub.isPopular ? 'popular' : ''}`} onClick={() => setIsMenuOpen(false)}>
                                 {sub.name}
                                 {sub.isPopular && <span className="popular-badge">Hot</span>}
                               </Link>
@@ -285,7 +307,7 @@ const Header = () => {
                                 <div className="featured-products">
                                   <h4>Sản phẩm nổi bật</h4>
                                   <div className="featured-products-grid">
-                                    {featuredProducts.map((product, index) => (
+                                    {featuredProducts.map((product) => (
                                       <Link key={product.id} to={`/product/${product.id}`} className="featured-product-item" onClick={() => setIsMenuOpen(false)}>
                                         <img src={product.image} alt={product.name} />
                                         <div className="product-info">
@@ -316,7 +338,7 @@ const Header = () => {
                   {isSearching ? <div className="loading-spinner"></div> : <FaSearch />}
                 </button>
                 {showSuggestions && (
-                  <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: 'white', border: '1px solid #e5e7eb', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', zIndex: 1000, marginTop: '4px', maxHeight: '300px', overflowY: 'auto' }}>
+                  <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: 'white', border: '1px solid #e5e7eb', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', zIndex: 1000, marginTop: '4px', maxHeight: '300px', overflowY: 'auto' }}>
                     <div style={{ background: '#f8fafc', borderRadius: 12, padding: '12px 12px 8px 12px', margin: '8px', boxShadow: '0 2px 8px #eee', position: 'relative', display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', gap: 12 }}>
                       <FaFilter style={{ position: 'absolute', left: 10, top: 10, color: '#ff6c2f', fontSize: 18 }} />
                       <div style={{ display: 'flex', flexDirection: 'column', minWidth: 110 }}>
@@ -353,8 +375,8 @@ const Header = () => {
                       </button>
                     </div>
                     <div style={{ height: 1, background: '#eee', margin: '0 8px 4px 8px' }} />
-                    {suggestions.map((product, index) => (
-                      <Link key={product.id} to={`/product/${product.id}`} style={{ padding: '12px 16px', cursor: 'pointer', borderBottom: index < suggestions.length - 1 ? '1px solid #f3f4f6' : 'none', display: 'flex', alignItems: 'center', gap: '12px', transition: 'background-color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => { setShowSuggestions(false); setProductSearch(''); }} onMouseEnter={e => e.currentTarget.style.backgroundColor = '#f9fafb'} onMouseLeave={e => e.currentTarget.style.backgroundColor = 'white'}>
+                    {suggestions.map((product, idx) => (
+                      <Link key={product.id} to={`/product/${product.id}`} style={{ padding: '12px 16px', cursor: 'pointer', borderBottom: idx < suggestions.length - 1 ? '1px solid #f3f4f6' : 'none', display: 'flex', alignItems: 'center', gap: '12px', transition: 'background-color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => { setShowSuggestions(false); setProductSearch(''); }} onMouseEnter={e => e.currentTarget.style.backgroundColor = '#f9fafb'} onMouseLeave={e => e.currentTarget.style.backgroundColor = 'white'}>
                         <img src={product.image} alt={product.name} style={{ width: '40px', height: '40px', objectFit: 'contain', borderRadius: '4px' }} />
                         <div style={{ flex: 1 }}>
                           <div style={{ fontSize: '14px', fontWeight: '500', color: '#374151', marginBottom: '2px' }}>{product.name}</div>
@@ -362,12 +384,13 @@ const Header = () => {
                         </div>
                       </Link>
                     ))}
-                  </motion.div>
+                  </div>
                 )}
               </div>
             </form>
           </div>
           <div className="right-section" style={{ gap: 15, display: 'flex', alignItems: 'center' }}>
+            
             <div style={{ position: 'relative', display: 'inline-block' }}>
               <button onClick={() => setIsUserMenuOpen((v) => !v)} className="header-action-btn">
                 <FaUser className="user-icon" />
@@ -410,6 +433,7 @@ const Header = () => {
                 </div>
               )}
             </div>
+            <ThemeToggle className="header-action-btn" />
             <button className="header-action-btn" onClick={() => setIsCartOpen(true)}>
               <FaShoppingCart className="icon" />
               <span>Giỏ hàng</span>
@@ -417,6 +441,37 @@ const Header = () => {
           </div>
         </div>
       </header>
+
+      {/* Mobile Search Overlay */}
+      {isMobileSearchOpen && (
+        <div className="mobile-search-overlay" onClick={() => setIsMobileSearchOpen(false)}>
+          <div className="mobile-search-container" onClick={(e) => e.stopPropagation()}>
+            <div className="mobile-search-header">
+              <h3 className="mobile-search-title">Tìm kiếm sản phẩm</h3>
+              <button 
+                className="mobile-search-close"
+                onClick={() => setIsMobileSearchOpen(false)}
+              >
+                <FaTimes />
+              </button>
+            </div>
+            <form onSubmit={handleMobileSearch}>
+              <input
+                type="text"
+                placeholder="Nhập tên sản phẩm..."
+                className="mobile-search-input"
+                value={mobileSearchTerm}
+                onChange={handleMobileInputChange}
+                autoFocus
+              />
+              <button type="submit" className="mobile-search-btn" disabled={isSearching}>
+                {isSearching ? 'Đang tìm...' : 'Tìm kiếm'}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
       <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
       {isCartOpen && <div className={`cart-overlay${isCartOpen ? ' open' : ''}`} onClick={() => setIsCartOpen(false)} />}
     </>

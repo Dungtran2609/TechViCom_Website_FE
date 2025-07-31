@@ -12,7 +12,9 @@ import VoucherDisplay from '../components/VoucherDisplay';
 import CategoriesGrid from '../components/CategoriesGrid';
 
 import { useHomeCategories } from '../hooks/useCategories';
-import { api } from '../api';
+import { bannerAPI, productAPI, newsAPI } from '../api/api.js';
+import { ProductGridSkeleton, CategoryGridSkeleton } from '../components/LoadingSkeletons';
+import { FadeIn, StaggerContainer, StaggerItem } from '../components/Animations';
 
 const HomePage = () => {
   const [timeLeft, setTimeLeft] = useState({
@@ -20,7 +22,6 @@ const HomePage = () => {
     minutes: 59,
     seconds: 59
   });
-  const [showScrollToTop, setShowScrollToTop] = useState(false);
   const { categories, loading: loadingCategories, error: categoriesError } = useHomeCategories();
 
   useEffect(() => {
@@ -46,40 +47,35 @@ const HomePage = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Scroll to top functionality
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      setShowScrollToTop(scrollTop > 300);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   // Fetch banners
   const [banners, setBanners] = useState([]);
   useEffect(() => {
-    api.banner.getAll()
-      .then(data => {
-        console.log('Banners loaded:', data);
+    const loadBanners = async () => {
+      try {
+        const data = await bannerAPI.getBanners();
         setBanners(data);
-      })
-      .catch(error => {
+      } catch (error) {
         console.error('Error loading banners:', error);
-      });
+      }
+    };
+    loadBanners();
   }, []);
 
   // Fetch products
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
   useEffect(() => {
-    api.product.getProducts()
-      .then(data => {
+    const loadProducts = async () => {
+      try {
+        const data = await productAPI.getProducts();
         setProducts(data);
+      } catch (error) {
+        console.error('Error loading products:', error);
+      } finally {
         setLoadingProducts(false);
-      })
-      .catch(() => setLoadingProducts(false));
+      }
+    };
+    loadProducts();
   }, []);
 
   // Ví dụ filter sản phẩm nổi bật, flash sale từ products nếu có flag
@@ -101,8 +97,15 @@ const HomePage = () => {
   // Fetch bài viết nổi bật từ API
   const [news, setNews] = useState([]);
   useEffect(() => {
-    api.news.getFeatured(3)
-      .then(data => setNews(data));
+    const loadNews = async () => {
+      try {
+        const data = await newsAPI.getFeaturedNews(3);
+        setNews(data);
+      } catch (error) {
+        console.error('Error loading news:', error);
+      }
+    };
+    loadNews();
   }, []);
   const featuredNews = news; // Đã lấy 3 bài nổi bật từ API
 
@@ -113,7 +116,7 @@ const HomePage = () => {
         const swiperElement = document.querySelector('.banner-slider');
         if (swiperElement && swiperElement.swiper && swiperElement.swiper.autoplay) {
           swiperElement.swiper.autoplay.start();
-          console.log('Banner autoplay started with', banners.length, 'banners');
+    
         }
       }, 100);
 
@@ -130,7 +133,7 @@ const HomePage = () => {
         const swiperElement = document.querySelector('.banner-slider');
         if (swiperElement && swiperElement.swiper && swiperElement.swiper.autoplay) {
           swiperElement.swiper.autoplay.start();
-          console.log('Forcing autoplay after banners loaded');
+  
         }
       }, 500);
 
@@ -162,19 +165,18 @@ const HomePage = () => {
             loop={true}
             className="banner-slider"
             onSwiper={(swiper) => {
-              console.log('Swiper initialized with', banners.length, 'banners');
-              console.log('Banners data:', banners);
+              
               setBannerLoaded(true);
               // Force autoplay to start
               setTimeout(() => {
                 if (swiper.autoplay) {
                   swiper.autoplay.start();
-                  console.log('Autoplay started');
+  
                 }
               }, 100);
             }}
-            onSlideChange={(swiper) => {
-              console.log('Slide changed to', swiper.realIndex);
+            onSlideChange={() => {
+
             }}
           >
             {banners.map((banner) => {
@@ -293,7 +295,7 @@ const HomePage = () => {
         <h2 className="section-title">Gợi ý cho bạn</h2>
         <div className="products-grid">
           {loadingProducts ? (
-            <div style={{padding: 40, textAlign: 'center', width: '100%'}}>Đang tải sản phẩm...</div>
+            <ProductGridSkeleton count={8} />
           ) : products.length === 0 ? (
             <div style={{padding: 40, textAlign: 'center', width: '100%'}}>Không có sản phẩm nào.</div>
           ) : (
@@ -478,14 +480,7 @@ const HomePage = () => {
       
 
 
-      {/* Scroll To Top Icon */}
-      <div className={`scroll-to-top-icon ${showScrollToTop ? 'show' : ''}`} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-        <div className="scroll-to-top-content">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 4L4 12H9V20H15V12H20L12 4Z" fill="white"/>
-          </svg>
-        </div>
-      </div>
+
     </div>
   );
 };

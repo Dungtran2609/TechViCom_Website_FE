@@ -1,7 +1,10 @@
+/* eslint-env node */
+/* eslint-disable no-undef */
 const express = require('express');
 const multer = require('multer');
 const cors = require('cors');
 const path = require('path');
+// eslint-disable-next-line no-unused-vars
 const fs = require('fs');
 
 const app = express();
