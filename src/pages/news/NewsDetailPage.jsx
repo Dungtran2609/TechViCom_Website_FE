@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { FaRegThumbsUp, FaRegCommentDots } from 'react-icons/fa';
-import { newsAPI } from '../api/api.js';
-import { useNotificationActions } from '../components/notificationHooks';
+import { newsAPI } from '../../api';
+import { useNotificationActions } from '../../components/notificationHooks';
 
 
 const getCurrentUser = () => {

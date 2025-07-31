@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { userAPI } from '../api/api.js';
-import { useNotificationActions } from '../components/notificationHooks';
-import Toast from '../components/Toast';
+import { userAPI } from '../../api';
+import { useNotificationActions } from '../../components/notificationHooks';
+import Toast from '../../components/Toast';
 
 const mergeCarts = (userCart = [], guestCart = []) => {
   const combinedCart = [...userCart];

@@ -6,7 +6,7 @@ import './Header.css';
 import CartSidebar from './CartSidebar';
 import removeAccents from 'remove-accents';
 import { useNotificationActions } from '../notificationHooks';
-import { productAPI, categoryAPI } from '../../api/api.js';
+import { productAPI, categoryAPI } from '../../api';
 
 
 const Header = () => {

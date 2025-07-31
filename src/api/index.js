@@ -1,4 +1,4 @@
-// Export từ file API tập trung
+// Export từ các API modules
 export {
   userAPI,
   productAPI,
@@ -8,7 +8,7 @@ export {
   categoryAPI,
   bannerAPI,
   touchAPI
-} from './api.js';
+} from './modules/index.js';
 
 // Export apiClient
 export { default as apiClient } from './client.js'; 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
-import { productAPI } from '../api/api.js';
+import { productAPI } from '../../api';
 
 
 export default function ProductListPage() {

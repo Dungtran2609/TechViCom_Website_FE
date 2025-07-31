@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { FaTicketAlt, FaGift, FaClock, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { voucherAPI } from '../api/api.js';
+import { voucherAPI } from '../api';
 
 const VoucherDisplay = ({ limit = 5 }) => {
   const [vouchers, setVouchers] = useState([]);

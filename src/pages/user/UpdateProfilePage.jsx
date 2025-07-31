@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
-import { userAPI } from "../api/api.js";
+import { userAPI } from "../../api";
 import { useNavigate } from "react-router-dom";
-import { useNotificationActions } from "../components/notificationHooks";
+import { useNotificationActions } from "../../components/notificationHooks";
 
 // Lấy user hiện tại từ localStorage
 const getCurrentUser = () => {

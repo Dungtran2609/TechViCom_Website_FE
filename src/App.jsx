@@ -1,22 +1,24 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
-import HomePage from './pages/HomePage';
-import ProductDetailPage from './pages/ProductDetailPage';
-import ProductListPage from './pages/ProductListPage';
-import CheckoutPage from './pages/CheckoutPage';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
 import ScrollToTop from './components/ScrollToTop';
-import CartPage from './pages/CartPage';
-import NewsPage from './pages/NewsPage';
-import NewsDetailPage from './pages/NewsDetailPage';
-import ThankYouPage from './pages/ThankYouPage.jsx';
-import OrderListPage from './pages/OrderListPage.jsx';
-import OrderDetailPage from './pages/OrderDetailPage.jsx';
-import AccountPage from './pages/AccountPage';
-import UpdateProfilePage from './pages/UpdateProfilePage';
-import AboutPage from './pages/AboutPage';
-import PolicyPage from './pages/PolicyPage';
+import { 
+  HomePage,
+  ProductDetailPage,
+  ProductListPage,
+  CheckoutPage,
+  LoginPage,
+  RegisterPage,
+  CartPage,
+  NewsPage,
+  NewsDetailPage,
+  ThankYouPage,
+  OrderListPage,
+  OrderDetailPage,
+  AccountPage,
+  UpdateProfilePage,
+  AboutPage,
+  PolicyPage
+} from './pages';
 import AnimationDemo from './components/AnimationDemo';
 import { NotificationProvider } from './components/NotificationSystem';
 import ErrorBoundary from './components/ErrorBoundary';

@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { FaUser, FaMapMarkerAlt, FaTruck, FaStore, FaCreditCard } from 'react-icons/fa';
-import VoucherInput from '../components/VoucherInput';
-import { voucherAPI, productAPI, userAPI } from '../api/api.js';
-import { useNotificationActions } from '../components/notificationHooks';
+import VoucherInput from '../../components/VoucherInput';
+import { voucherAPI, productAPI, userAPI } from '../../api';
+import { useNotificationActions } from '../../components/notificationHooks';
 
 function useQuery() {
   const { search } = useLocation();

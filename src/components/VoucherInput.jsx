@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaTicketAlt, FaCheck, FaTimes, FaInfoCircle } from 'react-icons/fa';
-import { voucherAPI } from '../api/api.js';
+import { voucherAPI } from '../api';
 import { useNotificationActions } from './notificationHooks';
 
 // Helper function to calculate discount

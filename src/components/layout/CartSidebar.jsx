@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaTimes, FaTrash, FaShoppingCart, FaChevronRight, FaSignInAlt } from 'react-icons/fa'; // Thêm icon FaSignInAlt
 import './CartSidebar.css';
-import { productAPI, userAPI } from '../../api/api.js';
+import { productAPI, userAPI } from '../../api';
 import { Link, useNavigate } from 'react-router-dom';
 
 

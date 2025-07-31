@@ -7,14 +7,14 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import './HomePage.css';
-import Toast from '../components/Toast';
-import VoucherDisplay from '../components/VoucherDisplay';
-import CategoriesGrid from '../components/CategoriesGrid';
+import Toast from '../../components/Toast';
+import VoucherDisplay from '../../components/VoucherDisplay';
+import CategoriesGrid from '../../components/CategoriesGrid';
 
-import { useHomeCategories } from '../hooks/useCategories';
-import { bannerAPI, productAPI, newsAPI } from '../api/api.js';
-import { ProductGridSkeleton, CategoryGridSkeleton } from '../components/LoadingSkeletons';
-import { FadeIn, StaggerContainer, StaggerItem } from '../components/Animations';
+import { useHomeCategories } from '../../hooks/useCategories';
+import { bannerAPI, productAPI, newsAPI } from '../../api';
+import { ProductGridSkeleton, CategoryGridSkeleton } from '../../components/LoadingSkeletons';
+import { FadeIn, StaggerContainer, StaggerItem } from '../../components/Animations';
 
 const HomePage = () => {
   const [timeLeft, setTimeLeft] = useState({

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { newsAPI } from '../api/api.js';
+import { newsAPI } from '../../api';
 
 
 const NewsPage = () => {

@@ -1,0 +1,49 @@
+{
+  "provinces": [
+    {
+      "id": "01",
+      "name": "Thành phố Hà Nội",
+      "districts": [
+        {
+          "id": "001",
+          "name": "Quận Ba Đình",
+          "wards": [
+            { "id": "00001", "name": "Phường Phúc Xá" },
+            { "id": "00004", "name": "Phường Trúc Bạch" },
+            { "id": "00006", "name": "Phường Vĩnh Phúc" }
+          ]
+        },
+        {
+          "id": "002",
+          "name": "Quận Hoàn Kiếm",
+          "wards": [
+            { "id": "00007", "name": "Phường Chương Dương" },
+            { "id": "00008", "name": "Phường Hàng Bạc" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "79",
+      "name": "Thành phố Hồ Chí Minh",
+      "districts": [
+        {
+          "id": "760",
+          "name": "Quận 1",
+          "wards": [
+            { "id": "26734", "name": "Phường Bến Nghé" },
+            { "id": "26737", "name": "Phường Bến Thành" }
+          ]
+        },
+        {
+          "id": "769",
+          "name": "Quận 7",
+          "wards": [
+            { "id": "27149", "name": "Phường Tân Phong" },
+            { "id": "27152", "name": "Phường Tân Phú" }
+          ]
+        }
+      ]
+    }
+  ]
+}

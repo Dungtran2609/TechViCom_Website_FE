@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaTicketAlt, FaEdit, FaTrash, FaPlus, FaEye, FaTimes } from 'react-icons/fa';
-import { voucherAPI } from '../api/api.js';
+import { voucherAPI } from '../../api';
 
 const VoucherManagementPage = () => {
   const [vouchers, setVouchers] = useState([]);
