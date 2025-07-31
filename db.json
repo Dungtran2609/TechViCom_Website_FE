@@ -4958,6 +4958,23 @@
       "birthday": "19-11-2002",
       "gender": "Nam",
       "cart": []
+    },
+    {
+      "id": "1248",
+      "name": "MAI HOANG Tùng",
+      "phone": "0349317733",
+      "password": "0987654321",
+      "email": "Dhj@mail.thitcho.edu.vn",
+      "addresses": [
+        {
+          "address": "12, Phường Trung Tự, Quận Đống Đa, Thành phố Hà Nội",
+          "isDefault": true
+        }
+      ],
+      "orders": [],
+      "avatar": "/images/avatar-default.png",
+      "birthday": "2025-07-03",
+      "gender": "Nam"
     }
   ],
   "banners": [
