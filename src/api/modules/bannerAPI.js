@@ -6,7 +6,7 @@ export const bannerAPI = {
   getBanners: async (params = {}) => {
     try {
       const response = await apiClient.get('/banners', params);
-      return response;
+      return response.data;
     } catch (error) {
       console.error('Get banners error:', error);
       throw error;
@@ -17,7 +17,7 @@ export const bannerAPI = {
   getBannerById: async (id) => {
     try {
       const response = await apiClient.get(`/banners/${id}`);
-      return response;
+      return response.data;
     } catch (error) {
       console.error('Get banner by ID error:', error);
       throw error;
@@ -28,7 +28,7 @@ export const bannerAPI = {
   createBanner: async (bannerData) => {
     try {
       const response = await apiClient.post('/banners', bannerData);
-      return response;
+      return response.data;
     } catch (error) {
       console.error('Create banner error:', error);
       throw error;
@@ -39,7 +39,7 @@ export const bannerAPI = {
   updateBanner: async (id, bannerData) => {
     try {
       const response = await apiClient.patch(`/banners/${id}`, bannerData);
-      return response;
+      return response.data;
     } catch (error) {
       console.error('Update banner error:', error);
       throw error;
@@ -49,7 +49,8 @@ export const bannerAPI = {
   // Xóa banner
   deleteBanner: async (id) => {
     try {
-      return apiClient.delete(`/banners/${id}`);
+      const response = await apiClient.delete(`/banners/${id}`);
+      return response.data;
     } catch (error) {
       console.error('Delete banner error:', error);
       throw error;

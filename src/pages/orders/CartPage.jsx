@@ -31,7 +31,11 @@ export default function CartPage() {
     // Chỉ fetch products nếu đã đăng nhập
     if (currentUser) {
       productAPI.getProducts()
-        .then(data => setProducts(data))
+        .then(data => {
+          // Đảm bảo luôn là mảng
+          const arr = Array.isArray(data) ? data : (data && Array.isArray(data.data) ? data.data : []);
+          setProducts(arr);
+        })
         .catch(error => {
           console.error('Error fetching products:', error);
         });
