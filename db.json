@@ -4975,6 +4975,51 @@
       "avatar": "/images/avatar-default.png",
       "birthday": "2025-07-03",
       "gender": "Nam"
+    },
+    {
+      "id": "dce3",
+      "name": "Phạm Hồng Nhung",
+      "phone": "0362729054",
+      "password": "12345678",
+      "email": "nhungphph49974@gmail.com",
+      "addresses": [
+        {
+          "address": "số nhà 32, Phường Phúc Xá, Quận Ba Đình, Thành phố Hà Nội",
+          "isDefault": true
+        }
+      ],
+      "orders": [
+        {
+          "orderId": "DH24379",
+          "date": "1/8/2025",
+          "subtotal": 31990000,
+          "shippingFee": 0,
+          "voucherDiscount": 0,
+          "total": 31990000,
+          "voucherCode": null,
+          "status": "Đang xử lý",
+          "deliveryAddress": "số nhà 32, Phường Phúc Xá, Quận Ba Đình, Thành phố Hà Nội",
+          "recipientName": "Phạm Hồng Nhung",
+          "recipientPhone": "0362729054",
+          "recipientEmail": "nhungphph49974@gmail.com",
+          "paymentMethod": "Thanh toán khi nhận hàng (COD)",
+          "note": "",
+          "deliveryMethod": "Nhận tại cửa hàng",
+          "products": [
+            {
+              "name": "iPhone 15 Pro Max 256GB",
+              "quantity": 1,
+              "price": 31990000,
+              "image": "/images/products/iphone-15-pro.jpg",
+              "category": "dien-thoai"
+            }
+          ]
+        }
+      ],
+      "avatar": "/images/avatar-default.png",
+      "birthday": "2025-07-10",
+      "gender": "Nữ",
+      "cart": []
     }
   ],
   "banners": [
