@@ -11,6 +11,7 @@ import {
   CartPage,
   NewsPage,
   NewsDetailPage,
+  CategoryNewsPage,
   ThankYouPage,
   OrderListPage,
   OrderDetailPage,
@@ -45,6 +46,7 @@ function App() {
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/news" element={<NewsPage />} />
                 <Route path="/news/:id" element={<NewsDetailPage />} />
+                <Route path="/news/category/:categoryId" element={<CategoryNewsPage />} />
                 <Route path="/thankyou" element={<ThankYouPage />} />
                 <Route path="/orders" element={<OrderListPage />} />
                 <Route path="/order/:id" element={<OrderDetailPage />} />
