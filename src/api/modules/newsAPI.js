@@ -1,72 +1,38 @@
+// File: src/api/modules/newsAPI.js (Bản tối ưu cho Phương án B)
+
 import apiClient from '../client.js';
 
-// ===== NEWS API =====
 export const newsAPI = {
   // Lấy tất cả tin tức
-  getNews: async (params = {}) => {
-    try {
-      const response = await apiClient.get('/news', params);
-      return response;
-    } catch (error) {
-      console.error('Get news error:', error);
-      throw error;
-    }
+  getNews: (params = {}) => {
+    return apiClient.get('/api/v1/news', params);
   },
 
   // Lấy tin tức theo ID
-  getNewsById: async (id) => {
-    try {
-      const response = await apiClient.get(`/news/${id}`);
-      return response;
-    } catch (error) {
-      console.error('Get news by ID error:', error);
-      throw error;
-    }
+  getNewsById: (id) => {
+    return apiClient.get(`/api/v1/news/${id}`);
   },
 
   // Lấy tin tức nổi bật
-  getFeaturedNews: async (limit = 3) => {
-    try {
-      const response = await apiClient.get('/news', { 
-        featured: true,
-        _limit: limit 
-      });
-      return response;
-    } catch (error) {
-      console.error('Get featured news error:', error);
-      throw error;
-    }
+  getFeaturedNews: (limit = 3) => {
+    return apiClient.get('/api/v1/news', { 
+      featured: true,
+      _limit: limit 
+    });
   },
 
   // Tạo tin tức mới
-  createNews: async (newsData) => {
-    try {
-      const response = await apiClient.post('/news', newsData);
-      return response;
-    } catch (error) {
-      console.error('Create news error:', error);
-      throw error;
-    }
+  createNews: (newsData) => {
+    return apiClient.post('/api/v1/news', newsData);
   },
 
   // Cập nhật tin tức
-  updateNews: async (id, newsData) => {
-    try {
-      const response = await apiClient.patch(`/news/${id}`, newsData);
-      return response;
-    } catch (error) {
-      console.error('Update news error:', error);
-      throw error;
-    }
+  updateNews: (id, newsData) => {
+    return apiClient.patch(`/api/v1/news/${id}`, newsData);
   },
 
   // Xóa tin tức
-  deleteNews: async (id) => {
-    try {
-      return apiClient.delete(`/news/${id}`);
-    } catch (error) {
-      console.error('Delete news error:', error);
-      throw error;
-    }
+  deleteNews: (id) => {
+    return apiClient.delete(`/api/v1/news/${id}`);
   }
-}; 
+};
