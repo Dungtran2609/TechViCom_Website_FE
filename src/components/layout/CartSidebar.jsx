@@ -32,11 +32,15 @@ const CartSidebar = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     if (isOpen) {
-          productAPI.getProducts()
-      .then(data => setProducts(data))
-      .catch(error => {
-        console.error('Error fetching products:', error);
-      });
+      productAPI.getProducts()
+        .then(data => {
+          // Đảm bảo luôn là mảng
+          const arr = Array.isArray(data) ? data : (data && Array.isArray(data.data) ? data.data : []);
+          setProducts(arr);
+        })
+        .catch(error => {
+          console.error('Error fetching products:', error);
+        });
     }
   }, [isOpen]);
 
@@ -70,8 +74,10 @@ const CartSidebar = ({ isOpen, onClose }) => {
     if (!currentUser) return; // Chỉ cho phép cập nhật nếu đã đăng nhập
     try {
       const updatedUser = await userAPI.updateUser(currentUser.id, { cart: newCart });
-      localStorage.setItem('user', JSON.stringify(updatedUser));
-      setCurrentUser(updatedUser); // Cập nhật state currentUser để re-render
+      // Đảm bảo luôn lưu cart vào localStorage, kể cả khi API không trả về cart
+      const userToSave = { ...updatedUser, cart: newCart };
+      localStorage.setItem('user', JSON.stringify(userToSave));
+      setCurrentUser(userToSave); // Cập nhật state currentUser để re-render
     } catch (error) {
       console.error("Lỗi cập nhật giỏ hàng của người dùng:", error);
     }

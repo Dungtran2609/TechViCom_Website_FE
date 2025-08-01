@@ -4,7 +4,7 @@
 export const API_CONFIG = {
   // Base URLs cho các môi trường khác nhau
   BASE_URLS: {
-    development: 'http://localhost:3001',
+    development: 'http://localhost:8000/api/v1',
     staging: 'https://api-staging.techvicom.com',
     production: 'https://api.techvicom.com',
   },

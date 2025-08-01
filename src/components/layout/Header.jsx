@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import { FaBars, FaUser, FaShoppingCart, FaSignInAlt, FaUserPlus, FaChevronRight, FaSearch, FaFire, FaSignOutAlt, FaUserCircle, FaTag, FaTimes, FaExclamationCircle, FaUserCog } from 'react-icons/fa';
+import { FaBars, FaUser, FaShoppingCart, FaSignInAlt, FaUserPlus, FaChevronRight, FaSearch, FaFire, FaSignOutAlt, FaUserCircle, FaTag, FaTimes, FaExclamationCircle, FaUserCog, FaTimesCircle, FaFilter } from 'react-icons/fa';
 import { ThemeToggle } from '../../contexts/ThemeContext';
 import './Header.css';
 import CartSidebar from './CartSidebar';
@@ -16,28 +16,151 @@ const Header = () => {
 
   const navigate = useNavigate();
 
-  // Các state và logic cục bộ của Header (giữ nguyên)
+  // Các state và logic cục bộ của Header
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  // ... các state khác giữ nguyên ...
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
+  const [categoriesError, setCategoriesError] = useState(null);
+  const [isSearching, setIsSearching] = useState(false);
+  const [productSearch, setProductSearch] = useState('');
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [hoveredCategory, setHoveredCategory] = useState(null);
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [mobileSearchTerm, setMobileSearchTerm] = useState('');
+  const [filter, setFilter] = useState({
+    category: '', color: '', storage: '', priceMin: '', priceMax: ''
+  });
 
-  // Refs (giữ nguyên)
+  // Refs
   const userMenuRef = useRef(null);
   const menuRef = useRef(null);
   const searchRef = useRef(null);
 
-  // Fetch products và categories (giữ nguyên)
+  // Đảm bảo categories và products luôn là mảng khi sử dụng
+  const safeCategories = Array.isArray(categories) ? categories : [];
+  const safeProducts = Array.isArray(products) ? products : [];
+
+  // Fetch categories
   useEffect(() => {
-    // ... logic fetch data ...
+    async function fetchCategories() {
+      try {
+        const data = await categoryAPI.getCategories();
+        // Đảm bảo luôn là mảng (nếu là Laravel paginate thì data.data là mảng)
+        const arr = Array.isArray(data) ? data : (data && Array.isArray(data.data) ? data.data : []);
+        setCategories(arr);
+      } catch (err) {
+        setCategories([]);
+        setCategoriesError(err.message);
+      } finally {
+        setCategoriesLoading(false);
+      }
+    }
+    fetchCategories();
   }, []);
 
-  // handleClickOutside (giữ nguyên)
+  // Fetch products
   useEffect(() => {
-    // ...
+    async function fetchProducts() {
+      try {
+        const data = await productAPI.getProducts();
+        const arr = Array.isArray(data) ? data : (data && Array.isArray(data.data) ? data.data : []);
+        setProducts(arr);
+      } catch (err) {
+        setProducts([]);
+      }
+    }
+    fetchProducts();
   }, []);
+
+  const filteredCategories = safeCategories.filter(category =>
+    removeAccents(category.name.toLowerCase()).includes(removeAccents(searchTerm.toLowerCase())) ||
+    (category.subcategories?.some(sub =>
+      removeAccents(sub.name.toLowerCase()).includes(removeAccents(searchTerm.toLowerCase()))
+    ))
+  );
+
+  const allColors = Array.from(new Set(safeProducts.flatMap(p => p.colors || [])));
+  const allStorages = Array.from(new Set(safeProducts.flatMap(p => p.variants?.map(v => v.storage) || [])));
+  const allCategories = Array.from(new Set(safeProducts.map(p => p.category)));
+  const allBrands = Array.from(new Set(safeProducts.map(p => p.brand).filter(Boolean)));
+  // Danh sách brand cố định để hiển thị - chỉ đến HP
+  const allowedBrands = [
+    "Apple", "Samsung", "Xiaomi", "Google", "OnePlus", "OPPO", "Defunc", "Hoa Phat", "Unie", "Dell", "Lenovo", "HP"
+  ];
+  const displayBrands = allBrands.filter(brand => allowedBrands.includes(brand));
+
+  const normalize = (str) => removeAccents((str || '').toLowerCase().trim());
+
+  const suggestions = safeProducts.filter(p => {
+    const q = normalize(productSearch);
+    const matchText = [p.name, p.description, p.intro].map(normalize).join(' ');
+    const match = q === '' || matchText.includes(q);
+    const matchCategory = !filter.category || p.category === filter.category;
+    const matchColor = !filter.color || p.colors?.includes(filter.color);
+    const matchStorage = !filter.storage || p.variants?.some(v => v.storage === filter.storage);
+    const matchPrice = (!filter.priceMin || p.price >= +filter.priceMin) && (!filter.priceMax || p.price <= +filter.priceMax);
+    return match && matchCategory && matchColor && matchStorage && matchPrice;
+  }).slice(0, 5);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) setIsUserMenuOpen(false);
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+        setHoveredCategory(null);
+        setSearchTerm('');
+      }
+      if (searchRef.current && !searchRef.current.contains(event.target)) setShowSuggestions(false);
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const currentCategory = safeCategories.find(cat => cat.id === hoveredCategory);
+
+  const handleProductSearch = (e) => {
+    e.preventDefault();
+    if (productSearch.trim()) {
+      setIsSearching(true);
+      setTimeout(() => {
+        navigate(`/products?q=${encodeURIComponent(productSearch.trim())}`);
+        setProductSearch('');
+        setShowSuggestions(false);
+        setIsSearching(false);
+      }, 300);
+    }
+  };
+
+  const handleMobileSearch = (e) => {
+    e.preventDefault();
+    if (mobileSearchTerm.trim()) {
+      setIsSearching(true);
+      setTimeout(() => {
+        navigate(`/products?q=${encodeURIComponent(mobileSearchTerm.trim())}`);
+        setMobileSearchTerm('');
+        setIsMobileSearchOpen(false);
+        setIsSearching(false);
+      }, 300);
+    }
+  };
+
+  const handleMobileInputChange = (e) => {
+    setMobileSearchTerm(e.target.value);
+  };
+
+  // Debug: Log mobile search state
+  useEffect(() => {
+    console.log('Mobile search state:', { isMobileSearchOpen, mobileSearchTerm });
+  }, [isMobileSearchOpen, mobileSearchTerm]);
+
+  const handleInputChange = (e) => {
+    setProductSearch(e.target.value);
+    setShowSuggestions(e.target.value.trim().length > 0);
+  };
 
   // ✅ BƯỚC 2: HÀM LOGOUT BÂY GIỜ RẤT ĐƠN GIẢN
   const handleLogout = () => {
@@ -45,9 +168,6 @@ const Header = () => {
     logout(); // Gọi hàm logout từ context (nó đã tự xử lý logic)
     navigate('/'); // Điều hướng về trang chủ
   };
-
-  // Các hàm xử lý logic khác giữ nguyên
-  // ...
 
   // ✅ BƯỚC 3: SỬ DỤNG `authLoading` TỪ CONTEXT
   // Hiển thị một header trống trong khi chờ xác thực để tránh nhấp nháy UI
@@ -152,17 +272,17 @@ const Header = () => {
                           <Link to={`/products${currentCategory.path}`} className="view-all-link">Xem tất cả</Link>
                         </div>
                         <div className="subcategories-content">
-                          <div className="subcategories-list">
-                            {currentCategory.subcategories.slice(0, 4).map((sub) => (
-                              <Link key={sub.path} to={sub.path} className={`subcategory-item ${sub.isPopular ? 'popular' : ''}`} onClick={() => setIsMenuOpen(false)}>
-                                {sub.name}
-                                {sub.isPopular && <span className="popular-badge">Hot</span>}
-                              </Link>
-                            ))}
-                          </div>
+                            <div className="subcategories-list">
+                              {(Array.isArray(currentCategory.subcategories) ? currentCategory.subcategories : []).slice(0, 4).map((sub) => (
+                                <Link key={sub.path} to={sub.path} className={`subcategory-item ${sub.isPopular ? 'popular' : ''}`} onClick={() => setIsMenuOpen(false)}>
+                                  {sub.name}
+                                  {sub.isPopular && <span className="popular-badge">Hot</span>}
+                                </Link>
+                              ))}
+                            </div>
                           {(() => {
                             // Lấy sản phẩm nổi bật tự động từ products theo category
-                            const categorySlug = currentCategory.path.replace('/', '');
+                            const categorySlug = currentCategory.path ? currentCategory.path.replace('/', '') : '';
                             const featuredProducts = products
                               .filter(p => p.category === categorySlug && p.isFeatured)
                               .slice(0, 2); // Chỉ lấy 2 sản phẩm nổi bật
@@ -255,7 +375,6 @@ const Header = () => {
             </form>
           </div>
 
-
           <div className="right-section" style={{ gap: 15, display: 'flex', alignItems: 'center' }}>
             <div style={{ position: 'relative', display: 'inline-block' }}>
               <button onClick={() => setIsUserMenuOpen((v) => !v)} className="header-action-btn">
@@ -315,8 +434,34 @@ const Header = () => {
         </div>
       </header>
 
-      {/* Phần Mobile Search và CartSidebar giữ nguyên */}
-      {/* ... */}
+      {/* Mobile Search */}
+      {isMobileSearchOpen && (
+        <div className="mobile-search-overlay">
+          <div className="mobile-search-container">
+            <div className="mobile-search-header">
+              <button onClick={() => setIsMobileSearchOpen(false)} className="mobile-search-close">
+                <FaTimes />
+              </button>
+              <form onSubmit={handleMobileSearch} className="mobile-search-form">
+                <input
+                  type="text"
+                  placeholder="Tìm kiếm sản phẩm..."
+                  value={mobileSearchTerm}
+                  onChange={handleMobileInputChange}
+                  className="mobile-search-input"
+                  autoFocus
+                />
+                <button type="submit" className="mobile-search-submit" disabled={isSearching}>
+                  {isSearching ? <div className="loading-spinner"></div> : <FaSearch />}
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Cart Sidebar */}
+      <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </>
   );
 };

@@ -4,35 +4,71 @@ import apiClient from '../client.js';
 
 export const newsAPI = {
   // Lấy tất cả tin tức
-  getNews: (params = {}) => {
-    return apiClient.get('/api/v1/news', params);
+  getNews: async (params = {}) => {
+    try {
+      const response = await apiClient.get('/news', params);
+      return response.data;
+    } catch (error) {
+      console.error('Get news error:', error);
+      throw error;
+    }
   },
 
   // Lấy tin tức theo ID
-  getNewsById: (id) => {
-    return apiClient.get(`/api/v1/news/${id}`);
+  getNewsById: async (id) => {
+    try {
+      const response = await apiClient.get(`/news/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error('Get news by ID error:', error);
+      throw error;
+    }
   },
 
   // Lấy tin tức nổi bật
-  getFeaturedNews: (limit = 3) => {
-    return apiClient.get('/api/v1/news', { 
-      featured: true,
-      _limit: limit 
-    });
+  getFeaturedNews: async (limit = 3) => {
+    try {
+      const response = await apiClient.get('/news', { 
+        featured: true,
+        _limit: limit 
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Get featured news error:', error);
+      throw error;
+    }
   },
 
   // Tạo tin tức mới
-  createNews: (newsData) => {
-    return apiClient.post('/api/v1/news', newsData);
+  createNews: async (newsData) => {
+    try {
+      const response = await apiClient.post('/news', newsData);
+      return response.data;
+    } catch (error) {
+      console.error('Create news error:', error);
+      throw error;
+    }
   },
 
   // Cập nhật tin tức
-  updateNews: (id, newsData) => {
-    return apiClient.patch(`/api/v1/news/${id}`, newsData);
+  updateNews: async (id, newsData) => {
+    try {
+      const response = await apiClient.patch(`/news/${id}`, newsData);
+      return response.data;
+    } catch (error) {
+      console.error('Update news error:', error);
+      throw error;
+    }
   },
 
   // Xóa tin tức
-  deleteNews: (id) => {
-    return apiClient.delete(`/api/v1/news/${id}`);
+  deleteNews: async (id) => {
+    try {
+      const response = await apiClient.delete(`/news/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error('Delete news error:', error);
+      throw error;
+    }
   }
 };

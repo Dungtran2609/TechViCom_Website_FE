@@ -49,7 +49,8 @@ export const categoryAPI = {
   // Xóa danh mục
   deleteCategory: async (id) => {
     try {
-      return apiClient.delete(`/categories/${id}`);
+      const response = await apiClient.delete(`/categories/${id}`);
+      return response;
     } catch (error) {
       console.error('Delete category error:', error);
       throw error;

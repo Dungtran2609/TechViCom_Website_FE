@@ -32,6 +32,7 @@ export default function ProductDetailPage() {
   // THAY ĐỔI: Sử dụng state cho popup thay vì toast
   // ==========================================================
   const [showLoginPopup, setShowLoginPopup] = useState(false);
+  const [selectedAttributes, setSelectedAttributes] = useState({});
 
   const [reviews, setReviews] = useState([]);
   const [reviewText, setReviewText] = useState("");
@@ -100,7 +101,64 @@ export default function ProductDetailPage() {
 
   const variants = Array.isArray(product.variants) ? product.variants : [];
   const colors = Array.isArray(product.colors) ? product.colors : [];
-  const currentVariant = variants.find(v => v.storage === selectedStorage) || variants[0] || null;
+  // Lấy danh sách các giá trị thuộc tính (ví dụ màu sắc) từ các biến thể
+  // Lấy tất cả các thuộc tính của biến thể
+  // Chuẩn hóa lấy thuộc tính từ tất cả biến thể
+  const attributeGroups = {};
+  variants.forEach(v => {
+    if (Array.isArray(v.attribute_values)) {
+      v.attribute_values.forEach(attr => {
+        const key = attr.attribute?.slug || attr.attribute?.name || 'unknown';
+        if (!attributeGroups[key]) attributeGroups[key] = { name: attr.attribute?.name || key, type: attr.attribute?.type, values: new Set() };
+        // Nếu là color thì lấy cả value và color_code
+        if (attr.attribute?.type === 'color') {
+          attributeGroups[key].values.add(JSON.stringify({ value: attr.value, color_code: attr.color_code }));
+        } else {
+          attributeGroups[key].values.add(attr.value);
+        }
+      });
+    }
+  });
+
+  // Chuyển sang mảng để render
+  // Chuyển sang mảng để render
+  const attributeOptions = Object.entries(attributeGroups).map(([key, group]) => ({
+    key,
+    name: group.name,
+    type: group.type,
+    values: group.type === 'color'
+      ? Array.from(group.values).map(v => JSON.parse(v))
+      : Array.from(group.values)
+  }));
+
+  // State cho từng thuộc tính được chọn
+
+  // Khi chọn thuộc tính
+  // Khi chọn thuộc tính
+  const handleAttributeSelect = (attrKey, value) => {
+    setSelectedAttributes(prev => ({ ...prev, [attrKey]: value }));
+  };
+
+  // Xác định biến thể hiện tại dựa trên các thuộc tính đã chọn
+  // Xác định biến thể hiện tại dựa trên các thuộc tính đã chọn
+  const currentVariant = variants.find(v => {
+    if (!Array.isArray(v.attribute_values)) return false;
+    // Phải match toàn bộ thuộc tính đã chọn
+    return Object.entries(selectedAttributes).every(([attrKey, val]) => {
+      return v.attribute_values.some(attr => {
+        const key = attr.attribute?.slug || attr.attribute?.name || 'unknown';
+        if (attributeGroups[key].type === 'color') {
+          // val có thể là object { value, color_code }
+          if (typeof val === 'object' && val !== null) {
+            return attr.value === val.value && attr.color_code === val.color_code;
+          }
+          // Nếu chỉ truyền color_code thì vẫn match
+          return attr.color_code === val || attr.value === val;
+        }
+        return attr.value === val;
+      });
+    });
+  }) || null;
 
   // ====================================================================
   // SỬA ĐỔI Ở ĐÂY: Hàm Mua Ngay sẽ hiển thị popup
@@ -134,13 +192,18 @@ export default function ProductDetailPage() {
       return;
     }
 
-    if (variants.length > 0 && !selectedStorage) {
-      setShowSelectStorageToast(true);
-      setTimeout(() => setShowSelectStorageToast(false), 1500);
-      document.querySelector('.option-group')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
+    // Kiểm tra thuộc tính cần chọn (ví dụ storage)
+    if (variants.length > 0) {
+      // Tìm thuộc tính đầu tiên của biến thể (ví dụ storage, color...)
+      const requiredAttr = attributeOptions[0]?.key;
+      if (requiredAttr && !selectedAttributes[requiredAttr]) {
+        setShowSelectStorageToast(true);
+        setTimeout(() => setShowSelectStorageToast(false), 1500);
+        document.querySelector('.option-group')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
     }
-    
+
     let currentCart = currentUser.cart || [];
     const existingItemIndex = currentCart.findIndex(item => item.id === product.id && item.variant?.storage === currentVariant?.storage);
 
@@ -152,12 +215,15 @@ export default function ProductDetailPage() {
 
     try {
       const updatedUser = await userAPI.updateUser(currentUser.id, { cart: currentCart });
-      localStorage.setItem('user', JSON.stringify(updatedUser));
+      // Đảm bảo luôn lưu cart vào localStorage, kể cả khi API không trả về cart
+      const userToSave = { ...updatedUser, cart: currentCart };
+      localStorage.setItem('user', JSON.stringify(userToSave));
+      window.dispatchEvent(new Event('userChanged'));
     } catch (error) {
       console.error("Lỗi khi cập nhật giỏ hàng:", error);
       return;
     }
-    
+
     setShowAddCartToast(true);
     setTimeout(() => setShowAddCartToast(false), 1500);
     window.dispatchEvent(new Event('storage'));
@@ -224,22 +290,42 @@ export default function ProductDetailPage() {
       <div className="product-detail-main">
         <div className="product-gallery-tgdd">
           <div className="gallery-slider-bg">
-            <img className="gallery-main-img" src={product.images && product.images.length > 0 ? product.images[mainImgIdx] : product.image} alt="main" />
+            <img
+              className="gallery-main-img"
+              src={(() => {
+                let imgSrc = currentVariant && currentVariant.image
+                  ? currentVariant.image
+                  : (product.images && product.images.length > 0
+                      ? product.images[mainImgIdx]
+                      : product.image);
+                if (imgSrc && !imgSrc.startsWith('http')) {
+                  imgSrc = `http://localhost:8000/storage/${imgSrc.replace(/^storage[\\\/]/, '')}`;
+                }
+                return imgSrc;
+              })()}
+              alt="main"
+            />
             <div className="gallery-slider-nav">
               <span>{product.images && product.images.length > 0 ? `${mainImgIdx+1}/${product.images.length}` : '1/1'}</span>
             </div>
           </div>
           {product.images && product.images.length > 1 && (
             <div className="gallery-thumbs-tgdd">
-              {product.images.map((img, idx) => (
-                <div
-                  key={img}
-                  className={`gallery-thumb-tgdd${mainImgIdx === idx ? ' active' : ''}`}
-                  onClick={() => setMainImgIdx(idx)}
-                >
-                  <img src={img} alt={`thumb-${idx}`} />
-                </div>
-              ))}
+              {product.images.map((img, idx) => {
+                let thumbSrc = img;
+                if (thumbSrc && !thumbSrc.startsWith('http')) {
+                  thumbSrc = `http://localhost:8000/storage/${thumbSrc.replace(/^storage[\\\/]/, '')}`;
+                }
+                return (
+                  <div
+                    key={img}
+                    className={`gallery-thumb-tgdd${mainImgIdx === idx ? ' active' : ''}`}
+                    onClick={() => setMainImgIdx(idx)}
+                  >
+                    <img src={thumbSrc} alt={`thumb-${idx}`} />
+                  </div>
+                );
+              })}
             </div>
           )}
           <div className="product-extra-info">
@@ -283,42 +369,59 @@ export default function ProductDetailPage() {
             </div>
           )}
           <div className="product-meta-tgdd">
-            <span className="product-code-tgdd">Mã SP: {product.id}</span>
+            <span className="product-code-tgdd">Mã SP: {product.sku || product.id}</span>
             <a href="#specs" className="spec-link-tgdd">Thông số kỹ thuật</a>
           </div>
-          <div className="product-description-tgdd">{product.description}</div>
-          <div className="product-warranty-tgdd">{product.warranty}</div>
+          {/* Mô tả ngắn */}
+          {product.short_description && (
+            <div className="product-short-description-tgdd" style={{marginBottom:8}}>{product.short_description}</div>
+          )}
+          {/* Mô tả dài (HTML) */}
+          {product.long_description && (
+            <div className="product-long-description-tgdd" style={{marginBottom:8}} dangerouslySetInnerHTML={{__html: product.long_description}} />
+          )}
+          {/* Ảnh thumbnail */}
+          {product.thumbnail && (
+            <div style={{marginBottom:8}}>
+              <img src={product.thumbnail.startsWith('http') ? product.thumbnail : `http://localhost:8000/storage/${product.thumbnail.replace(/^storage[\\/]/, '')}`} alt="thumbnail" style={{maxWidth:180,borderRadius:8}} />
+            </div>
+          )}
+          {/* Bảo hành */}
+          {product.warranty && (
+            <div className="product-warranty-tgdd">{product.warranty}</div>
+          )}
+          {/* Thông tin biến thể chi tiết */}
+          {/* Thông tin biến thể chi tiết: chỉ log ra console để kiểm tra */}
+          {variants.length > 0 && (() => { console.log('Variants:', variants); return null; })()}
           <div className="product-options-tgdd">
-            <div className="option-label storage-label">
-              <FontAwesomeIcon icon={faHdd} style={{marginRight:'8px',fontSize:14}} />
-              Dung lượng
-            </div>
-            <div className="option-group">
-              {variants.map((v) => (
-                <button
-                  key={v.storage}
-                  className={`option-btn${selectedStorage === v.storage ? ' active' : ''}`}
-                  onClick={() => setSelectedStorage(v.storage)}
-                >
-                  <FontAwesomeIcon icon={faHdd} style={{marginRight:'6px',fontSize:12}} />
-                  {v.storage}
-                </button>
-              ))}
-            </div>
-            <div className="option-label">Màu sắc</div>
-            {colors.length > 0 && (
-            <div className="option-group option-group-color">
-                {colors.map((c) => (
-                <button
-                  key={c}
-                  className={`color-dot-btn${selectedColor === c ? ' active' : ''}`}
-                  style={{ background: c }}
-                  title={c}
-                  onClick={() => setSelectedColor(c)}
-                />
-              ))}
-            </div>
-            )}
+            {/* Hiển thị các nhóm thuộc tính để chọn */}
+            {attributeOptions.map(attr => (
+              <div key={attr.key} style={{marginBottom:8}}>
+                <div className="option-label">{attr.name}</div>
+                <div className="option-group" style={{display:'flex',gap:8}}>
+                  {attr.values.map(val => (
+                    attr.type === 'color' ? (
+                      <button
+                        key={val.value}
+                        className={`color-dot-btn${JSON.stringify(selectedAttributes[attr.key]) === JSON.stringify(val) ? ' active' : ''}`}
+                        style={{ background: val.color_code, width:32, height:32, borderRadius:'50%', border:JSON.stringify(selectedAttributes[attr.key]) === JSON.stringify(val) ? '2px solid #e83a45' : '1px solid #ccc', cursor:'pointer' }}
+                        title={val.value}
+                        onClick={() => handleAttributeSelect(attr.key, val)}
+                      />
+                    ) : (
+                      <button
+                        key={val}
+                        className={`option-btn${selectedAttributes[attr.key] === val ? ' active' : ''}`}
+                        style={{ minWidth:60, padding:'6px 12px', borderRadius:6, border:selectedAttributes[attr.key] === val ? '2px solid #e83a45' : '1px solid #ccc', cursor:'pointer' }}
+                        onClick={() => handleAttributeSelect(attr.key, val)}
+                      >
+                        {val}
+                      </button>
+                    )
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
           <div className="product-rating-block">
             <span className="rating-stars">
@@ -336,15 +439,34 @@ export default function ProductDetailPage() {
           <div className="product-price-box-tgdd">
             <div className="product-price-block-tgdd">
               <div className="current-price-tgdd">
-                {(currentVariant?.price || product.price || 0).toLocaleString()} đ
+                {(() => {
+                  if (currentVariant) {
+                    const price = currentVariant.sale_price && Number(currentVariant.sale_price) > 0
+                      ? Number(currentVariant.sale_price)
+                      : Number(currentVariant.price);
+                    return price.toLocaleString() + ' đ';
+                  }
+                  // Nếu không có biến thể thì lấy giá sản phẩm
+                  return (product.price ? Number(product.price).toLocaleString() : '0 đ');
+                })()}
               </div>
-              {product.originalPrice && (
+              {currentVariant && currentVariant.price && currentVariant.sale_price && Number(currentVariant.sale_price) < Number(currentVariant.price) ? (
                 <div className="old-price-tgdd">
-                  {product.originalPrice.toLocaleString()} đ
+                  {Number(currentVariant.price).toLocaleString()} đ
                 </div>
+              ) : (
+                product.originalPrice && (
+                  <div className="old-price-tgdd">
+                    {Number(product.originalPrice).toLocaleString()} đ
+                  </div>
+                )
               )}
-              {product.installment && (
-                <div className="installment-tgdd">{product.installment}</div>
+              {(currentVariant && currentVariant.installment) ? (
+                <div className="installment-tgdd">{currentVariant.installment}</div>
+              ) : (
+                product.installment && (
+                  <div className="installment-tgdd">{product.installment}</div>
+                )
               )}
             </div>
           </div>
