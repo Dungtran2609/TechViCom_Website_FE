@@ -7,7 +7,8 @@ export {
   newsAPI,
   categoryAPI,
   bannerAPI,
-  touchAPI
+  touchAPI,
+  couponAPI
 } from './modules/index.js';
 
 // Export apiClient

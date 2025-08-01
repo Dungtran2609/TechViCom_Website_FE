@@ -7,18 +7,24 @@ import { BsFan } from 'react-icons/bs';
 import { GiWashingMachine } from 'react-icons/gi';
 import { CategoryGridSkeleton } from './LoadingSkeletons';
 
-// Icon mapping
+// Icon mapping: key là string tên icon, value là component
 const iconMap = {
-  FaMobileAlt, FaLaptop, FaHeadphones, MdAir, MdKitchen,
-  BsFan, IoPhonePortrait, GiWashingMachine, FaTabletAlt,
+  'FaMobileAlt': FaMobileAlt,
+  'FaLaptop': FaLaptop,
+  'FaHeadphones': FaHeadphones,
+  'MdAir': MdAir,
+  'MdKitchen': MdKitchen,
+  'BsFan': BsFan,
+  'IoPhonePortrait': IoPhonePortrait,
+  'GiWashingMachine': GiWashingMachine,
+  'FaTabletAlt': FaTabletAlt,
 };
 
 // Hàm tạo icon component
 const createIconComponent = (iconName, size = 50) => {
-  const IconComponent = iconMap[iconName];
-  if (!IconComponent) {
+  const IconComponent = iconMap[iconName] || FaMobileAlt;
+  if (!iconMap[iconName]) {
     console.warn(`Icon ${iconName} not found`);
-    return <FaMobileAlt size={size} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />;
   }
   return <IconComponent size={size} style={{ color: '#ff6c2f', stroke: 'black', strokeWidth: '1' }} />;
 };
