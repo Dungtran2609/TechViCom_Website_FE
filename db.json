@@ -5020,6 +5020,23 @@
       "birthday": "2025-07-10",
       "gender": "Nữ",
       "cart": []
+    },
+    {
+      "id": "12db",
+      "name": "Phạm Hồng Nhung",
+      "phone": "0362729055",
+      "password": "12345678",
+      "email": "nhungphph49974@gmail.com",
+      "addresses": [
+        {
+          "address": "Số nhà 1, Quận Hoàn Kiếm, Thành phố Hà Nội",
+          "isDefault": true
+        }
+      ],
+      "orders": [],
+      "avatar": "/images/avatar-default.png",
+      "birthday": "2025-07-30",
+      "gender": "Nam"
     }
   ],
   "banners": [

@@ -1,22 +1,23 @@
+// src/pages/CheckoutPage.jsx
+
 import React, { useEffect, useState, useMemo } from "react";
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { FaUser, FaMapMarkerAlt, FaTruck, FaStore, FaCreditCard } from 'react-icons/fa';
 import VoucherInput from '../../components/VoucherInput';
-import { voucherAPI, productAPI, userAPI } from '../../api';
+// ✅ BƯỚC 1: Import API mới và xóa các API không cần thiết ở đây
+import { productAPI } from '../../api';
+import { orderAPI } from '../../api/modules/orderAPI'; // Import API mới tạo
 import { useNotificationActions } from '../../components/notificationHooks';
-
 
 function useQuery() {
   const { search } = useLocation();
   return useMemo(() => new URLSearchParams(search), [search]);
 }
 
-
 function getCurrentUser() {
   const user = localStorage.getItem('user');
   return user ? JSON.parse(user) : null;
 }
-
 
 const CheckoutPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -34,7 +35,7 @@ const CheckoutPage = () => {
   const query = useQuery();
   const { success: showSuccess, error: showError } = useNotificationActions();
 
-
+  // Fetch sản phẩm để hiển thị
   useEffect(() => {
     productAPI.getProducts()
       .then(data => setProducts(data))
@@ -43,7 +44,7 @@ const CheckoutPage = () => {
       });
   }, []);
 
-
+  // Điền thông tin người dùng vào form
   useEffect(() => {
     const user = getCurrentUser();
     if (user) {
@@ -57,7 +58,7 @@ const CheckoutPage = () => {
     }
   }, []);
 
-
+  // Xây dựng giỏ hàng để hiển thị
   useEffect(() => {
     if (!products.length) return;
    
@@ -65,42 +66,36 @@ const CheckoutPage = () => {
     const buyNowStorage = query.get('storage');
     if (buyNowId) {
       const product = products.find(p => String(p.id) === String(buyNowId));
-      let variant = product?.variants?.find(v => v.storage === buyNowStorage);
-      setCartItems(product ? [{ ...product, price: variant?.price || product.price || 0, storage: variant?.storage || buyNowStorage || '', quantity: 1 }] : []);
+      const variant = product?.variants?.find(v => v.storage === buyNowStorage);
+      const price = variant?.price ?? product?.price ?? 0;
+      setCartItems(product ? [{ ...product, price, storage: variant?.storage || buyNowStorage || '', quantity: 1 }] : []);
     } else {
       const currentUser = getCurrentUser();
-      let cart = currentUser?.cart || JSON.parse(localStorage.getItem('cart') || '[]');
+      const cart = currentUser?.cart || JSON.parse(localStorage.getItem('cart') || '[]');
       const mapped = cart.map(item => {
         const product = products.find(p => p.id === item.id);
         const variant = product?.variants?.find(v => v.storage === item.variant?.storage);
-        return { ...item, ...product, price: variant?.price || product?.price || 0, storage: variant?.storage || item.variant?.storage || '' };
+        const price = variant?.price ?? product?.price ?? 0;
+        return { ...item, ...product, price, storage: variant?.storage || item.variant?.storage || '' };
       }).filter(item => item.name);
       setCartItems(mapped);
     }
   }, [products, query]);
 
-
+  // Chuyển hướng sau khi đặt hàng thành công
   useEffect(() => {
     if (success) {
-      const timer = setTimeout(() => navigate('/thankyou', { replace: true }), 1500);
+      const timer = setTimeout(() => navigate('/orders', { replace: true }), 2000); // Chuyển đến trang lịch sử đơn hàng
       return () => clearTimeout(timer);
     }
   }, [success, navigate]);
 
-
+  // ✅ Các phép tính này chỉ dùng để HIỂN THỊ cho người dùng.
+  // Server sẽ tính toán lại toàn bộ để đảm bảo bảo mật.
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const totalOriginal = cartItems.reduce((sum, item) => sum + (item.originalPrice || item.price) * item.quantity, 0);
-  const totalSave = totalOriginal - subtotal;
- 
-  // Tính phí vận chuyển
   const shippingFee = form.delivery === 'Giao hàng tận nơi' ? 30000 : 0;
- 
-  // Tính giảm giá từ voucher
   const voucherDiscount = appliedVoucher ? appliedVoucher.discountAmount : 0;
- 
-  // Tính tổng tiền cuối cùng
   const total = subtotal + shippingFee - voucherDiscount;
-
 
   const validate = () => {
     const newErrors = {};
@@ -109,105 +104,79 @@ const CheckoutPage = () => {
     if (form.email && !/^\S+@\S+\.\S+$/.test(form.email.trim())) newErrors.email = 'Email không hợp lệ';
     if (!form.payment) newErrors.payment = 'Vui lòng chọn phương thức thanh toán';
     if (!form.address.trim()) newErrors.address = 'Vui lòng nhập địa chỉ';
-    if (form.delivery === 'Giao hàng tận nơi' && !form.addressDetail.trim()) newErrors.addressDetail = 'Vui lòng nhập địa chỉ chi tiết';
-    if (!form.payment) newErrors.payment = 'Vui lòng chọn phương thức thanh toán';
     return newErrors;
   };
 
-
   const handleVoucherApplied = (voucher) => {
     setAppliedVoucher(voucher);
-    showSuccess(`Đã áp dụng voucher ${voucher.code}! Giảm ${voucher.discountAmount.toLocaleString()}đ`, 'Áp dụng voucher thành công');
+    showSuccess(`Đã áp dụng voucher ${voucher.code}!`, 'Áp dụng voucher thành công');
   };
-
 
   const handleVoucherRemoved = () => {
     setAppliedVoucher(null);
-    showSuccess('Đã hủy áp dụng voucher!', 'Hủy voucher thành công');
   };
 
 
+  // ✅ BƯỚC 2: VIẾT LẠI HOÀN TOÀN HÀM handleOrder
   const handleOrder = async () => {
     const newErrors = validate();
-    setErrors(newErrors);
-    if (Object.keys(newErrors).length > 0) return;
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      showError('Vui lòng kiểm tra lại thông tin đơn hàng!', 'Lỗi nhập liệu');
+      return;
+    }
+    setErrors({});
     setLoading(true);
 
-
-    try {
-      const user = getCurrentUser();
-      if (!user?.id) {
-        showError('Bạn cần đăng nhập để đặt hàng!', 'Đặt hàng thất bại');
-        setLoading(false);
-        return;
-      }
-
-
-      // Cập nhật số lượt sử dụng voucher nếu có
-      if (appliedVoucher) {
-        // Note: updateVoucherUsage method not available in new API
-        // await voucherAPI.updateVoucherUsage(appliedVoucher.id, appliedVoucher.usedCount);
-      }
-
-
-      // Tạo địa chỉ giao hàng đầy đủ
-      const fullDeliveryAddress = form.delivery === 'Giao hàng tận nơi'
+    const fullDeliveryAddress = form.delivery === 'Giao hàng tận nơi'
         ? `${form.addressDetail}, ${form.address}`.replace(/^,\s*/, '').replace(/,\s*$/, '')
         : form.address;
 
+    // Chuẩn bị payload để gửi lên server.
+    // CHỈ gửi những thông tin cần thiết, không gửi giá. Server sẽ tự tính.
+    const payload = {
+      recipientName: form.name,
+      recipientPhone: form.phone,
+      recipientEmail: form.email,
+      deliveryAddress: fullDeliveryAddress,
+      deliveryMethod: form.delivery,
+      paymentMethod: form.payment,
+      note: form.note,
+      voucherCode: appliedVoucher?.code || null,
+      items: cartItems.map(item => ({
+        product_id: item.id,
+        variant_storage: item.storage, // Gửi thông tin để xác định biến thể
+        quantity: item.quantity,
+      }))
+    };
 
-      const newOrder = {
-        orderId: 'DH' + Math.floor(10000 + Math.random() * 90000),
-        date: new Date().toLocaleDateString('vi-VN'),
-        subtotal,
-        shippingFee,
-        voucherDiscount,
-        total,
-        voucherCode: appliedVoucher?.code || null,
-        status: 'Đang xử lý',
-        // ✅ Lưu thông tin giao hàng từ form checkout
-        deliveryAddress: fullDeliveryAddress,
-        recipientName: form.name,
-        recipientPhone: form.phone,
-        recipientEmail: form.email,
-        paymentMethod: form.payment || 'Thanh toán khi nhận hàng (COD)',
-        note: form.note,
-        deliveryMethod: form.delivery,
-        products: cartItems.map(item => ({
-          name: item.name,
-          quantity: item.quantity,
-          price: item.price,
-          image: item.image,
-          category: item.category
-        }))
-      };
-      const updatedOrders = [...(user.orders || []), newOrder];
-      const updatedUser = await userAPI.updateUser(user.id, { orders: updatedOrders, cart: [] });
-      localStorage.setItem('user', JSON.stringify(updatedUser));
+    try {
+      // Gọi API tạo đơn hàng mới
+      const result = await orderAPI.createOrder(payload);
+
+      // Dọn dẹp giỏ hàng ở client SAU KHI server xác nhận thành công
       localStorage.removeItem('cart');
-      window.dispatchEvent(new Event('storage'));
-     
-      // Hiển thị thông báo đặt hàng thành công
-      showSuccess(`Đặt hàng thành công! Mã đơn hàng: ${newOrder.orderId}`, 'Đặt hàng thành công');
-     
+      window.dispatchEvent(new Event('storage')); // Bắn sự kiện để các component khác cập nhật
+
+      showSuccess(`Đặt hàng thành công! Mã đơn hàng của bạn là: ${result.order_code}`, 'Thành công!');
       setSuccess(true);
+
     } catch (err) {
-      showError('Có lỗi xảy ra khi đặt hàng. Vui lòng thử lại!', 'Đặt hàng thất bại');
+      // Hiển thị lỗi trả về từ server (ví dụ: lỗi validation)
+      showError(err.message || 'Có lỗi không xác định xảy ra. Vui lòng thử lại!', 'Đặt hàng thất bại');
       console.error('Order error:', err);
     } finally {
       setLoading(false);
     }
   };
 
-
   return (
     <div className="bg-slate-50 min-h-screen pt-24 pb-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-8 items-start">
          
-          {/* Cột trái - Thông tin */}
+          {/* Cột trái - Thông tin (Giữ nguyên JSX) */}
           <div className="w-full lg:flex-1 space-y-6">
-            {/* Người đặt hàng */}
             <div className="bg-white rounded-xl shadow-md p-6">
               <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-3"><FaUser className="text-orange-500" /> Người đặt hàng</h2>
               <div className="space-y-4">
@@ -229,8 +198,6 @@ const CheckoutPage = () => {
               </div>
             </div>
 
-
-            {/* Hình thức nhận hàng */}
             <div className="bg-white rounded-xl shadow-md p-6">
               <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-3"><FaMapMarkerAlt className="text-orange-500" /> Hình thức nhận hàng</h2>
               <div className="grid grid-cols-2 gap-4 mb-4">
@@ -250,15 +217,10 @@ const CheckoutPage = () => {
                     {errors.addressDetail && <small className="text-red-500 mt-1 block">{errors.addressDetail}</small>}
                   </div>
                 )}
-                <textarea placeholder="Ghi chú khác (không bắt buộc)" rows={2} value={form.note} onChange={e => setForm(f => ({...f, note: e.target.value}))} className="w-full border-gray-300 rounded-lg shadow-sm focus:border-orange-500 focus:ring-orange-500"></textarea>
-                <div className="flex items-center gap-6 text-sm">
-                  <label className="flex items-center gap-2 text-gray-600"><input type="checkbox" className="rounded text-orange-500 focus:ring-orange-500" checked={form.invoice} onChange={e => setForm(f => ({...f, invoice: e.target.checked}))} />Xuất hóa đơn công ty</label>
-                  <label className="flex items-center gap-2 text-gray-600"><input type="checkbox" className="rounded text-orange-500 focus:ring-orange-500" checked={form.confirmCall} onChange={e => setForm(f => ({...f, confirmCall: e.target.checked}))} />Gọi xác nhận trước khi giao</label>
-                </div>
+                 <textarea placeholder="Ghi chú khác (không bắt buộc)" rows={2} value={form.note} onChange={e => setForm(f => ({...f, note: e.target.value}))} className="w-full border-gray-300 rounded-lg shadow-sm focus:border-orange-500 focus:ring-orange-500"></textarea>
               </div>
             </div>
            
-            {/* Phương thức thanh toán */}
             <div className="bg-white rounded-xl shadow-md p-6">
               <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-3"><FaCreditCard className="text-orange-500" /> Phương thức thanh toán</h2>
               <div className="space-y-3">
@@ -274,9 +236,8 @@ const CheckoutPage = () => {
           </div>
 
 
-          {/* Cột phải - Đơn hàng */}
+          {/* Cột phải - Đơn hàng (Giữ nguyên JSX) */}
           <div className="w-full lg:w-96">
-            {/* Voucher Input */}
             <VoucherInput
               cartItems={cartItems}
               totalAmount={subtotal}
@@ -285,7 +246,7 @@ const CheckoutPage = () => {
               onVoucherRemoved={handleVoucherRemoved}
             />
            
-            <div className="bg-white rounded-xl shadow-md p-6 sticky top-24">
+            <div className="bg-white rounded-xl shadow-md p-6 sticky top-24 mt-6">
               <h2 className="text-lg font-semibold text-gray-800 mb-4 border-b pb-3">Đơn hàng của bạn ({cartItems.length})</h2>
               <div className="space-y-4 max-h-64 overflow-y-auto pr-2 mb-4">
                 {cartItems.map((item, idx) => (
@@ -304,19 +265,8 @@ const CheckoutPage = () => {
               </div>
               <div className="border-t pt-4 space-y-2 text-sm">
                 <div className="flex justify-between"><span>Tạm tính</span><span>{subtotal.toLocaleString()}₫</span></div>
-                <div className="flex justify-between"><span>Tiết kiệm</span><span className="text-green-600">{totalSave > 0 ? `-${totalSave.toLocaleString()}` : 0}₫</span></div>
-                {form.delivery === 'Giao hàng tận nơi' && (
-                  <div className="flex justify-between">
-                    <span>Phí vận chuyển</span>
-                    <span>{shippingFee.toLocaleString()}₫</span>
-                  </div>
-                )}
-                {voucherDiscount > 0 && (
-                  <div className="flex justify-between">
-                    <span>Giảm giá voucher</span>
-                    <span className="text-green-600">-{voucherDiscount.toLocaleString()}₫</span>
-                  </div>
-                )}
+                {form.delivery === 'Giao hàng tận nơi' && <div className="flex justify-between"><span>Phí vận chuyển</span><span>{shippingFee.toLocaleString()}₫</span></div>}
+                {voucherDiscount > 0 && <div className="flex justify-between"><span>Giảm giá voucher</span><span className="text-green-600">-{voucherDiscount.toLocaleString()}₫</span></div>}
                 <div className="flex justify-between text-lg font-bold mt-2 pt-2 border-t">
                   <span>Tổng cộng</span>
                   <span className="text-red-600">{total.toLocaleString()}₫</span>
@@ -324,9 +274,9 @@ const CheckoutPage = () => {
                 <p className="text-xs text-gray-500 text-right">Đã bao gồm VAT (nếu có)</p>
               </div>
               <button className="w-full mt-6 bg-red-500 hover:bg-red-600 text-white font-bold py-3 rounded-lg text-lg shadow-md hover:shadow-lg transition-all disabled:opacity-50" onClick={handleOrder} disabled={loading || cartItems.length === 0 || success}>
-                {loading ? 'Đang xử lý...' : (success ? 'Đã đặt hàng' : 'Hoàn tất đặt hàng')}
+                {loading ? 'Đang xử lý...' : (success ? 'Đã đặt hàng!' : 'Hoàn tất đặt hàng')}
               </button>
-              {success && <div className="text-green-600 text-center mt-3 font-semibold">Đặt hàng thành công! Đang chuyển hướng...</div>}
+              {success && <div className="text-green-600 text-center mt-3 font-semibold">Cảm ơn bạn đã mua hàng!</div>}
               <p className="text-xs text-gray-500 mt-4 text-center">Bằng việc đặt hàng, bạn đồng ý với <Link to="/terms" className="text-blue-500 hover:underline">Điều khoản sử dụng</Link> của chúng tôi.</p>
             </div>
           </div>
@@ -336,6 +286,4 @@ const CheckoutPage = () => {
   );
 };
 
-
 export default CheckoutPage;
-

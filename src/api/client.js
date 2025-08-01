@@ -1,5 +1,7 @@
-// API Client đơn giản
-const API_BASE_URL = 'http://localhost:3001';
+// File: src/api/client.js (Bản hoàn chỉnh cho Phương án B)
+
+// ✅ BƯỚC 1: KHÔI PHỤC LẠI BIẾN BASE_URL
+const API_BASE_URL = 'http://127.0.0.1:8000';
 
 class ApiClient {
   constructor() {
@@ -7,52 +9,59 @@ class ApiClient {
   }
 
   async request(endpoint, options = {}) {
+    // ✅ BƯỚC 2: GHÉP LẠI BASE_URL VÀO ĐẦU ENDPOINT
     const url = `${this.baseURL}${endpoint}`;
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-      },
-      ...options
+
+    // Phần logic còn lại giữ nguyên
+    const token = localStorage.getItem('auth_token');
+    const headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      ...options.headers,
     };
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+    const config = { ...options, headers };
 
     try {
       const response = await fetch(url, config);
-      
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json().catch(() => ({ message: response.statusText }));
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
-
+      if (response.status === 204) return null;
       return await response.json();
     } catch (error) {
-      console.error('API Request failed:', error);
+      console.error('API Request failed:', url, error);
       throw error;
     }
   }
 
-  async get(endpoint, params = {}) {
+  // Các hàm get, post, patch, delete không cần sửa
+  get(endpoint, params = {}) {
     const queryString = new URLSearchParams(params).toString();
     const url = queryString ? `${endpoint}?${queryString}` : endpoint;
     return this.request(url, { method: 'GET' });
   }
 
-  async post(endpoint, data) {
+  post(endpoint, data) {
     return this.request(endpoint, {
       method: 'POST',
       body: JSON.stringify(data)
     });
   }
 
-  async patch(endpoint, data) {
+  patch(endpoint, data) {
     return this.request(endpoint, {
       method: 'PATCH',
       body: JSON.stringify(data)
     });
   }
 
-  async delete(endpoint) {
+  delete(endpoint) {
     return this.request(endpoint, { method: 'DELETE' });
   }
 }
 
-export default new ApiClient(); 
+export default new ApiClient();

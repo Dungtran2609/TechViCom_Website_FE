@@ -1,84 +1,71 @@
-import apiClient from '../client.js';
+const API_BASE_URL = 'http://127.0.0.1:8000';
 
-// ===== USER API =====
-export const userAPI = {
-  // Đăng nhập
-  login: async (phone, password) => {
+// SỬA LẠI HÀM NÀY
+const fetchJson = async (url, options = {}) => {
+  const response = await fetch(url, options);
+
+  if (!response.ok) {
+    let errorMessage = 'Lỗi API';
     try {
-      const response = await apiClient.get('/users');
-      const users = Array.isArray(response) ? response : [response];
-      const user = users.find(u => u.phone === phone && u.password === password);
-      
-      if (!user) {
-        throw new Error('Sai tài khoản hoặc mật khẩu');
-      }
-      
-      return user;
-    } catch (error) {
-      console.error('Login error:', error);
-      throw error;
+      const errorData = await response.json();
+      errorMessage = errorData.message || errorMessage;
+    } catch  {
+      // Bỏ qua lỗi parse JSON nếu response lỗi cũng không có body
     }
-  },
-
-  // Đăng ký
-  register: async (userData) => {
-    try {
-      const response = await apiClient.post('/users', userData);
-      return response;
-    } catch (error) {
-      console.error('Register error:', error);
-      throw error;
-    }
-  },
-
-  // Lấy thông tin user
-  getUser: async (id) => {
-    try {
-      const response = await apiClient.get(`/users/${id}`);
-      return response;
-    } catch (error) {
-      console.error('Get user error:', error);
-      throw error;
-    }
-  },
-
-  // Cập nhật thông tin user
-  updateUser: async (id, userData) => {
-    try {
-      const response = await apiClient.patch(`/users/${id}`, userData);
-      return response;
-    } catch (error) {
-      console.error('Update user error:', error);
-      throw error;
-    }
-  },
-
-  // Xóa user
-  deleteUser: async (id) => {
-    try {
-      return apiClient.delete(`/users/${id}`);
-    } catch (error) {
-      console.error('Delete user error:', error);
-      throw error;
-    }
-  },
-
-  // Lấy tất cả users
-  getAllUsers: async (params = {}) => {
-    try {
-      const response = await apiClient.get('/users', params);
-      return response;
-    } catch (error) {
-      console.error('Get all users error:', error);
-      throw error;
-    }
-  },
-
-  // Kiểm tra thông tin user có đầy đủ không
-  checkUserMissingInfo: (user) => {
-    if (!user) return true;
-    if (!user.name || !user.birthday || !user.gender || !user.avatar) return true;
-    if (!user.addresses || user.addresses.length === 0 || !user.addresses[0].address) return true;
-    return false;
+    throw new Error(errorMessage);
   }
-}; 
+
+  // Nếu status là 204 No Content, hoặc không có body, trả về null
+  const contentType = response.headers.get('content-type');
+  if (response.status === 204 || !contentType || !contentType.includes('application/json')) {
+    return null; // Hoặc trả về một giá trị mặc định hợp lý
+  }
+
+  return response.json(); // Chỉ parse JSON nếu có nội dung
+};
+
+export const userAPI = {
+  login: async (email, password) => {
+    await fetchJson(`${API_BASE_URL}/sanctum/csrf-cookie`, { credentials: 'include' });
+
+    return fetchJson(`${API_BASE_URL}/api/v1/login`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    }).then(data => data.user || data);
+  },
+
+  register: async (name, email, password, password_confirmation) => {
+    await fetchJson(`${API_BASE_URL}/sanctum/csrf-cookie`, { credentials: 'include' });
+
+    return fetchJson(`${API_BASE_URL}/api/v1/register`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password, password_confirmation }),
+    }).then(data => data.user || data);
+  },
+
+  logout: async () => {
+    return fetchJson(`${API_BASE_URL}/api/v1/logout`, {
+      method: 'POST',
+      credentials: 'include',
+    }).then(data => data.message);
+  },
+
+  getMe: async () => {
+    return fetchJson(`${API_BASE_URL}/api/v1/me`, {
+      credentials: 'include',
+    }).then(data => data.user || data);
+  },
+
+  updateUser: async (userId, updateData) => {
+    return fetchJson(`${API_BASE_URL}/api/v1/users/${userId}`, {
+      method: 'PUT',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updateData),
+    });
+  },
+};
