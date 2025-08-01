@@ -6,4 +6,4 @@ export { voucherAPI } from './voucherAPI.js';
 export { newsAPI } from './newsAPI.js';
 export { categoryAPI } from './categoryAPI.js';
 export { bannerAPI } from './bannerAPI.js';
-export { touchAPI } from './touchAPI.js'; 
+export { touchAPI } from './touchAPI.js';   

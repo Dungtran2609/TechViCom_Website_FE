@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ToastContainer } from './ToastNotification';
 import { NotificationBell, NotificationPanel } from './NotificationComponents';
 import { NotificationContext } from './notificationContext';
 
-// Notification Provider
 export const NotificationProvider = ({ children }) => {
+  // Khởi tạo notifications từ localStorage
   const [notifications, setNotifications] = useState(() => {
-    // Load notifications from localStorage on init
     try {
       const saved = localStorage.getItem('notifications');
       return saved ? JSON.parse(saved) : [];
@@ -14,10 +13,20 @@ export const NotificationProvider = ({ children }) => {
       return [];
     }
   });
+
   const [isOpen, setIsOpen] = useState(false);
 
-  // Add notification
-  const addNotification = (notification) => {
+  // Đồng bộ localStorage mỗi khi notifications thay đổi
+  useEffect(() => {
+    try {
+      localStorage.setItem('notifications', JSON.stringify(notifications));
+    } catch (error) {
+      console.error('Failed to save notifications:', error);
+    }
+  }, [notifications]);
+
+  // Thêm notification mới
+  const addNotification = useCallback((notification) => {
     const id = Date.now() + Math.random();
     const newNotification = {
       id,
@@ -26,67 +35,39 @@ export const NotificationProvider = ({ children }) => {
       message: '',
       duration: 5000,
       timestamp: new Date().toLocaleString('vi-VN'),
-      ...notification
+      showAsToast: true,       // Mặc định hiện toast luôn
+      ...notification,
     };
 
-    setNotifications(prev => {
-      // Giới hạn tối đa 50 notifications
+    setNotifications((prev) => {
+      // Giới hạn tối đa 50 notifications, mới nhất đứng đầu
       const updated = [newNotification, ...prev].slice(0, 50);
-      // Save to localStorage
-      try {
-        localStorage.setItem('notifications', JSON.stringify(updated));
-      } catch (error) {
-        console.error('Failed to save notifications:', error);
-      }
       return updated;
     });
 
-    // Auto remove toast after duration, but keep in notification panel
+    // Tự động ẩn toast sau duration (nếu showAsToast = true)
     if (newNotification.duration > 0 && newNotification.showAsToast) {
       setTimeout(() => {
-        // Remove from toast display but keep in notifications array
-        setNotifications(prev => {
-          const updated = prev.map(n => 
+        setNotifications((prev) =>
+          prev.map((n) =>
             n.id === id ? { ...n, showAsToast: false } : n
-          );
-          // Save to localStorage
-          try {
-            localStorage.setItem('notifications', JSON.stringify(updated));
-          } catch (error) {
-            console.error('Failed to save notifications:', error);
-          }
-          return updated;
-        });
+          )
+        );
       }, newNotification.duration);
     }
 
     return id;
-  };
+  }, []);
 
-  // Remove notification
-  const removeNotification = (id) => {
-    setNotifications(prev => {
-      const updated = prev.filter(notification => notification.id !== id);
-      // Save to localStorage
-      try {
-        localStorage.setItem('notifications', JSON.stringify(updated));
-      } catch (error) {
-        console.error('Failed to save notifications:', error);
-      }
-      return updated;
-    });
-  };
+  // Xóa notification theo id
+  const removeNotification = useCallback((id) => {
+    setNotifications((prev) => prev.filter((n) => n.id !== id));
+  }, []);
 
-  // Clear all notifications
-  const clearAll = () => {
+  // Xóa tất cả notifications
+  const clearAll = useCallback(() => {
     setNotifications([]);
-    // Clear from localStorage
-    try {
-      localStorage.removeItem('notifications');
-    } catch (error) {
-      console.error('Failed to clear notifications:', error);
-    }
-  };
+  }, []);
 
   const value = {
     notifications,
@@ -94,7 +75,7 @@ export const NotificationProvider = ({ children }) => {
     removeNotification,
     clearAll,
     isOpen,
-    setIsOpen
+    setIsOpen,
   };
 
   return (
@@ -106,9 +87,3 @@ export const NotificationProvider = ({ children }) => {
     </NotificationContext.Provider>
   );
 };
-
-
-
-
-
- 
