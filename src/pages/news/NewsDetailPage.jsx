@@ -74,8 +74,14 @@ const NewsDetailPage = () => {
       const response = await newsAPI.addNewsComment(id, commentData);
       const newCommentData = response.data;
 
+      // Đảm bảo comment mới có is_hidden = false
+      const commentWithHiddenStatus = {
+        ...newCommentData,
+        is_hidden: false
+      };
+
       // Add the new comment to the list
-      setComments([...comments, newCommentData]);
+      setComments([...comments, commentWithHiddenStatus]);
       setNewComment('');
 
     } catch (error) {
@@ -95,7 +101,11 @@ const NewsDetailPage = () => {
   };
 
   const displayedComments = useMemo(() => {
-    return [...comments].reverse();
+    // Chỉ hiển thị những comment có is_hidden = false (0) hoặc không có trường is_hidden
+    const visibleComments = comments.filter(comment => 
+      comment.is_hidden === false || comment.is_hidden === 0 || comment.is_hidden === undefined
+    );
+    return [...visibleComments].reverse();
   }, [comments]);
 
   // Hàm xử lý like bài viết
@@ -306,7 +316,7 @@ const NewsDetailPage = () => {
       {/* KHU VỰC BÌNH LUẬN ĐÃ ĐƯỢC THIẾT KẾ LẠI THEO ẢNH */}
       {/* ========================================================== */}
       <div className="bg-white rounded-2xl shadow-lg p-6 md:p-10 mt-8">
-        <h2 className="text-2xl text-center font-bold text-gray-800 mb-8">Thảo luận ({comments.length})</h2>
+        <h2 className="text-2xl text-center font-bold text-gray-800 mb-8">Thảo luận ({displayedComments.length})</h2>
 
         <div className="max-w-4xl mx-auto">
           {/* Form gửi bình luận */}
@@ -347,7 +357,7 @@ const NewsDetailPage = () => {
 
           {/* Danh sách bình luận */}
           <div className="space-y-4">
-            {comments.length > 0 ? (
+            {displayedComments.length > 0 ? (
               displayedComments.map(comment => (
                 <div key={comment.id} className="flex items-start gap-4 py-4 border-b border-gray-100 last:border-b-0">
                   <img
