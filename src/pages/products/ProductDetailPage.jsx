@@ -11,8 +11,8 @@ import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { productAPI, userAPI } from '../../api';
 
 const getCurrentUser = () => {
-    const user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null;
+  const user = localStorage.getItem('user');
+  return user ? JSON.parse(user) : null;
 };
 
 export default function ProductDetailPage() {
@@ -27,7 +27,7 @@ export default function ProductDetailPage() {
   const [showFullIntro, setShowFullIntro] = useState(false);
   const [showAddCartToast, setShowAddCartToast] = useState(false);
   const [showSelectStorageToast, setShowSelectStorageToast] = useState(false);
-  
+
   // ==========================================================
   // THAY ĐỔI: Sử dụng state cho popup thay vì toast
   // ==========================================================
@@ -43,7 +43,7 @@ export default function ProductDetailPage() {
   useEffect(() => {
     const fetchProductData = async () => {
       setLoading(true);
-      
+
       try {
         const productData = await productAPI.getProductById(id);
         setProduct(productData);
@@ -56,14 +56,14 @@ export default function ProductDetailPage() {
 
         if (suggestions.length < 10) {
           const allProducts = await productAPI.getProducts();
-          const otherProducts = allProducts.filter(p => 
+          const otherProducts = allProducts.filter(p =>
             p.id !== productData.id && !suggestions.find(s => s.id === p.id)
           );
-          
+
           const needed = 10 - suggestions.length;
           suggestions.push(...otherProducts.slice(0, needed));
         }
-        
+
         setSuggestedProducts(suggestions.slice(0, 10));
 
       } catch (error) {
@@ -93,10 +93,10 @@ export default function ProductDetailPage() {
   }, [product]);
 
   if (loading) {
-    return <div style={{padding: 40, textAlign: 'center'}}>Đang tải sản phẩm...</div>;
+    return <div style={{ padding: 40, textAlign: 'center' }}>Đang tải sản phẩm...</div>;
   }
   if (!product) {
-    return <div style={{padding: 40, textAlign: 'center'}}>Không tìm thấy sản phẩm!</div>;
+    return <div style={{ padding: 40, textAlign: 'center' }}>Không tìm thấy sản phẩm!</div>;
   }
 
   const variants = Array.isArray(product.variants) ? product.variants : [];
@@ -173,7 +173,7 @@ export default function ProductDetailPage() {
     if (variants.length > 0 && !selectedStorage) {
       setShowSelectStorageToast(true);
       setTimeout(() => setShowSelectStorageToast(false), 1500);
-      document.querySelector('.option-group')?.scrollIntoView({behavior:'smooth', block:'center'});
+      document.querySelector('.option-group')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
     const params = new URLSearchParams();
@@ -231,7 +231,7 @@ export default function ProductDetailPage() {
 
   const avgRating = reviews.length ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1) : '0.0';
   const ratingCount = reviews.length;
-  const starCounts = [0,0,0,0,0,0]; 
+  const starCounts = [0, 0, 0, 0, 0, 0];
   reviews.forEach(r => { starCounts[r.rating]++; });
   const currentUser = getCurrentUser();
 
@@ -247,7 +247,7 @@ export default function ProductDetailPage() {
     };
     const updated = [newReview, ...reviews];
     setReviews(updated);
-    localStorage.setItem(`reviews_${product.id}` , JSON.stringify(updated));
+    localStorage.setItem(`reviews_${product.id}`, JSON.stringify(updated));
     setReviewText("");
     setReviewRating(0);
     setCharCount(0);
@@ -256,9 +256,9 @@ export default function ProductDetailPage() {
   function timeAgo(ts) {
     const diff = Math.floor((Date.now() - ts) / 1000);
     if (diff < 60) return 'vừa xong';
-    if (diff < 3600) return `${Math.floor(diff/60)} phút trước`;
-    if (diff < 86400) return `${Math.floor(diff/3600)} giờ trước`;
-    return `${Math.floor(diff/86400)} ngày trước`;
+    if (diff < 3600) return `${Math.floor(diff / 60)} phút trước`;
+    if (diff < 86400) return `${Math.floor(diff / 3600)} giờ trước`;
+    return `${Math.floor(diff / 86400)} ngày trước`;
   }
 
   return (
@@ -296,8 +296,8 @@ export default function ProductDetailPage() {
                 let imgSrc = currentVariant && currentVariant.image
                   ? currentVariant.image
                   : (product.images && product.images.length > 0
-                      ? product.images[mainImgIdx]
-                      : product.image);
+                    ? product.images[mainImgIdx]
+                    : product.image);
                 if (imgSrc && !imgSrc.startsWith('http')) {
                   imgSrc = `http://localhost:8000/storage/${imgSrc.replace(/^storage[\\\/]/, '')}`;
                 }
@@ -306,7 +306,7 @@ export default function ProductDetailPage() {
               alt="main"
             />
             <div className="gallery-slider-nav">
-              <span>{product.images && product.images.length > 0 ? `${mainImgIdx+1}/${product.images.length}` : '1/1'}</span>
+              <span>{product.images && product.images.length > 0 ? `${mainImgIdx + 1}/${product.images.length}` : '1/1'}</span>
             </div>
           </div>
           {product.images && product.images.length > 1 && (
@@ -340,9 +340,9 @@ export default function ProductDetailPage() {
             <div className="product-policy-block">
               <h3>Chính sách sản phẩm</h3>
               <ul className="policy-list">
-                <li><FontAwesomeIcon icon={faShieldAlt} style={{color:'#e83a45', marginRight:8}} /> Hàng chính hãng - Bảo hành 12 tháng</li>
-                <li><FontAwesomeIcon icon={faTruck} style={{color:'#e83a45', marginRight:8}} /> Miễn phí giao hàng toàn quốc</li>
-                <li><FontAwesomeIcon icon={faHeadset} style={{color:'#e83a45', marginRight:8}} /> Kỹ thuật viên hỗ trợ trực tuyến</li>
+                <li><FontAwesomeIcon icon={faShieldAlt} style={{ color: '#e83a45', marginRight: 8 }} /> Hàng chính hãng - Bảo hành 12 tháng</li>
+                <li><FontAwesomeIcon icon={faTruck} style={{ color: '#e83a45', marginRight: 8 }} /> Miễn phí giao hàng toàn quốc</li>
+                <li><FontAwesomeIcon icon={faHeadset} style={{ color: '#e83a45', marginRight: 8 }} /> Kỹ thuật viên hỗ trợ trực tuyến</li>
               </ul>
             </div>
           </div>
@@ -363,8 +363,8 @@ export default function ProductDetailPage() {
         <div className="product-info-tgdd">
           <h1 className="product-title-tgdd">{product.name}</h1>
           {variants.length > 0 && (
-            <div style={{margin:'8px 0',fontWeight:500,fontSize:15,color:'#ff6c2f',display:'flex',alignItems:'center',gap:'8px'}}>
-              <FontAwesomeIcon icon={faHdd} style={{fontSize:16}} />
+            <div style={{ margin: '8px 0', fontWeight: 500, fontSize: 15, color: '#ff6c2f', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <FontAwesomeIcon icon={faHdd} style={{ fontSize: 16 }} />
               Dung lượng khả dụng: {variants.map(v => v.storage).join(', ')}
             </div>
           )}
@@ -374,16 +374,16 @@ export default function ProductDetailPage() {
           </div>
           {/* Mô tả ngắn */}
           {product.short_description && (
-            <div className="product-short-description-tgdd" style={{marginBottom:8}}>{product.short_description}</div>
+            <div className="product-short-description-tgdd" style={{ marginBottom: 8 }}>{product.short_description}</div>
           )}
           {/* Mô tả dài (HTML) */}
           {product.long_description && (
-            <div className="product-long-description-tgdd" style={{marginBottom:8}} dangerouslySetInnerHTML={{__html: product.long_description}} />
+            <div className="product-long-description-tgdd" style={{ marginBottom: 8 }} dangerouslySetInnerHTML={{ __html: product.long_description }} />
           )}
           {/* Ảnh thumbnail */}
           {product.thumbnail && (
-            <div style={{marginBottom:8}}>
-              <img src={product.thumbnail.startsWith('http') ? product.thumbnail : `http://localhost:8000/storage/${product.thumbnail.replace(/^storage[\\/]/, '')}`} alt="thumbnail" style={{maxWidth:180,borderRadius:8}} />
+            <div style={{ marginBottom: 8 }}>
+              <img src={product.thumbnail.startsWith('http') ? product.thumbnail : `http://localhost:8000/storage/${product.thumbnail.replace(/^storage[\\/]/, '')}`} alt="thumbnail" style={{ maxWidth: 180, borderRadius: 8 }} />
             </div>
           )}
           {/* Bảo hành */}
@@ -396,15 +396,15 @@ export default function ProductDetailPage() {
           <div className="product-options-tgdd">
             {/* Hiển thị các nhóm thuộc tính để chọn */}
             {attributeOptions.map(attr => (
-              <div key={attr.key} style={{marginBottom:8}}>
+              <div key={attr.key} style={{ marginBottom: 8 }}>
                 <div className="option-label">{attr.name}</div>
-                <div className="option-group" style={{display:'flex',gap:8}}>
+                <div className="option-group" style={{ display: 'flex', gap: 8 }}>
                   {attr.values.map(val => (
                     attr.type === 'color' ? (
                       <button
                         key={val.value}
                         className={`color-dot-btn${JSON.stringify(selectedAttributes[attr.key]) === JSON.stringify(val) ? ' active' : ''}`}
-                        style={{ background: val.color_code, width:32, height:32, borderRadius:'50%', border:JSON.stringify(selectedAttributes[attr.key]) === JSON.stringify(val) ? '2px solid #e83a45' : '1px solid #ccc', cursor:'pointer' }}
+                        style={{ background: val.color_code, width: 32, height: 32, borderRadius: '50%', border: JSON.stringify(selectedAttributes[attr.key]) === JSON.stringify(val) ? '2px solid #e83a45' : '1px solid #ccc', cursor: 'pointer' }}
                         title={val.value}
                         onClick={() => handleAttributeSelect(attr.key, val)}
                       />
@@ -412,7 +412,7 @@ export default function ProductDetailPage() {
                       <button
                         key={val}
                         className={`option-btn${selectedAttributes[attr.key] === val ? ' active' : ''}`}
-                        style={{ minWidth:60, padding:'6px 12px', borderRadius:6, border:selectedAttributes[attr.key] === val ? '2px solid #e83a45' : '1px solid #ccc', cursor:'pointer' }}
+                        style={{ minWidth: 60, padding: '6px 12px', borderRadius: 6, border: selectedAttributes[attr.key] === val ? '2px solid #e83a45' : '1px solid #ccc', cursor: 'pointer' }}
                         onClick={() => handleAttributeSelect(attr.key, val)}
                       >
                         {val}
@@ -425,11 +425,11 @@ export default function ProductDetailPage() {
           </div>
           <div className="product-rating-block">
             <span className="rating-stars">
-              {[1,2,3,4,5].map(i => (
+              {[1, 2, 3, 4, 5].map(i => (
                 <FontAwesomeIcon
                   key={i}
                   icon={i <= (product.rating || 4.5) ? faStarSolid : faStarRegular}
-                  style={{color: '#FFD600', marginRight: 2, fontSize: 22}}
+                  style={{ color: '#FFD600', marginRight: 2, fontSize: 22 }}
                 />
               ))}
             </span>
@@ -505,19 +505,19 @@ export default function ProductDetailPage() {
               <p className="average-score">{avgRating}<span>/5</span></p>
             </div>
             <div className="average-stars">
-              {[1,2,3,4,5].map(i => (
-                  <FontAwesomeIcon key={i} icon={faStarSolid} className={i <= Math.round(avgRating) ? 'star-icon active' : 'star-icon'} />
+              {[1, 2, 3, 4, 5].map(i => (
+                <FontAwesomeIcon key={i} icon={faStarSolid} className={i <= Math.round(avgRating) ? 'star-icon active' : 'star-icon'} />
               ))}
             </div>
             <p className="total-reviews-text">({ratingCount} đánh giá)</p>
           </div>
           <div className="rating-summary-right">
             <div className="rating-bars">
-              {[5,4,3,2,1].map(star => (
+              {[5, 4, 3, 2, 1].map(star => (
                 <div className="rating-bar-row" key={star}>
-                  <span className="star-label">{star} <FontAwesomeIcon icon={faStarSolid}/></span>
+                  <span className="star-label">{star} <FontAwesomeIcon icon={faStarSolid} /></span>
                   <div className="bar-bg">
-                    <div className="bar-fill" style={{width: ratingCount ? `${(starCounts[star]/ratingCount*100).toFixed(0)}%` : '0%'}}></div>
+                    <div className="bar-fill" style={{ width: ratingCount ? `${(starCounts[star] / ratingCount * 100).toFixed(0)}%` : '0%' }}></div>
                   </div>
                   <span className="bar-count">{starCounts[star]}</span>
                 </div>
@@ -528,9 +528,9 @@ export default function ProductDetailPage() {
         <div className="comments-filter-row">
           <span className="comments-count">{reviews.length} Bình luận</span>
           <div className="filter-btns">
-            <button className={`filter-btn${filterStar===0?' active':''}`} onClick={()=>setFilterStar(0)}>Tất cả</button>
-            {[5,4,3,2,1].map(star => (
-              <button className={`filter-btn${filterStar===star?' active':''}`} key={star} onClick={()=>setFilterStar(star)}>{star} ★</button>
+            <button className={`filter-btn${filterStar === 0 ? ' active' : ''}`} onClick={() => setFilterStar(0)}>Tất cả</button>
+            {[5, 4, 3, 2, 1].map(star => (
+              <button className={`filter-btn${filterStar === star ? ' active' : ''}`} key={star} onClick={() => setFilterStar(star)}>{star} ★</button>
             ))}
           </div>
         </div>
@@ -544,14 +544,14 @@ export default function ProductDetailPage() {
               <div className="form-header">
                 <p>Đánh giá của bạn</p>
                 <div className="rating-input-stars">
-                {[1,2,3,4,5].map(i => (
-                  <FontAwesomeIcon
-                    key={i}
-                    icon={faStarSolid}
-                    className={`star-selector ${i <= reviewRating ? 'selected' : ''}`}
-                    onClick={()=> setReviewRating(i)}
-                  />
-                ))}
+                  {[1, 2, 3, 4, 5].map(i => (
+                    <FontAwesomeIcon
+                      key={i}
+                      icon={faStarSolid}
+                      className={`star-selector ${i <= reviewRating ? 'selected' : ''}`}
+                      onClick={() => setReviewRating(i)}
+                    />
+                  ))}
                 </div>
               </div>
               <textarea
@@ -565,7 +565,7 @@ export default function ProductDetailPage() {
               />
               <div className="form-footer">
                 <span className="char-counter">{charCount}/3000</span>
-                <button type="submit" className="submit-review-btn" disabled={!reviewText.trim() || reviewRating===0}>
+                <button type="submit" className="submit-review-btn" disabled={!reviewText.trim() || reviewRating === 0}>
                   Gửi đánh giá
                 </button>
               </div>
@@ -574,7 +574,7 @@ export default function ProductDetailPage() {
         </div>
         <div className="comments-list">
           {reviews.length === 0 && <div className="no-reviews-message">Chưa có đánh giá nào. Hãy là người đầu tiên đánh giá sản phẩm này!</div>}
-          {reviews.filter(r => filterStar===0 || r.rating===filterStar).map((r, idx) => (
+          {reviews.filter(r => filterStar === 0 || r.rating === filterStar).map((r, idx) => (
             <div className="comment-card" key={idx}>
               <div className="comment-avatar">{r.name.charAt(0).toUpperCase()}</div>
               <div className="comment-main">
@@ -584,7 +584,7 @@ export default function ProductDetailPage() {
                     <span className="comment-time">{timeAgo(r.time)}</span>
                   </div>
                   <div className="comment-rating">
-                    {[1,2,3,4,5].map(i => (
+                    {[1, 2, 3, 4, 5].map(i => (
                       <FontAwesomeIcon key={i} icon={faStarSolid} className={`star-icon ${i <= r.rating ? 'active' : ''}`} />
                     ))}
                   </div>
@@ -640,7 +640,7 @@ export default function ProductDetailPage() {
             <div className="swiper-button-next-custom"></div>
           </div>
         ) : (
-          <div style={{color:'#888', padding:'16px 0', textAlign: 'center'}}>Không có sản phẩm gợi ý nào.</div>
+          <div style={{ color: '#888', padding: '16px 0', textAlign: 'center' }}>Không có sản phẩm gợi ý nào.</div>
         )}
       </div>
     </div>
