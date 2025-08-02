@@ -29,10 +29,14 @@ const Header = () => {
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')));
   const [isLoggedIn, setIsLoggedIn] = useState(!!user);
   const [categories, setCategories] = useState([]);
+  // Đảm bảo categories luôn là mảng khi sử dụng
+  const safeCategories = Array.isArray(categories) ? categories : [];
   const [categoriesLoading, setCategoriesLoading] = useState(true);
   const [categoriesError, setCategoriesError] = useState(null);
 
   const [products, setProducts] = useState([]);
+  // Đảm bảo products luôn là mảng
+  const safeProducts = Array.isArray(products) ? products : [];
   const [filter, setFilter] = useState({
     category: '', color: '', storage: '', priceMin: '', priceMax: ''
   });
@@ -54,32 +58,32 @@ const Header = () => {
 
   // Fetch categories
   useEffect(() => {
-    const fetchCategories = async () => {
-      setCategoriesLoading(true);
-      setCategoriesError(null);
+    async function fetchCategories() {
       try {
         const data = await categoryAPI.getCategories();
-        setCategories(data);
+        // Đảm bảo luôn là mảng (nếu là Laravel paginate thì data.data là mảng)
+        const arr = Array.isArray(data) ? data : (data && Array.isArray(data.data) ? data.data : []);
+        setCategories(arr);
       } catch (err) {
-        setCategoriesError(err.message);
+        setCategories([]);
       } finally {
         setCategoriesLoading(false);
       }
-    };
+    }
     fetchCategories();
   }, []);
 
-  const filteredCategories = categories.filter(category =>
+  const filteredCategories = safeCategories.filter(category =>
     removeAccents(category.name.toLowerCase()).includes(removeAccents(searchTerm.toLowerCase())) ||
     (category.subcategories?.some(sub =>
       removeAccents(sub.name.toLowerCase()).includes(removeAccents(searchTerm.toLowerCase()))
     ))
   );
 
-  const allColors = Array.from(new Set(products.flatMap(p => p.colors || [])));
-  const allStorages = Array.from(new Set(products.flatMap(p => p.variants?.map(v => v.storage) || [])));
-  const allCategories = Array.from(new Set(products.map(p => p.category)));
-  const allBrands = Array.from(new Set(products.map(p => p.brand).filter(Boolean)));
+  const allColors = Array.from(new Set(safeProducts.flatMap(p => p.colors || [])));
+  const allStorages = Array.from(new Set(safeProducts.flatMap(p => p.variants?.map(v => v.storage) || [])));
+  const allCategories = Array.from(new Set(safeProducts.map(p => p.category)));
+  const allBrands = Array.from(new Set(safeProducts.map(p => p.brand).filter(Boolean)));
   // Danh sách brand cố định để hiển thị - chỉ đến HP
   const allowedBrands = [
     "Apple", "Samsung", "Xiaomi", "Google", "OnePlus", "OPPO", "Defunc", "Hoa Phat", "Unie", "Dell", "Lenovo", "HP"
@@ -88,7 +92,7 @@ const Header = () => {
 
   const normalize = (str) => removeAccents((str || '').toLowerCase().trim());
 
-  const suggestions = products.filter(p => {
+  const suggestions = safeProducts.filter(p => {
     const q = normalize(productSearch);
     const matchText = [p.name, p.description, p.intro].map(normalize).join(' ');
     const match = q === '' || matchText.includes(q);
@@ -137,7 +141,7 @@ const Header = () => {
 }, []);
 
 
-  const currentCategory = categories.find(cat => cat.id === hoveredCategory);
+  const currentCategory = safeCategories.find(cat => cat.id === hoveredCategory);
 
   const handleProductSearch = (e) => {
     e.preventDefault();
@@ -287,17 +291,17 @@ const Header = () => {
                           <Link to={`/products${currentCategory.path}`} className="view-all-link">Xem tất cả</Link>
                         </div>
                         <div className="subcategories-content">
-                          <div className="subcategories-list">
-                            {currentCategory.subcategories.slice(0, 4).map((sub) => (
-                              <Link key={sub.path} to={sub.path} className={`subcategory-item ${sub.isPopular ? 'popular' : ''}`} onClick={() => setIsMenuOpen(false)}>
-                                {sub.name}
-                                {sub.isPopular && <span className="popular-badge">Hot</span>}
-                              </Link>
-                            ))}
-                          </div>
+                            <div className="subcategories-list">
+                              {(Array.isArray(currentCategory.subcategories) ? currentCategory.subcategories : []).slice(0, 4).map((sub) => (
+                                <Link key={sub.path} to={sub.path} className={`subcategory-item ${sub.isPopular ? 'popular' : ''}`} onClick={() => setIsMenuOpen(false)}>
+                                  {sub.name}
+                                  {sub.isPopular && <span className="popular-badge">Hot</span>}
+                                </Link>
+                              ))}
+                            </div>
                           {(() => {
                             // Lấy sản phẩm nổi bật tự động từ products theo category
-                            const categorySlug = currentCategory.path.replace('/', '');
+                            const categorySlug = currentCategory.path ? currentCategory.path.replace('/', '') : '';
                             const featuredProducts = products
                               .filter(p => p.category === categorySlug && p.isFeatured)
                               .slice(0, 2); // Chỉ lấy 2 sản phẩm nổi bật

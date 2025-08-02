@@ -4975,6 +4975,17 @@
       "avatar": "/images/avatar-default.png",
       "birthday": "2025-07-03",
       "gender": "Nam"
+    },
+    {
+      "id": "5a25",
+      "name": "Trần Văn Dũng",
+      "phone": "0123456789",
+      "email": "dung123@gmail.com",
+      "password": "pass12345",
+      "avatar": "/images/avatar-default.png",
+      "addresses": [],
+      "orders": [],
+      "cart": []
     }
   ],
   "banners": [

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            white-space: pre-wrap;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <h1>API Test Tool</h1>
+    
+    <div class="test-section">
+        <h3>Login Test</h3>
+        <button onclick="testLogin()">Test Login</button>
+        <div id="loginResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Get User Test</h3>
+        <button onclick="testGetUser()">Test Get User</button>
+        <div id="getUserResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Update User Test</h3>
+        <button onclick="testUpdateUser()">Test Update User</button>
+        <div id="updateUserResult" class="result"></div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8000/api/v1';
+        let accessToken = null;
+
+        async function makeRequest(endpoint, options = {}) {
+            const url = `${API_BASE_URL}${endpoint}`;
+            const config = {
+                method: options.method || 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    ...(accessToken && { 'Authorization': `Bearer ${accessToken}` }),
+                    ...(options.headers || {})
+                },
+                ...options
+            };
+
+            try {
+                const response = await fetch(url, config);
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${JSON.stringify(data)}`);
+                }
+                
+                return data;
+            } catch (error) {
+                throw error;
+            }
+        }
+
+        async function testLogin() {
+            const resultDiv = document.getElementById('loginResult');
+            resultDiv.textContent = 'Testing login...';
+            resultDiv.className = 'result';
+
+            try {
+                const response = await makeRequest('/login', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        email: 'admin@gmail.com',
+                        password: 'admin123'
+                    })
+                });
+
+                accessToken = response.access_token;
+                resultDiv.textContent = `Login successful!\nAccess Token: ${response.access_token}\nUser: ${JSON.stringify(response.user, null, 2)}`;
+                resultDiv.className = 'result success';
+            } catch (error) {
+                resultDiv.textContent = `Login failed: ${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        }
+
+        async function testGetUser() {
+            const resultDiv = document.getElementById('getUserResult');
+            resultDiv.textContent = 'Testing get user...';
+            resultDiv.className = 'result';
+
+            if (!accessToken) {
+                resultDiv.textContent = 'Please login first!';
+                resultDiv.className = 'result error';
+                return;
+            }
+
+            try {
+                const response = await makeRequest('/users/13');
+                resultDiv.textContent = `Get user successful!\nUser: ${JSON.stringify(response, null, 2)}`;
+                resultDiv.className = 'result success';
+            } catch (error) {
+                resultDiv.textContent = `Get user failed: ${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        }
+
+        async function testUpdateUser() {
+            const resultDiv = document.getElementById('updateUserResult');
+            resultDiv.textContent = 'Testing update user...';
+            resultDiv.className = 'result';
+
+            if (!accessToken) {
+                resultDiv.textContent = 'Please login first!';
+                resultDiv.className = 'result error';
+                return;
+            }
+
+            try {
+                const response = await makeRequest('/users/13', {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        name: 'Admin Updated',
+                        email: 'admin@gmail.com',
+                        phone_number: '0999999999',
+                        birthday: '1990-01-01',
+                        gender: 'male'
+                    })
+                });
+
+                resultDiv.textContent = `Update user successful!\nUser: ${JSON.stringify(response, null, 2)}`;
+                resultDiv.className = 'result success';
+            } catch (error) {
+                resultDiv.textContent = `Update user failed: ${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        }
+    </script>
+</body>
+</html> 

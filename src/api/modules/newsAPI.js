@@ -6,7 +6,7 @@ export const newsAPI = {
   getNews: async (params = {}) => {
     try {
       const response = await apiClient.get('/news', params);
-      return response;
+      return response.data;
     } catch (error) {
       console.error('Get news error:', error);
       throw error;
@@ -17,7 +17,7 @@ export const newsAPI = {
   getNewsById: async (id) => {
     try {
       const response = await apiClient.get(`/news/${id}`);
-      return response;
+      return response.data;
     } catch (error) {
       console.error('Get news by ID error:', error);
       throw error;
@@ -61,7 +61,7 @@ export const newsAPI = {
   createNews: async (newsData) => {
     try {
       const response = await apiClient.post('/news', newsData);
-      return response;
+      return response.data;
     } catch (error) {
       console.error('Create news error:', error);
       throw error;
@@ -82,7 +82,8 @@ export const newsAPI = {
   // Xóa tin tức
   deleteNews: async (id) => {
     try {
-      return apiClient.delete(`/news/${id}`);
+      const response = await apiClient.delete(`/news/${id}`);
+      return response.data;
     } catch (error) {
       console.error('Delete news error:', error);
       throw error;

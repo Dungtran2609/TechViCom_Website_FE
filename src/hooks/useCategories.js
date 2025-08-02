@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getCategoriesWithData, getHeaderCategories } from '../data/categories';
+import { categoryAPI } from '../api';
 
 // Hook cho HomePage (categories đơn giản)
 export const useHomeCategories = () => {
@@ -12,7 +12,7 @@ export const useHomeCategories = () => {
       try {
         setLoading(true);
         setError(null);
-        const data = await getCategoriesWithData();
+        const data = await categoryAPI.getCategories();
         if (data && data.length > 0) {
           setCategories(data);
         } else {
@@ -43,7 +43,7 @@ export const useHeaderCategories = () => {
       try {
         setLoading(true);
         setError(null);
-        const data = await getHeaderCategories();
+        const data = await categoryAPI.getCategories();
         if (data && data.length > 0) {
           setCategories(data);
         } else {

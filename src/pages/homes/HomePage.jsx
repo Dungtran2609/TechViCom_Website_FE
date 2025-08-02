@@ -8,21 +8,41 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import './HomePage.css';
 import Toast from '../../components/Toast';
-import VoucherDisplay from '../../components/VoucherDisplay';
+import CouponDisplay from '../../components/CouponDisplay';
 import CategoriesGrid from '../../components/CategoriesGrid';
 
 import { useHomeCategories } from '../../hooks/useCategories';
-import { bannerAPI, productAPI, newsAPI } from '../../api';
+import { bannerAPI, productAPI, newsAPI, couponAPI } from '../../api';
 import { ProductGridSkeleton, CategoryGridSkeleton } from '../../components/LoadingSkeletons';
 import { FadeIn, StaggerContainer, StaggerItem } from '../../components/Animations';
 
 const HomePage = () => {
+  // Fetch coupons
+  const [coupons, setCoupons] = useState([]);
+  const [loadingCoupons, setLoadingCoupons] = useState(true);
+  useEffect(() => {
+    const loadCoupons = async () => {
+      try {
+        const data = await couponAPI.getCoupons();
+        setCoupons(Array.isArray(data) ? data : []);
+      } catch (error) {
+        setCoupons([]);
+      } finally {
+        setLoadingCoupons(false);
+      }
+    };
+    loadCoupons();
+  }, []);
   const [timeLeft, setTimeLeft] = useState({
     hours: 23,
     minutes: 59,
     seconds: 59
   });
-  const { categories, loading: loadingCategories, error: categoriesError } = useHomeCategories();
+  const { categories: rawCategories, loading: loadingCategories, error: categoriesError } = useHomeCategories();
+  // Debug xem dữ liệu categories thực tế là gì
+  // console.log('rawCategories from useHomeCategories:', rawCategories);
+  // Đảm bảo categories luôn là mảng
+  const categories = Array.isArray(rawCategories) ? rawCategories : [];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -68,8 +88,10 @@ const HomePage = () => {
   useEffect(() => {
     const loadProducts = async () => {
       try {
-        const response = await productAPI.getProducts();
-        setProducts(response.data || []);
+        const data = await productAPI.getProducts();
+        // Đảm bảo luôn là mảng (nếu là Laravel paginate thì data.data là mảng)
+        const arr = Array.isArray(data) ? data : (data && Array.isArray(data.data) ? data.data : []);
+        setProducts(arr);
       } catch (error) {
         console.error('Error loading products:', error);
         setProducts([]);
@@ -247,6 +269,94 @@ const HomePage = () => {
         />
       </section>
 
+  {/* Sản phẩm mới nhất */}
+  <section className="products-section center-section">
+    <h2 className="section-title">Sản phẩm mới nhất</h2>
+    <div className="products-grid">
+      {loadingProducts ? (
+        <ProductGridSkeleton count={8} />
+      ) : products.length === 0 ? (
+        <div style={{padding: 40, textAlign: 'center', width: '100%'}}>Không có sản phẩm nào.</div>
+      ) : (
+        products.slice(0, 8).map(product => {
+          // Chuẩn hóa lấy ảnh và giá như ProductListPage
+          const img = product.thumbnail
+            ? (product.thumbnail.startsWith('http')
+                ? product.thumbnail
+                : `http://localhost:8000/storage/${product.thumbnail.replace(/^storage[\\/]/, '')}`)
+            : '/images/no-image.png';
+          let minPrice, maxPrice;
+          if (Array.isArray(product.variants) && product.variants.length > 0) {
+            const prices = product.variants.map(v => {
+              let price = v.sale_price !== undefined && v.sale_price !== null && v.sale_price !== '' ? Number(v.sale_price) : Number(v.price);
+              return price >= 1000 ? price : null;
+            }).filter(p => p !== null && !isNaN(p));
+            if (prices.length > 0) {
+              minPrice = Math.min(...prices);
+              maxPrice = Math.max(...prices);
+            }
+          }
+          return (
+            <Link to={`/product/${product.id}`} key={product.id} className="product-card-modern">
+              <div className="product-image-modern">
+                <img src={img} alt={product.name} />
+              </div>
+              <div className="product-info-modern">
+                <h3 className="product-name-modern">{product.name}</h3>
+                <div className="product-price-modern">
+                  {minPrice !== undefined && maxPrice !== undefined ? (
+                    <span className="current-price-modern">Giá từ {minPrice.toLocaleString()}đ - {maxPrice.toLocaleString()}đ</span>
+                  ) : product.sale_price && Number(product.sale_price) < Number(product.price) ? (
+                    <>
+                      <span className="current-price-modern">{Number(product.sale_price).toLocaleString()}đ</span>
+                      <span className="original-price-modern">{Number(product.price).toLocaleString()}đ</span>
+                    </>
+                  ) : (
+                    <span className="current-price-modern">{product.price ? Number(product.price).toLocaleString() : 'Liên hệ'}đ</span>
+                  )}
+                </div>
+                {product.promotion && (
+                  <div className="promotion-text-modern">{product.promotion}</div>
+                )}
+                <button className="buy-btn-modern">Mua ngay</button>
+              </div>
+            </Link>
+          );
+        })
+      )}
+    </div>
+  </section>
+
+  {/* Danh mục nổi bật */}
+  <section className="categories-highlight-section center-section">
+    <h2 className="section-title">Danh mục nổi bật</h2>
+    <div className="categories-grid">
+      {loadingCategories ? (
+        <CategoryGridSkeleton count={6} />
+      ) : categories.length === 0 ? (
+        <div style={{padding: 40, textAlign: 'center', width: '100%'}}>Không có danh mục nào.</div>
+      ) : (
+        categories.slice(0, 6).map(category => {
+          const img = category.image
+            ? (category.image.startsWith('http')
+                ? category.image
+                : `http://localhost:8000/storage/${category.image.replace(/^storage[\\/]/, '')}`)
+            : '/images/no-image.png';
+          return (
+            <Link to={`/category/${category.slug}`} key={category.id} className="category-card-modern">
+              <div className="category-image-modern">
+                <img src={img} alt={category.name} />
+              </div>
+              <div className="category-info-modern">
+                <h3 className="category-name-modern">{category.name}</h3>
+              </div>
+            </Link>
+          );
+        })
+      )}
+    </div>
+  </section>
+
       {/* Flash Sale Section */}
       <section className="flash-sale-section center-section">
         <div className="flash-sale-header-modern">
@@ -297,9 +407,9 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Voucher Section */}
+      {/* Coupon Section */}
       <section className="center-section">
-        <VoucherDisplay limit={5} />
+        <CouponDisplay coupons={coupons.slice(0, 5)} loading={loadingCoupons} />
       </section>
 
       {/* Products Section */}
