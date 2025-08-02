@@ -1,44 +1,32 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { FaRegThumbsUp, FaRegCommentDots, FaFacebook, FaHeart, FaLink } from 'react-icons/fa';
-
-// Giả định file index trong '.../../api' export các module API
-import { newsAPI } from '../../api';
-// Giả định đây là custom hook để hiển thị thông báo
+import { newsAPI } from '../../api/modules/newsAPI';
 import { useNotificationActions } from '../../components/notificationHooks';
 
-/**
- * Helper an toàn để lấy thông tin người dùng từ localStorage.
- * @returns {object|null} - Đối tượng người dùng hoặc null nếu không có hoặc lỗi.
- */
 const getCurrentUser = () => {
   try {
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;
-  } catch (error) {
-    console.error("Lỗi khi đọc thông tin người dùng từ localStorage:", error);
+  } catch {
     return null;
   }
 };
 
 const NewsDetailPage = () => {
-  // === HOOKS ===
-  const { id: newsId } = useParams(); // Đổi tên 'id' thành 'newsId' cho rõ ràng
+  const { id: newsId } = useParams();
   const navigate = useNavigate();
   const { error: showError, success: showSuccess } = useNotificationActions();
   const currentUser = useMemo(() => getCurrentUser(), []);
 
-  // === STATE ===
   const [news, setNews] = useState(null);
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [pageError, setPageError] = useState(null); // Lỗi nghiêm trọng khi tải trang
+  const [pageError, setPageError] = useState(null);
 
-  // State cho form bình luận
   const [newComment, setNewComment] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // State cho chức năng "Thích"
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
 
@@ -51,23 +39,18 @@ const NewsDetailPage = () => {
       setLoading(true);
       setPageError(null);
       try {
-        // Gọi API để lấy chi tiết bài viết (bao gồm cả comments, like count, và trạng thái like của user)
         const response = await newsAPI.getNewsById(newsId, { signal });
-        
         if (response.data) {
           const { data: newsData } = response;
           setNews(newsData);
           setComments(newsData.comments || []);
-          // Giả sử backend trả về 'likes_count' và 'is_liked_by_user'
           setLikeCount(newsData.likes_count || 0);
           setIsLiked(newsData.is_liked_by_user || false);
         } else {
           throw new Error("Không tìm thấy dữ liệu bài viết trong phản hồi từ API.");
         }
       } catch (err) {
-        if (err.name === 'AbortError') return; // Bỏ qua nếu request bị hủy
-        
-        console.error("Lỗi khi tải chi tiết bài viết:", err);
+        if (err.name === 'AbortError') return;
         setPageError("Không thể tải bài viết. Có thể bài viết không tồn tại hoặc đã bị xóa.");
         setNews(null);
       } finally {
@@ -76,11 +59,7 @@ const NewsDetailPage = () => {
     };
 
     loadNewsDetails();
-
-    // Cleanup function: Hủy request nếu component bị unmount
-    return () => {
-      controller.abort();
-    };
+    return () => controller.abort();
   }, [newsId]);
 
   // === EVENT HANDLERS ===
@@ -97,7 +76,7 @@ const NewsDetailPage = () => {
     setIsSubmitting(true);
     const previousComments = comments;
 
-    // Optimistic Update: Thêm bình luận vào UI ngay lập tức
+    // Optimistic Update
     const optimisticComment = {
       id: `temp-${Date.now()}`,
       content: newComment,
@@ -109,47 +88,75 @@ const NewsDetailPage = () => {
 
     try {
       const response = await newsAPI.addNewsComment(newsId, { content: newComment });
-      // Thay thế bình luận tạm thời bằng bình luận thật từ server
       setComments(prev => prev.map(c => (c.id === optimisticComment.id ? response.data : c)));
       showSuccess("Bình luận của bạn đã được gửi!", "Thành công");
     } catch (err) {
-      console.error("Lỗi khi gửi bình luận:", err);
       showError("Gửi bình luận thất bại. Vui lòng thử lại.", "Lỗi");
-      setComments(previousComments); // Rollback: Quay lại trạng thái cũ nếu có lỗi
+      setComments(previousComments);
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  // Like bài viết
   const handleLike = useCallback(async () => {
     if (!currentUser) {
       showError("Vui lòng đăng nhập để thích bài viết.", "Yêu cầu đăng nhập");
       navigate('/login');
       return;
     }
-
-    // Optimistic Update
     const originalIsLiked = isLiked;
     setIsLiked(!originalIsLiked);
     setLikeCount(prev => (originalIsLiked ? prev - 1 : prev + 1));
-
     try {
-      // Gọi API để cập nhật trạng thái like trên server
-      // Giả sử bạn có một hàm API là `toggleLike`
-      await newsAPI.toggleLike(newsId);
+      await newsAPI.toggleLikeNews(newsId);
     } catch (err) {
-      console.error("Lỗi khi cập nhật lượt thích:", err);
       showError("Không thể cập nhật lượt thích. Vui lòng thử lại.", "Lỗi");
-      // Rollback nếu có lỗi
       setIsLiked(originalIsLiked);
       setLikeCount(prev => (originalIsLiked ? prev + 1 : prev - 1));
     }
   }, [currentUser, isLiked, navigate, newsId, showError]);
 
+  // Like bình luận (nếu muốn mở rộng)
+  const handleLikeComment = async (commentId, liked, index) => {
+    if (!currentUser) {
+      showError("Vui lòng đăng nhập để thích bình luận.", "Yêu cầu đăng nhập");
+      navigate('/login');
+      return;
+    }
+    setComments(prev =>
+      prev.map((c, i) =>
+        i === index
+          ? {
+            ...c,
+            is_liked_by_user: !liked,
+            likes_count: liked ? (c.likes_count || 1) - 1 : (c.likes_count || 0) + 1,
+          }
+          : c
+      )
+    );
+    try {
+      await newsAPI.toggleLikeComment(commentId);
+    } catch {
+      setComments(prev =>
+        prev.map((c, i) =>
+          i === index
+            ? {
+              ...c,
+              is_liked_by_user: liked,
+              likes_count: liked ? (c.likes_count || 0) + 1 : (c.likes_count || 1) - 1,
+            }
+            : c
+        )
+      );
+      showError("Không thể cập nhật lượt thích bình luận.", "Lỗi");
+    }
+  };
+
   const handleShareFacebook = () => {
     const url = encodeURIComponent(window.location.href);
     const title = encodeURIComponent(news?.title || '');
-    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}"e=${title}`;
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${title}`;
     window.open(facebookUrl, 'facebook-share-dialog', 'width=600,height=400');
   };
 
@@ -157,17 +164,21 @@ const NewsDetailPage = () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
       showSuccess("Đã sao chép link bài viết!", "Thành công");
-    } catch (err) {
+    } catch {
       showError("Không thể sao chép link.", "Lỗi");
     }
   };
 
   // === MEMOIZED VALUES & UTILITIES ===
   const displayedComments = useMemo(() => {
-    // Lọc các bình luận bị ẩn và đảo ngược để hiển thị bình luận mới nhất lên đầu
-    return comments.filter(c => !c.is_hidden).reverse();
+    // Tạo một bản sao của mảng comments để không thay đổi state gốc
+    return [...comments]
+      .filter(c => !c.is_hidden) // Giữ lại logic lọc các comment bị ẩn
+      // Sắp xếp các bình luận: so sánh ngày tháng của b với a
+      // để đưa bình luận mới hơn (ngày lớn hơn) lên trước
+      .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   }, [comments]);
-  
+
   const formatDateTime = (timestamp) => {
     if (!timestamp) return 'Vừa xong';
     return new Date(timestamp).toLocaleString('vi-VN', {
@@ -175,15 +186,6 @@ const NewsDetailPage = () => {
     });
   };
 
-  /**
-   * CHÚ THÍCH VỀ HIỂN THỊ NỘI DUNG HTML:
-   * Việc sử dụng `dangerouslySetInnerHTML` cùng với `.replace()` thủ công có thể hoạt động nhưng khá mong manh.
-   * Một giải pháp chuyên nghiệp và an toàn hơn là sử dụng plugin `@tailwindcss/typography`.
-   * Bạn chỉ cần bọc nội dung trong thẻ div với class "prose" và cấu hình style trong `tailwind.config.js`.
-   * Ví dụ: `<div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: news.content }} />`
-   */
-
-  // === RENDER LOGIC ===
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[60vh]">
@@ -206,7 +208,7 @@ const NewsDetailPage = () => {
       </div>
     );
   }
-  
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 mt-10 md:mt-16">
       <div className="mb-6">
@@ -214,13 +216,12 @@ const NewsDetailPage = () => {
           ← Quay lại danh sách bài viết
         </Link>
       </div>
-      
-      <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-lg overflow-hidden md:rounded-3xl md:shadow-none">
         {news.image && (
           <img
             src={`http://localhost:8000/${news.image}`}
             alt={news.title}
-            className="w-full h-[300px] md:h-[500px] object-cover"
+            className="w-full h-[300px] md:h-[500px] object-contain bg-white"
             onError={(e) => { e.target.src = '/images/news/anhbv1.jpg'; }}
           />
         )}
@@ -231,7 +232,7 @@ const NewsDetailPage = () => {
             </h1>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-gray-600 text-sm mb-8 pb-6 border-b border-gray-200">
               <div className="flex items-center gap-2">
-                <img src={news.author?.avatar || '/images/avatar-default.png'} alt={news.author?.name} className="w-8 h-8 rounded-full object-cover"/>
+                <img src={news.author?.avatar || '/images/avatar-default.png'} alt={news.author?.name} className="w-8 h-8 rounded-full object-cover" />
                 <span>Tác giả: <strong className="text-orange-600">{news.author?.name || 'Ẩn danh'}</strong></span>
               </div>
               <div className="flex items-center gap-2">
@@ -245,18 +246,20 @@ const NewsDetailPage = () => {
                 </div>
               )}
             </div>
-            
             <div
-              className="prose prose-lg max-w-none"
+              className="prose prose-lg text-left text-gray-700 max-w-none mb-8 leading-relaxed "
+              style={{ wordBreak: 'break-word' }}
               dangerouslySetInnerHTML={{ __html: news.content || 'Không có nội dung' }}
             />
-
             <div className="mt-10 pt-6 border-t border-gray-200">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4 text-sm text-gray-500">
-                  <button onClick={handleLike} className={`flex items-center gap-2 transition-colors duration-200 ${isLiked ? 'text-red-500 font-semibold' : 'hover:text-red-500'}`}>
-                    <FaHeart className={`w-5 h-5 ${isLiked ? 'fill-current' : ''}`} />
-                    <span>{likeCount} Thích</span>
+                  <button
+                    onClick={handleLike}
+                    className={`flex items-center gap-2 transition-colors duration-200 ${isLiked ? 'text-red-500 font-semibold' : 'hover:text-red-500'}`}
+                  >
+                    <FaRegThumbsUp className={`w-5 h-5 ${isLiked ? 'fill-current' : ''}`} />
+                    <span>Thích</span>
                   </button>
                   <button onClick={handleShareFacebook} className="flex items-center gap-2 hover:text-blue-600 transition-colors">
                     <FaFacebook className="w-5 h-5" />
@@ -272,14 +275,13 @@ const NewsDetailPage = () => {
           </div>
         </div>
       </div>
-      
       <div className="bg-white rounded-2xl shadow-lg p-6 md:p-10 mt-8">
         <h2 className="text-2xl text-center font-bold text-gray-800 mb-8">Thảo luận ({displayedComments.length})</h2>
         <div className="max-w-4xl mx-auto">
           <div className="mb-8">
             {currentUser ? (
               <form onSubmit={handleCommentSubmit} className="flex items-start gap-4">
-                <img src={currentUser.avatar || '/images/avatar-default.png'} alt="avatar" className="w-10 h-10 rounded-full object-cover flex-shrink-0"/>
+                <img src={currentUser.avatar || '/images/avatar-default.png'} alt="avatar" className="w-10 h-10 rounded-full object-cover flex-shrink-0" />
                 <div className="w-full">
                   <textarea
                     value={newComment}
@@ -302,12 +304,11 @@ const NewsDetailPage = () => {
               </div>
             )}
           </div>
-
           <div className="space-y-4">
             {displayedComments.length > 0 ? (
-              displayedComments.map(comment => (
+              displayedComments.map((comment, idx) => (
                 <div key={comment.id} className="flex items-start gap-4 py-4 border-b border-gray-100 last:border-b-0">
-                  <img src={comment.user?.avatar || '/images/avatar-default.png'} alt={comment.user?.name} className="w-10 h-10 rounded-full object-cover flex-shrink-0"/>
+                  <img src={comment.user?.avatar || '/images/avatar-default.png'} alt={comment.user?.name} className="w-10 h-10 rounded-full object-cover flex-shrink-0" />
                   <div className="flex-1">
                     <div className="flex justify-between items-start">
                       <div>
@@ -317,8 +318,7 @@ const NewsDetailPage = () => {
                       <p className="text-xs text-gray-400 flex-shrink-0 ml-4 pt-1">{formatDateTime(comment.created_at)}</p>
                     </div>
                     <div className="mt-2 flex items-center gap-4 text-sm text-gray-500">
-                      <button className="flex items-center gap-1.5 font-medium hover:text-orange-500 transition-colors"><FaRegThumbsUp /> Thích</button>
-                      <button className="flex items-center gap-1.5 font-medium hover:text-orange-500 transition-colors"><FaRegCommentDots /> Trả lời</button>
+
                     </div>
                   </div>
                 </div>

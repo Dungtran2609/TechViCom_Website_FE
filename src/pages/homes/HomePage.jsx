@@ -44,16 +44,38 @@ const HomePage = () => {
   // Đảm bảo categories luôn là mảng
   const categories = Array.isArray(rawCategories) ? rawCategories : [];
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(prevTime => {
+        const newSeconds = prevTime.seconds - 1;
+        if (newSeconds < 0) {
+          const newMinutes = prevTime.minutes - 1;
+          if (newMinutes < 0) {
+            const newHours = prevTime.hours - 1;
+            if (newHours < 0) {
+              clearInterval(timer);
+              return prevTime;
+            }
+            return { hours: newHours, minutes: 59, seconds: 59 };
+          }
+          return { ...prevTime, minutes: newMinutes, seconds: 59 };
+        }
+        return { ...prevTime, seconds: newSeconds };
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   // Fetch banners
   const [banners, setBanners] = useState([]);
   useEffect(() => {
     const loadBanners = async () => {
       try {
-        const response = await bannerAPI.getBanners();
-        setBanners(response.data || []);
+        const data = await bannerAPI.getBanners();
+        setBanners(data);
       } catch (error) {
         console.error('Error loading banners:', error);
-        setBanners([]);
         setBanners([]);
       }
     };
@@ -96,29 +118,32 @@ const HomePage = () => {
     }
   }, []);
 
-  // Fetch bài viết nổi bật từ API - KHỞI TẠO VỚI MẢNG RỖNG
+  // Fetch bài viết nổi bật từ API
   const [news, setNews] = useState([]);
   const [loadingNews, setLoadingNews] = useState(true);
+
   useEffect(() => {
     const loadNews = async () => {
       try {
-        console.log('Fetching featured news...');
-        const response = await newsAPI.getFeaturedNews(3);
-        console.log('News API response:', response);
-        // API trả về {success: true, data: [...]}
-        const newsData = response.data || [];
-        // Chỉ lấy 3 bài viết đầu tiên
-        setNews(newsData.slice(0, 3));
-        console.log('Set news data:', newsData.slice(0, 3));
+        setLoadingNews(true);
+        // Gọi API
+        const response = await newsAPI.getFeaturedNews();
+
+        // Lấy mảng bài viết từ thuộc tính 'data' của đối tượng response
+        const articles = response.data && Array.isArray(response.data) ? response.data : [];
+        
+        // Cắt lấy 3 bài viết đầu tiên trước khi cập nhật state
+        setNews(articles.slice(0, 3)); 
+
       } catch (error) {
-        console.error('Error loading news:', error);
-        setNews([]);
+        console.error('Lỗi khi tải bài viết nổi bật:', error);
+        setNews([]); // Đảm bảo news là mảng rỗng nếu có lỗi
       } finally {
-        setLoadingNews(false);
+        setLoadingNews(false); // Tắt loading sau khi hoàn tất
       }
     };
     loadNews();
-  }, []);
+  }, []); // Mảng rỗng đảm bảo chỉ chạy 1 lần
   
   // SỬA LỖI TẠI ĐÂY - Đảm bảo featuredNews luôn là array
   const featuredNews = Array.isArray(news) ? news : [];
@@ -130,7 +155,7 @@ const HomePage = () => {
         const swiperElement = document.querySelector('.banner-slider');
         if (swiperElement && swiperElement.swiper && swiperElement.swiper.autoplay) {
           swiperElement.swiper.autoplay.start();
-
+    
         }
       }, 100);
 
@@ -147,7 +172,7 @@ const HomePage = () => {
         const swiperElement = document.querySelector('.banner-slider');
         if (swiperElement && swiperElement.swiper && swiperElement.swiper.autoplay) {
           swiperElement.swiper.autoplay.start();
-
+  
         }
       }, 500);
 
@@ -164,7 +189,6 @@ const HomePage = () => {
       <div className="banner-wrapper">
         <section className="banner-section">
           <Swiper
-          <Swiper
             key={`banner-swiper-${swiperKey}`}
             modules={[Navigation, Pagination, Autoplay]}
             spaceBetween={0}
@@ -180,13 +204,13 @@ const HomePage = () => {
             loop={true}
             className="banner-slider"
             onSwiper={(swiper) => {
-
+              
               setBannerLoaded(true);
               // Force autoplay to start
               setTimeout(() => {
                 if (swiper.autoplay) {
                   swiper.autoplay.start();
-
+  
                 }
               }, 100);
             }}
@@ -197,7 +221,6 @@ const HomePage = () => {
             {banners.map((banner) => {
               // Tìm sản phẩm tương ứng từ danh sách products
               const product = products.find(p => p.id === banner.productId);
-
 
               return (
                 <SwiperSlide key={banner.id}>
@@ -243,8 +266,6 @@ const HomePage = () => {
 
       {/* Categories Grid */}
       <section className="categories-section center-section">
-        <CategoriesGrid
-          categories={categories}
         <CategoriesGrid
           categories={categories}
           loading={loadingCategories}
@@ -403,19 +424,16 @@ const HomePage = () => {
             <ProductGridSkeleton count={8} />
           ) : products.length === 0 ? (
             <div style={{ padding: 40, textAlign: 'center', width: '100%' }}>Không có sản phẩm nào.</div>
-            <div style={{ padding: 40, textAlign: 'center', width: '100%' }}>Không có sản phẩm nào.</div>
           ) : (
             // Hiển thị sản phẩm theo danh mục, mỗi danh mục 2 sản phẩm
             (() => {
               const categories = ['dien-thoai', 'laptop', 'may-lanh', 'tu-lanh', 'dien-gia-dung', 'may-tinh-bang', 'phu-kien', 'sim-techvicom', 'quat-dieu-hoa'];
               const suggestedProducts = [];
 
-
               categories.forEach(category => {
                 const categoryProducts = products.filter(p => p.category === category).slice(0, 2);
                 suggestedProducts.push(...categoryProducts);
               });
-
 
               return suggestedProducts.map((product) => (
                 <Link to={`/product/${product.id}`} key={product.id} className="product-card-modern">
@@ -445,7 +463,6 @@ const HomePage = () => {
       {/* Services Banner Section */}
       <section className="services-banner">
         <div className="services-grid">
-          <Link to="/products/may-lanh" className="service-item large">
           <Link to="/products/may-lanh" className="service-item large">
             <img src="/images/services/ac-service.jpg" alt="Mở máy lạnh hệ mát lạnh" />
             <div className="service-content">
@@ -506,55 +523,34 @@ const HomePage = () => {
 
       {/* Featured News Section */}
       <section className="bg-gradient-to-b from-white via-orange-100 to-white py-12" style={{ background: 'linear-gradient(to bottom, white 15%, #FFD9B3 60%, white 85%)' }}>
-      <section className="bg-gradient-to-b from-white via-orange-100 to-white py-12" style={{ background: 'linear-gradient(to bottom, white 15%, #FFD9B3 60%, white 85%)' }}>
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl font-extrabold mb-10 text-orange-600 text-center tracking-tight drop-shadow">Bài viết nổi bật</h2>
-
-          {loadingNews ? (
-            <div className="text-center py-8">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div>
-              <p className="mt-2 text-gray-600">Đang tải bài viết...</p>
-            </div>
-          ) : featuredNews.length === 0 ? (
-            <div className="text-center py-8">
-              <p className="text-gray-600">Chưa có bài viết nổi bật.</p>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mb-10">
-              {featuredNews.map((news) => (
-                <div
-                  key={news.id}
-                  className="bg-white rounded-3xl shadow-lg border border-orange-100 flex flex-col overflow-hidden group transition-all duration-300 hover:shadow-2xl hover:border-orange-500 hover:-translate-y-2 hover:scale-105"
-                >
-                  <div className="overflow-hidden">
-                    <img
-                      src={`http://localhost:8000/${news.image}` || '/images/news/anhbv1.jpg'}
-                      alt={news.title}
-                      className="h-56 w-full object-cover rounded-t-3xl transition-all duration-300 group-hover:scale-110 group-hover:brightness-105"
-                      onError={(e) => {
-                        e.target.src = '/images/news/anhbv1.jpg';
-                      }}
-                    />
-                  </div>
-                  <div className="p-6 flex flex-col flex-1">
-                    <h3 className="text-xl font-bold mb-3 text-gray-900 transition-colors duration-300 group-hover:text-orange-600 line-clamp-2">
-                      {news.title}
-                    </h3>
-                    <p className="text-gray-600 mb-4 flex-1 line-clamp-3">
-                      {news.content ? news.content.replace(/<[^>]+>/g, '').slice(0, 100) + '...' : 'Không có mô tả'}
-                    </p>
-                    <p className="text-gray-400 text-xs mb-4 text-right">
-                      {news.published_at ? new Date(news.published_at).toLocaleDateString('vi-VN') : 'Chưa có ngày'}
-                    </p>
-                    <Link to={`/news/${news.id}`} className="inline-flex items-center justify-center gap-2 mt-auto px-5 py-2.5 bg-orange-500 text-white rounded-full font-semibold shadow transition-all duration-200 hover:bg-orange-600 hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-300 w-full text-lg group-hover:bg-orange-600">
-                      → Xem bài viết
-                    </Link>
-                  </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mb-10">
+            {featuredNews.map((news) => (
+              <div
+                key={news.id}
+                className="bg-white rounded-3xl shadow-lg border border-orange-100 flex flex-col overflow-hidden group transition-all duration-300 hover:shadow-2xl hover:border-orange-500 hover:-translate-y-2 hover:scale-105"
+              >
+                <div className="overflow-hidden">
+                  <img
+                        src={`http://localhost:8000/${news.image}` || '/images/news/anhbv1.jpg'}
+                        alt={news.title}
+                        className="h-48 w-full object-cover transition-all duration-300 group-hover:scale-105"
+                        onError={(e) => { e.target.src = '/images/news/anhbv1.jpg'; }}
+                      />
                 </div>
-              ))}
-            </div>
-          )}
-
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="text-xl font-bold mb-3 text-gray-900 transition-colors duration-300 group-hover:text-orange-600 line-clamp-2">
+                    {news.title}
+                  </h3>
+                  <p className="text-gray-600 mb-6 flex-1 line-clamp-3">{news.date}</p>
+                  <Link to={`/news/${news.id}`} className="inline-flex items-center justify-center gap-2 mt-auto px-5 py-2.5 bg-orange-500 text-white rounded-full font-semibold shadow transition-all duration-200 hover:bg-orange-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-orange-300 w-full text-lg">
+                    → Xem bài viết
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
           <div className="flex justify-center">
             <Link to="/news" className="px-7 py-3 bg-orange-500 text-white rounded-full font-bold shadow hover:bg-orange-600 transition-colors text-lg hover:scale-105 transform transition-transform duration-200">
               Xem tất cả bài viết
@@ -569,9 +565,7 @@ const HomePage = () => {
         <div className="products-grid">
           {loadingProducts ? (
             <div style={{ padding: 40, textAlign: 'center', width: '100%' }}>Đang tải sản phẩm...</div>
-            <div style={{ padding: 40, textAlign: 'center', width: '100%' }}>Đang tải sản phẩm...</div>
           ) : products.length === 0 ? (
-            <div style={{ padding: 40, textAlign: 'center', width: '100%' }}>Không có sản phẩm nào.</div>
             <div style={{ padding: 40, textAlign: 'center', width: '100%' }}>Không có sản phẩm nào.</div>
           ) : (
             (() => {
@@ -579,7 +573,6 @@ const HomePage = () => {
               const airConditioners = products.filter(p => p.category === 'may-lanh').slice(0, 5);
               const coolingFans = products.filter(p => p.category === 'quat-dieu-hoa').slice(0, 5);
               const coolingProducts = [...airConditioners, ...coolingFans];
-
 
               return coolingProducts.map((product) => (
                 <Link to={`/product/${product.id}`} key={product.id} className="product-card">
@@ -604,7 +597,6 @@ const HomePage = () => {
                       )}
                     </div>
                     <div style={{ marginTop: '12px', textAlign: 'center' }}>
-                    <div style={{ marginTop: '12px', textAlign: 'center' }}>
                       <button className="cooling-buy-btn">Xem chi tiết</button>
                     </div>
                   </div>
@@ -613,8 +605,8 @@ const HomePage = () => {
             })()
           )}
         </div>
-      </section>
-
+      </section>      
+      
 
 
 

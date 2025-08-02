@@ -1,11 +1,4 @@
-// src/api/modules/newsAPI.js
 
-/**
- * ĐIỂM THAY ĐỔI QUAN TRỌNG NHẤT
- * 
- * Đường dẫn này đi từ vị trí hiện tại (src/api/modules) ra ngoài một cấp (../)
- * để đến thư mục src/api, nơi chứa file client.js.
- */
 import apiClient from '../client.js';
 
 // ===== NEWS API SERVICE =====
@@ -52,17 +45,45 @@ export const newsAPI = {
     return apiClient.get(`/news/${newsId}/comments`);
   },
 
+    // --- SỬA LẠI HÀM NÀY ĐỂ HỖ TRỢ TRẢ LỜI BÌNH LUẬN ---
+  /**
+   * Thêm một bình luận mới vào bài viết.
+   * @param {string|number} newsId - ID của bài viết.
+   * @param {object} commentData - Dữ liệu bình luận, ví dụ: { content: '...', parent_id: 123 (tùy chọn) }.
+   * @returns {Promise<object>}
+   */
+  addNewsComment: (newsId, commentData) => {
+    return apiClient.post(`/news/${newsId}/comments`, commentData);
+  },
+
+  // --- CÁC HÀM MỚI CẦN THÊM ---
+
+  /**
+   * MỚI: Thích hoặc bỏ thích một bài viết.
+   * @param {string|number} newsId - ID của bài viết.
+   * @returns {Promise<object>} - Trả về trạng thái mới.
+   */
+  toggleLikeNews: (newsId) => {
+    // Backend cần có route: POST /api/v1/news/{id}/like
+    return apiClient.post(`/news/${newsId}/like`);
+  },
+
+  /**
+   * MỚI: Thích hoặc bỏ thích một bình luận.
+   * @param {string|number} commentId - ID của bình luận.
+   * @returns {Promise<object>}
+   */
+  toggleLikeComment: (commentId) => {
+    // Backend cần có route: POST /api/v1/comments/{id}/like
+    return apiClient.post(`/comments/${commentId}/like`);
+  },
+
   /**
    * Thêm một bình luận mới vào bài viết (yêu cầu xác thực).
    * @param {string|number} newsId - ID của bài viết
    * @param {object} commentData - Dữ liệu bình luận (ví dụ: { content: '...' })
    * @returns {Promise<object>} - Dữ liệu bình luận vừa được tạo
    */
-  addNewsComment: async (newsId, commentData) => {
-    // Tương ứng với route: POST /api/v1/news/{id}/comments
-    return apiClient.post(`/news/${newsId}/comments`, commentData);
-  },
-
   /**
    * Tạo một bài viết mới (yêu cầu xác thực).
    * @param {FormData} newsData - Dữ liệu bài viết dưới dạng FormData để upload ảnh.
@@ -114,5 +135,4 @@ export const newsAPI = {
     // Tương ứng với route: GET /api/v1/news-categories/{categoryId}/news
     return apiClient.get(`/news-categories/${categoryId}/news`);
   }
-};
 };
