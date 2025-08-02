@@ -20,7 +20,7 @@ class ApiClient {
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;
     }
-    const config = { ...options, headers };
+    const config = { ...options, headers, credentials: 'include',};
 
     try {
       const response = await fetch(url, config);

@@ -1,8 +1,6 @@
-// File: src/pages/LoginPage.jsx
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext'; // ✅ BƯỚC 1: IMPORT useAuth
+import { useAuth } from '../../contexts/AuthContext';
 import { useNotificationActions } from '../../components/notificationHooks';
 import Toast from '../../components/Toast';
 
@@ -24,13 +22,13 @@ const mergeCarts = (userCart = [], guestCart = []) => {
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const { login } = useAuth(); // ✅ BƯỚC 2: LẤY HÀM LOGIN TỪ CONTEXT
+  const { login } = useAuth();
   const { success, error: showError } = useNotificationActions();
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Giữ nguyên toàn bộ CSS và JSX của bạn
+  // Giữ nguyên toàn bộ CSS của bạn
   const styles = `
     @keyframes scroll {
       from { transform: translateY(0); }
@@ -61,48 +59,52 @@ const LoginPage = () => {
     }
     setLoading(true);
     try {
-      // ✅ BƯỚC 3: GỌI HÀM LOGIN TỪ CONTEXT
-      // Hàm login này sẽ tự động gọi API, lưu user vào localStorage và state
-      const loggedInUser = await login(form.email, form.password);
-
-      // --- LOGIC GỘP GIỎ HÀNG CỦA BẠN (giữ nguyên, rất tốt!) ---
-      // (Phần này sẽ bị bỏ qua nếu loggedInUser là null)
+      const response = await login(form);
+      const loggedInUser = response?.data; 
+      
       if (loggedInUser) {
+        // --- LOGIC GỘP GIỎ HÀNG ---
         const guestCart = JSON.parse(localStorage.getItem('cart')) || [];
         if (guestCart.length > 0) {
-          // Logic này đúng nhưng cần API updateUser để hoạt động
-          // const mergedCart = mergeCarts(loggedInUser.cart || [], guestCart);
-          // await userAPI.updateUser(loggedInUser.id, { cart: mergedCart });
           console.log("Cần xử lý gộp giỏ hàng và cập nhật user");
         }
         localStorage.removeItem('cart');
         window.dispatchEvent(new Event('userChanged'));
 
+        // === HIỂN THỊ THÔNG BÁO THÀNH CÔNG ===
         const userName = loggedInUser.name || loggedInUser.email || 'Người dùng';
         success(`Chào mừng bạn trở lại, ${userName}!`, 'Đăng nhập thành công');
 
-        // ✅ BƯỚC 4: THÊM LOGIC ĐIỀU HƯỚNG CHO ADMIN
-        if (loggedInUser.role === 'admin' || loggedInUser.role === 'staff') {
-            // Chuyển hướng thẳng đến trang quản trị của Laravel
+        // === SỬA LỖI: THÊM ĐỘ TRỄ TRƯỚC KHI CHUYỂN TRANG ===
+        const canAccessAdmin = loggedInUser.roles?.some(role => ['admin', 'staff'].includes(role));
+        
+        setTimeout(() => {
+          if (canAccessAdmin) {
+            // Sau 1.5 giây, chuyển hướng đến trang quản trị của Laravel
             window.location.href = 'http://127.0.0.1:8000/admin';
-        } else {
-            // Giữ lại logic điều hướng cũ của bạn cho người dùng thường
+          } else {
+            // Người dùng thường sẽ được chuyển hướng sau 1.5 giây
             if (localStorage.getItem('firstLogin') === 'true') {
                 localStorage.removeItem('firstLogin');
                 navigate('/update-profile');
             } else {
                 navigate('/');
             }
-        }
+          }
+        }, 1500); // Trì hoãn 1.5 giây để người dùng đọc thông báo
+
+      } else {
+        // Xử lý trường hợp login không thành công nhưng không báo lỗi từ server
+        throw new Error('Không thể lấy thông tin người dùng sau khi đăng nhập.');
       }
       
     } catch (error) {
-      let msg = error.message || 'Lỗi kết nối tới server!';
+      let msg = error.message || 'Email hoặc mật khẩu không chính xác.';
       setError(msg);
       showError(msg, 'Lỗi đăng nhập');
-    } finally {
-      setLoading(false);
+      setLoading(false); // Chỉ set loading về false nếu có lỗi
     }
+    // Không set loading về false ở đây nữa vì trang sẽ được chuyển hướng
   };
 
   const imagesCol1 = ['/images/logo/phone.png', '/images/logo/laptop.png', '/images/logo/bill.png'];

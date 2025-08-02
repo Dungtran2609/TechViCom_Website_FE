@@ -6,17 +6,16 @@ export const userAPI = {
   /**
    * Đăng nhập người dùng.
    */
-  login: (email, password) => {
-    // ApiClient sẽ tự động thêm http://127.0.0.1:8000
-    // File này chỉ cần cung cấp phần endpoint
-    return ApiClient.post('/api/v1/login', { email, password });
+  login: (credentials) => {
+    // Nó sẽ truyền thẳng đối tượng này cho ApiClient
+    return ApiClient.post('/login', credentials);
   },
 
   /**
    * Đăng ký người dùng mới.
    */
   register: (name, email, password, password_confirmation) => {
-    return ApiClient.post('/api/v1/register', { name, email, password, password_confirmation });
+    return ApiClient.post('/register', { name, email, password, password_confirmation });
   },
 
   /**
@@ -24,7 +23,7 @@ export const userAPI = {
    * ApiClient sẽ tự động đính kèm token.
    */
   logout: () => {
-    return ApiClient.post('/api/v1/logout');
+    return ApiClient.post('/logout');
   },
 
   /**
@@ -32,7 +31,7 @@ export const userAPI = {
    * ApiClient sẽ tự động đính kèm token.
    */
   getMe: () => {
-    return ApiClient.get('/api/v1/me');
+    return ApiClient.get('/me');
   },
 
   /**
@@ -40,6 +39,6 @@ export const userAPI = {
    * ApiClient sẽ tự động đính kèm token.
    */
   updateUser: (userId, updateData) => {
-    return ApiClient.put(`/api/v1/users/${userId}`, updateData);
+    return ApiClient.put(`/users/${userId}`, updateData);
   },
 };

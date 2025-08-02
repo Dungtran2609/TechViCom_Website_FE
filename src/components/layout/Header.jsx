@@ -398,9 +398,9 @@ const Header = () => {
                         </Link>
 
                         {/* ✅ HIỂN THỊ NÚT QUẢN TRỊ CHO ADMIN/STAFF */}
-                        {(user.role === 'admin' || user.role === 'staff') && (
+                        {user?.roles?.some(role => ['admin', 'staff'].includes(role)) && (
                           <a
-                            href="http://127.0.0.1:8000/admin"
+                            href="http://127.0.0.1:8000/admin-control"
                             className="account-popup-link admin"
                           >
                             <FaUserCog /> Trang Quản Trị
