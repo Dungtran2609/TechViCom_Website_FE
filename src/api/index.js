@@ -8,7 +8,8 @@ export {
   categoryAPI,
   bannerAPI,
   touchAPI,
-  couponAPI
+  couponAPI,
+  
 } from './modules/index.js';
 
 // Export apiClient

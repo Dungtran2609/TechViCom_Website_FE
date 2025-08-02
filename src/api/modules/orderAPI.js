@@ -16,7 +16,7 @@ export const orderAPI = {
   // Tạo đơn hàng mới
   createOrder: async (orderData) => {
     try {
-      const response = await apiClient.post('/orders', orderData);
+      const response = await apiClient.post('/user/orders/store', orderData);
       return response;
     } catch (error) {
       console.error('Create order error:', error);

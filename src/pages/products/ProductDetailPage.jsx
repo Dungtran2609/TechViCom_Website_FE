@@ -8,7 +8,7 @@ import './ProductDetailPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShieldAlt, faTruck, faHeadset, faStar as faStarSolid, faSignInAlt, faHdd } from '@fortawesome/free-solid-svg-icons'; // Thêm icon
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
-import { productAPI, userAPI } from '../../api';
+import { productAPI, userAPI , cartsAPI } from '../../api';
 
 const getCurrentUser = () => {
   const user = localStorage.getItem('user');
@@ -191,6 +191,8 @@ export default function ProductDetailPage() {
       setShowLoginPopup(true); // Hiển thị popup
       return;
     }
+ // Xác định variant ID (nếu có)
+  const variantId = currentVariant ? currentVariant.id : null;
 
     // Kiểm tra thuộc tính cần chọn (ví dụ storage)
     if (variants.length > 0) {
@@ -484,6 +486,7 @@ export default function ProductDetailPage() {
               Mua ngay
             </button>
             <button className="addcart-btn-tgdd" onClick={handleAddToCart}>Thêm vào giỏ</button>
+            
           </div>
           {showAddCartToast && (
             <div className="toast-notification success">

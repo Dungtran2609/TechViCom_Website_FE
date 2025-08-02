@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import ScrollToTop from './components/ScrollToTop';
+import Cart from './components/Cart'; // Import Cart từ thư mục compone
 import { 
   HomePage,
   ProductDetailPage,
@@ -52,7 +53,9 @@ function App() {
                 <Route path="/update-profile" element={<UpdateProfilePage />} />
                             <Route path="/about" element={<AboutPage />} />
             <Route path="/policy" element={<PolicyPage />} />
-            <Route path="/demo" element={<AnimationDemo />} />
+                <Route path="/demo" element={<AnimationDemo />} />
+                <Route path="/cart" element={<Cart />} />
+               
             {/* Add more routes here */}
               </Routes>
             </Layout>

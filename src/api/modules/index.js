@@ -8,3 +8,4 @@ export { categoryAPI } from './categoryAPI.js';
 export { bannerAPI } from './bannerAPI.js';
 export { touchAPI } from './touchAPI.js';
 export { couponAPI } from './couponAPI.js';
+export { cartsAPI } from './cartsAPI.js';
