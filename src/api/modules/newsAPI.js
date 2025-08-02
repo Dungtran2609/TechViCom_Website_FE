@@ -1,114 +1,117 @@
+// src/api/modules/newsAPI.js
+
+/**
+ * ĐIỂM THAY ĐỔI QUAN TRỌNG NHẤT
+ * 
+ * Đường dẫn này đi từ vị trí hiện tại (src/api/modules) ra ngoài một cấp (../)
+ * để đến thư mục src/api, nơi chứa file client.js.
+ */
 import apiClient from '../client.js';
 
-// ===== NEWS API =====
+// ===== NEWS API SERVICE =====
+// File này định nghĩa tất cả các hàm gọi API liên quan đến module "Tin tức".
+
 export const newsAPI = {
-  // Lấy tất cả tin tức
+  /**
+   * Lấy danh sách tất cả tin tức.
+   * @param {object} params - Các tham số query (ví dụ: { page: 1, limit: 10 })
+   * @returns {Promise<object>} - Dữ liệu trả về từ API, ví dụ: { data: [...] }
+   */
   getNews: async (params = {}) => {
-    try {
-      const response = await apiClient.get('/news', params);
-      return response.data;
-    } catch (error) {
-      console.error('Get news error:', error);
-      throw error;
-    }
+    // Tương ứng với route: GET /api/v1/news
+    return apiClient.get('/news', params);
   },
 
-  // Lấy tin tức theo ID
+  /**
+   * Lấy chi tiết một bài viết theo ID.
+   * Backend nên tải sẵn các quan hệ như 'author', 'category', 'comments'.
+   * @param {string|number} id - ID của bài viết
+   * @returns {Promise<object>} - Dữ liệu chi tiết của bài viết
+   */
   getNewsById: async (id) => {
-    try {
-      const response = await apiClient.get(`/news/${id}`);
-      return response.data;
-    } catch (error) {
-      console.error('Get news by ID error:', error);
-      throw error;
-    }
+    // Tương ứng với route: GET /api/v1/news/{id}
+    return apiClient.get(`/news/${id}`);
   },
 
-  // Lấy tin tức nổi bật
-  getFeaturedNews: async (limit = 3) => {
-    try {
-      const response = await apiClient.get('/news/featured');
-      return response;
-    } catch (error) {
-      console.error('Get featured news error:', error);
-      throw error;
-    }
+  /**
+   * Lấy danh sách tin tức nổi bật.
+   * @returns {Promise<object>} - Danh sách các bài viết nổi bật
+   */
+  getFeaturedNews: async () => {
+    // Tương ứng với route: GET /api/v1/news/featured
+    return apiClient.get('/news/featured');
   },
 
-  // Lấy comments của bài viết
+  /**
+   * Lấy tất cả bình luận của một bài viết.
+   * @param {string|number} newsId - ID của bài viết
+   * @returns {Promise<object>} - Danh sách các bình luận
+   */
   getNewsComments: async (newsId) => {
-    try {
-      const response = await apiClient.get(`/news/${newsId}/comments`);
-      return response;
-    } catch (error) {
-      console.error('Get news comments error:', error);
-      throw error;
-    }
+    // Tương ứng với route: GET /api/v1/news/{id}/comments
+    return apiClient.get(`/news/${newsId}/comments`);
   },
 
-  // Thêm comment vào bài viết
+  /**
+   * Thêm một bình luận mới vào bài viết (yêu cầu xác thực).
+   * @param {string|number} newsId - ID của bài viết
+   * @param {object} commentData - Dữ liệu bình luận (ví dụ: { content: '...' })
+   * @returns {Promise<object>} - Dữ liệu bình luận vừa được tạo
+   */
   addNewsComment: async (newsId, commentData) => {
-    try {
-      const response = await apiClient.post(`/news/${newsId}/comments`, commentData);
-      return response;
-    } catch (error) {
-      console.error('Add news comment error:', error);
-      throw error;
-    }
+    // Tương ứng với route: POST /api/v1/news/{id}/comments
+    return apiClient.post(`/news/${newsId}/comments`, commentData);
   },
 
-  // Tạo tin tức mới
+  /**
+   * Tạo một bài viết mới (yêu cầu xác thực).
+   * @param {FormData} newsData - Dữ liệu bài viết dưới dạng FormData để upload ảnh.
+   * @returns {Promise<object>}
+   */
   createNews: async (newsData) => {
-    try {
-      const response = await apiClient.post('/news', newsData);
-      return response.data;
-    } catch (error) {
-      console.error('Create news error:', error);
-      throw error;
-    }
+    // Tương ứng với route: POST /api/v1/news
+    return apiClient.post('/news', newsData);
   },
 
-  // Cập nhật tin tức
+  /**
+   * Cập nhật một bài viết (yêu cầu xác thực).
+   * @param {string|number} id - ID của bài viết
+   * @param {object} newsData - Dữ liệu cần cập nhật
+   * @returns {Promise<object>}
+   */
   updateNews: async (id, newsData) => {
-    try {
-      const response = await apiClient.put(`/news/${id}`, newsData);
-      return response;
-    } catch (error) {
-      console.error('Update news error:', error);
-      throw error;
-    }
+    // Tương ứng với route: PUT /api/v1/news/{id}
+    return apiClient.put(`/news/${id}`, newsData);
   },
 
-  // Xóa tin tức
+  /**
+   * Xóa một bài viết (yêu cầu xác thực).
+   * @param {string|number} id - ID của bài viết
+   * @returns {Promise<null>}
+   */
   deleteNews: async (id) => {
-    try {
-      const response = await apiClient.delete(`/news/${id}`);
-      return response.data;
-    } catch (error) {
-      console.error('Delete news error:', error);
-      throw error;
-    }
+    // Tương ứng với route: DELETE /api/v1/news/{id}
+    return apiClient.delete(`/news/${id}`);
   },
 
-  // Lấy danh mục tin tức
+  // ===== NEWS CATEGORIES API =====
+
+  /**
+   * Lấy danh sách tất cả các danh mục tin tức.
+   * @returns {Promise<object>} - Danh sách các danh mục
+   */
   getCategories: async () => {
-    try {
-      const response = await apiClient.get('/news-categories');
-      return response;
-    } catch (error) {
-      console.error('Get categories error:', error);
-      throw error;
-    }
+    // Tương ứng với route: GET /api/v1/news-categories
+    return apiClient.get('/news-categories');
   },
 
-  // Lấy tin tức theo danh mục
+  /**
+   * Lấy danh sách tin tức thuộc về một danh mục cụ thể.
+   * @param {string|number} categoryId - ID của danh mục
+   * @returns {Promise<object>} - Danh sách các bài viết trong danh mục
+   */
   getNewsByCategory: async (categoryId) => {
-    try {
-      const response = await apiClient.get(`/news-categories/${categoryId}/news`);
-      return response;
-    } catch (error) {
-      console.error('Get news by category error:', error);
-      throw error;
-    }
+    // Tương ứng với route: GET /api/v1/news-categories/{categoryId}/news
+    return apiClient.get(`/news-categories/${categoryId}/news`);
   }
-}; 
+};
