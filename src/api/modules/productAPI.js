@@ -1,6 +1,7 @@
+// File: src/api/modules/productAPI.js (Bản tối ưu cho Phương án B)
+
 import apiClient from '../client.js';
 
-// ===== PRODUCT API =====
 export const productAPI = {
   // Lấy tất cả sản phẩm (paginated, sorted, active, with relations)
   getProducts: async (params = {}) => {

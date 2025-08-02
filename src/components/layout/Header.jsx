@@ -1,60 +1,48 @@
+// File: src/components/layout/Header.jsx (Bản hoàn chỉnh cuối cùng)
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaBars, FaUser, FaShoppingCart, FaSignInAlt, FaUserPlus, FaChevronRight, FaSearch, FaFire, FaSignOutAlt, FaUserCircle, FaClipboardList, FaFilter, FaTimesCircle, FaExclamationCircle, FaTag, FaTimes } from 'react-icons/fa';
+import { useAuth } from '../../contexts/AuthContext';
+import { FaBars, FaUser, FaShoppingCart, FaSignInAlt, FaUserPlus, FaChevronRight, FaSearch, FaFire, FaSignOutAlt, FaUserCircle, FaTag, FaTimes, FaExclamationCircle, FaUserCog, FaTimesCircle, FaFilter } from 'react-icons/fa';
 import { ThemeToggle } from '../../contexts/ThemeContext';
 import './Header.css';
 import CartSidebar from './CartSidebar';
 import removeAccents from 'remove-accents';
-import { useNotificationActions } from '../notificationHooks';
 import { productAPI, categoryAPI } from '../../api';
 
-
 const Header = () => {
-  const { success } = useNotificationActions();
+  // ✅ BƯỚC 1: SỬ DỤNG useAuth MỘT CÁCH TRỰC TIẾP VÀ GỌN GÀNG
+  const { user, logout, loading: authLoading } = useAuth();
+
+  const navigate = useNavigate();
+
+  // Các state và logic cục bộ của Header
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [hoveredCategory, setHoveredCategory] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
-  const [mobileSearchTerm, setMobileSearchTerm] = useState('');
-  const userMenuRef = useRef(null);
-  const menuRef = useRef(null);
-  const mobileSearchRef = useRef(null);
-  const navigate = useNavigate();
-  const [productSearch, setProductSearch] = useState('');
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const searchRef = useRef(null);
-  const [isSearching, setIsSearching] = useState(false);
-  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')));
-  const [isLoggedIn, setIsLoggedIn] = useState(!!user);
   const [categories, setCategories] = useState([]);
-  // Đảm bảo categories luôn là mảng khi sử dụng
-  const safeCategories = Array.isArray(categories) ? categories : [];
+  const [products, setProducts] = useState([]);
   const [categoriesLoading, setCategoriesLoading] = useState(true);
   const [categoriesError, setCategoriesError] = useState(null);
-
-  const [products, setProducts] = useState([]);
-  // Đảm bảo products luôn là mảng
-  const safeProducts = Array.isArray(products) ? products : [];
+  const [isSearching, setIsSearching] = useState(false);
+  const [productSearch, setProductSearch] = useState('');
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [hoveredCategory, setHoveredCategory] = useState(null);
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [mobileSearchTerm, setMobileSearchTerm] = useState('');
   const [filter, setFilter] = useState({
     category: '', color: '', storage: '', priceMin: '', priceMax: ''
   });
 
-  // Fetch products
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const data = await productAPI.getProducts();
-        setProducts(data);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-    fetchProducts();
-  }, []);
+  // Refs
+  const userMenuRef = useRef(null);
+  const menuRef = useRef(null);
+  const searchRef = useRef(null);
 
-
+  // Đảm bảo categories và products luôn là mảng khi sử dụng
+  const safeCategories = Array.isArray(categories) ? categories : [];
+  const safeProducts = Array.isArray(products) ? products : [];
 
   // Fetch categories
   useEffect(() => {
@@ -66,11 +54,26 @@ const Header = () => {
         setCategories(arr);
       } catch (err) {
         setCategories([]);
+        setCategoriesError(err.message);
       } finally {
         setCategoriesLoading(false);
       }
     }
     fetchCategories();
+  }, []);
+
+  // Fetch products
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const data = await productAPI.getProducts();
+        const arr = Array.isArray(data) ? data : (data && Array.isArray(data.data) ? data.data : []);
+        setProducts(arr);
+      } catch (err) {
+        setProducts([]);
+      }
+    }
+    fetchProducts();
   }, []);
 
   const filteredCategories = safeCategories.filter(category =>
@@ -117,30 +120,6 @@ const Header = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  useEffect(() => {
-    const handleUserChange = () => {
-        const u = localStorage.getItem('user');
-        setUser(u ? JSON.parse(u) : null);
-        setIsLoggedIn(!!u);
-        
-        // Reset search state khi user thay đổi
-        setProductSearch('');
-        setShowSuggestions(false);
-        setSearchTerm('');
-        setHoveredCategory(null);
-        setIsMenuOpen(false);
-        setIsUserMenuOpen(false);
-    };
-
-    window.addEventListener('userChanged', handleUserChange);
-    handleUserChange(); // Initial check
-
-    return () => {
-        window.removeEventListener('userChanged', handleUserChange);
-    };
-}, []);
-
-
   const currentCategory = safeCategories.find(cat => cat.id === hoveredCategory);
 
   const handleProductSearch = (e) => {
@@ -183,18 +162,20 @@ const Header = () => {
     setShowSuggestions(e.target.value.trim().length > 0);
   };
 
+  // ✅ BƯỚC 2: HÀM LOGOUT BÂY GIỜ RẤT ĐƠN GIẢN
   const handleLogout = () => {
-    const userName = user?.name || user?.phone || 'Người dùng';
-    localStorage.removeItem('user');
-    window.dispatchEvent(new Event('userChanged'));
-    setIsUserMenuOpen(false);
-    
-    // Hiển thị thông báo đăng xuất
-    success(`Đã đăng xuất thành công! Tạm biệt ${userName}.`, 'Đăng xuất thành công');
-    
-    navigate('/');
+    setIsUserMenuOpen(false); // Đóng menu
+    logout(); // Gọi hàm logout từ context (nó đã tự xử lý logic)
+    navigate('/'); // Điều hướng về trang chủ
   };
 
+  // ✅ BƯỚC 3: SỬ DỤNG `authLoading` TỪ CONTEXT
+  // Hiển thị một header trống trong khi chờ xác thực để tránh nhấp nháy UI
+  if (authLoading) {
+    return <header className="header relative z-50" style={{ height: '72px' }}></header>;
+  }
+
+  // Toàn bộ JSX bây giờ đã sẵn sàng để sử dụng `user` từ context
   return (
     <>
       <header className="header relative z-50">
@@ -218,7 +199,7 @@ const Header = () => {
                         Thương hiệu
                       </div>
                       <div className="brand-filter-list">
-                       {displayBrands.map(brand => (
+                        {displayBrands.map(brand => (
                           <Link
                             key={brand}
                             to={`/products?brand=${encodeURIComponent(brand)}`}
@@ -305,7 +286,7 @@ const Header = () => {
                             const featuredProducts = products
                               .filter(p => p.category === categorySlug && p.isFeatured)
                               .slice(0, 2); // Chỉ lấy 2 sản phẩm nổi bật
-                            
+
                             if (featuredProducts.length > 0) {
                               return (
                                 <div className="featured-products">
@@ -393,8 +374,8 @@ const Header = () => {
               </div>
             </form>
           </div>
+
           <div className="right-section" style={{ gap: 15, display: 'flex', alignItems: 'center' }}>
-            
             <div style={{ position: 'relative', display: 'inline-block' }}>
               <button onClick={() => setIsUserMenuOpen((v) => !v)} className="header-action-btn">
                 <FaUser className="user-icon" />
@@ -402,7 +383,7 @@ const Header = () => {
               </button>
               {isUserMenuOpen && (
                 <div ref={userMenuRef} className="account-popup-modern">
-                  {isLoggedIn ? (
+                  {user ? ( // ✅ DÙNG `user` TỪ CONTEXT
                     <>
                       <div className="account-popup-header">
                         <img src={user?.avatar || '/images/avatar-default.png'} alt="avatar" className="account-popup-avatar" />
@@ -411,14 +392,21 @@ const Header = () => {
                           {user?.email && <div className="account-popup-email">{user.email}</div>}
                         </div>
                       </div>
-                      {/* ========================================================== */}
-                      {/* SỬA LỖI Ở ĐÂY: Xóa nút "Lịch sử mua hàng" */}
-                      {/* ========================================================== */}
                       <div className="account-popup-actions">
                         <Link to="/account" onClick={() => setIsUserMenuOpen(false)} className="account-popup-link">
                           <FaUserCircle /> Thông tin tài khoản
                         </Link>
-                        {/* Nút "Lịch sử mua hàng" đã được xóa */}
+
+                        {/* ✅ HIỂN THỊ NÚT QUẢN TRỊ CHO ADMIN/STAFF */}
+                        {user?.roles?.some(role => ['admin', 'staff'].includes(role)) && (
+                          <a
+                            href="http://127.0.0.1:8000/admin-control"
+                            className="account-popup-link admin"
+                          >
+                            <FaUserCog /> Trang Quản Trị
+                          </a>
+                        )}
+
                         <button onClick={handleLogout} className="account-popup-link logout">
                           <FaSignOutAlt /> Đăng xuất
                         </button>
@@ -446,38 +434,34 @@ const Header = () => {
         </div>
       </header>
 
-      {/* Mobile Search Overlay */}
+      {/* Mobile Search */}
       {isMobileSearchOpen && (
-        <div className="mobile-search-overlay" onClick={() => setIsMobileSearchOpen(false)}>
-          <div className="mobile-search-container" onClick={(e) => e.stopPropagation()}>
+        <div className="mobile-search-overlay">
+          <div className="mobile-search-container">
             <div className="mobile-search-header">
-              <h3 className="mobile-search-title">Tìm kiếm sản phẩm</h3>
-              <button 
-                className="mobile-search-close"
-                onClick={() => setIsMobileSearchOpen(false)}
-              >
+              <button onClick={() => setIsMobileSearchOpen(false)} className="mobile-search-close">
                 <FaTimes />
               </button>
+              <form onSubmit={handleMobileSearch} className="mobile-search-form">
+                <input
+                  type="text"
+                  placeholder="Tìm kiếm sản phẩm..."
+                  value={mobileSearchTerm}
+                  onChange={handleMobileInputChange}
+                  className="mobile-search-input"
+                  autoFocus
+                />
+                <button type="submit" className="mobile-search-submit" disabled={isSearching}>
+                  {isSearching ? <div className="loading-spinner"></div> : <FaSearch />}
+                </button>
+              </form>
             </div>
-            <form onSubmit={handleMobileSearch}>
-              <input
-                type="text"
-                placeholder="Nhập tên sản phẩm..."
-                className="mobile-search-input"
-                value={mobileSearchTerm}
-                onChange={handleMobileInputChange}
-                autoFocus
-              />
-              <button type="submit" className="mobile-search-btn" disabled={isSearching}>
-                {isSearching ? 'Đang tìm...' : 'Tìm kiếm'}
-              </button>
-            </form>
           </div>
         </div>
       )}
 
+      {/* Cart Sidebar */}
       <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-      {isCartOpen && <div className={`cart-overlay${isCartOpen ? ' open' : ''}`} onClick={() => setIsCartOpen(false)} />}
     </>
   );
 };

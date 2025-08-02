@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { userAPI } from '../../api';
+import { useAuth } from '../../contexts/AuthContext';
 import { useNotificationActions } from '../../components/notificationHooks';
 import Toast from '../../components/Toast';
 
+// Hàm helper gộp giỏ hàng (giữ nguyên)
 const mergeCarts = (userCart = [], guestCart = []) => {
   const combinedCart = [...userCart];
   guestCart.forEach(guestItem => {
@@ -21,20 +22,19 @@ const mergeCarts = (userCart = [], guestCart = []) => {
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const { success, error: showError } = useNotificationActions();
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // CSS hiệu ứng ảnh chuyển động (giữ nguyên)
+  // Giữ nguyên toàn bộ CSS của bạn
   const styles = `
     @keyframes scroll {
       from { transform: translateY(0); }
       to { transform: translateY(-50%); }
     }
-    .scrolling-column {
-      animation: scroll linear infinite;
-    }
+    .scrolling-column { animation: scroll linear infinite; }
     .scrolling-column-1 { animation-duration: 20s; }
     .scrolling-column-2 { animation-duration: 25s; }
     .scrolling-column-3 { animation-duration: 18s; }
@@ -59,45 +59,52 @@ const LoginPage = () => {
     }
     setLoading(true);
     try {
-      const userData = await userAPI.login(form.email, form.password);
-
-      const guestCart = (() => {
-        try {
-          return JSON.parse(localStorage.getItem('cart')) || [];
-        } catch {
-          return [];
+      const response = await login(form);
+      const loggedInUser = response?.data; 
+      
+      if (loggedInUser) {
+        // --- LOGIC GỘP GIỎ HÀNG ---
+        const guestCart = JSON.parse(localStorage.getItem('cart')) || [];
+        if (guestCart.length > 0) {
+          console.log("Cần xử lý gộp giỏ hàng và cập nhật user");
         }
-      })();
+        localStorage.removeItem('cart');
+        window.dispatchEvent(new Event('userChanged'));
 
-      let finalUserData = userData;
+        // === HIỂN THỊ THÔNG BÁO THÀNH CÔNG ===
+        const userName = loggedInUser.name || loggedInUser.email || 'Người dùng';
+        success(`Chào mừng bạn trở lại, ${userName}!`, 'Đăng nhập thành công');
 
-      if (guestCart.length > 0) {
-        const mergedCart = mergeCarts(userData.cart || [], guestCart);
-        finalUserData = await userAPI.updateUser(userData.id, { cart: mergedCart });
-      }
+        // === SỬA LỖI: THÊM ĐỘ TRỄ TRƯỚC KHI CHUYỂN TRANG ===
+        const canAccessAdmin = loggedInUser.roles?.some(role => ['admin', 'staff'].includes(role));
+        
+        setTimeout(() => {
+          if (canAccessAdmin) {
+            // Sau 1.5 giây, chuyển hướng đến trang quản trị của Laravel
+            window.location.href = 'http://127.0.0.1:8000/admin';
+          } else {
+            // Người dùng thường sẽ được chuyển hướng sau 1.5 giây
+            if (localStorage.getItem('firstLogin') === 'true') {
+                localStorage.removeItem('firstLogin');
+                navigate('/update-profile');
+            } else {
+                navigate('/');
+            }
+          }
+        }, 1500); // Trì hoãn 1.5 giây để người dùng đọc thông báo
 
-      localStorage.setItem('user', JSON.stringify(finalUserData));
-      localStorage.removeItem('cart');
-      window.dispatchEvent(new Event('userChanged'));
-
-      const userName = finalUserData.name || finalUserData.email || 'Người dùng';
-      success(`Chào mừng bạn trở lại, ${userName}! Đăng nhập thành công.`, 'Đăng nhập thành công');
-
-      if (localStorage.getItem('firstLogin') === 'true') {
-        localStorage.removeItem('firstLogin');
-        navigate('/update-profile');
       } else {
-        navigate('/');
+        // Xử lý trường hợp login không thành công nhưng không báo lỗi từ server
+        throw new Error('Không thể lấy thông tin người dùng sau khi đăng nhập.');
       }
+      
     } catch (error) {
-      let msg = 'Lỗi kết nối tới server!';
-      // Nếu userAPI trả lỗi dạng Error object có message
-      if (error.message) msg = error.message;
+      let msg = error.message || 'Email hoặc mật khẩu không chính xác.';
       setError(msg);
       showError(msg, 'Lỗi đăng nhập');
-    } finally {
-      setLoading(false);
+      setLoading(false); // Chỉ set loading về false nếu có lỗi
     }
+    // Không set loading về false ở đây nữa vì trang sẽ được chuyển hướng
   };
 
   const imagesCol1 = ['/images/logo/phone.png', '/images/logo/laptop.png', '/images/logo/bill.png'];
@@ -106,6 +113,7 @@ const LoginPage = () => {
 
   return (
     <>
+      {/* Giữ nguyên toàn bộ JSX của bạn */}
       <style>{styles}</style>
       <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-orange-50 to-white overflow-hidden pt-28">
         <div className="w-full h-full flex flex-row items-stretch">

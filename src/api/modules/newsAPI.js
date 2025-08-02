@@ -115,3 +115,4 @@ export const newsAPI = {
     return apiClient.get(`/news-categories/${categoryId}/news`);
   }
 };
+};
