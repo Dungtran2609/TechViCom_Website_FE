@@ -8,7 +8,7 @@ import './ProductDetailPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShieldAlt, faTruck, faHeadset, faStar as faStarSolid, faSignInAlt, faHdd } from '@fortawesome/free-solid-svg-icons'; // Thêm icon
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
-import { productAPI, userAPI , cartsAPI } from '../../api';
+import { productAPI, userAPI } from '../../api';
 
 const getCurrentUser = () => {
   const user = localStorage.getItem('user');
