@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Techvicom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'custom-primary': '#ff6c2f',
+                        'custom-primary-dark': '#e55a28',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../assets/js/component-loader.js"></script>
+    <style>
+        .tech-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tech-icon {
+            position: absolute;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .tech-icon:nth-child(odd) {
+            animation-delay: -3s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .login-form {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+    </style>
+</head>
+<body class="min-h-screen tech-bg">
+    <!-- Shared Header -->
+    <div id="shared-header-container"></div>
+    
+    <!-- Technology Icons Background -->
+    <div class="tech-icon" style="top: 10%; left: 5%;">
+        <i class="fas fa-laptop"></i>
+    </div>
+    <div class="tech-icon" style="top: 20%; left: 85%;">
+        <i class="fas fa-mobile-alt"></i>
+    </div>
+    <div class="tech-icon" style="top: 30%; left: 10%;">
+        <i class="fas fa-tablet-alt"></i>
+    </div>
+    <div class="tech-icon" style="top: 15%; left: 70%;">
+        <i class="fas fa-desktop"></i>
+    </div>
+    <div class="tech-icon" style="top: 45%; left: 15%;">
+        <i class="fas fa-headphones"></i>
+    </div>
+    <div class="tech-icon" style="top: 55%; left: 80%;">
+        <i class="fas fa-keyboard"></i>
+    </div>
+    <div class="tech-icon" style="top: 70%; left: 5%;">
+        <i class="fas fa-mouse"></i>
+    </div>
+    <div class="tech-icon" style="top: 75%; left: 75%;">
+        <i class="fas fa-camera"></i>
+    </div>
+    <div class="tech-icon" style="top: 60%; left: 25%;">
+        <i class="fas fa-gamepad"></i>
+    </div>
+    <div class="tech-icon" style="top: 40%; left: 60%;">
+        <i class="fas fa-tv"></i>
+    </div>
+    <div class="tech-icon" style="top: 85%; left: 20%;">
+        <i class="fas fa-wifi"></i>
+    </div>
+    <div class="tech-icon" style="top: 25%; left: 40%;">
+        <i class="fas fa-microchip"></i>
+    </div>
+
+    <!-- Header -->
+    <header class="relative z-10">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="../index.html" class="flex items-center">
+                    <div class="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fas fa-graduation-cap text-white text-lg"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-white">Techvicom</span>
+                </a>
+
+                <!-- Navigation Buttons -->
+                <div class="flex items-center space-x-4">
+                    <a href="../index.html" class="text-white hover:text-orange-300 transition">
+                        <i class="fas fa-home mr-2"></i>
+                        Trang chủ
+                    </a>
+                    <a href="register.html" class="px-4 py-2 border border-white text-white rounded-lg hover:bg-white hover:text-purple-600 transition">
+                        Đăng ký
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login Section -->
+    <div class="flex items-center justify-center min-h-screen py-12 px-4 relative z-10">
+        <div class="w-full max-w-md">
+            <!-- Login Card -->
+            <div class="login-form rounded-2xl shadow-2xl p-8 border border-white/20">
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2">Chào mừng trở lại!</h1>
+                    <p class="text-gray-600">Đăng nhập vào tài khoản Techvicom của bạn</p>
+                </div>
+                <!-- Login Form -->
+                <form id="login-form" class="space-y-6">
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                            Email hoặc số điện thoại <span class="text-[#ff6c2f]">*</span>
+                        </label>
+                        <div class="relative">
+                            <input type="text" id="email" name="email" required
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20"
+                                   placeholder="Nhập email hoặc số điện thoại">
+                            <i class="fas fa-user absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                            Mật khẩu <span class="text-[#ff6c2f]">*</span>
+                        </label>
+                        <div class="relative">
+                            <input type="password" id="password" name="password" required
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20"
+                                   placeholder="Nhập mật khẩu">
+                            <button type="button" onclick="togglePasswordVisibility()" 
+                                    class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                <i class="fas fa-eye" id="password-toggle-icon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Remember & Forgot -->
+                    <div class="flex items-center justify-between">
+                        <label class="flex items-center">
+                            <input type="checkbox" id="remember" name="remember" 
+                                   class="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded">
+                            <span class="ml-2 text-sm text-gray-700">Ghi nhớ đăng nhập</span>
+                        </label>
+                        <a href="#" class="text-sm text-orange-500 hover:text-orange-600 font-medium">
+                            Quên mật khẩu?
+                        </a>
+                    </div>
+
+                    <!-- Login Button -->
+                    <button type="submit" 
+                            class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3 rounded-lg font-semibold text-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        <span id="login-text">Đăng nhập</span>
+                        <i class="fas fa-spinner fa-spin hidden ml-2" id="login-spinner"></i>
+                    </button>
+
+                    <!-- Divider -->
+                    <div class="my-6">
+                        <div class="relative">
+                            <div class="absolute inset-0 flex items-center">
+                                <div class="w-full border-t border-gray-300"></div>
+                            </div>
+                            <div class="relative flex justify-center text-sm">
+                                <span class="px-2 bg-white/95 text-gray-500">Hoặc đăng nhập với</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Login -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <button type="button" onclick="loginWithGoogle()"
+                                class="flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+                            <i class="fab fa-google text-[#ff6c2f] mr-2"></i>
+                            <span class="text-gray-700 font-medium">Google</span>
+                        </button>
+                        
+                        <button type="button" onclick="loginWithFacebook()"
+                                class="flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+                            <i class="fab fa-facebook-f text-blue-600 mr-2"></i>
+                            <span class="text-gray-700 font-medium">Facebook</span>
+                        </button>
+                    </div>
+
+                    <!-- Register Link -->
+                    <div class="text-center mt-6 pt-4 border-t border-gray-200">
+                        <p class="text-gray-600">
+                            Chưa có tài khoản? 
+                            <a href="register.html" class="text-orange-500 hover:text-orange-600 font-semibold">Đăng ký ngay</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Password visibility toggle
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('password-toggle-icon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.className = 'fas fa-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.className = 'fas fa-eye';
+            }
+        }
+
+        // Form submission handling
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const email = formData.get('email');
+            const password = formData.get('password');
+            const remember = formData.get('remember');
+            
+            // Show loading state
+            const loginBtn = document.getElementById('login-text');
+            const spinner = document.getElementById('login-spinner');
+            
+            loginBtn.textContent = 'Đang đăng nhập...';
+            spinner.classList.remove('hidden');
+            
+            // Basic validation
+            if (!email || !password) {
+                showNotification('Vui lòng nhập đầy đủ thông tin!', 'error');
+                resetButton();
+                return;
+            }
+            
+            // Simulate login process
+            setTimeout(() => {
+                // Demo credentials
+                if ((email === 'admin@techvicom.com' || email === 'admin') && password === '123456') {
+                    // Successful login
+                    const userData = {
+                        email: email,
+                        fullname: 'Nguyễn Văn An',
+                        loginAt: new Date().toISOString()
+                    };
+                    
+                    localStorage.setItem('user', JSON.stringify(userData));
+                    localStorage.setItem('isLoggedIn', 'true');
+                    
+                    if (remember) {
+                        localStorage.setItem('rememberLogin', 'true');
+                    }
+                    
+                    showNotification('Đăng nhập thành công! Chuyển hướng...', 'success');
+                    
+                    setTimeout(() => {
+                        window.location.href = '../index.html';
+                    }, 1500);
+                } else {
+                    // Failed login
+                    showNotification('Email hoặc mật khẩu không đúng!', 'error');
+                    resetButton();
+                }
+            }, 2000);
+        });
+        
+        function resetButton() {
+            const loginBtn = document.getElementById('login-text');
+            const spinner = document.getElementById('login-spinner');
+            
+            loginBtn.textContent = 'Đăng nhập';
+            spinner.classList.add('hidden');
+        }
+        
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform`;
+            
+            if (type === 'success') {
+                notification.classList.add('bg-green-500', 'text-white');
+            } else if (type === 'error') {
+                notification.classList.add('bg-[#ff6c2f]', 'text-white');
+            } else {
+                notification.classList.add('bg-blue-500', 'text-white');
+            }
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+        
+        // Social login functions
+        function loginWithGoogle() {
+            showNotification('Tính năng đăng nhập Google đang được phát triển!', 'info');
+        }
+        
+        function loginWithFacebook() {
+            showNotification('Tính năng đăng nhập Facebook đang được phát triển!', 'info');
+        }
+        
+        // Input focus effects
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('ring-2', 'ring-orange-500/20');
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.classList.remove('ring-2', 'ring-orange-500/20');
+            });
+        });
+
+        // Demo account info
+        document.addEventListener('DOMContentLoaded', function() {
+            const demoInfo = document.createElement('div');
+            demoInfo.className = 'fixed bottom-4 left-4 bg-blue-500 text-white px-4 py-2 rounded-lg text-sm z-50';
+            demoInfo.innerHTML = `
+                <div class="font-semibold">Tài khoản demo:</div>
+                <div>Email: admin@techvicom.com</div>
+                <div>Mật khẩu: 123456</div>
+            `;
+            document.body.appendChild(demoInfo);
+        });
+    </script>
+</body>
+</html>
+                    </div>
+                </div>
+
+                <!-- Benefits -->
+                <div class="mt-8 bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 text-center">
+                        Lợi ích khi đăng nhập
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700">Theo dõi đơn hàng dễ dàng</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700">Lưu sản phẩm yêu thích</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700">Nhận thông báo khuyến mãi</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700">Tích điểm thành viên</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <p>&copy; 2025 Techvicom. Tất cả quyền được bảo lưu.</p>
+                <div class="mt-4 space-x-6">
+                    <a href="privacy.html" class="text-gray-400 hover:text-white">Chính sách bảo mật</a>
+                    <a href="terms.html" class="text-gray-400 hover:text-white">Điều khoản sử dụng</a>
+                    <a href="help.html" class="text-gray-400 hover:text-white">Trợ giúp</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Shared Footer -->
+    <div id="shared-footer-container"></div>
+
+    <script src="../assets/js/auth.js"></script>
+</body>
+</html>

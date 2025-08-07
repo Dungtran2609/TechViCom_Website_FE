@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sản phẩm - Techvicom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'custom-primary': '#ff6c2f',
+                        'custom-primary-dark': '#e55a28',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../assets/js/component-loader.js"></script>
+    <style>
+        .color-option {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .color-option:hover {
+            transform: scale(1.05);
+            border-color: #ea580c !important;
+        }
+        
+        .color-option.active {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
+        }
+        
+        .color-option.active::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.9);
+            color: #ea580c;
+            font-weight: bold;
+            font-size: 12px;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .storage-option {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .storage-option:hover {
+            border-color: #ea580c !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .storage-option.active {
+            border-color: #ea580c !important;
+            background-color: #fff7ed !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2);
+        }
+        
+        .price-animation {
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn {
+            transition: all 0.2s ease;
+        }
+
+        .quantity-btn:hover {
+            background-color: #ea580c;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .quantity-btn:active {
+            transform: scale(0.95);
+        }
+
+        .product-main-image {
+            transition: opacity 0.3s ease;
+        }
+    </style>
+    <script src="../assets/data/products.js"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Shared Header -->
+    <div id="shared-header-container"></div>
+
+    <!-- Breadcrumb -->
+    <nav class="bg-white border-b border-gray-200 py-3">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center space-x-2 text-sm">
+                <a href="../index.html" class="text-gray-500 hover:text-orange-600">Trang chủ</a>
+                <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                <a href="../index.html" class="text-gray-500 hover:text-orange-600" id="breadcrumb-category">Điện thoại</a>
+                <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                <span class="text-gray-900 font-medium" id="breadcrumb-product">Chi tiết sản phẩm</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Product Detail -->
+    <section class="py-8">
+        <div class="container mx-auto px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+                    <!-- Product Images -->
+                    <div class="space-y-4">
+                        <!-- Main Image -->
+                        <div class="aspect-square bg-white rounded-lg shadow-md overflow-hidden">
+                            <img data-product="main-image" src="../assets/images/iphone-15-pro.jpg" 
+                                 alt="Product Image" 
+                                 class="product-main-image w-full h-full object-contain p-4">
+                        </div>
+                        
+                        <!-- Thumbnail Images -->
+                        <div class="grid grid-cols-4 gap-2">
+                            <div class="aspect-square bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer border-2 border-orange-500 thumbnail active">
+                                <img src="../assets/images/iphone-15-pro.jpg" alt="Thumbnail 1" class="w-full h-full object-contain p-2">
+                            </div>
+                            <div class="aspect-square bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer border-2 border-transparent hover:border-orange-300 thumbnail">
+                                <img src="../assets/images/iphone-15-pro-2.jpg" alt="Thumbnail 2" class="w-full h-full object-contain p-2">
+                            </div>
+                            <div class="aspect-square bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer border-2 border-transparent hover:border-orange-300 thumbnail">
+                                <img src="../assets/images/iphone-15-pro-3.jpg" alt="Thumbnail 3" class="w-full h-full object-contain p-2">
+                            </div>
+                            <div class="aspect-square bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer border-2 border-transparent hover:border-orange-300 thumbnail">
+                                <img src="../assets/images/iphone-15-pro-4.jpg" alt="Thumbnail 4" class="w-full h-full object-contain p-2">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Info -->
+                    <div class="space-y-6">
+                        <!-- Product Title and Rating -->
+                        <div>
+                            <h1 data-product="name" class="text-3xl font-bold text-gray-800 mb-2">iPhone 15 Pro 256GB</h1>
+                            <div class="flex items-center space-x-4 mb-4">
+                                <div class="flex items-center">
+                                    <div class="flex text-yellow-400" data-product="rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="ml-2 text-gray-600" data-product="rating-text">(4.8)</span>
+                                </div>
+                                <div class="text-gray-500">|</div>
+                                <div class="text-gray-600">
+                                    <span data-reviews="count">1,234</span> đánh giá
+                                </div>
+                                <div class="text-gray-500">|</div>
+                                <div class="text-gray-600">
+                                    Đã bán <span id="sold-count">2,456</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="bg-orange-50 p-4 rounded-lg">
+                            <div class="flex items-baseline space-x-3">
+                                <span data-product="price" class="price-animation text-3xl font-bold text-orange-600">28.990.000₫</span>
+                                <span data-product="original-price" class="price-animation text-lg text-gray-500 line-through">32.990.000₫</span>
+                                <span id="discount-badge" class="bg-[#ff6c2f] text-white px-2 py-1 rounded text-sm font-semibold">-12%</span>
+                            </div>
+                        </div>
+
+                        <!-- Product Options -->
+                        <div class="space-y-4">
+                            <!-- Color Selection -->
+                            <div>
+                                <h3 class="text-lg font-semibold mb-3">Màu sắc:</h3>
+                                <div class="flex space-x-3" id="color-options">
+                                    <button class="color-option active w-12 h-12 rounded-full border-4 border-orange-500 bg-gray-800" data-color="Titan Đen"></button>
+                                    <button class="color-option w-12 h-12 rounded-full border-2 border-gray-300 bg-blue-900" data-color="Titan Xanh"></button>
+                                    <button class="color-option w-12 h-12 rounded-full border-2 border-gray-300 bg-yellow-100" data-color="Titan Trắng"></button>
+                                    <button class="color-option w-12 h-12 rounded-full border-2 border-gray-300 bg-yellow-600" data-color="Titan Tự nhiên"></button>
+                                </div>
+                                <div class="mt-2 text-gray-600">
+                                    Đã chọn: <span id="selected-color" class="font-semibold">Titan Đen</span>
+                                </div>
+                            </div>
+
+                            <!-- Storage Selection -->
+                            <div>
+                                <h3 class="text-lg font-semibold mb-3">Dung lượng:</h3>
+                                <div class="grid grid-cols-3 gap-3" id="storage-options">
+                                    <button class="storage-option border-2 border-gray-300 rounded-lg p-3 text-center hover:border-orange-500" data-storage="128GB">
+                                        <div class="font-semibold">128GB</div>
+                                        <div class="text-sm text-gray-500">26.990.000₫</div>
+                                    </button>
+                                    <button class="storage-option active border-2 border-orange-500 bg-orange-50 rounded-lg p-3 text-center" data-storage="256GB">
+                                        <div class="font-semibold">256GB</div>
+                                        <div class="text-sm text-orange-600">28.990.000₫</div>
+                                    </button>
+                                    <button class="storage-option border-2 border-gray-300 rounded-lg p-3 text-center hover:border-orange-500" data-storage="512GB">
+                                        <div class="font-semibold">512GB</div>
+                                        <div class="text-sm text-gray-500">32.990.000₫</div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quantity -->
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">Số lượng:</h3>
+                            <div class="flex items-center space-x-3">
+                                <div class="flex items-center border border-gray-300 rounded-lg">
+                                    <button id="decrease-qty" class="quantity-btn px-3 py-2 hover:bg-gray-100">-</button>
+                                    <input id="quantity" type="number" value="1" min="1" class="w-16 text-center border-0 focus:outline-none">
+                                    <button id="increase-qty" class="quantity-btn px-3 py-2 hover:bg-gray-100">+</button>
+                                </div>
+                                <div class="text-gray-600">
+                                    <span id="stock-status" class="text-green-600">Còn hàng</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="space-y-3">
+                            <button id="add-to-cart" onclick="addToCartFromDetail()" class="w-full bg-orange-500 text-white py-3 rounded-lg font-semibold hover:bg-orange-600 transition flex items-center justify-center space-x-2">
+                                <i class="fas fa-cart-plus"></i>
+                                <span>Thêm vào giỏ hàng</span>
+                            </button>
+                            <button id="buy-now" onclick="buyNow()" class="w-full bg-[#ff6c2f] text-white py-3 rounded-lg font-semibold hover:bg-[#ff6c2f] transition">
+                                Mua ngay
+                            </button>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button id="add-to-wishlist" class="border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition flex items-center justify-center space-x-2">
+                                    <i class="far fa-heart"></i>
+                                    <span>Yêu thích</span>
+                                </button>
+                                <button id="compare" class="border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition flex items-center justify-center space-x-2">
+                                    <i class="fas fa-balance-scale"></i>
+                                    <span>So sánh</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Product Features -->
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-3">Đặc điểm nổi bật:</h3>
+                            <ul class="space-y-2 text-gray-700" id="product-features">
+                                <li class="flex items-start space-x-2">
+                                    <i class="fas fa-check text-green-500 mt-1"></i>
+                                    <span>Chip A17 Pro mạnh mẽ với GPU 6 lõi</span>
+                                </li>
+                                <li class="flex items-start space-x-2">
+                                    <i class="fas fa-check text-green-500 mt-1"></i>
+                                    <span>Camera chính 48MP với zoom quang học 3x</span>
+                                </li>
+                                <li class="flex items-start space-x-2">
+                                    <i class="fas fa-check text-green-500 mt-1"></i>
+                                    <span>Khung viền titan cực kỳ bền bỉ</span>
+                                </li>
+                                <li class="flex items-start space-x-2">
+                                    <i class="fas fa-check text-green-500 mt-1"></i>
+                                    <span>Hỗ trợ USB-C và Action Button</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Details Tabs -->
+                <div class="bg-white rounded-lg shadow-md">
+                    <!-- Tab Navigation -->
+                    <div class="border-b border-gray-200">
+                        <nav class="flex space-x-8 px-6">
+                            <button class="tab-btn active py-4 border-b-2 border-orange-500 text-orange-600 font-semibold" data-tab="description">
+                                Mô tả sản phẩm
+                            </button>
+                            <button class="tab-btn py-4 border-b-2 border-transparent text-gray-500 hover:text-gray-700" data-tab="specifications">
+                                Thông số kỹ thuật
+                            </button>
+                            <button class="tab-btn py-4 border-b-2 border-transparent text-gray-500 hover:text-gray-700" data-tab="reviews">
+                                Đánh giá (1,234)
+                            </button>
+                            <button class="tab-btn py-4 border-b-2 border-transparent text-gray-500 hover:text-gray-700" data-tab="warranty">
+                                Bảo hành
+                            </button>
+                        </nav>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="p-6">
+                        <!-- Description Tab -->
+                        <div id="description-tab" class="tab-content">
+                            <div class="prose max-w-none">
+                                <h3 class="text-xl font-semibold mb-4">iPhone 15 Pro - Siêu phẩm công nghệ</h3>
+                                <p class="text-gray-700 mb-4">
+                                    iPhone 15 Pro đánh dấu một bước tiến vượt bậc trong công nghệ smartphone với chip A17 Pro tiên tiến, 
+                                    khung viền titan bền bỉ và hệ thống camera chuyên nghiệp.
+                                </p>
+                                
+                                <h4 class="text-lg font-semibold mb-3">Thiết kế và Chất liệu</h4>
+                                <p class="text-gray-700 mb-4">
+                                    Khung viền titan cực kỳ bền bỉ nhưng vẫn nhẹ hơn so với thế hệ trước. Mặt lưng kính nhám 
+                                    chống bám vân tay, tạo cảm giác cầm nắm thoải mái.
+                                </p>
+                                
+                                <h4 class="text-lg font-semibold mb-3">Hiệu năng đột phá</h4>
+                                <p class="text-gray-700 mb-4">
+                                    Chip A17 Pro được sản xuất trên tiến trình 3nm mang lại hiệu năng vượt trội, 
+                                    tiết kiệm pin và khả năng xử lý đồ họa mạnh mẽ.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Specifications Tab -->
+                        <div id="specifications-tab" class="tab-content hidden">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-4">Thông số cơ bản</h4>
+                                    <div class="space-y-3">
+                                        <div class="flex justify-between border-b pb-2">
+                                            <span class="text-gray-600">Màn hình:</span>
+                                            <span class="font-medium">6.1" Super Retina XDR</span>
+                                        </div>
+                                        <div class="flex justify-between border-b pb-2">
+                                            <span class="text-gray-600">Chip:</span>
+                                            <span class="font-medium">A17 Pro</span>
+                                        </div>
+                                        <div class="flex justify-between border-b pb-2">
+                                            <span class="text-gray-600">RAM:</span>
+                                            <span class="font-medium">8GB</span>
+                                        </div>
+                                        <div class="flex justify-between border-b pb-2">
+                                            <span class="text-gray-600">Dung lượng:</span>
+                                            <span class="font-medium">128GB/256GB/512GB/1TB</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-4">Camera và Pin</h4>
+                                    <div class="space-y-3">
+                                        <div class="flex justify-between border-b pb-2">
+                                            <span class="text-gray-600">Camera chính:</span>
+                                            <span class="font-medium">48MP, f/1.78</span>
+                                        </div>
+                                        <div class="flex justify-between border-b pb-2">
+                                            <span class="text-gray-600">Camera góc siêu rộng:</span>
+                                            <span class="font-medium">12MP, f/2.2</span>
+                                        </div>
+                                        <div class="flex justify-between border-b pb-2">
+                                            <span class="text-gray-600">Camera tele:</span>
+                                            <span class="font-medium">12MP, f/2.8</span>
+                                        </div>
+                                        <div class="flex justify-between border-b pb-2">
+                                            <span class="text-gray-600">Pin:</span>
+                                            <span class="font-medium">3274 mAh</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reviews Tab -->
+                        <div id="reviews-tab" class="tab-content hidden">
+                            <div class="space-y-6">
+                                <!-- Review Summary -->
+                                <div class="bg-gray-50 p-6 rounded-lg">
+                                    <div class="flex items-center space-x-6">
+                                        <div class="text-center">
+                                            <div class="text-4xl font-bold text-orange-600">4.8</div>
+                                            <div class="flex text-yellow-400 text-lg justify-center">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                            <div class="text-gray-600">1,234 đánh giá</div>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="space-y-2">
+                                                <div class="flex items-center space-x-3">
+                                                    <span class="w-12">5 sao</span>
+                                                    <div class="flex-1 bg-gray-200 rounded-full h-2">
+                                                        <div class="bg-yellow-400 h-2 rounded-full" style="width: 85%"></div>
+                                                    </div>
+                                                    <span class="text-sm text-gray-600">85%</span>
+                                                </div>
+                                                <div class="flex items-center space-x-3">
+                                                    <span class="w-12">4 sao</span>
+                                                    <div class="flex-1 bg-gray-200 rounded-full h-2">
+                                                        <div class="bg-yellow-400 h-2 rounded-full" style="width: 10%"></div>
+                                                    </div>
+                                                    <span class="text-sm text-gray-600">10%</span>
+                                                </div>
+                                                <div class="flex items-center space-x-3">
+                                                    <span class="w-12">3 sao</span>
+                                                    <div class="flex-1 bg-gray-200 rounded-full h-2">
+                                                        <div class="bg-yellow-400 h-2 rounded-full" style="width: 3%"></div>
+                                                    </div>
+                                                    <span class="text-sm text-gray-600">3%</span>
+                                                </div>
+                                                <div class="flex items-center space-x-3">
+                                                    <span class="w-12">2 sao</span>
+                                                    <div class="flex-1 bg-gray-200 rounded-full h-2">
+                                                        <div class="bg-yellow-400 h-2 rounded-full" style="width: 1%"></div>
+                                                    </div>
+                                                    <span class="text-sm text-gray-600">1%</span>
+                                                </div>
+                                                <div class="flex items-center space-x-3">
+                                                    <span class="w-12">1 sao</span>
+                                                    <div class="flex-1 bg-gray-200 rounded-full h-2">
+                                                        <div class="bg-yellow-400 h-2 rounded-full" style="width: 1%"></div>
+                                                    </div>
+                                                    <span class="text-sm text-gray-600">1%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Write Review Form -->
+                                <div class="bg-white border border-gray-200 rounded-lg p-6">
+                                    <h4 class="text-lg font-semibold mb-4">Viết đánh giá của bạn</h4>
+                                    
+                                    <form id="review-form" class="space-y-4">
+                                        <!-- Rating Selection -->
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Đánh giá của bạn *</label>
+                                            <div class="flex items-center space-x-2">
+                                                <div class="flex text-2xl" id="rating-input">
+                                                    <i class="far fa-star cursor-pointer hover:text-yellow-400 transition-colors" data-rating="1"></i>
+                                                    <i class="far fa-star cursor-pointer hover:text-yellow-400 transition-colors" data-rating="2"></i>
+                                                    <i class="far fa-star cursor-pointer hover:text-yellow-400 transition-colors" data-rating="3"></i>
+                                                    <i class="far fa-star cursor-pointer hover:text-yellow-400 transition-colors" data-rating="4"></i>
+                                                    <i class="far fa-star cursor-pointer hover:text-yellow-400 transition-colors" data-rating="5"></i>
+                                                </div>
+                                                <span id="rating-text" class="text-gray-600 ml-2">Chọn số sao</span>
+                                            </div>
+                                            <input type="hidden" id="rating-value" value="0">
+                                        </div>
+
+                                        <!-- Review Title -->
+                                        <div>
+                                            <label for="review-title" class="block text-sm font-medium text-gray-700 mb-2">Tiêu đề đánh giá *</label>
+                                            <input type="text" id="review-title" required
+                                                   placeholder="Tóm tắt ngắn gọn về đánh giá của bạn"
+                                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-400">
+                                        </div>
+
+                                        <!-- Review Content -->
+                                        <div>
+                                            <label for="review-content" class="block text-sm font-medium text-gray-700 mb-2">Nội dung đánh giá *</label>
+                                            <textarea id="review-content" rows="4" required
+                                                      placeholder="Chia sẻ trải nghiệm của bạn về sản phẩm này..."
+                                                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-400 resize-none"></textarea>
+                                        </div>
+
+                                        <!-- User Info -->
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div>
+                                                <label for="reviewer-name" class="block text-sm font-medium text-gray-700 mb-2">Tên hiển thị *</label>
+                                                <input type="text" id="reviewer-name" required
+                                                       placeholder="Tên của bạn"
+                                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-400">
+                                            </div>
+                                            <div>
+                                                <label for="reviewer-email" class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                                                <input type="email" id="reviewer-email" required
+                                                       placeholder="email@example.com"
+                                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-400">
+                                            </div>
+                                        </div>
+
+                                        <!-- Submit Button -->
+                                        <div class="flex justify-end">
+                                            <button type="submit" 
+                                                    class="bg-orange-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-orange-600 transition-colors">
+                                                <i class="fas fa-paper-plane mr-2"></i>
+                                                Gửi đánh giá
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- Filter and Sort -->
+                                <div class="flex flex-wrap items-center justify-between gap-4 p-4 bg-gray-50 rounded-lg">
+                                    <div class="flex items-center space-x-4">
+                                        <span class="font-medium text-gray-700">Lọc:</span>
+                                        <select id="filter-rating" class="border border-gray-300 rounded px-3 py-1 text-sm focus:outline-none focus:border-orange-400">
+                                            <option value="">Tất cả</option>
+                                            <option value="5">5 sao</option>
+                                            <option value="4">4 sao</option>
+                                            <option value="3">3 sao</option>
+                                            <option value="2">2 sao</option>
+                                            <option value="1">1 sao</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex items-center space-x-4">
+                                        <span class="font-medium text-gray-700">Sắp xếp:</span>
+                                        <select id="sort-reviews" class="border border-gray-300 rounded px-3 py-1 text-sm focus:outline-none focus:border-orange-400">
+                                            <option value="newest">Mới nhất</option>
+                                            <option value="oldest">Cũ nhất</option>
+                                            <option value="highest">Đánh giá cao nhất</option>
+                                            <option value="lowest">Đánh giá thấp nhất</option>
+                                            <option value="helpful">Hữu ích nhất</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Individual Reviews -->
+                                <div class="space-y-6" id="reviews-list">
+                                    <!-- Sample Review 1 -->
+                                    <div class="border-b border-gray-200 pb-6">
+                                        <div class="flex items-start space-x-4">
+                                            <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-user text-gray-600"></i>
+                                            </div>
+                                            <div class="flex-1">
+                                                <div class="flex items-center justify-between mb-2">
+                                                    <div class="flex items-center space-x-3">
+                                                        <span class="font-semibold text-gray-800">Nguyễn Văn A</span>
+                                                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">✓ Đã mua hàng</span>
+                                                    </div>
+                                                    <span class="text-sm text-gray-500">15/01/2024</span>
+                                                </div>
+                                                
+                                                <div class="flex items-center space-x-2 mb-2">
+                                                    <div class="flex text-yellow-400">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                    </div>
+                                                    <span class="text-sm text-gray-500">(5/5)</span>
+                                                </div>
+                                                
+                                                <h5 class="font-semibold text-gray-800 mb-2">Sản phẩm tuyệt vời, rất hài lòng!</h5>
+                                                <p class="text-gray-700 mb-3">iPhone 15 Pro thực sự là một chiếc điện thoại xuất sắc. Camera chụp ảnh cực kỳ sắc nét, đặc biệt là chế độ chụp đêm. Hiệu năng mượt mà, không lag khi chơi game hay sử dụng các ứng dụng nặng.</p>
+                                                
+                                                <div class="flex items-center space-x-6 text-sm">
+                                                    <button class="flex items-center space-x-1 text-gray-500 hover:text-orange-600 transition-colors">
+                                                        <i class="far fa-thumbs-up"></i>
+                                                        <span>Hữu ích (24)</span>
+                                                    </button>
+                                                    <button class="flex items-center space-x-1 text-gray-500 hover:text-orange-600 transition-colors">
+                                                        <i class="far fa-comment"></i>
+                                                        <span>Trả lời</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Sample Review 2 -->
+                                    <div class="border-b border-gray-200 pb-6">
+                                        <div class="flex items-start space-x-4">
+                                            <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-user text-gray-600"></i>
+                                            </div>
+                                            <div class="flex-1">
+                                                <div class="flex items-center justify-between mb-2">
+                                                    <div class="flex items-center space-x-3">
+                                                        <span class="font-semibold text-gray-800">Trần Thị B</span>
+                                                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">✓ Đã mua hàng</span>
+                                                    </div>
+                                                    <span class="text-sm text-gray-500">12/01/2024</span>
+                                                </div>
+                                                
+                                                <div class="flex items-center space-x-2 mb-2">
+                                                    <div class="flex text-yellow-400">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                    </div>
+                                                    <span class="text-sm text-gray-500">(5/5)</span>
+                                                </div>
+                                                
+                                                <h5 class="font-semibold text-gray-800 mb-2">Chất lượng cao, đáng đồng tiền</h5>
+                                                <p class="text-gray-700 mb-3">Mình đã sử dụng iPhone 15 Pro được 2 tuần và thực sự rất ấn tượng. Màn hình hiển thị rất sắc nét, màu sắc chân thực. Face ID nhận diện rất nhanh và chính xác.</p>
+                                                
+                                                <div class="flex items-center space-x-6 text-sm">
+                                                    <button class="flex items-center space-x-1 text-gray-500 hover:text-orange-600 transition-colors">
+                                                        <i class="far fa-thumbs-up"></i>
+                                                        <span>Hữu ích (18)</span>
+                                                    </button>
+                                                    <button class="flex items-center space-x-1 text-gray-500 hover:text-orange-600 transition-colors">
+                                                        <i class="far fa-comment"></i>
+                                                        <span>Trả lời</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Sample Review 3 -->
+                                    <div class="border-b border-gray-200 pb-6">
+                                        <div class="flex items-start space-x-4">
+                                            <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-user text-gray-600"></i>
+                                            </div>
+                                            <div class="flex-1">
+                                                <div class="flex items-center justify-between mb-2">
+                                                    <div class="flex items-center space-x-3">
+                                                        <span class="font-semibold text-gray-800">Lê Minh C</span>
+                                                    </div>
+                                                    <span class="text-sm text-gray-500">10/01/2024</span>
+                                                </div>
+                                                
+                                                <div class="flex items-center space-x-2 mb-2">
+                                                    <div class="flex text-yellow-400">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                    </div>
+                                                    <span class="text-sm text-gray-500">(4/5)</span>
+                                                </div>
+                                                
+                                                <h5 class="font-semibold text-gray-800 mb-2">Tốt nhưng giá hơi cao</h5>
+                                                <p class="text-gray-700 mb-3">Sản phẩm chất lượng tốt, camera thực sự ấn tượng với khả năng zoom 3x quang học. Chip A17 Pro xử lý mọi tác vụ một cách mượt mà. Tuy nhiên, giá thành khá cao so với các đối thủ cùng phân khúc.</p>
+                                                
+                                                <div class="flex items-center space-x-6 text-sm">
+                                                    <button class="flex items-center space-x-1 text-gray-500 hover:text-orange-600 transition-colors">
+                                                        <i class="far fa-thumbs-up"></i>
+                                                        <span>Hữu ích (12)</span>
+                                                    </button>
+                                                    <button class="flex items-center space-x-1 text-gray-500 hover:text-orange-600 transition-colors">
+                                                        <i class="far fa-comment"></i>
+                                                        <span>Trả lời</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Load More Button -->
+                                <div class="text-center">
+                                    <button id="load-more-reviews" 
+                                            class="bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-colors">
+                                        <i class="fas fa-chevron-down mr-2"></i>
+                                        Xem thêm đánh giá
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Warranty Tab -->
+                        <div id="warranty-tab" class="tab-content hidden">
+                            <div class="space-y-6">
+                                <h3 class="text-xl font-semibold">Chính sách bảo hành</h3>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="bg-green-50 p-4 rounded-lg">
+                                        <h4 class="font-semibold text-green-800 mb-2">Bảo hành chính hãng</h4>
+                                        <ul class="text-green-700 space-y-1 text-sm">
+                                            <li>• 12 tháng bảo hành toàn cầu</li>
+                                            <li>• Bảo hành tại tất cả cửa hàng ủy quyền</li>
+                                            <li>• Hỗ trợ kỹ thuật 24/7</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="bg-blue-50 p-4 rounded-lg">
+                                        <h4 class="font-semibold text-blue-800 mb-2">Bảo hành mở rộng</h4>
+                                        <ul class="text-blue-700 space-y-1 text-sm">
+                                            <li>• AppleCare+ có sẵn</li>
+                                            <li>• Bảo vệ toàn diện 2 năm</li>
+                                            <li>• Thay thế nhanh chóng</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Related Products -->
+                <div class="mt-12">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Sản phẩm liên quan</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="related-products">
+                        <!-- Static Related Products -->
+                        <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition cursor-pointer group">
+                            <div class="relative">
+                                <img src="../assets/images/iphone-14-pro.jpg" alt="iPhone 14 Pro" class="w-full h-48 object-cover rounded-t-lg">
+                                <div class="absolute top-2 left-2 bg-[#ff6c2f] text-white px-2 py-1 rounded text-sm font-bold">-15%</div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-gray-800 mb-2">iPhone 14 Pro 128GB</h3>
+                                <div class="flex items-center mb-2">
+                                    <div class="flex text-yellow-400 text-sm">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="text-gray-500 text-sm ml-2">(203)</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <span class="text-lg font-bold text-[#ff6c2f]">25.990.000₫</span>
+                                        <span class="text-sm text-gray-500 line-through ml-2">30.990.000₫</span>
+                                    </div>
+                                    <button onclick="addToCartStatic(9, 'iPhone 14 Pro 128GB', 25990000, '../assets/images/iphone-14-pro.jpg')" class="bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-600 transition">
+                                        <i class="fas fa-cart-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition cursor-pointer group">
+                            <div class="relative">
+                                <img src="../assets/images/samsung-s24-ultra.jpg" alt="Samsung Galaxy S24 Ultra" class="w-full h-48 object-cover rounded-t-lg">
+                                <div class="absolute top-2 left-2 bg-[#ff6c2f] text-white px-2 py-1 rounded text-sm font-bold">-8%</div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-gray-800 mb-2">Samsung Galaxy S24 Ultra</h3>
+                                <div class="flex items-center mb-2">
+                                    <div class="flex text-yellow-400 text-sm">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="text-gray-500 text-sm ml-2">(89)</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <span class="text-lg font-bold text-[#ff6c2f]">33.990.000₫</span>
+                                        <span class="text-sm text-gray-500 line-through ml-2">36.990.000₫</span>
+                                    </div>
+                                    <button onclick="addToCartStatic(2, 'Samsung Galaxy S24 Ultra', 33990000, '../assets/images/samsung-s24-ultra.jpg')" class="bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-600 transition">
+                                        <i class="fas fa-cart-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition cursor-pointer group">
+                            <div class="relative">
+                                <img src="../assets/images/airpods-pro-2.jpg" alt="AirPods Pro 2" class="w-full h-48 object-cover rounded-t-lg">
+                                <div class="absolute top-2 left-2 bg-[#ff6c2f] text-white px-2 py-1 rounded text-sm font-bold">-10%</div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-gray-800 mb-2">AirPods Pro 2nd Generation</h3>
+                                <div class="flex items-center mb-2">
+                                    <div class="flex text-yellow-400 text-sm">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="text-gray-500 text-sm ml-2">(89)</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <span class="text-lg font-bold text-[#ff6c2f]">6.290.000₫</span>
+                                        <span class="text-sm text-gray-500 line-through ml-2">6.990.000₫</span>
+                                    </div>
+                                    <button onclick="addToCartStatic(6, 'AirPods Pro 2nd Generation', 6290000, '../assets/images/airpods-pro-2.jpg')" class="bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-600 transition">
+                                        <i class="fas fa-cart-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition cursor-pointer group">
+                            <div class="relative">
+                                <img src="../assets/images/apple-watch-series-9.jpg" alt="Apple Watch Series 9" class="w-full h-48 object-cover rounded-t-lg">
+                                <div class="absolute top-2 left-2 bg-blue-600 text-white px-2 py-1 rounded text-sm font-bold">NEW</div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-gray-800 mb-2">Apple Watch Series 9</h3>
+                                <div class="flex items-center mb-2">
+                                    <div class="flex text-yellow-400 text-sm">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="text-gray-500 text-sm ml-2">(67)</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <span class="text-lg font-bold text-[#ff6c2f]">9.990.000₫</span>
+                                    </div>
+                                    <button onclick="addToCartStatic(7, 'Apple Watch Series 9', 9990000, '../assets/images/apple-watch-series-9.jpg')" class="bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-600 transition">
+                                        <i class="fas fa-cart-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shared Footer -->
+    <div id="shared-footer-container"></div>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/product-detail.js"></script>
+    
+    <!-- Inline script for product detail page -->
+    <script>
+        // Get product ID from URL
+        function getProductIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return parseInt(urlParams.get('id')) || 1;
+        }
+
+        // Load product data inline
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.PRODUCT_DATA && window.PRODUCT_UTILS) {
+                loadProductDetailInline();
+                loadProductReviewsInline();
+                setupProductOptions();
+            }
+        });
+
+        function setupProductOptions() {
+            // Set default selections
+            const firstColorOption = document.querySelector('.color-option');
+            const firstStorageOption = document.querySelector('.storage-option');
+            
+            // Set default color selection
+            if (firstColorOption) {
+                firstColorOption.classList.add('active', 'border-orange-500', 'border-4');
+                firstColorOption.classList.remove('border-gray-300', 'border-2');
+            }
+            
+            // Set default storage selection
+            if (firstStorageOption) {
+                firstStorageOption.classList.add('active', 'border-orange-500', 'bg-orange-50');
+                firstStorageOption.classList.remove('border-gray-300');
+                const priceText = firstStorageOption.querySelector('.text-sm');
+                if (priceText) {
+                    priceText.classList.remove('text-gray-500');
+                    priceText.classList.add('text-orange-600');
+                }
+            }
+
+            // Color selection
+            const colorOptions = document.querySelectorAll('.color-option');
+            const selectedColorDisplay = document.getElementById('selected-color');
+            
+            colorOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove active class from all options
+                    colorOptions.forEach(opt => {
+                        opt.classList.remove('active', 'border-orange-500', 'border-4');
+                        opt.classList.add('border-gray-300', 'border-2');
+                    });
+                    
+                    // Add active class to selected option
+                    this.classList.add('active', 'border-orange-500', 'border-4');
+                    this.classList.remove('border-gray-300', 'border-2');
+                    
+                    // Update selected color display
+                    const selectedColor = this.getAttribute('data-color');
+                    selectedColorDisplay.textContent = selectedColor;
+                    
+                    // Update main product image based on color
+                    updateProductImageByColor(selectedColor);
+                });
+            });
+
+            // Storage selection
+            const storageOptions = document.querySelectorAll('.storage-option');
+            const priceDisplay = document.querySelector('[data-product="price"]');
+            const originalPriceDisplay = document.querySelector('[data-product="original-price"]');
+
+            storageOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove active class from all options
+                    storageOptions.forEach(opt => {
+                        opt.classList.remove('active', 'border-orange-500', 'bg-orange-50');
+                        opt.classList.add('border-gray-300');
+                        opt.querySelector('.text-orange-600')?.classList.remove('text-orange-600');
+                        opt.querySelector('.text-sm')?.classList.add('text-gray-500');
+                    });
+                    
+                    // Add active class to selected option
+                    this.classList.add('active', 'border-orange-500', 'bg-orange-50');
+                    this.classList.remove('border-gray-300');
+                    this.querySelector('.text-sm').classList.remove('text-gray-500');
+                    this.querySelector('.text-sm').classList.add('text-orange-600');
+                    
+                    // Update price based on storage
+                    const selectedStorage = this.getAttribute('data-storage');
+                    updatePriceByStorage(selectedStorage);
+                });
+            });
+
+            // Quantity controls
+            const decreaseBtn = document.getElementById('decrease-qty');
+            const increaseBtn = document.getElementById('increase-qty');
+            const quantityInput = document.getElementById('quantity');
+
+            decreaseBtn?.addEventListener('click', function() {
+                const currentValue = parseInt(quantityInput.value);
+                if (currentValue > 1) {
+                    quantityInput.value = currentValue - 1;
+                }
+            });
+
+            increaseBtn?.addEventListener('click', function() {
+                const currentValue = parseInt(quantityInput.value);
+                if (currentValue < 10) { // Max quantity limit
+                    quantityInput.value = currentValue + 1;
+                }
+            });
+
+            quantityInput?.addEventListener('change', function() {
+                const value = parseInt(this.value);
+                if (value < 1) this.value = 1;
+                if (value > 10) this.value = 10;
+            });
+        }
+
+        function updateProductImageByColor(color) {
+            const mainImage = document.querySelector('[data-product="main-image"]');
+            if (!mainImage) return;
+
+            // Color-specific images mapping
+            const colorImages = {
+                'Titan Đen': '../assets/images/iphone-15-black.jpg',
+                'Titan Xanh': '../assets/images/iphone-15-blue.jpg', 
+                'Titan Trắng': '../assets/images/iphone-15-white.jpg',
+                'Titan Tự nhiên': '../assets/images/iphone-15-natural.jpg'
+            };
+
+            // Update main image or fallback to placeholder
+            const newImageSrc = colorImages[color] || '../assets/images/placeholder.svg';
+            mainImage.src = newImageSrc;
+
+            // Add loading effect
+            mainImage.style.opacity = '0.5';
+            setTimeout(() => {
+                mainImage.style.opacity = '1';
+            }, 200);
+        }
+
+        function updatePriceByStorage(storage) {
+            const priceDisplay = document.querySelector('[data-product="price"]');
+            const originalPriceDisplay = document.querySelector('[data-product="original-price"]');
+            const discountBadge = document.getElementById('discount-badge');
+            
+            if (!priceDisplay) return;
+
+            // Storage price mapping
+            const storagePrices = {
+                '128GB': { current: 26990000, original: 29990000 },
+                '256GB': { current: 28990000, original: 32990000 },
+                '512GB': { current: 32990000, original: 36990000 }
+            };
+
+            const prices = storagePrices[storage];
+            if (prices) {
+                // Update current price
+                priceDisplay.textContent = formatCurrency(prices.current);
+                
+                // Update original price
+                if (originalPriceDisplay) {
+                    originalPriceDisplay.textContent = formatCurrency(prices.original);
+                }
+                
+                // Update discount percentage
+                if (discountBadge) {
+                    const discountPercent = Math.round((1 - prices.current / prices.original) * 100);
+                    discountBadge.textContent = `-${discountPercent}%`;
+                }
+
+                // Add price change animation
+                priceDisplay.style.transform = 'scale(1.05)';
+                priceDisplay.style.color = '#ea580c';
+                setTimeout(() => {
+                    priceDisplay.style.transform = 'scale(1)';
+                    priceDisplay.style.color = '';
+                }, 200);
+            }
+        }
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(amount);
+        }
+
+        function buyNow() {
+            const productId = getProductIdFromUrl();
+            const product = window.PRODUCT_UTILS.getProductById(productId);
+            
+            if (!product) {
+                alert('Không tìm thấy thông tin sản phẩm');
+                return;
+            }
+
+            // Get selected options
+            const selectedColor = document.querySelector('.color-option.active')?.getAttribute('data-color') || 
+                                  document.getElementById('selected-color')?.textContent || 
+                                  'Titan Đen';
+            const selectedStorage = document.querySelector('.storage-option.active')?.getAttribute('data-storage') || 
+                                   '128GB';
+            const quantity = parseInt(document.getElementById('quantity')?.value) || 1;
+
+            // Get price based on selected storage
+            const storagePrices = {
+                '128GB': 26990000,
+                '256GB': 28990000,
+                '512GB': 32990000
+            };
+            const currentPrice = storagePrices[selectedStorage] || product.price;
+
+            // Create URL params for checkout
+            const checkoutParams = new URLSearchParams({
+                direct: 'true',
+                id: product.id,
+                name: product.name,
+                price: currentPrice,
+                quantity: quantity,
+                color: selectedColor,
+                storage: selectedStorage,
+                image: product.image
+            });
+
+            // Redirect to checkout page
+            window.location.href = `checkout.html?${checkoutParams.toString()}`;
+        }
+
+        function loadProductDetailInline() {
+            const productId = getProductIdFromUrl();
+            const product = window.PRODUCT_UTILS.getProductById(productId);
+            
+            if (!product) {
+                document.body.innerHTML = '<div class="container mx-auto px-4 py-8 text-center"><h1 class="text-2xl text-[#ff6c2f]">Không tìm thấy sản phẩm</h1></div>';
+                return;
+            }
+
+            // Update page title
+            document.title = `${product.name} - Techvicom`;
+
+            // Update product name
+            const productNameElements = document.querySelectorAll('[data-product="name"]');
+            productNameElements.forEach(el => el.textContent = product.name);
+
+            // Update product images
+            const mainImage = document.querySelector('[data-product="main-image"]');
+            if (mainImage) {
+                mainImage.src = product.image;
+                mainImage.alt = product.name;
+            }
+
+            // Update thumbnails
+            const thumbnailContainer = document.querySelector('[data-product="thumbnails"]');
+            if (thumbnailContainer) {
+                thumbnailContainer.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="w-16 h-16 object-cover rounded border-2 border-orange-500 cursor-pointer">
+                    <img src="${product.image}" alt="${product.name}" class="w-16 h-16 object-cover rounded border border-gray-300 cursor-pointer opacity-60">
+                    <img src="${product.image}" alt="${product.name}" class="w-16 h-16 object-cover rounded border border-gray-300 cursor-pointer opacity-60">
+                `;
+            }
+
+            // Update prices
+            const priceElement = document.querySelector('[data-product="price"]');
+            if (priceElement) {
+                priceElement.textContent = window.PRODUCT_UTILS.formatCurrency(product.price);
+            }
+
+            const originalPriceElement = document.querySelector('[data-product="original-price"]');
+            if (originalPriceElement && product.originalPrice) {
+                originalPriceElement.textContent = window.PRODUCT_UTILS.formatCurrency(product.originalPrice);
+            }
+
+            // Update rating
+            const ratingElement = document.querySelector('[data-product="rating"]');
+            if (ratingElement) {
+                ratingElement.innerHTML = window.PRODUCT_UTILS.createStarRating(product.rating);
+            }
+
+            const ratingTextElement = document.querySelector('[data-product="rating-text"]');
+            if (ratingTextElement) {
+                ratingTextElement.textContent = `${product.rating} (${product.reviews} đánh giá)`;
+            }
+
+            // Update colors
+            const colorContainer = document.querySelector('[data-product="colors"]');
+            if (colorContainer && product.colors) {
+                colorContainer.innerHTML = product.colors.map((color, index) => `
+                    <div class="flex items-center space-x-2 p-2 border rounded-lg cursor-pointer hover:border-orange-500 ${index === 0 ? 'border-orange-500 bg-orange-50' : 'border-gray-300'}">
+                        <div class="w-4 h-4 rounded-full bg-gray-400"></div>
+                        <span class="text-sm">${color}</span>
+                    </div>
+                `).join('');
+            }
+
+            // Update storage options
+            const storageContainer = document.querySelector('[data-product="storage"]');
+            if (storageContainer && product.storageOptions) {
+                storageContainer.innerHTML = product.storageOptions.map((storage, index) => `
+                    <div class="p-3 text-center border rounded-lg cursor-pointer hover:border-orange-500 ${index === 0 ? 'border-orange-500 bg-orange-50' : 'border-gray-300'}">
+                        <div class="font-semibold">${storage}</div>
+                    </div>
+                `).join('');
+            }
+
+            // Update specifications
+            if (product.specifications) {
+                Object.entries(product.specifications).forEach(([key, value]) => {
+                    const specElement = document.querySelector(`[data-spec="${key}"]`);
+                    if (specElement) {
+                        specElement.textContent = value;
+                    }
+                });
+            }
+
+            // Update description
+            const descriptionElement = document.querySelector('[data-product="description"]');
+            if (descriptionElement) {
+                descriptionElement.textContent = product.description;
+            }
+        }
+
+        function loadProductReviewsInline() {
+            const productId = getProductIdFromUrl();
+            const reviews = window.PRODUCT_UTILS.getReviewsForProduct(productId);
+            
+            // Update review count
+            const reviewCountElement = document.querySelector('[data-reviews="count"]');
+            if (reviewCountElement) {
+                reviewCountElement.textContent = reviews.length;
+            }
+
+            // Calculate rating distribution
+            const ratingCounts = [0, 0, 0, 0, 0];
+            let totalRating = 0;
+            
+            reviews.forEach(review => {
+                ratingCounts[review.rating - 1]++;
+                totalRating += review.rating;
+            });
+
+            const avgRating = reviews.length > 0 ? (totalRating / reviews.length).toFixed(1) : 0;
+            
+            // Update average rating
+            const avgRatingElement = document.querySelector('[data-reviews="avg-rating"]');
+            if (avgRatingElement) {
+                avgRatingElement.textContent = avgRating;
+            }
+
+            // Update rating bars
+            for (let i = 1; i <= 5; i++) {
+                const percentage = reviews.length > 0 ? (ratingCounts[i - 1] / reviews.length * 100).toFixed(0) : 0;
+                const barElement = document.querySelector(`[data-rating-bar="${i}"]`);
+                const percentElement = document.querySelector(`[data-rating-percent="${i}"]`);
+                
+                if (barElement) {
+                    barElement.style.width = `${percentage}%`;
+                }
+                if (percentElement) {
+                    percentElement.textContent = `${percentage}%`;
+                }
+            }
+
+            // Load individual reviews
+            const reviewsContainer = document.querySelector('[data-reviews="list"]');
+            if (reviewsContainer) {
+                reviewsContainer.innerHTML = reviews.map(review => `
+                    <div class="review-item border-b border-gray-200 pb-6 mb-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-gray-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900">${review.userName}</h4>
+                                        <div class="flex items-center space-x-2">
+                                            <div class="flex text-yellow-400 text-sm">
+                                                ${window.PRODUCT_UTILS.createStarRating(review.rating)}
+                                            </div>
+                                            <span class="text-gray-500 text-sm">${new Date(review.date).toLocaleDateString('vi-VN')}</span>
+                                            ${review.verified ? '<span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Đã mua hàng</span>' : ''}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                ${review.title ? `<h5 class="font-medium text-gray-900 mb-2">${review.title}</h5>` : ''}
+                                <p class="text-gray-700 mb-3">${review.content}</p>
+                                
+                                <div class="flex items-center space-x-4 text-sm text-gray-500">
+                                    <button class="flex items-center space-x-1 hover:text-orange-600">
+                                        <i class="far fa-thumbs-up"></i>
+                                        <span>Hữu ích (${review.helpful || 0})</span>
+                                    </button>
+                                    <button class="flex items-center space-x-1 hover:text-orange-600">
+                                        <i class="far fa-comment"></i>
+                                        <span>Trả lời</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Add to cart functionality
+        function addToCartFromDetail() {
+            const productId = getProductIdFromUrl();
+            const product = window.PRODUCT_UTILS.getProductById(productId);
+            
+            if (!product) return;
+
+            // Get selected options
+            const selectedColor = document.querySelector('.color-option.active')?.getAttribute('data-color') || 
+                                  document.getElementById('selected-color')?.textContent || 
+                                  'Titan Đen';
+            const selectedStorage = document.querySelector('.storage-option.active')?.getAttribute('data-storage') || 
+                                   '128GB';
+            const quantity = parseInt(document.getElementById('quantity')?.value) || 1;
+
+            // Get existing cart from localStorage
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Create cart item
+            const cartItem = {
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                image: product.image,
+                quantity: quantity,
+                category: product.category,
+                color: selectedColor,
+                storage: selectedStorage
+            };
+
+            // Check if same product with same options exists
+            const existingItemIndex = cart.findIndex(item => 
+                item.id === cartItem.id && 
+                item.color === cartItem.color && 
+                item.storage === cartItem.storage
+            );
+            
+            if (existingItemIndex >= 0) {
+                cart[existingItemIndex].quantity += quantity;
+            } else {
+                cart.push(cartItem);
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Show success message
+            showNotificationInline(`Đã thêm ${product.name} vào giỏ hàng!`);
+        }
+
+        function showNotificationInline(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full opacity-0 transition-all duration-300';
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full', 'opacity-0');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.add('translate-x-full', 'opacity-0');
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Static cart management functions
+        function addToCartStatic(productId, name, price, image) {
+            try {
+                const product = {
+                    id: productId,
+                    name: name,
+                    price: price,
+                    image: image,
+                    quantity: 1
+                };
+
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                
+                const existingProduct = cart.find(item => item.id === productId);
+                if (existingProduct) {
+                    existingProduct.quantity += 1;
+                } else {
+                    cart.push(product);
+                }
+                
+                localStorage.setItem('cart', JSON.stringify(cart));
+                
+                // Update cart count in header if it exists
+                const cartCount = document.querySelector('.cart-count');
+                if (cartCount) {
+                    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                    cartCount.textContent = totalItems;
+                    cartCount.style.display = totalItems > 0 ? 'block' : 'none';
+                }
+
+                // Show success notification
+                showNotificationInline('Đã thêm sản phẩm vào giỏ hàng!');
+                
+            } catch (error) {
+                console.error('Error adding product to cart:', error);
+                showNotificationInline('Có lỗi xảy ra khi thêm sản phẩm!');
+            }
+        }
+
+        function showNotificationInline(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full opacity-0 transition-all duration-300';
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full', 'opacity-0');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.add('translate-x-full', 'opacity-0');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Make functions globally available
+        window.addToCartFromDetail = addToCartFromDetail;
+        window.addToCartStatic = addToCartStatic;
+    </script>
+</body>
+</html>

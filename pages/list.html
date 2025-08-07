@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách sản phẩm - Techvicom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'custom-primary': '#ff6c2f',
+                        'custom-primary-dark': '#e55a28',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../assets/js/component-loader.js"></script>
+    <script>
+        // Static product management for phones page
+        function addToCartStatic(productId, name, price, image) {
+            try {
+                const product = {
+                    id: productId,
+                    name: name,
+                    price: price,
+                    image: image,
+                    quantity: 1
+                };
+
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                
+                const existingProduct = cart.find(item => item.id === productId);
+                if (existingProduct) {
+                    existingProduct.quantity += 1;
+                } else {
+                    cart.push(product);
+                }
+                
+                localStorage.setItem('cart', JSON.stringify(cart));
+                
+                // Update cart count in header if it exists
+                const cartCount = document.querySelector('.cart-count');
+                if (cartCount) {
+                    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                    cartCount.textContent = totalItems;
+                    cartCount.style.display = totalItems > 0 ? 'block' : 'none';
+                }
+
+                // Show success notification
+                showNotification('Đã thêm sản phẩm vào giỏ hàng!', 'success');
+                
+            } catch (error) {
+                console.error('Error adding product to cart:', error);
+                showNotification('Có lỗi xảy ra khi thêm sản phẩm!', 'error');
+            }
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 px-6 py-3 rounded-lg text-white font-medium transition-all duration-300 transform translate-x-full ${
+                type === 'success' ? 'bg-green-500' : 'bg-[#ff6c2f]'
+            }`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(full)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Setup product card click handlers
+        document.addEventListener('DOMContentLoaded', function() {
+            const productCards = document.querySelectorAll('#products-grid .cursor-pointer.group');
+            console.log('Found product cards:', productCards.length);
+            
+            productCards.forEach((card, index) => {
+                // Add click handler to the card
+                card.addEventListener('click', function(e) {
+                    // Don't navigate if clicking on buttons
+                    if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+                        console.log('Button clicked, not navigating');
+                        return;
+                    }
+                    
+                    // Determine product ID based on card position and content
+                    let productId = index + 1; // Default to index + 1
+                    
+                    // For specific products, map to correct IDs
+                    const productName = card.querySelector('h3').textContent.trim();
+                    if (productName.includes('iPhone 15 Pro Max')) productId = 1;
+                    else if (productName.includes('Samsung Galaxy S24 Ultra')) productId = 2;
+                    else if (productName.includes('iPhone 14 Pro')) productId = 9;
+                    else if (productName.includes('Xiaomi 13 Pro')) productId = 10;
+                    else if (productName.includes('Samsung Galaxy A54')) productId = 11;
+                    else if (productName.includes('OPPO Find X6')) productId = 12;
+                    else if (productName.includes('Vivo V29')) productId = 13;
+                    else if (productName.includes('Realme GT3')) productId = 14;
+                    
+                    console.log('Product card clicked:', productName, 'ID:', productId);
+                    goToProductDetail(productId);
+                });
+            });
+        });
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Shared Header Container -->
+    <div id="shared-header-container"></div>
+    <!-- Breadcrumb -->
+    <nav class="bg-white border-b border-gray-200 py-3">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center space-x-2 text-sm">
+                <a href="../index.html" class="text-gray-500 hover:text-[#ff6c2f]">Trang chủ</a>
+                <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                <span class="text-gray-900 font-medium">Danh sách sản phẩm</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="bg-gradient-to-r from-[#ff6c2f] to-[#e55a28] text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold mb-4">Danh sách sản phẩm</h1>
+                <p class="text-xl">Khám phá tất cả sản phẩm công nghệ với giá tốt nhất</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters and Sort -->
+    <section class="bg-white py-6 border-b border-gray-200">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <!-- Filters -->
+                <div class="flex flex-wrap items-center gap-4">
+                    <h3 class="font-semibold text-gray-700">Lọc theo:</h3>
+                    
+                    <!-- Brand Filter -->
+                    <div class="relative">
+                        <select class="bg-white border border-gray-300 rounded-lg px-4 py-2 pr-8 focus:outline-none focus:border-[#ff6c2f]" id="brand-filter">
+                            <option value="">Tất cả thương hiệu</option>
+                            <option value="apple">Apple</option>
+                            <option value="samsung">Samsung</option>
+                            <option value="xiaomi">Xiaomi</option>
+                            <option value="oppo">Oppo</option>
+                            <option value="vivo">Vivo</option>
+                            <option value="huawei">Huawei</option>
+                        </select>
+                    </div>
+
+                    <!-- Price Filter -->
+                    <div class="relative">
+                        <select class="bg-white border border-gray-300 rounded-lg px-4 py-2 pr-8 focus:outline-none focus:border-[#ff6c2f]" id="price-filter">
+                            <option value="">Tất cả mức giá</option>
+                            <option value="0-5">Dưới 5 triệu</option>
+                            <option value="5-10">5 - 10 triệu</option>
+                            <option value="10-20">10 - 20 triệu</option>
+                            <option value="20-30">20 - 30 triệu</option>
+                            <option value="30+">Trên 30 triệu</option>
+                        </select>
+                    </div>
+
+                    <!-- RAM Filter -->
+                    <div class="relative">
+                        <select class="bg-white border border-gray-300 rounded-lg px-4 py-2 pr-8 focus:outline-none focus:border-[#ff6c2f]" id="ram-filter">
+                            <option value="">RAM</option>
+                            <option value="4">4GB</option>
+                            <option value="6">6GB</option>
+                            <option value="8">8GB</option>
+                            <option value="12">12GB</option>
+                            <option value="16">16GB</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Sort -->
+                <div class="flex items-center gap-4">
+                    <span class="text-gray-700">Sắp xếp:</span>
+                    <select class="bg-white border border-gray-300 rounded-lg px-4 py-2 pr-8 focus:outline-none focus:border-[#ff6c2f]" id="sort-filter">
+                        <option value="newest">Mới nhất</option>
+                        <option value="price-asc">Giá tăng dần</option>
+                        <option value="price-desc">Giá giảm dần</option>
+                        <option value="rating">Đánh giá cao nhất</option>
+                        <option value="popular">Phổ biến nhất</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <!-- Products count -->
+            <div class="mb-6">
+                <p class="text-gray-600">Hiển thị <span id="products-count">24</span> sản phẩm</p>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="products-grid">
+                <!-- Static Phone Products -->
+                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition cursor-pointer group" onclick="goToProductDetail(1)">
+                    <div class="relative">
+                        <img src="../assets/images/iphone-15-pro-max.jpg" alt="iPhone 15 Pro Max" class="w-full h-48 object-cover rounded-t-lg">
+                        <div class="absolute top-2 left-2 bg-[#ff6c2f] text-white px-2 py-1 rounded text-sm font-bold">-8%</div>
+                        <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition">
+                            <button onclick="event.stopPropagation()" class="bg-white rounded-full p-2 shadow-md hover:bg-gray-50">
+                                <i class="fas fa-heart text-gray-400 hover:text-[#ff6c2f]"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-2">iPhone 15 Pro Max 256GB</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">(156)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-lg font-bold text-[#ff6c2f]">34.990.000₫</span>
+                                <span class="text-sm text-gray-500 line-through ml-2">37.990.000₫</span>
+                            </div>
+                            <button onclick="event.stopPropagation(); addToCartStatic(1, 'iPhone 15 Pro Max 256GB', 34990000, '../assets/images/iphone-15-pro-max.jpg')" class="bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-600 transition">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition cursor-pointer group">
+                    <div class="relative">
+                        <img src="../assets/images/samsung-s24-ultra.jpg" alt="Samsung Galaxy S24 Ultra" class="w-full h-48 object-cover rounded-t-lg">
+                        <div class="absolute top-2 left-2 bg-[#ff6c2f] text-white px-2 py-1 rounded text-sm font-bold">-8%</div>
+                        <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition">
+                            <button class="bg-white rounded-full p-2 shadow-md hover:bg-gray-50">
+                                <i class="fas fa-heart text-gray-400 hover:text-[#ff6c2f]"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-2">Samsung Galaxy S24 Ultra 512GB</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">(89)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-lg font-bold text-[#ff6c2f]">33.990.000₫</span>
+                                <span class="text-sm text-gray-500 line-through ml-2">36.990.000₫</span>
+                            </div>
+                            <button onclick="addToCartStatic(2, 'Samsung Galaxy S24 Ultra 512GB', 33990000, '../assets/images/samsung-s24-ultra.jpg')" class="bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-600 transition">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition cursor-pointer group">
+                    <div class="relative">
+                        <img src="../assets/images/iphone-14-pro.jpg" alt="iPhone 14 Pro" class="w-full h-48 object-cover rounded-t-lg">
+                        <div class="absolute top-2 left-2 bg-[#ff6c2f] text-white px-2 py-1 rounded text-sm font-bold">-15%</div>
+                        <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition">
+                            <button class="bg-white rounded-full p-2 shadow-md hover:bg-gray-50">
+                                <i class="fas fa-heart text-gray-400 hover:text-[#ff6c2f]"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-2">iPhone 14 Pro 128GB</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">(203)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-lg font-bold text-[#ff6c2f]">25.990.000₫</span>
+                                <span class="text-sm text-gray-500 line-through ml-2">30.990.000₫</span>
+                            </div>
+                            <button onclick="addToCartStatic(9, 'iPhone 14 Pro 128GB', 25990000, '../assets/images/iphone-14-pro.jpg')" class="bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-600 transition">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition cursor-pointer group">
+                    <div class="relative">
+                        <img src="../assets/images/xiaomi-13-pro.jpg" alt="Xiaomi 13 Pro" class="w-full h-48 object-cover rounded-t-lg">
+                        <div class="absolute top-2 left-2 bg-[#ff6c2f] text-white px-2 py-1 rounded text-sm font-bold">-20%</div>
+                        <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition">
+                            <button class="bg-white rounded-full p-2 shadow-md hover:bg-gray-50">
+                                <i class="fas fa-heart text-gray-400 hover:text-[#ff6c2f]"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-2">Xiaomi 13 Pro 256GB</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">(178)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-lg font-bold text-[#ff6c2f]">19.990.000₫</span>
+                                <span class="text-sm text-gray-500 line-through ml-2">24.990.000₫</span>
+                            </div>
+                            <button onclick="addToCartStatic(10, 'Xiaomi 13 Pro 256GB', 19990000, '../assets/images/xiaomi-13-pro.jpg')" class="bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-600 transition">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition cursor-pointer group">
+                    <div class="relative">
+                        <img src="../assets/images/samsung-galaxy-a54.jpg" alt="Samsung Galaxy A54" class="w-full h-48 object-cover rounded-t-lg">
+                        <div class="absolute top-2 left-2 bg-green-600 text-white px-2 py-1 rounded text-sm font-bold">HOT</div>
+                        <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition">
+                            <button class="bg-white rounded-full p-2 shadow-md hover:bg-gray-50">
+                                <i class="fas fa-heart text-gray-400 hover:text-[#ff6c2f]"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-2">Samsung Galaxy A54 5G 128GB</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">(245)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-lg font-bold text-[#ff6c2f]">8.990.000₫</span>
+                            </div>
+                            <button onclick="addToCartStatic(11, 'Samsung Galaxy A54 5G 128GB', 8990000, '../assets/images/samsung-galaxy-a54.jpg')" class="bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-600 transition">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition cursor-pointer group">
+                    <div class="relative">
+                        <img src="../assets/images/oppo-find-x6.jpg" alt="OPPO Find X6" class="w-full h-48 object-cover rounded-t-lg">
+                        <div class="absolute top-2 left-2 bg-blue-600 text-white px-2 py-1 rounded text-sm font-bold">NEW</div>
+                        <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition">
+                            <button class="bg-white rounded-full p-2 shadow-md hover:bg-gray-50">
+                                <i class="fas fa-heart text-gray-400 hover:text-[#ff6c2f]"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-2">OPPO Find X6 Pro 256GB</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">(134)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-lg font-bold text-[#ff6c2f]">26.990.000₫</span>
+                            </div>
+                            <button onclick="addToCartStatic(12, 'OPPO Find X6 Pro 256GB', 26990000, '../assets/images/oppo-find-x6.jpg')" class="bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-600 transition">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition cursor-pointer group">
+                    <div class="relative">
+                        <img src="../assets/images/vivo-v29.jpg" alt="Vivo V29" class="w-full h-48 object-cover rounded-t-lg">
+                        <div class="absolute top-2 left-2 bg-purple-600 text-white px-2 py-1 rounded text-sm font-bold">-12%</div>
+                        <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition">
+                            <button class="bg-white rounded-full p-2 shadow-md hover:bg-gray-50">
+                                <i class="fas fa-heart text-gray-400 hover:text-[#ff6c2f]"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-2">Vivo V29 5G 256GB</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">(167)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-lg font-bold text-[#ff6c2f]">12.990.000₫</span>
+                                <span class="text-sm text-gray-500 line-through ml-2">14.990.000₫</span>
+                            </div>
+                            <button onclick="addToCartStatic(13, 'Vivo V29 5G 256GB', 12990000, '../assets/images/vivo-v29.jpg')" class="bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-600 transition">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition cursor-pointer group">
+                    <div class="relative">
+                        <img src="../assets/images/realme-gt3.jpg" alt="Realme GT3" class="w-full h-48 object-cover rounded-t-lg">
+                        <div class="absolute top-2 left-2 bg-orange-600 text-white px-2 py-1 rounded text-sm font-bold">-25%</div>
+                        <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition">
+                            <button class="bg-white rounded-full p-2 shadow-md hover:bg-gray-50">
+                                <i class="fas fa-heart text-gray-400 hover:text-[#ff6c2f]"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-2">Realme GT3 240W 256GB</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">(156)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-lg font-bold text-[#ff6c2f]">14.990.000₫</span>
+                                <span class="text-sm text-gray-500 line-through ml-2">19.990.000₫</span>
+                            </div>
+                            <button onclick="addToCartStatic(14, 'Realme GT3 240W 256GB', 14990000, '../assets/images/realme-gt3.jpg')" class="bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-600 transition">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More -->
+            <div class="text-center mt-12">
+                <button id="load-more-btn" class="bg-[#ff6c2f] text-white px-8 py-3 rounded-lg hover:bg-[#ff6c2f] transition">
+                    Xem thêm sản phẩm
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Brands -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-8">Thương hiệu nổi bật</h2>
+            <div class="grid grid-cols-3 md:grid-cols-6 gap-6">
+                <div class="text-center group cursor-pointer">
+                    <div class="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition group-hover:scale-105">
+                        <img src="../assets/images/brands/apple.png" alt="Apple" class="mx-auto h-12" 
+                             onerror="this.onerror=null; this.src='../assets/images/placeholder.svg'">
+                    </div>
+                </div>
+                <div class="text-center group cursor-pointer">
+                    <div class="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition group-hover:scale-105">
+                        <img src="../assets/images/brands/samsung.png" alt="Samsung" class="mx-auto h-12"
+                             onerror="this.onerror=null; this.src='../assets/images/placeholder.svg'">
+                    </div>
+                </div>
+                <div class="text-center group cursor-pointer">
+                    <div class="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition group-hover:scale-105">
+                        <img src="../assets/images/brands/xiaomi.png" alt="Xiaomi" class="mx-auto h-12"
+                             onerror="this.onerror=null; this.src='../assets/images/placeholder.svg'">
+                    </div>
+                </div>
+                <div class="text-center group cursor-pointer">
+                    <div class="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition group-hover:scale-105">
+                        <img src="../assets/images/brands/oppo.png" alt="Oppo" class="mx-auto h-12"
+                             onerror="this.onerror=null; this.src='../assets/images/placeholder.svg'">
+                    </div>
+                </div>
+                <div class="text-center group cursor-pointer">
+                    <div class="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition group-hover:scale-105">
+                        <img src="../assets/images/brands/vivo.png" alt="Vivo" class="mx-auto h-12"
+                             onerror="this.onerror=null; this.src='../assets/images/placeholder.svg'">
+                    </div>
+                </div>
+                <div class="text-center group cursor-pointer">
+                    <div class="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition group-hover:scale-105">
+                        <img src="../assets/images/brands/huawei.png" alt="Huawei" class="mx-auto h-12"
+                             onerror="this.onerror=null; this.src='../assets/images/placeholder.svg'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shared Footer Container -->
+    <div id="shared-footer-container"></div>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/phones.js"></script>
+</body>
+</html>
